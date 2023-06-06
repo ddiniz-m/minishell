@@ -1,6 +1,6 @@
 # - * - Makefile - * -
 
-SRC_MSH = main.c
+SRC_MSH = main.c parse.c parse_utils.c
 SRCS = $(addprefix src/, $(SRC_MSH))
 OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
 

@@ -6,21 +6,21 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/05 17:42:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:21:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	get_path_from_env(void)
+/* void	get_path_from_env(void)
 {
 	char *str;
 
 	str = getenv("PATH");
 	printf("\nPATH = %s\n", str);
-}
+} */
 
-void	get_files_dirs(void)
+/* void	get_files_dirs(void)
 {
 	DIR				*folder;
 	struct dirent	*buf;
@@ -30,14 +30,17 @@ void	get_files_dirs(void)
 	while ((buf = readdir(folder)))
 		printf("%s\n", buf->d_name);
 	closedir(folder);
-}
+} */
 
-void	get_directory(void)
+/* void	get_directory(void)
 {
 	printf("Current Directory = %s\n", getcwd(NULL, 0));
-}
+} */
 
-void	ctrl_c(int signum)
+//CTRL-C sends a "Interrupt" signal.
+//Don't want to explain rl functions, go read:
+//https://tiswww.case.edu/php/chet/readline/readline.html#Command-Line-Editing
+void	signal_interrupt(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -45,23 +48,42 @@ void	ctrl_c(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+	}	
+}
+
+//CTRL-D represents "No input", so when it is pressed, "str" is NULL and it
+//	exits.
+//CTRL-\ sends a "Quit" signal. When using SIG_IGN in signal(), it ignores 
+//	the signal recieved.
+void	signal_init(char *str)
+{
+	signal(SIGINT, signal_interrupt);
+	signal(SIGQUIT, SIG_IGN);
+	if (!str)
+	{
+		printf("exit\n");
+		free(str);
+		exit (0);
 	}
 }
 
+//readline records whatever is inputed in terminal, and returns a memory
+//	allocated char *buffer
 int	main()
 {
 	char	*str;
+	char	*parsed_str;
 
-	get_directory();
+	/* get_directory();
 	get_files_dirs();
-	get_path_from_env();
-
-	printf("\nMinishell\n");
+	get_path_from_env(); */
 	while (1)
 	{
-		signal(SIGINT, ctrl_c);
-		str = readline("$ ");
+		str = readline("Minishell >$ ");
+		parsed_str = parse_main(str);
 		add_history(str);
-		free(str);		
+		signal_init(str);
+		free(str);
 	}
+	printf("%s\n", parsed_str);
 }
