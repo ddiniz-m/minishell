@@ -1,22 +1,33 @@
 # - * - Makefile - * -
 
-SRC_MSH = main.c parse.c parse_utils.c
-SRCS = $(addprefix src/, $(SRC_MSH))
-OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
-
-OBJS_DIR = obj
-INC = -lreadline
-
 NAME = minishell
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 RM = rm -rf
 
+SRC_MSH = main.c parse.c parse_utils.c
+
+SRCS = $(addprefix src/, $(SRC_MSH))
+OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
+
+GREEN	=	"\033[0;32m"
+NC		=	"\033[0m"
+
+OBJS_DIR	=	obj
+LFT_DIR		=	libft
+
+INC = -lreadline
+LIBFT = $(LFT_DIR)/libft.a
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
-		@$(CC) $(CFLAGS) $(INC) $(SRCS) -o $(NAME)
-		@echo "\033[0;32mCompiled!\033[0m"
+$(LIBFT):
+	@make --no-print-directory -C $(LFT_DIR)
+	@echo $(GREEN)"Compiled Libft!"$(NC)
+
+$(NAME): $(LIBFT) $(OBJS)
+		@$(CC) $(CFLAGS) $(INC) $(SRCS) $(LIBFT) -o $(NAME)
+		@echo $(GREEN)"Compiled!"$(NC)
 
 $(OBJS_DIR)/%.o: $(SRCS)
 		@mkdir -p $(OBJS_DIR)
@@ -24,9 +35,10 @@ $(OBJS_DIR)/%.o: $(SRCS)
 
 clean:
 		@$(RM) $(OBJS) $(OBJS_DIR)
+		@make clean --no-print-directory -C $(LFT_DIR)
 
 fclean: clean
-		@$(RM) $(NAME)
+		@$(RM) $(NAME) $(LIBFT)
 
 re: fclean all
 

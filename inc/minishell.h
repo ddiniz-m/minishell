@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/06 17:47:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:30:25 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 //--------------------------------INCLUDES-------------------------------------
+#include "../libft/src/libft.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -41,7 +43,6 @@
 
 //--------------------------------SRCS-------------------------------------
 
-// /src/parse
 // parse.c
 char	*parse_main(char *str);
 int		str_words(char *str);
