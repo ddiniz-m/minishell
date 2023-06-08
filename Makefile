@@ -5,7 +5,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 RM = rm -rf
 
-SRC_MSH = main.c parse.c parse_utils.c
+SRC_MSH = main.c parse.c parse_utils.c parse_split.c
 
 SRCS = $(addprefix src/, $(SRC_MSH))
 OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))

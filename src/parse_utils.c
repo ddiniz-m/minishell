@@ -20,13 +20,13 @@ int	str_words(char *str)
 
 	i = 0;
 	words = 0;
-	while(str && str[i])
+	while (str[i])
 	{
-		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '|'))
 			i++;
 		if (str[i])
 			words++;
-		while(str[i] && str[i] != ' ' && str[i] != '\t')
+		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '|')
 			i++;
 	}
 	return (words);
@@ -41,31 +41,33 @@ int	n_char(char *str, char c)
 
 	i = 0;
 	n = 0;
-	while(str[i++])
+	while (str[i])
+	{
 		if (str[i] == c)
 			n++;
+		i++;
+	}
 	return (n);
 }
 
 //unfinished and probably too messy
-//wanted to make a function that did this:
-// str = echo "a" " --> return (1) (there are 1 closed "". Return when it finds 2nd)
-// str = echo 'a' " --> return (2) (there are 1 closed ''. Return when it finds 2nd)
-// str = echo "a --> return (3) (there is 1 open " until the end of string)
-// str = echo 'a --> return (4) (there is 1 open ' until the end of string)
-int	quotes(char *str)
+int	quote_state(char *str, char c)
 {
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	while(str[i])
+	j = 0;
+	while (str[i])
 	{
-		while(str[i] != '\"' && str[i] != '\'')
+		while (str[i] && str[i] != c)
 			i++;
-		if (str[i] != '\"')
+		if (str[i++] == c)
+			j++;
+		if (j == 2)
 			return (1);
-		else
-			return (2);
 	}
+	if (j == 1)
+		return (2);
 	return (0);
 }
