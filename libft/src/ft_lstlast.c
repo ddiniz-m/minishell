@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/16 17:44:55 by mortins-          #+#    #+#             */
+/*   Updated: 2023/05/19 16:29:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Returns the last node of the list 'lst'
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst -> next)
+		lst = lst -> next;
+	return (lst);
+}

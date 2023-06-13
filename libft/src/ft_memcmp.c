@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/04 12:03:55 by mortins-          #+#    #+#             */
+/*   Updated: 2023/05/19 16:29:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Compares the first 'n' bytes of the memory areas 's1' and 's2'
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*st1;
+	unsigned char	*st2;
 
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+	st1 = (unsigned char *)s1;
+	st2 = (unsigned char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (st1[i] == st2[i] && i < (n - 1))
+		i++;
+	return (st1[i] - st2[i]);
+}

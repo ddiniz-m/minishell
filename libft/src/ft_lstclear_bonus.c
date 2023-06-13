@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/18 16:15:48 by mortins-          #+#    #+#             */
+/*   Updated: 2022/11/22 15:24:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Deletes and frees the given node and all of its successors
+//	using the function ’del’ and free
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+void	ft_lstclear(t_list **lst, void (*del)(void*))
+{
+	t_list	*temp;
 
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+	temp = *lst;
+	while (temp)
+	{
+		*lst = (*lst)-> next;
+		ft_lstdelone(temp, del);
+		temp = *lst;
+	}
+}

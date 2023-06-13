@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/02 15:32:18 by mortins-          #+#    #+#             */
+/*   Updated: 2023/05/19 16:29:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Fills the first 'n' bytes of the memory area 's' with 'c'
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+void	*ft_memset(void *s, int c, size_t n)
+{
+	char	*buff;
 
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+	buff = (char *)s;
+	while (n--)
+		buff[n] = c;
+	return (s);
+}

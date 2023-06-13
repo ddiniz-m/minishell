@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/02 17:57:16 by mortins-          #+#    #+#             */
+/*   Updated: 2023/05/19 16:29:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Copies 'n' bytes from memory area 'src' to memory area 'dest'
+//	The memory areas may overlap
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	if (src < dest)
+	{
+		while (n--)
+			((char *)dest)[n] = ((char *)src)[n];
+	}
+	else
+		ft_memcpy(dest, src, n);
+	return (dest);
+}

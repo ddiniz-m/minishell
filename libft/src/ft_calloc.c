@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:27:10 by mortins-         ###   ########.fr       */
+/*   Created: 2022/11/04 16:37:33 by mortins-          #+#    #+#             */
+/*   Updated: 2023/05/19 16:28:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include"libft.h"
 
-//--------------------------------INCLUDES-------------------------------------
-#include "../libft/src/libft.h"
+//	Allocates memory for an array of 'n' elements of 'size' bytes each
+//	The memory  is  set  to zero
+//	Returns a pointer to the allocated memory
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+void	*ft_calloc(size_t n, size_t size)
+{
+	void	*buff;
 
-//readline, rl_on_new_line, rl_replace_line, rl_redisplay
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//signal
-#include <signal.h>
-
-#endif
+	if ((n * size) > 2147483647)
+		return (0);
+	buff = (void *) malloc (size * n);
+	if (!buff)
+		return (NULL);
+	ft_bzero(buff, n * size);
+	return (buff);
+}
