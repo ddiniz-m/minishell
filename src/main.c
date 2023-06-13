@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/08 17:16:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:34:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	signal_init(char *str)
 int	main()
 {
 	char	*str;
-	char	*parsed_str;
 
 	/* get_directory();
 	get_files_dirs();
@@ -80,10 +79,9 @@ int	main()
 	while (1)
 	{
 		str = readline("Minishell >$ ");
-		parsed_str = parse_main(str);
+		parse_main(str);
 		add_history(str);
 		signal_init(str);
 		free(str);
 	}
-	printf("%s\n", parsed_str);
 }

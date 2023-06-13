@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/08 17:58:53 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:38:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,30 @@
 //tcsetattr, tcgetattr
 //#include <termios.h>
 
+//--------------------------------STRUCT-----------------------------------
+typedef struct s_var
+{
+	int	words;
+}				t_var;
 //--------------------------------SRCS-------------------------------------
 
-// parse.c
-char	*parse_main(char *str);
-int		str_words(char *str);
+//cmds_echo.c
+char	**echo_join_words(char **arr, int words);
 
 //parse_split.c
-char	*split_temp(char *str);
+char	*split_temp(char *str, int word_len);
 int		split_word_len(char *str);
-char	**split(char *str);
+char	**split(char *str, int words);
 
 //parse_utils.c
 int		str_words(char *str);
 int		n_char(char *str, char c);
 int		quote_state(char *str, char c);
+int		meta_char(char c);
+
+// parse.c
+void	parse_main(char *str);
+int		str_words(char *str);
+
+
 #endif

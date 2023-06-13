@@ -6,57 +6,79 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/08 18:15:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:09:55 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// size of str until next whitespace
+// size of str until next specific character
 int	split_word_len(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i] && (str[i] != ' ' || str[i] != '\t' || str[i] != '|'))
+	if(str[i] && (str[i] == '\''))
+	{
 		i++;
+		while (str[i] && (str[i] != '\''))
+			i++;
+		i++;
+	}
+	else if(str[i] && (str[i] == '\"'))
+	{
+		i++;
+		while (str[i] && (str[i] != '\"'))
+			i++;
+		i++;
+	}
+	else if(str[i] && meta_char(str[i]) == 0)
+	{
+		while (str[i] && meta_char(str[i]) == 0)
+			i++;
+	}
+	else if(str[i] && meta_char(str[i]) == 2)
+	{
+		while (str[i] && meta_char(str[i]) == 2)
+			i++;
+	}
 	return (i);
 }
 
-char	*split_temp(char *str)
+char	*split_temp(char *str, int word_len)
 {
 	int		i;
 	char	*temp;
 
 	i = 0;
 	temp = NULL;
-	temp = malloc(sizeof(char) * (split_word_len(str) + 1));
+	temp = malloc(sizeof(char) * (word_len + 1));
 	if (!temp)
 		return (NULL);
-	while(temp[i])
+	while(*str && i < word_len)
 		temp[i++] = *str++;
 	temp[i] = '\0';
 	return (temp);
 }
 
-char	**split(char *str)
+char	**split(char *str, int words)
 {
-	int	i;
-	int		words;
+	int		i;
+	int		word_len;
 	char	**buff;
 
 	i = 0;
-	words = str_words(str);
 	buff = malloc(sizeof(char *) * (words + 1));
 	if (!buff)
 		return (NULL);
 	while(i < words)
 	{
-		printf("test\n");
-		while(*str && (*str == ' ' || *str == '\t' || *str == '|'))
+		while (*str && meta_char(*str) == 1)
 			str++;
-		buff[i++] = split_temp(str);
+		word_len = split_word_len(str);
+		buff[i++] = split_temp(str, word_len);
+		str = str + word_len;
 	}
-	buff[i]= 0;
+	buff[i] = 0;
 	return(buff);
 }
