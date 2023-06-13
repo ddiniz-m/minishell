@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:34:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:21:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ void	signal_init(char *str)
 	}
 }
 
-//readline records whatever is inputed in terminal, and returns a memory
+//	readline records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
-int	main()
+int	main(void)
 {
 	char	*str;
 
-	/* get_directory();
-	get_files_dirs();
-	get_path_from_env(); */
 	while (1)
 	{
 		str = readline("Minishell >$ ");
