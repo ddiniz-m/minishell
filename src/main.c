@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:34:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:21:30 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ void	signal_init(char *str)
 int	main()
 {
 	char	*str;
+	t_var	*var;
 
 	/* get_directory();
 	get_files_dirs();
 	get_path_from_env(); */
+	/* var = var_init(var); */
 	while (1)
 	{
 		str = readline("Minishell >$ ");

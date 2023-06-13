@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:38:15 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:22:50 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@
 
 //signal
 #include <signal.h>
-
-//ioctl
-//#include <sys/ioctl.h>
-
-//tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-//#include <curses.h>
-//#include <term.h>
-
-//tcsetattr, tcgetattr
-//#include <termios.h>
 
 //--------------------------------STRUCT-----------------------------------
 typedef struct s_var
@@ -65,6 +55,9 @@ int		meta_char(char c);
 // parse.c
 void	parse_main(char *str);
 int		str_words(char *str);
+
+//var_init.c
+t_var	*var_init(t_var *var, char *str);
 
 
 #endif

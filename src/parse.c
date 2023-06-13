@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:34:27 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:20:35 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	parse_main(char *str)
 	char	**echo;
 
 	i = 0;
-	words = str_words(str);
 	printf("Number of words = %i\n", words);
 	
 	printf("------------------------------------MAIN STR ARRAY------------------------------------\n");
