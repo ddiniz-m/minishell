@@ -12,31 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/* void	get_path_from_env(void)
-{
-	char *str;
-
-	str = getenv("PATH");
-	printf("\nPATH = %s\n", str);
-} */
-
-/* void	get_files_dirs(void)
-{
-	DIR				*folder;
-	struct dirent	*buf;
-
-	printf("\nFiles and Directories:\n");
-	folder = opendir(".");
-	while ((buf = readdir(folder)))
-		printf("%s\n", buf->d_name);
-	closedir(folder);
-} */
-
-/* void	get_directory(void)
-{
-	printf("Current Directory = %s\n", getcwd(NULL, 0));
-} */
-
 //CTRL-C sends a "Interrupt" signal.
 //Don't want to explain rl functions, go read:
 //https://tiswww.case.edu/php/chet/readline/readline.html#Command-Line-Editing
@@ -79,7 +54,6 @@ int	main()
 	while (1)
 	{
 		str = readline("Minishell >$ ");
-		parse_main(str);
 		add_history(str);
 		signal_init(str);
 		free(str);
