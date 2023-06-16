@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 18:22:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:49:30 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,41 @@
 #include <signal.h>
 
 //--------------------------------STRUCT-----------------------------------
-typedef struct s_var
+typedef struct s_variable
 {
 	int	words;
 }				t_var;
+
+typedef struct s_array
+{
+	char	**echo;
+}				t_arr;
+
 //--------------------------------SRCS-------------------------------------
 
 //cmds_echo.c
-char	**echo_join_words(char **arr, int words);
+int		echo_n(char **arr, int words);
+int		echo_n_words(char **arr, int pos, int words);
+char	**echo_arr(char **arr, int words);
 
 //parse_split.c
 char	*split_temp(char *str, int word_len);
 int		split_word_len(char *str);
-char	**split(char *str, int words);
+char	**split(t_var *var, char *str);
 
 //parse_utils.c
 int		str_words(char *str);
 int		n_char(char *str, char c);
-int		quote_state(char *str, char c);
 int		meta_char(char c);
+/* int		quote_state(char *str, char c); */
+int		arr_size(char **arr);
+char	**arr_cpy(char **arr);
 
 // parse.c
-void	parse_main(char *str);
+void	parse_main(t_var *var, char *str);
 int		str_words(char *str);
 
 //var_init.c
-t_var	*var_init(t_var *var, char *str);
-
+void	var_init(t_var *var, char *str);
 
 #endif

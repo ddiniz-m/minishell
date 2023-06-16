@@ -95,7 +95,7 @@ int	meta_char(char c)
 
 //returns 1 when it finds 2 char c;
 //returns 2 if there is 1 char c in the whole str;
-int	quote_state(char *str, char c)
+/* int	quote_state(char *str, char c)
 {
 	int i;
 	int j;
@@ -114,4 +114,32 @@ int	quote_state(char *str, char c)
 	if (j == 1)
 		return (2);
 	return (0);
+} */
+
+int	arr_size(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while(arr[i])
+		i++;
+	return (i);
+}
+
+char **arr_cpy(char **arr)
+{
+	int		i;
+	int		size;
+	char	**buf;
+
+	i = 0;
+	size = arr_size(arr);
+	buf = malloc(sizeof(buf) * (size + 1));
+	while (i < size)
+	{
+		buf[i] = malloc(sizeof(char) * (ft_strlen(arr[i]) + 1));
+		ft_strlcpy(buf[i], arr[i], strlen(arr[i]) + 1);
+		i++;
+	}
+	return (buf);
 }

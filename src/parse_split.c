@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:09:55 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:57:56 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	split_word_len(char *str)
 		while (str[i] && (str[i] != '\"'))
 			i++;
 		i++;
+		if (str[i] && meta_char(str[i]) != 1)
+		{
+			while (str[i] && meta_char(str[i]) == 0)
+			i++;
+		}
 	}
 	else if(str[i] && meta_char(str[i]) == 0)
 	{
@@ -61,17 +66,17 @@ char	*split_temp(char *str, int word_len)
 	return (temp);
 }
 
-char	**split(char *str, int words)
+char	**split(t_var *var, char *str)
 {
 	int		i;
 	int		word_len;
 	char	**buff;
 
 	i = 0;
-	buff = malloc(sizeof(char *) * (words + 1));
+	buff = malloc(sizeof(char *) * (var->words + 1));
 	if (!buff)
 		return (NULL);
-	while(i < words)
+	while(i < var->words)
 	{
 		while (*str && meta_char(*str) == 1)
 			str++;

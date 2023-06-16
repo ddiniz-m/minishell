@@ -2,10 +2,10 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -rf
 
-SRC_MSH = main.c parse.c parse_utils.c parse_split.c cmds_echo.c var_init.c
+SRC_MSH = main.c parse.c parse_utils.c parse_split.c cmds_echo.c init.c
 
 SRCS = $(addprefix src/, $(SRC_MSH))
 OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
