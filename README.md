@@ -27,16 +27,15 @@
 
 ## 💡 About
 
-> _This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors._
+> _Write a shell._
 
-	Write a shell.
+	This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors.
 
 <br>
 
 ## ✔️ Requirements
-* gcc
 * make
-*
+* 
 
 <br>
 
