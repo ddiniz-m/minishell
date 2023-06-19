@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/19 16:56:32 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:27:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	split_word_len_quotes(char *str, int i)
 			i++;
 		i++;
 	}
-	else if(str[i] && (str[i] == '\"'))
+	else if (str[i] && (str[i] == '\"'))
 	{
 		i++;
 		while (str[i] && (str[i] != '\"'))
@@ -42,12 +42,12 @@ int	split_word_len(char *str)
 	int	i;
 
 	i = split_word_len_quotes(str, 0);
-	if(str[i] && meta_char(str[i]) == 0)
+	if (str[i] && meta_char(str[i]) == 0)
 	{
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
-	else if(str[i] && meta_char(str[i]) == 2)
+	else if (str[i] && meta_char(str[i]) == 2)
 	{
 		while (str[i] && meta_char(str[i]) == 2)
 			i++;
@@ -65,7 +65,7 @@ char	*split_temp(char *str, int word_len)
 	temp = malloc(sizeof(char) * (word_len + 1));
 	if (!temp)
 		return (NULL);
-	while(*str && i < word_len)
+	while (*str && i < word_len)
 		temp[i++] = *str++;
 	temp[i] = '\0';
 	return (temp);
@@ -82,7 +82,7 @@ char	**split_main(t_var *var, char *str)
 	buff = malloc(sizeof(char *) * (var->words + 1));
 	if (!buff)
 		return (NULL);
-	while(i < var->words)
+	while (i < var->words)
 	{
 		while (*str && meta_char(*str) == 1)
 			str++;
@@ -91,5 +91,5 @@ char	**split_main(t_var *var, char *str)
 		str = str + word_len;
 	}
 	buff[i] = 0;
-	return(buff);
+	return (buff);
 }

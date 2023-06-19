@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 17:24:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:55:37 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	signal_init(char *str)
 
 //readline records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
-int	main()
+int	main(void)
 {
 	char		*str;
 	t_var		*var;
 
-	var = malloc(sizeof(t_var));
+	var = var_struct_init();
 	while (1)
 	{
 		str = readline("\033[0;33mMinishell >$ \033[0m");

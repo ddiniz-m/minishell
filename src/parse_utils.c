@@ -5,44 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 17:31:51 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/07 16:56:221 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/19 19:07:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	str_words_quotes(t_var *var, char *str, int i)
+{
+	if (str[i] == '\'')
+	{
+		i++;
+		if (str[i] && meta_char(str[i]) != 1 && str[i] != '\'')
+			var->words++;
+		while (str[i] && str[i] != '\'')
+			i++;
+		i++;
+	}
+	else if (str[i] == '\"')
+	{
+		i++;
+		if (str[i] && meta_char(str[i]) != 1 && str[i] != '\"')
+			var->words++;
+		while (str[i] && str[i] != '\"')
+			i++;
+		i++;
+	}
+	return (i);
+}
+
 // how many words are in str
-int	str_words(char *str)
+void	str_words(t_var *var, char *str)
 {
 	int	i;
-	int	words;
 
 	i = 0;
-	words = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'')
+		i = str_words_quotes(var, str, i);
+		if (meta_char(str[i]) == 0)
 		{
-			i++;
-			if (str[i] && meta_char(str[i]) != 1 && str[i] != '\'')
-				words++;
-			while (str[i] && str[i] != '\'')
-				i++;
-			i++;
-		}
-		else if (str[i] == '\"')
-		{
-			i++;
-			if (str[i] && meta_char(str[i]) != 1 && str[i] != '\"')
-				words++;
-			while (str[i] && str[i] != '\"')
-				i++;
-			i++;
-		}
-		else if (meta_char(str[i]) == 0)
-		{
-			words++;
+			var->words++;
 			while (str[i] && meta_char(str[i]) == 0)
 				i++;
 		}
@@ -53,12 +57,11 @@ int	str_words(char *str)
 		}
 		else if (meta_char(str[i]) == 2)
 		{
-			words++;
+			var->words++;
 			while (str[i] && meta_char(str[i]) == 2)
 				i++;
 		}
 	}
-	return (words);
 }
 
 // how man c are in str
@@ -98,12 +101,14 @@ int	arr_size(char **arr)
 	int	i;
 
 	i = 0;
-	while(arr[i])
+	if (!arr[i])
+		return (0);
+	while (arr[i])
 		i++;
 	return (i);
 }
 
-char **arr_cpy(char **arr, int pos, int size)
+char	**arr_cpy(char **arr, int pos, int size)
 {
 	int		i;
 	char	**buf;
