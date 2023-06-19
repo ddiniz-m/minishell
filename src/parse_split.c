@@ -6,19 +6,15 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 15:57:56 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:56:32 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// size of str until next specific character
-int	split_word_len(char *str)
+int	split_word_len_quotes(char *str, int i)
 {
-	int	i;
-
-	i = 0;
-	if(str[i] && (str[i] == '\''))
+	if (str[i] && (str[i] == '\''))
 	{
 		i++;
 		while (str[i] && (str[i] != '\''))
@@ -37,7 +33,16 @@ int	split_word_len(char *str)
 			i++;
 		}
 	}
-	else if(str[i] && meta_char(str[i]) == 0)
+	return (i);
+}
+
+// size of str until next specific character
+int	split_word_len(char *str)
+{
+	int	i;
+
+	i = split_word_len_quotes(str, 0);
+	if(str[i] && meta_char(str[i]) == 0)
 	{
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
@@ -66,7 +71,8 @@ char	*split_temp(char *str, int word_len)
 	return (temp);
 }
 
-char	**split(t_var *var, char *str)
+//splits str
+char	**split_main(t_var *var, char *str)
 {
 	int		i;
 	int		word_len;

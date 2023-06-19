@@ -6,14 +6,14 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:10:25 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 18:31:27 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:57:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //counts how many valid echo commands there are
-int	echo_n(char **arr, int words)
+int	echo_count(char **arr, int words)
 {
 	int	i;
 	int	n;
@@ -32,27 +32,26 @@ int	echo_n(char **arr, int words)
 }
 
 //counts how many flags/words echo will use/print, beginning at echo's position
-int	echo_n_words(char **arr, int pos, int words)
+int	echo_word_count(char **arr, int pos, int words)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (pos < words)
 	{
 		i++;
 		pos++;
-		if (arr[pos] && arr[pos][0] == '|')
+		if (arr[pos] && meta_char(arr[pos][0]) == 2)
 			return (i);
 	}
 	return (i);
 }
 
 //creates an array with echo and its respective contents (flags and text)
-char	**echo_arr(char **arr, int words)
+char	**echo_array(char **arr, int words)
 {
-	int		i;
 	int		pos;
-	char	**echo;
+	char	**buf;
 	int		echo_size;
 
 	pos = 0;
@@ -64,17 +63,30 @@ char	**echo_arr(char **arr, int words)
 		if (pos == words)
 			return (NULL);
 	}
-	echo_size = echo_n_words(arr, pos, words);
-	echo = malloc(sizeof(char *) * (echo_size + 1));
-	i = 0;
-	while (i < echo_size)
-	{
-		echo[i] = malloc(sizeof(char) * (strlen(arr[pos])));
-		ft_strlcpy(echo[i], arr[pos], ft_strlen(arr[pos]) + 1);
-		i++;
-		pos++;
-	}
-	echo[i] = 0;
-	return (echo);
+	echo_size = echo_word_count(arr, pos, words);
+	buf = arr_cpy(arr, pos, echo_size);
+	return (buf);
 }
 
+//Takes main array and creates an array for every valid echo command
+void	echo_struct_init(t_var *var, char **Arr)
+{
+	int		i;
+	char	**buf;
+	t_arr	**arr;
+	int		echo_n;
+
+	i = 0;
+	buf = arr_cpy(Arr, 0, arr_size(Arr));
+	arr = malloc(sizeof(t_arr *));
+	echo_n = echo_count(buf, var->words);
+	printf("Number of valid echo commands = %i\n", echo_n);
+	while (i < echo_n)
+	{
+		arr[i] = malloc(sizeof(t_arr));
+		arr[i]->echo = echo_array(buf, arr_size(buf));
+		if (buf[i] && buf[i + 1])
+			buf = buf + arr_size(arr[i]->echo) + 1;
+		i++;
+	}
+}

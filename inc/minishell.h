@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 18:49:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:46:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ typedef struct s_array
 //--------------------------------SRCS-------------------------------------
 
 //cmds_echo.c
-int		echo_n(char **arr, int words);
-int		echo_n_words(char **arr, int pos, int words);
-char	**echo_arr(char **arr, int words);
+int		echo_count(char **arr, int words);
+int		echo_word_count(char **arr, int pos, int words);
+char	**echo_array(char **arr, int words);
+void	echo_struct_init(t_var *var, char **Arr);
 
 //parse_split.c
 char	*split_temp(char *str, int word_len);
 int		split_word_len(char *str);
-char	**split(t_var *var, char *str);
+char	**split_main(t_var *var, char *str);
 
 //parse_utils.c
 int		str_words(char *str);
@@ -60,7 +61,8 @@ int		n_char(char *str, char c);
 int		meta_char(char c);
 /* int		quote_state(char *str, char c); */
 int		arr_size(char **arr);
-char	**arr_cpy(char **arr);
+char	**arr_cpy(char **arr, int pos, int size);
+void	arr_print(char *str, char **arr);
 
 // parse.c
 void	parse_main(t_var *var, char *str);

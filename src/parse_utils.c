@@ -93,29 +93,6 @@ int	meta_char(char c)
 	return (0);
 }
 
-//returns 1 when it finds 2 char c;
-//returns 2 if there is 1 char c in the whole str;
-/* int	quote_state(char *str, char c)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] != c)
-			i++;
-		if (str[i++] == c)
-			j++;
-		if (j == 2)
-			return (1);
-	}
-	if (j == 1)
-		return (2);
-	return (0);
-} */
-
 int	arr_size(char **arr)
 {
 	int	i;
@@ -126,20 +103,29 @@ int	arr_size(char **arr)
 	return (i);
 }
 
-char **arr_cpy(char **arr)
+char **arr_cpy(char **arr, int pos, int size)
 {
 	int		i;
-	int		size;
 	char	**buf;
 
 	i = 0;
-	size = arr_size(arr);
 	buf = malloc(sizeof(buf) * (size + 1));
 	while (i < size)
 	{
-		buf[i] = malloc(sizeof(char) * (ft_strlen(arr[i]) + 1));
-		ft_strlcpy(buf[i], arr[i], strlen(arr[i]) + 1);
+		buf[i] = malloc(sizeof(char) * (ft_strlen(arr[pos]) + 1));
+		ft_strlcpy(buf[i], arr[pos], ft_strlen(arr[pos]) + 1);
 		i++;
+		pos++;
 	}
 	return (buf);
+}
+
+void	arr_print(char *str, char **arr)
+{
+	int	i;
+
+	i = 0;
+	printf("\n%s:\n", str);
+	while (i < arr_size(arr))
+		printf("%s\n", arr[i++]);
 }
