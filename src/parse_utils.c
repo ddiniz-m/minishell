@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:07:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:57:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	arr_size(char **arr)
 	int	i;
 
 	i = 0;
-	if (!arr[i])
+	if (!arr || !arr[i])
 		return (0);
 	while (arr[i])
 		i++;
@@ -115,6 +115,8 @@ char	**arr_cpy(char **arr, int pos, int size)
 
 	i = 0;
 	buf = malloc(sizeof(buf) * (size + 1));
+	if (!buf)
+		return (NULL);
 	while (i < size)
 	{
 		buf[i] = malloc(sizeof(char) * (ft_strlen(arr[pos]) + 1));

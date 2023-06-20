@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:10:25 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:22:49 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:31:48 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	echo_count(t_var *var, char **arr)
 	{
 		if (arr[i] && ft_strncmp("echo", arr[i], ft_strlen(arr[i])) == 0)
 			n++;
-		while (arr[i] && arr[i][0] && meta_char(arr[i][0]) != 2)
+		while (arr && arr[i] && arr[i][0] && meta_char(arr[i][0]) != 2)
 			i++;
 		i++;
 	}
@@ -32,65 +32,104 @@ int	echo_count(t_var *var, char **arr)
 }
 
 //Counts how many flags/words echo will use/print, beginning at echo's position
-int	echo_word_count(t_var *var, char **arr, int pos)
+int	echo_cmd_count(t_var *var, char **arr, int pos)
 {
 	int	i;
 
 	i = 0;
-	while (pos < var->words)
+	while (arr[i] && pos < var->words)
 	{
-		i++;
 		pos++;
-		if (arr[pos] && arr[pos][0] && (meta_char(arr[pos][0]) == 2))
+		if (!arr[i] || meta_char(arr[i][0]) == 2)
 			return (i);
+		i++;
 	}
 	return (i);
 }
 
-//Creates an array with echo and its respective contents (flags and text)
-char	**echo_array(t_var *var, char **arr)
+//Takes the main array and creates an array with echo and its respective contents (flags and text)
+char	**echo_array(t_var *var, char **arr, int size)
 {
 	int		pos;
 	char	**buf;
 	int		echo_size;
 
 	pos = 0;
-	while (pos < var->words)
+	while (pos < size)
 	{
 		if (ft_strncmp("echo", arr[pos], ft_strlen(arr[pos])) == 0)
 			break ;
 		pos++;
-		if (pos == var->words)
+		if (pos == size)
 			return (NULL);
 	}
-	echo_size = echo_word_count(var, arr, pos);
+	echo_size = echo_cmd_count(var, arr, pos);
 	buf = arr_cpy(arr, pos, echo_size);
 	return (buf);
 }
 
 //Takes main array and creates an array for every valid echo command
-t_arr	**echo_struct_init(t_var *var, char **main_arr)
+t_arr	**echo_struct_init(t_var *var)
 {
 	int		i;
 	t_arr	**arr;
 	char	**buf;
-	int		echo_n;
 
 	i = 0;
-	buf = arr_cpy(main_arr, 0, arr_size(main_arr));
+	buf = arr_cpy(var->main_arr, 0, arr_size(var->main_arr));
 	arr = malloc(sizeof(t_arr *));
-	echo_n = echo_count(var, main_arr);
-	printf("Number of valid echo commands = %i\n", echo_n);
-	while (i < echo_n)
+	printf("Number of valid echo commands = %i\n", var->echo_count);
+	while (i < var->echo_count)
 	{
 		arr[i] = malloc(sizeof(t_arr));
-		arr[i]->echo = echo_array(var, buf);
+		arr[i]->echo = echo_array(var, buf, arr_size(buf));
 		buf = buf + arr_size(arr[i]->echo) + 1;
 		i++;
 	}
-/* 	//print arrays
-	i = 0;
-	while (i < echo_n)
-		arr_print("ECHO ARRAY", arr[i++]->echo); */
 	return (arr);
 }
+
+int	echo_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i++] != '-')
+		return (1);
+	while (str[i] && str[i] == 'n')
+		i++;
+	if (str[i])
+		return (1);
+	return (0);
+}
+
+void	echo(t_var *var, t_arr **arr, int pos)
+{
+	int	j;
+	int	cmds;
+	int	n_flag;
+
+	j = 1;
+	n_flag = 0;
+	cmds = echo_cmd_count(var, arr[pos]->echo, 0);
+	if(arr[pos]->echo && echo_flag(arr[pos]->echo[1]) == 0)
+	{
+		n_flag = 1;
+		j++;
+	}
+	if (cmds == 1)
+	{
+		printf("\n");
+		return ;
+	}
+	while (arr[pos]->echo && j < arr_size(arr[pos]->echo))
+	{
+		printf("%s", arr[pos]->echo[j]);
+		j++;
+		if (arr[pos]->echo && j != arr_size(arr[pos]->echo))
+			printf(" ");
+	}
+	if (!n_flag)
+		printf("\n");
+}
+

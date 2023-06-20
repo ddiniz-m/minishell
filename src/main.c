@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/19 18:55:37 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:35:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(void)
 	{
 		str = readline("\033[0;33mMinishell >$ \033[0m");
 		var_init(var, str);
-		parse_main(var, str);
+		parse_main(var);
 		add_history(str);
 		signal_init(str);
 		free(str);

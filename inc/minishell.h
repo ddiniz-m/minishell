@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:14:16 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:07:11 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 typedef struct s_variable
 {
 	int	words;
+	int	echo_count;
+	char	**main_arr;
 }				t_var;
 
 typedef struct s_array
@@ -46,9 +48,10 @@ typedef struct s_array
 
 //cmds_echo.c
 int		echo_count(t_var *var, char **arr);
-int		echo_word_count(t_var *var, char **arr, int pos);
-char	**echo_array(t_var *var, char **arr);
-t_arr	**echo_struct_init(t_var *var, char **main_arr);
+int		echo_cmd_count(t_var *var, char **arr, int pos);
+char	**echo_array(t_var *var, char **arr, int size);
+t_arr	**echo_struct_init(t_var *var);
+void	echo(t_var *var, t_arr **arr, int pos);
 
 //parse_split.c
 char	*split_temp(char *str, int word_len);
@@ -65,7 +68,7 @@ char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 
 // parse.c
-void	parse_main(t_var *var, char *str);
+void	parse_main(t_var *var);
 
 //init.c
 t_var	*var_struct_init(void);
