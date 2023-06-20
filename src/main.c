@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 16:59:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:43:46 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ int	main(void)
 		str = readline("Minishell >$ ");
 		add_history(str);
 		signal_exit(str);
+		if (str[0] == 'c' && str[1] == 'd' && str[2] == ' ')
+		{
+			if (str[3] == 'a')
+				cd(NULL);
+			else
+				cd(str + 3);
+		}
+		else if (str[0] == 'p' && str[1] == 'w' && str[2] == 'd')
+			pwd();
 		free(str);
 	}
 }
