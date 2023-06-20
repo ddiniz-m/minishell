@@ -2,10 +2,10 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH = main.c parse.c parse_utils.c parse_split.c cmds_echo.c init.c
+SRC_MSH = cmds_echo.c cmds_echo_utils.c init.c main.c parse.c parse_split.c parse_utils_arr.c parse_utils.c signals.c
 
 SRCS = $(addprefix src/, $(SRC_MSH))
 OBJS = $(patsubst src/%, $(OBJS_DIR)/%, $(SRCS:%.c=%.o))
@@ -32,6 +32,9 @@ $(NAME): $(LIBFT) $(OBJS)
 $(OBJS_DIR)/%.o: $(SRCS)
 		@mkdir -p $(OBJS_DIR)
 		@$(CC) $(CFLAGS) -o $@ -c $<
+
+val: $(NAME)
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
 clean:
 		@$(RM) $(OBJS) $(OBJS_DIR)

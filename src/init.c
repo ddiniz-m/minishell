@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 13:32:42 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:03:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_var	*var_struct_init(void)
 {
-	t_var *var;
-	
+	t_var	*var;
+
 	var = malloc(sizeof(t_var));
 	return (var);
 }
