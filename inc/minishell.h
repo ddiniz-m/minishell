@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/16 17:00:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:55:51 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//----------------------------------INCLUDES-----------------------------------
+//--------------------------------INCLUDES-------------------------------------
 # include "../libft/src/libft.h"
 
 # include <stdio.h>
@@ -24,10 +24,52 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//opendri, readdir, closedir
+# include <sys/types.h>
+# include <dirent.h>
+
 //signal
 # include <signal.h>
 
-//-----------------------------------SIGNALS-----------------------------------
+//--------------------------------STRUCT-----------------------------------
+typedef struct s_variable
+{
+	int			words;
+	int			echo_count;
+	char		**main_arr;
+}				t_var;
+
+typedef struct s_array
+{
+	char		**echo;
+}				t_arr;
+
+//--------------------------------SRCS-------------------------------------
+
+//init.c
+t_var	*var_struct_init(void);
+void	var_init(t_var *var, char *str);
+t_arr	**echo_struct_init(t_var *var);
+
+//parse_split.c
+char	*split_temp(char *str, int word_len);
+int		split_word_len(char *str);
+char	**split_main(t_var *var, char *str);
+
+//parse_utils_arr.c
+int		arr_size(char **arr);
+char	**arr_cpy(char **arr, int pos, int size);
+void	arr_print(char *str, char **arr);
+void	arr_free(char **arr);
+
+//parse_utils.c
+void	str_words(t_var *var, char *str);
+int		meta_char(char c);
+
+// parse.c
+void	parse_main(t_var *var);
+
+// signals.c
 void	signal_init(void);
 void	signal_interrupt(int signum);
 void	signal_exit(char *str);

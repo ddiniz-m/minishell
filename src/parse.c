@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:57:28 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/20 18:57:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//	'readline' records whatever is inputed in terminal, and returns a memory
-//	allocated char *buffer
-int	main(void)
+void	parse_main(t_var *var)
 {
-	char	*str;
-	t_var	*var;
+	int		i;
 
-	var = var_struct_init();
-	while (1)
-	{
-		str = readline("Minishell >$ ");
-		var_init(var, str);
-		parse_main(var);
-		add_history(str);
-		free(str);
-		arr_free(var->main_arr);
-	}
-	free(var);
+	i = 0;
+	arr_print("MAIN ARRAY", var->main_arr);
 }
