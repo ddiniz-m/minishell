@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 19:05:29 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/20 19:05:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//	'readline' records whatever is inputed in terminal, and returns a memory
-//	allocated char *buffer
-int	main(void)
+void	parse_main(t_var *var)
 {
-	char	*str;
-	t_var	*var;
+	int		i;
+	t_arr	**arr;
 
-	var = var_struct_init();
-	signal_init();
-	while (1)
+	i = 0;
+	arr_print("MAIN ARRAY", var->main_arr);
+	if (var->echo_count > 0)
 	{
-		str = readline("Minishell >$ ");
-		var_init(var, str);
-		parse_main(var);
-		add_history(str);
-		signal_exit(str);
-		free(str);
-		arr_free(var->main_arr);
+		arr = echo_struct_init(var);
+		printf("\nECHO OUTPUT\n");
+		echo(var, arr, 0);
+		arr_free(arr[0]->echo);
+		free(arr);
 	}
-	free(var);
 }
