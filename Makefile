@@ -5,7 +5,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	init.c main.c 
+SRC_MSH	=	init.c main.c signals.c
 SRC_PRS	=	parse.c parse_split.c parse_utils_arr.c parse_utils.c
 
 SRCS = $(addprefix src/, $(SRC_MSH)) $(addprefix src/parser/, $(SRC_PRS))
