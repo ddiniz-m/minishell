@@ -25,10 +25,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-//opendri, readdir, closedir
-# include <sys/types.h>
-# include <dirent.h>
-
 //signal
 # include <signal.h>
 
