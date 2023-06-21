@@ -12,6 +12,9 @@
 
 #include "../../inc/minishell.h"
 
+// In the future this function will look through the separated string and
+// interpret it before deciding what to do with it (i.e. what commands to
+// execute, what to redirect, what to pipe, etc.)
 void	parse_main(t_var *var)
 {
 	int	i;

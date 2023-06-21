@@ -12,6 +12,7 @@
 
 #include "../../inc/minishell.h"
 
+// In the future this function will have to interpretopen quotes
 int	str_words_quotes(t_var *var, char *str, int i)
 {
 	if (str[i] == '\'')
@@ -64,9 +65,9 @@ void	str_words(t_var *var, char *str)
 	}
 }
 
-//Return 0 if regular char;
-//Return 1 if space or tab;
-//Return 2 if any other meta character;
+// Return 0 if regular char;
+// Return 1 if space or tab;
+// Return 2 if any other meta character;
 int	meta_char(char c)
 {
 	if (c == ' ' || c == '\t')

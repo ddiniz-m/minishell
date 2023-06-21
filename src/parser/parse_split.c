@@ -71,7 +71,7 @@ char	*split_temp(char *str, int word_len)
 	return (temp);
 }
 
-//splits str
+// splits str
 char	**split_main(t_var *var, char *str)
 {
 	int		i;
