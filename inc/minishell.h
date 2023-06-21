@@ -14,11 +14,12 @@
 # define MINISHELL_H
 
 //--------------------------------INCLUDES-------------------------------------
-# include "../libft/src/libft.h"
-
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+//libft
+# include "../libft/src/libft.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
