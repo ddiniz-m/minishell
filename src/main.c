@@ -20,12 +20,14 @@ int	main(void)
 	t_var	*var;
 
 	var = var_struct_init();
+	signal_init();
 	while (1)
 	{
 		str = readline("Minishell >$ ");
 		var_init(var, str);
 		parse_main(var);
 		add_history(str);
+		signal_exit(str);
 		free(str);
 		arr_free(var->main_arr);
 	}
