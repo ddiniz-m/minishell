@@ -32,7 +32,6 @@
 typedef struct s_variable
 {
 	int			words;
-	int			echo_count;
 	char		**main_arr;
 }				t_var;
 
