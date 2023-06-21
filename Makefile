@@ -8,7 +8,7 @@ RM = rm -rf
 SRC_MSH	=	init.c main.c 
 SRC_PRS	=	parse.c parse_split.c parse_utils_arr.c parse_utils.c
 
-SRCS = $(addprefix src/, $(SRC_MSH)) $(addprefix src/parse/, $(SRC_PRS))
+SRCS = $(addprefix src/, $(SRC_MSH)) $(addprefix src/parser/, $(SRC_PRS))
 OBJS = $(addprefix, $(OBJS_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix, $(OBJS_DIR)/, $(SRC_PRS:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
