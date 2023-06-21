@@ -27,7 +27,7 @@ int	main(void)
 		var_init(var, str);
 		parse_main(var);
 		add_history(str);
-		signal_exit(str);
+		signal_exit(var, str);
 		free(str);
 		arr_free(var->main_arr);
 	}
