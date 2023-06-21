@@ -62,6 +62,6 @@ void	parse_main(t_var *var);
 // signals.c
 void	signal_init(void);
 void	signal_interrupt(int signum);
-void	signal_exit(char *str);
+void	signal_exit(t_var *var, char *str);
 
 #endif
