@@ -45,7 +45,6 @@ typedef struct s_variable
 //init.c
 t_var	*var_struct_init(void);
 void	var_init(t_var *var, char *str);
-t_arr	**echo_struct_init(t_var *var);
 
 //parse_split.c
 char	*split_temp(char *str, int word_len);
