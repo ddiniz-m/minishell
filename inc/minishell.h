@@ -46,7 +46,7 @@ char	*split_temp(char *str, int word_len);
 int		split_word_len(char *str);
 char	**split_main(t_var *var, char *str);
 
-//parse_utils_arr.c
+//parse_array.c
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
