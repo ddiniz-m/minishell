@@ -14,7 +14,7 @@
 
 void	parse_main(t_var *var)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	arr_print("MAIN ARRAY", var->main_arr);
