@@ -40,11 +40,6 @@ typedef struct s_variable
 	char		**main_arr;
 }				t_var;
 
-typedef struct s_array
-{
-	char		**echo;
-}				t_arr;
-
 //--------------------------------SRCS-------------------------------------
 
 //init.c
