@@ -37,26 +37,26 @@ typedef struct s_variable
 
 //--------------------------------SRCS-------------------------------------
 
-//init.c
+// init.c
 t_var	*var_struct_init(void);
 void	var_init(t_var *var, char *str);
 
-//parse_split.c
+// parser/parse_split.c
 char	*split_temp(char *str, int word_len);
 int		split_word_len(char *str);
 char	**split_main(t_var *var, char *str);
 
-//parse_array.c
+// parser/parse_array.c
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 void	arr_free(char **arr);
 
-//parse_utils.c
+// parse_utils.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
 
-// parse.c
+// parser/parse.c
 void	parse_main(t_var *var);
 
 // signals.c
