@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:57:08 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:13:21 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,5 @@
 // execute, what to redirect, what to pipe, etc.)
 void	parse_main(t_var *var)
 {
-	int	i;
-
-	i = 0;
 	arr_print("MAIN ARRAY", var->main_arr);
 }

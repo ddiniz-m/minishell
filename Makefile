@@ -27,7 +27,7 @@ $(LIBFT):
 	@echo $(GREEN)"Compiled Libft!"$(NC)
 
 $(NAME): $(LIBFT) $(OBJS)
-		@$(CC) $(CFLAGS) $(INC) $(SRCS) $(LIBFT) -o $(NAME)
+		@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) $(INC)
 		@echo $(GREEN)"Compiled!"$(NC)
 
 $(OBJ_DIR)/%.o: $(SRCS)
