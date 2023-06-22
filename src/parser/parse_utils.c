@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 13:49:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:51:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@ int	str_words_quotes(t_var *var, char *str, int i)
 	if (str[i] == '\'')
 	{
 		i++;
-		if (str[i] && meta_char(str[i]) != 1 && str[i] != '\'')
+		if (str[i] && str[i] != '\'')
 			var->words++;
 		while (str[i] && str[i] != '\'')
 			i++;
-		i++;
+		if (str[i])
+			i++;
 	}
 	else if (str[i] == '\"')
 	{
 		i++;
-		if (str[i] && meta_char(str[i]) != 1 && str[i] != '\"')
+		if (str[i] && str[i] != '\"')
 			var->words++;
 		while (str[i] && str[i] != '\"')
 			i++;
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (i);
 }
@@ -55,8 +57,9 @@ int	str_words_redirect(t_var *var, char *str, int i)
 
 int	str_words_envar(t_var *var, char *str, int i)
 {
-	if (str[i++] == '$')
+	if (str[i] == '$')
 	{
+		i++;
 		var->words++;
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
@@ -75,6 +78,7 @@ void	str_words(t_var *var, char *str)
 		i = str_words_quotes(var, str, i);
 		i = str_words_redirect(var, str, i);
 		i = str_words_envar(var, str, i);
+		printf("%d\n", i);
 		if (str[i] && meta_char(str[i]) == 0)
 		{
 			var->words++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 13:56:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:49:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	split_word_len_quotes(char *str, int i, char c)
 {
-	if (str[i] == c && str[i++])
+	if (str[i] == c && str[i])
 	{
 		i++;
 		while (str[i] && str[i] != c)
 			i++;
-		i++;
+		if (str[i])
+			i++;
 		if (str[i] && meta_char(str[i]) == 0)
 		{
 			while (str[i] && meta_char(str[i]) == 0)
