@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:06:21 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/22 18:31:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	var_init(t_var *var, char *str);
 void	signal_init(void);
 void	signal_interrupt(int signum);
 void	signal_exit(t_var *var, char *str);
-
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c
