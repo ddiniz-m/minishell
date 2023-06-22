@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:32:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:57:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(void)
 		var_init(var, str);
 		parse_main(var);
 		add_history(str);
-		signal_exit(str);
+		signal_exit(var, str);
 		free(str);
 		arr_free(var->main_arr);
 	}

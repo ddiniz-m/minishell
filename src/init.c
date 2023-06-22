@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 17:03:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:56:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ void	var_init(t_var *var, char *str)
 	var->words = 0;
 	str_words(var, str);
 	var->main_arr = split_main(var, str);
-	var->echo_count = echo_count(var, var->main_arr);
 }
