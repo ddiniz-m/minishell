@@ -6,11 +6,11 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:10:25 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:36:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:50:11 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 //Takes the main array and creates an array with echo and its respective
 //	contents (flags and text)

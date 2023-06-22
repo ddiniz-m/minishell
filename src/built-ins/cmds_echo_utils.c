@@ -6,11 +6,11 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:54:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 17:00:08 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:50:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 //Counts how many valid echo commands there are
 int	echo_count(t_var *var, char **arr)

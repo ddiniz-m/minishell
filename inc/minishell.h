@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 13:07:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:59:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	str_words(t_var *var, char *str);
 int		meta_char(char c);
 
 // parse.c
-void	parse_main(t_var *var);
+void	parse_main(t_var *var, char **env);
 
 // signals.c
 void	signal_init(void);

@@ -5,11 +5,12 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	init.c main.c signals.c cmds_echo_utils.c cmds_echo.c
+SRC_MSH	=	init.c main.c signals.c sort.c
 SRC_PRS	=	parse.c parse_split.c parse_array.c parse_utils.c
+SRC_BLT	=	cmds_echo_utils.c cmds_echo.c
 
-SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/parser/, $(SRC_PRS))
-OBJS	=	$(addprefix, $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o))
+SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/built-ins/, $(SRC_BLT))
+OBJS	=	$(addprefix, $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_BLT:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
 NC		=	"\033[0m"
