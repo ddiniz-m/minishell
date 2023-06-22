@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -64,5 +65,9 @@ char	**split_main(t_var *var, char *str);
 // parse_utils.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
+
+// ++++++++++ built-ins/[.....] ++++++++++
+// pwd.c
+void	pwd(void);
 
 #endif
