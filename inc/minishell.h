@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:06:21 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/22 18:51:39 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 void	arr_free(char **arr);
 
+// parse_split_word
+int		split_word(char *str);
+
 // parse_split.c
 char	*split_temp(char *str, int word_len);
-int		split_word_len(char *str);
 char	**split_main(t_var *var, char *str);
 
 // parse_utils.c

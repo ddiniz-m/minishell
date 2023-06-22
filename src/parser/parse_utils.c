@@ -3,37 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 16:51:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:54:55 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // In the future this function will have to interpretopen quotes
-int	str_words_quotes(t_var *var, char *str, int i)
+int	str_words_quotes(t_var *var, char *str, char c, int i)
 {
-	if (str[i] == '\'')
+	if (str[i] && str[i] == c)
 	{
 		i++;
-		if (str[i] && str[i] != '\'')
+		if (str[i] && str[i] != c)
 			var->words++;
-		while (str[i] && str[i] != '\'')
+		while (str[i] && str[i] != c)
 			i++;
 		if (str[i])
 			i++;
-	}
-	else if (str[i] == '\"')
-	{
-		i++;
-		if (str[i] && str[i] != '\"')
-			var->words++;
-		while (str[i] && str[i] != '\"')
-			i++;
-		if (str[i])
-			i++;
+		if (str[i] && meta_char(str[i]) == 0)
+		{
+			while (str[i] && meta_char(str[i]) == 0)
+				i++;
+		}
 	}
 	return (i);
 }
@@ -64,6 +59,11 @@ int	str_words_envar(t_var *var, char *str, int i)
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
+	else if (str[i] && str[i] == '|')
+	{
+		var->words++;
+		i++;
+	}
 	return (i);
 }
 
@@ -75,25 +75,22 @@ void	str_words(t_var *var, char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		i = str_words_quotes(var, str, i);
+		i = str_words_quotes(var, str, '\'', i);
+		i = str_words_quotes(var, str, '\"', i);
 		i = str_words_redirect(var, str, i);
 		i = str_words_envar(var, str, i);
-		printf("%d\n", i);
-		if (str[i] && meta_char(str[i]) == 0)
+		if (str[i] && (meta_char(str[i]) == 0))
 		{
 			var->words++;
-			while (str[i] && meta_char(str[i]) == 0)
+			while (str[i] && (meta_char(str[i]) == 0))
 				i++;
+			if ((str[i] && (meta_char(str[i]) == 3)))
+				var->words--;
 		}
 		else if (str[i] && meta_char(str[i]) == 1)
 		{
 			while (str[i] && meta_char(str[i]) == 1)
 				i++;
-		}
-		else if (str[i] && str[i] == '|')
-		{
-			var->words++;
-			i++;
 		}
 	}
 }
@@ -107,5 +104,7 @@ int	meta_char(char c)
 		return (1);
 	if (c == '$' || c == '>' || c == '<' || c == '|')
 		return (2);
+	if (c == '\'' || c == '\"')
+		return (3);
 	return (0);
 }
