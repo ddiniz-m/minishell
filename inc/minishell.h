@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 18:31:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:32:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	arr_free(char **arr);
 
 // parse_split.c
 char	*split_temp(char *str, int word_len);
-int		split_word_len(char *str);
+int		split_word(char *str);
 char	**split_main(t_var *var, char *str);
 
 // parse_utils.c
