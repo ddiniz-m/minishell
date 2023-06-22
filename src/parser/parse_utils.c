@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:20:10 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/22 13:49:50 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	str_words_redirect(t_var *var, char *str, int i)
 	if (str[i] == '>')
 	{
 		var->words++;
-		while(str[i] && str[i] == '>')
+		while (str[i] && str[i] == '>')
 			i++;
 	}
 	else if (str[i] == '<')
 	{
 		var->words++;
-		while(str[i] && str[i] == '<')
+		while (str[i] && str[i] == '<')
 			i++;
 	}
 	return (i);
@@ -55,11 +55,10 @@ int	str_words_redirect(t_var *var, char *str, int i)
 
 int	str_words_envar(t_var *var, char *str, int i)
 {
-	if (str[i] == '$')
+	if (str[i++] == '$')
 	{
-		i++;
 		var->words++;
-		while(str[i] && meta_char(str[i]) == 0)
+		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
 	return (i);

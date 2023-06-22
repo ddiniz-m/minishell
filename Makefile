@@ -5,7 +5,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	init.c main.c signals.c
+SRC_MSH	=	init.c main.c signals.c cmds_echo_utils.c cmds_echo.c
 SRC_PRS	=	parse.c parse_split.c parse_array.c parse_utils.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/parser/, $(SRC_PRS))
@@ -27,7 +27,7 @@ $(LIBFT):
 	@echo $(GREEN)"Compiled Libft!"$(NC)
 
 $(NAME): $(LIBFT) $(OBJS)
-		@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME) $(INC)
+		@$(CC) $(CFLAGS) $(INC) $(SRCS) $(LIBFT) -o $(NAME)
 		@echo $(GREEN)"Compiled!"$(NC)
 
 $(OBJ_DIR)/%.o: $(SRCS)

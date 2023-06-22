@@ -3,31 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:27:31 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/22 13:56:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	split_word_len_quotes(char *str, int i)
+int	split_word_len_quotes(char *str, int i, char c)
 {
-	if (str[i] && (str[i] == '\''))
+	if (str[i] == c && str[i++])
 	{
 		i++;
-		while (str[i] && (str[i] != '\''))
+		while (str[i] && str[i] != c)
 			i++;
 		i++;
-	}
-	else if (str[i] && (str[i] == '\"'))
-	{
-		i++;
-		while (str[i] && (str[i] != '\"'))
-			i++;
-		i++;
-		if (str[i] && meta_char(str[i]) != 1)
+		if (str[i] && meta_char(str[i]) == 0)
 		{
 			while (str[i] && meta_char(str[i]) == 0)
 				i++;
@@ -40,12 +33,12 @@ int	split_word_len_redirect(char *str, int i)
 {
 	if (str[i] == '>')
 	{
-		while(str[i] && str[i] == '>')
+		while (str[i] && str[i] == '>')
 			i++;
 	}
 	else if (str[i] == '<')
 	{
-		while(str[i] && str[i] == '<')
+		while (str[i] && str[i] == '<')
 			i++;
 	}
 	return (i);
@@ -56,7 +49,8 @@ int	split_word_len(char *str)
 {
 	int	i;
 
-	i = split_word_len_quotes(str, 0);
+	i = split_word_len_quotes(str, 0, '\'');
+	i = split_word_len_quotes(str, i, '\"');
 	i = split_word_len_redirect(str, i);
 	if (i > 0)
 		return (i);
@@ -65,14 +59,13 @@ int	split_word_len(char *str)
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
-	else if (str[i] && str[i] == '$')
+	else if (str[i] == '$' && str[i++])
 	{
-		i++;
 		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
 	else if (str[i] && str[i] == '|')
-			i++;
+		i++;
 	return (i);
 }
 
