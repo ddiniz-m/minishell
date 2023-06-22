@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//--------------------------------INCLUDES-------------------------------------
+//----------------------------------INCLUDES------------------------------------
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -28,40 +28,42 @@
 //signal
 # include <signal.h>
 
-//--------------------------------STRUCT-----------------------------------
+//-----------------------------------STRUCT-------------------------------------
 typedef struct s_variable
 {
 	int			words;
 	char		**main_arr;
 }				t_var;
 
-//--------------------------------SRCS-------------------------------------
+//------------------------------------SRCS--------------------------------------
 
 // init.c
 t_var	*var_struct_init(void);
 void	var_init(t_var *var, char *str);
 
-// parser/parse_split.c
-char	*split_temp(char *str, int word_len);
-int		split_word_len(char *str);
-char	**split_main(t_var *var, char *str);
+// signals.c
+void	signal_init(void);
+void	signal_interrupt(int signum);
+void	signal_exit(t_var *var, char *str);
 
-// parser/parse_array.c
+
+// ++++++++++ parser/[.........] ++++++++++
+// parse.c
+void	parse_main(t_var *var);
+
+// parse_array.c
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 void	arr_free(char **arr);
 
+// parse_split.c
+char	*split_temp(char *str, int word_len);
+int		split_word_len(char *str);
+char	**split_main(t_var *var, char *str);
+
 // parse_utils.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
-
-// parser/parse.c
-void	parse_main(t_var *var);
-
-// signals.c
-void	signal_init(void);
-void	signal_interrupt(int signum);
-void	signal_exit(t_var *var, char *str);
 
 #endif
