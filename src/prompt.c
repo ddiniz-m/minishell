@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:40:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 16:19:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:29:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ char	*set_prompt(void)
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		prompt = malloc(sizeof(char) *14);
+		prompt = malloc(sizeof(char) * 25);
 		if (!prompt)
 			exit (1);
-		prompt = "Minishell $> ";
+		prompt = "\033[1;33mMinishell $> \033[0m";
 		return (prompt);
 	}
 	buf = malloc(sizeof(char) * ft_strlen(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/')));
