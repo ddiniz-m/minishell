@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 18:57:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:09:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@
 //	allocated char *buffer
 int	main(void)
 {
-	char	*str;
 	t_var	*var;
 
 	var = var_struct_init();
 	signal_init();
 	while (1)
 	{
-		str = readline("Minishell >$ ");
-		var_init(var, str);
+		var->prompt = set_prompt(var);
+		var->str = readline(var->prompt);
+		var_init(var);
 		parse_main(var);
-		add_history(str);
-		signal_exit(var, str);
-		free(str);
-		arr_free(var->main_arr);
+		add_history(var->str);
+		signal_exit(var);
+		free(var->str);
+		free(var->prompt);
+		free_array(var->main_arr);
 	}
 	free(var);
 }
