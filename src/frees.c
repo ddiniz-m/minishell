@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 17:00:30 by mortins-         ###   ########.fr       */
+/*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
+/*   Updated: 2023/06/23 17:15:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_var	*var_struct_init(void)
+void	free_var(t_var *var)
 {
-	t_var	*var;
-
-	var = malloc(sizeof(t_var));
-	return (var);
+	if (var->str)
+		free(var->str);
+	if (var->prompt)
+		free(var->prompt);
+	if (var->main_arr)
+		free_array(var->main_arr);
+	free(var);
+	exit (0);
 }
 
-void	var_init(t_var *var)
+void	free_array(char **arr)
 {
-	var->words = 0;
-	str_words(var, var->str);
-	var->main_arr = split_main(var, var->str);
+	int	i;
+
+	i = 0;
+	while (arr[i] && i < arr_size(arr))
+		free(arr[i++]);
+	free(arr);
+}
+
+void	malloc_error(t_var *var)
+{
+	write(2, "Error: Malloc failed\n", 22);
+	free_var(var);
 }
