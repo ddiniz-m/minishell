@@ -44,6 +44,7 @@ void	signal_exit(t_var *var, char *str)
 		printf("exit\n");
 		free(str);
 		arr_free(var->main_arr);
+		free(var->prompt);
 		free(var);
 		exit (0);
 	}

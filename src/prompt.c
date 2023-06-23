@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:40:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/22 19:06:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:19:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*set_prompt(void)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
+	char	*buf;
 	char	*buf2;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
@@ -26,11 +27,13 @@ char	*set_prompt(void)
 		prompt = "Minishell $> ";
 		return (prompt);
 	}
-	buf2 = malloc(sizeof(char) * ft_strlen(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/')));
-	if (!buf2)
+	buf = malloc(sizeof(char) * ft_strlen(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/')));
+	if (!buf)
 		exit (1);
-	ft_strlcpy(buf2, ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') + 1, ft_strlen(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/')));
-	prompt = ft_strjoin(buf2, " $> ");
+	ft_strcpy(buf, ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') + 1);
+	buf2 = ft_strjoin("\033[1;33m", buf);
+	free(buf);
+	prompt = ft_strjoin(buf2, " $> \033[0m");
 	free(buf2);
 	return (prompt);
 }

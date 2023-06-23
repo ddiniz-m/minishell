@@ -23,12 +23,14 @@ int	main(void)
 	signal_init();
 	while (1)
 	{
-		str = readline("Minishell >$ ");
+		var->prompt = set_prompt();
+		str = readline(var->prompt);
 		var_init(var, str);
 		parse_main(var);
 		add_history(str);
 		signal_exit(var, str);
 		free(str);
+		free(var->prompt);
 		arr_free(var->main_arr);
 	}
 	free(var);

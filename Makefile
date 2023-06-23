@@ -2,10 +2,10 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -rf
 
-SRC_MSH = init.c main.c signals.c
+SRC_MSH = init.c main.c signals.c prompt.c
 SRC_PRS	=	parse.c parse_split.c parse_split_word.c parse_array.c parse_utils.c
 SRC_BLT = pwd.c
 
@@ -15,6 +15,7 @@ OBJS  = $(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $
         $(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
+YELLOW	=	"\033[1;33m"
 NC		=	"\033[0m"
 
 OBJ_DIR	=	obj

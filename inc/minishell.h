@@ -34,6 +34,7 @@ typedef struct s_variable
 {
 	int			words;
 	char		**main_arr;
+	char		*prompt;
 }				t_var;
 
 //------------------------------------SRCS--------------------------------------
@@ -46,6 +47,9 @@ void	var_init(t_var *var, char *str);
 void	signal_init(void);
 void	signal_interrupt(int signum);
 void	signal_exit(t_var *var, char *str);
+
+// prompt.c
+char	*set_prompt(void);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c
