@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 17:21:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:14:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ int		meta_char(char c);
 // ++++++++++ built-ins/[.....] ++++++++++
 // pwd.c
 void	pwd(void);
-// cd.c
-int		cd(char *path);
 
 #endif
