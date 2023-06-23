@@ -2,12 +2,12 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -rf
 
 SRC_MSH = init.c main.c signals.c
 SRC_PRS	=	parse.c parse_split.c parse_split_word.c parse_array.c parse_utils.c
-SRC_BLT = pwd.c cmds_echo_utils.c cmds_echo.c
+SRC_BLT = pwd.c cmds_utils.c cmds.c echo.c
 
 SRCS  = $(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
         $(addprefix src/parser/, $(SRC_PRS))

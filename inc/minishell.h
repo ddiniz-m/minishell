@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 14:38:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:56:25 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ typedef struct s_variable
 {
 	int			words;
 	char		**main_arr;
-	int			echo_count;
-
+	int			cmd_count;
 }				t_var;
 
 typedef struct s_array
 {
-	char	**echo;
+	char	**cmd;
 }				t_arr;
 
 //------------------------------------SRCS--------------------------------------
@@ -77,10 +76,11 @@ int		meta_char(char c);
 // pwd.c
 void	pwd(void);
 
-int		echo_count(t_var *var, char **arr);
-t_arr	**echo_struct_init(t_var *var);
-int		echo(t_var *var, t_arr **arr, int pos);
-int		echo_cmd_count(t_var *var, char **arr, int pos);
+int		cmd_validate(char *str);
+int		cmd_count(t_var *var, char **arr);
+t_arr	**cmd_struct_init(t_var *var);
+int		echo(t_var *var, char **echo);
+int		cmd_args(t_var *var, char **arr, int pos);
 int		echo_flag(char *str);
 
 #endif
