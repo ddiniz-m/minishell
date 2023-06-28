@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 17:56:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:08:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,36 @@
 typedef struct s_variable
 {
 	int			words;
-	char		**main_arr;
 	int			cmd_count;
+	char		*str;
+	char		*prompt;
+	char		**env;
+	char		**main_arr;
 }				t_var;
 
 typedef struct s_array
 {
-	char	**cmd;
+	char		**cmd;
 }				t_arr;
 
 //------------------------------------SRCS--------------------------------------
 
 // init.c
 t_var	*var_struct_init(void);
-void	var_init(t_var *var, char *str);
+void	var_init(t_var *var, char **env);
 
 // signals.c
 void	signal_init(void);
 void	signal_interrupt(int signum);
-void	signal_exit(t_var *var, char *str);
+void	signal_exit(t_var *var);
+
+// prompt.c
+char	*set_prompt(t_var *var);
+
+// frees.c
+void	free_var(t_var *var);
+void	free_array(char **arr);
+void	malloc_error(t_var *var);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c
@@ -61,7 +72,6 @@ void	parse_main(t_var *var);
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
-void	arr_free(char **arr);
 
 // parse_split.c
 char	*split_temp(char *str, int word_len);
@@ -76,11 +86,19 @@ int		meta_char(char c);
 // pwd.c
 void	pwd(void);
 
-int		cmd_validate(char *str);
+//cmds_utils.c
 int		cmd_count(t_var *var, char **arr);
-t_arr	**cmd_struct_init(t_var *var);
-int		echo(t_var *var, char **echo);
 int		cmd_args(t_var *var, char **arr, int pos);
-int		echo_flag(char *str);
+int		cmd_validate(char *str);
+
+// cmds.c
+char	**cmd_array(t_var *var, char **arr, int size);
+t_arr	**cmd_struct_init(t_var *var);
+
+// echo.c
+int		echo(t_var *var, char **echo);
+
+//export.c
+char	**export_init(t_var *var);
 
 #endif
