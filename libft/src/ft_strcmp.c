@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 19:05:31 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/06/23 17:34:31 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/06/23 18:25:10 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-void	parse_main(t_var *var)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int		i;
-	t_arr	**arr;
+	char	a;
+	char	b;
 
 	i = 0;
-	arr_print("MAIN ARRAY", var->main_arr);
-	if (var->echo_count > 0)
-	{
-		arr = echo_struct_init(var);
-		printf("\nECHO OUTPUT\n");
-		echo(var, arr, 0);
-		arr_free(arr[0]->echo);
-		free(arr);
-	}
+	while (s1[i] && s2[i] && (s1[i] == s2[i]))
+		i++;
+	a = s1[i];
+	b = s2[i];
+	return (a - b);
 }

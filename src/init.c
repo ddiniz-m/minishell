@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/20 19:05:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:17:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ t_var	*var_struct_init(void)
 	return (var);
 }
 
-void	var_init(t_var *var, char *str)
+void	var_init(t_var *var)
 {
 	var->words = 0;
-	str_words(var, str);
-	var->main_arr = split_main(var, str);
-	var->echo_count = echo_count(var, var->main_arr);
+	str_words(var, var->str);
+	var->main_arr = split_main(var, var->str);
+	var->cmd_count = cmd_count(var, var->main_arr);
+	printf("Cmd Count = %i\n", var->cmd_count);
 }
