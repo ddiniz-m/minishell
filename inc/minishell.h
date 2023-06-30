@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/28 18:08:31 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:07:38 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,6 @@ void	str_words(t_var *var, char *str);
 int		meta_char(char c);
 
 // ++++++++++ built-ins/[.....] ++++++++++
-// pwd.c
-void	pwd(void);
-
 //cmds_utils.c
 int		cmd_count(t_var *var, char **arr);
 int		cmd_args(t_var *var, char **arr, int pos);
@@ -94,9 +91,6 @@ int		cmd_validate(char *str);
 // cmds.c
 char	**cmd_array(t_var *var, char **arr, int size);
 t_arr	**cmd_struct_init(t_var *var);
-
-// echo.c
-int		echo(t_var *var, char **echo);
 
 //export.c
 char	**export_init(t_var *var);
