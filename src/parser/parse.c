@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/30 14:37:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:56:53 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	parse_main(t_var *var)
 {
 	int	i;
+	t_arr	**arr;
+	char	**export;
 
 	i = 0;
-	t_arr	**arr;
-
 	arr_print("MAIN ARRAY", var->main_arr);
 	arr = cmd_struct_init(var);
 	while(arr[i] && i < var->cmd_count)
@@ -29,11 +29,17 @@ void	parse_main(t_var *var)
 		else if(ft_strcmp("export", arr[i]->cmd[0]) == 0)
 		{
 			if (arr_size(arr[i]->cmd) == 1)
-				arr_print("EXPORT OUTPUT", export_init(var));
+			{
+				export = export_init(var);
+				arr_print("EXPORT OUTPUT", export);
+				free_array(export);
+			}
 			else
 				export_var(var);
 		}
 		free_array(arr[i]->cmd);
+		free(arr[i]);
 		i++;
 	}
+	free(arr);
 }

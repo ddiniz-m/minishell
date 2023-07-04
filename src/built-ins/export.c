@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/30 16:20:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:57:50 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*export_str(char *str)
 	while (str[i])
 		buf1[j++] = str[i++];
 	buf1[j] = '\"';
-	buf2 = ft_calloc(ft_strlen(buf1) + 12, sizeof(char));
+	buf2 = ft_calloc(ft_strlen(buf1) + 11, sizeof(char));
 	buf2 = ft_strjoin("declare -x ", buf1);
 	free(buf1);
 	return (buf2);
@@ -60,7 +60,7 @@ char	**export_init(t_var *var)
 			j++;
 		}
 		exp[k] = ft_calloc(ft_strlen(var->env[i]) + 1, sizeof(char));
-		ft_strcpy(exp[k], export_str(var->env[i]));
+		exp[k] = export_str(var->env[i]);
 		i++;
 	}
 	return (exp);
