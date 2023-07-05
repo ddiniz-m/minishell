@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/30 14:38:27 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:14:16 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_array
 
 // init.c
 t_var	*var_struct_init(void);
-void	var_init(t_var *var, char **env);
+void	var_init(t_var *var);
 
 // signals.c
 void	signal_init(void);
@@ -72,6 +72,7 @@ void	parse_main(t_var *var);
 int		arr_size(char **arr);
 char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
+char	**arr_add(char **arr, char *str);
 
 // parse_split.c
 char	*split_temp(char *str, int word_len);

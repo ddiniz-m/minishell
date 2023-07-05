@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/04 17:57:50 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/05 14:17:23 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	export_var(t_var *var)
 	(void)var;
 }
 
+// takes str and creates new string in specific format
+// E.g.: str = ARG=123; -> new_str = declare -x ARG="123";
 char	*export_str(char *str)
 {
 	int		i;
@@ -34,12 +36,12 @@ char	*export_str(char *str)
 	while (str[i])
 		buf1[j++] = str[i++];
 	buf1[j] = '\"';
-	buf2 = ft_calloc(ft_strlen(buf1) + 11, sizeof(char));
 	buf2 = ft_strjoin("declare -x ", buf1);
 	free(buf1);
 	return (buf2);
 }
 
+// Creates exp array by sorting and editing env
 char	**export_init(t_var *var)
 {
 	int		i;
@@ -59,11 +61,8 @@ char	**export_init(t_var *var)
 				k++;
 			j++;
 		}
-		exp[k] = ft_calloc(ft_strlen(var->env[i]) + 1, sizeof(char));
 		exp[k] = export_str(var->env[i]);
 		i++;
 	}
 	return (exp);
 }
-//ARG=abc				-> len = 7
-//declare -x ARG="abc"	-> len = 7 + 13

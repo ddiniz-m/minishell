@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:10:25 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 18:58:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:06:07 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_arr	**cmd_struct_init(t_var *var)
 	int		i;
 	t_arr	**arr;
 	char	**buf;
-
 	i = 0;
 	buf = arr_cpy(var->main_arr, 0, arr_size(var->main_arr));
 	arr = malloc(sizeof(t_arr *));
@@ -50,7 +49,7 @@ t_arr	**cmd_struct_init(t_var *var)
 		if (arr && arr[i])
 			arr[i]->cmd = cmd_array(var, buf, var->words);
 		if (buf)
-			buf += arr_size(arr[i]->cmd) + 1;
+			buf =  buf + arr_size(arr[i]->cmd) + 1;
 		i++;
 	}
 	return (arr);
