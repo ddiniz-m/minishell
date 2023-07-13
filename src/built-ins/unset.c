@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 15:13:48 by mortins-          #+#    #+#             */
-/*   Updated: 2022/11/22 15:21:42 by mortins-         ###   ########.fr       */
+/*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
+/*   Updated: 2023/07/07 18:04:45 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../../inc/minishell.h"
 
-//	Adds the node ’new’ at the end of the list 'lst'
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	if (ft_lstlast(*lst))
-		ft_lstlast(*lst)-> next = new;
-	else
-		*lst = new;
-}

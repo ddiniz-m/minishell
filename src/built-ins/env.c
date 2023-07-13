@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 16:58:56 by mortins-          #+#    #+#             */
-/*   Updated: 2022/11/22 15:20:25 by mortins-         ###   ########.fr       */
+/*   Created: 2023/07/07 17:08:15 by mira              #+#    #+#             */
+/*   Updated: 2023/07/13 15:06:24 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../../inc/minishell.h"
 
-//	Counts the number of nodes in a list
-
-int	ft_lstsize(t_list *lst)
+void	env_init(t_list **list, char **env)
 {
-	int	count;
+	int		i;
+	t_list	*node;
 
-	count = 0;
-	while (lst)
+	i = 0;
+	while (env[i])
 	{
-		lst = lst -> next;
-		count++;
+		node = ft_lstnew(env[i]);
+		ft_lstadd_back(list, node);
+		i++;
 	}
-	return (count);
 }

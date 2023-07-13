@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 17:15:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:25:23 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,16 @@ void	malloc_error(t_var *var)
 {
 	write(2, "Error: Malloc failed\n", 22);
 	free_var(var);
+}
+
+void	list_print(t_list **list)
+{
+	t_list	*tmp;
+
+	tmp = *list;
+	while (tmp)
+	{
+		printf("%s\n", tmp->data);
+		tmp = tmp->next;
+	}
 }
