@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/13 23:05:16 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/14 15:36:31 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,22 @@ void	export_init(t_list **list, t_list **env)
 
 void	export(t_arr **arr, t_list **export, t_list **env)
 {
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		j;
 	t_list	*node;
 
 	i = 0;
 	j = 1;
-	size = arr_size(arr[i]->cmd);
-	if (size > 1)
+	if (arr_size(arr[i]->cmd) > 1)
 	{
-		while (j < size)
+		while (j < arr_size(arr[i]->cmd))
 		{
 			node = ft_lstnew(arr[i]->cmd[j]);
 			if (ft_strchr(arr[i]->cmd[j], '='))
+			{
 				ft_lstadd_back(env, node);
-			j++;
-		}
-		j = 1;
-		export_init(export, env);
-		while (j < size)
-		{
-			node = ft_lstnew(arr[i]->cmd[j]);
+				node = ft_lstnew(arr[i]->cmd[j]);
+			}
 			ft_lstadd_back(export, node);
 			j++;
 		}
@@ -114,6 +108,7 @@ void	export(t_arr **arr, t_list **export, t_list **env)
 	else
 	{
 		printf("EXPORT OUTPUT\n");
+		list_sort(export);
 		list_print(export);
 	}
 }

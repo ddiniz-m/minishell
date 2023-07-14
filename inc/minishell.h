@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/13 18:55:35 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/14 15:21:07 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ char	*set_prompt(t_var *var);
 void	free_var(t_var *var);
 void	free_array(char **arr);
 void	malloc_error(t_var *var);
+
+// list.c
+int		list_check_dup(t_list **list, char *str);
+void	list_swap(t_list *list);
+void	list_sort(t_list **list);
 void	list_print(t_list **list);
 
 // ++++++++++ parser/[.........] ++++++++++
@@ -105,6 +110,7 @@ void	env_init(t_list **list, char **env);
 
 //export.c
 char	**export_array(t_list **list);
+char	*export_str(char *str);
 void	export_init(t_list **list, t_list **env);
 void	export(t_arr **arr, t_list **export, t_list **env);
 

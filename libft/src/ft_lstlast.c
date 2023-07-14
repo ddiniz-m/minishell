@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:44:55 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/13 14:48:19 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/14 14:57:00 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	t_list	*tmp;
+	
 	if (!lst)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	tmp = lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
