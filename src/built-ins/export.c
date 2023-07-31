@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/14 15:36:31 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/31 18:14:15 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,43 @@ char	*export_str(char *str)
 	return (buf2);
 }
 
+int	export_check_dup(char *str, t_list **list)
+{
+	char	*buf;
+	t_list	*tmp;
+
+	tmp = *list;
+	buf = export_str(str);
+	while (tmp)
+	{
+		if (strchrcmp(buf, tmp->data, '=') == 0)
+		{
+			free(buf);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	free(buf);
+	return (0);
+}
+
+//Checks if there is alredy str in export list;
+void	export_override(char *str, t_list **list)
+{
+	char	*buf;
+	t_list	*tmp;
+
+	tmp = *list;
+	buf = export_str(str);
+	while (tmp)
+	{
+		if (!strchrcmp(buf, tmp->data,'='))
+			tmp->data = buf;
+		tmp = tmp->next;
+	}
+	free(buf);
+}
+
 void	export_init(t_list **list, t_list **env)
 {
 	int				i;
@@ -91,24 +128,20 @@ void	export(t_arr **arr, t_list **export, t_list **env)
 
 	i = 0;
 	j = 1;
-	if (arr_size(arr[i]->cmd) > 1)
+	while (j < arr_size(arr[i]->cmd))
 	{
-		while (j < arr_size(arr[i]->cmd))
+		/* if (export_check_dup(arr[i]->cmd[j], export))
+		{
+			export_override(arr[i]->cmd[j], export);
+			continue ;
+		} */
+		if (ft_strchr(arr[i]->cmd[j], '='))
 		{
 			node = ft_lstnew(arr[i]->cmd[j]);
-			if (ft_strchr(arr[i]->cmd[j], '='))
-			{
-				ft_lstadd_back(env, node);
-				node = ft_lstnew(arr[i]->cmd[j]);
-			}
-			ft_lstadd_back(export, node);
-			j++;
+			ft_lstadd_back(env, node);
 		}
-	}
-	else
-	{
-		printf("EXPORT OUTPUT\n");
-		list_sort(export);
-		list_print(export);
+		node = ft_lstnew(export_str(arr[i]->cmd[j]));
+		ft_lstadd_back(export, node);
+		j++;
 	}
 }

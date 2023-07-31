@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 15:02:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:11:45 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,17 @@ int	meta_char(char c)
 	if (c == '\'' || c == '\"')
 		return (3);
 	return (0);
+}
+
+//Compares strings until s1 reaches c
+int	strchrcmp(char *s1, char *s2, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!c)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && s2[i] != c)
+		i++;
+	return (s1[i] - s2[i]);
 }

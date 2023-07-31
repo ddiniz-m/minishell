@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/14 15:21:07 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/31 17:13:03 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ char	**split_main(t_var *var, char *str);
 // parse_utils.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
+int		strchrcmp(char *s1, char *s2, char c);
 
 // ++++++++++ built-ins/[.....] ++++++++++
 //cmds_utils.c

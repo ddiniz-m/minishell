@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/07/14 15:19:49 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/31 16:44:46 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	list_sort(t_list **list)
 	{
 		while (head->next)
 		{	
-			if (!ft_strnstr(head->data, "declare -x", 11))
-				head->data = export_str(head->data);
 			if (ft_strcmp(head->data, head->next->data) > 0)
 				list_swap(head);
 			head = head->next;

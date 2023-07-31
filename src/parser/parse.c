@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/13 18:55:09 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/31 17:50:59 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,16 @@ void	parse_main(t_var *var, t_list **env, t_list **exp)
 			list_print(env);
 		}
 		else if(ft_strcmp("export", arr[i]->cmd[0]) == 0)
-			export(arr, exp, env);
+		{
+			list_sort(exp);
+			if (arr_size(arr[i]->cmd) > 1)
+				export(arr, exp, env);
+			else
+			{
+				printf("EXPORT OUTPUT\n");
+				list_print(exp);
+			}
+		}
 		/* else if(ft_strcmp("unset", arr[i]->cmd[0]) == 0)
 		{
 			if (arr_size(arr[i]->cmd) > 1)

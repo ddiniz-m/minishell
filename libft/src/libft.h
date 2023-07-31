@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/11 15:43:46 by mira             ###   ########.fr       */
+/*   Updated: 2023/07/31 16:14:58 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *big, const char *lil, size_t n);
 char			*ft_strrchr(const char *s, int c);
+char			*ft_strstr(char *str, char *to_find);
 char			*ft_strtrim(const char *s, const char *set);
 char			*ft_substr(char const *str, unsigned int c, size_t n);
 int				ft_tolower(int c);
