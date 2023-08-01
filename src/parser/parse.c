@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/31 17:50:59 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 19:03:34 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	parse_main(t_var *var, t_list **env, t_list **exp)
 		{
 			list_sort(exp);
 			if (arr_size(arr[i]->cmd) > 1)
-				export(arr, exp, env);
+				export(arr[i]->cmd, exp, env);
 			else
 			{
 				printf("EXPORT OUTPUT\n");
@@ -43,10 +43,8 @@ void	parse_main(t_var *var, t_list **env, t_list **exp)
 		{
 			if (arr_size(arr[i]->cmd) > 1)
 			{
-				int	j = 1;
-				int	size = arr_size(arr[i]->cmd);
-				while (j < size)
-					ft_lstadd_back(export, export_listnew( arr[i]->cmd[j++]));
+				unset(env, arr[i]->cmd);
+				unset(exp, arr[i]->cmd);
 			}
 			else
 				break ;

@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/31 17:13:03 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 19:01:22 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*set_prompt(t_var *var);
 void	free_var(t_var *var);
 void	free_array(char **arr);
 void	malloc_error(t_var *var);
+void	free_list(t_list **list);
 
 // list.c
 int		list_check_dup(t_list **list, char *str);
@@ -94,7 +95,8 @@ char	**split_main(t_var *var, char *str);
 // parse_utils.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
-int		strchrcmp(char *s1, char *s2, char c);
+int		strcmp_chr(char *s1, char *s2, char c);
+int		strlen_chr(char *str, char c);
 
 // ++++++++++ built-ins/[.....] ++++++++++
 //cmds_utils.c
@@ -108,16 +110,17 @@ t_arr	**cmd_struct_init(t_var *var);
 
 //env.c
 void	env_init(t_list **list, char **env);
+void	env_override(char *str, t_list **env);
+int		env_check_dup(char *str, t_list **env);
 
 //export.c
 char	**export_array(t_list **list);
 char	*export_str(char *str);
 void	export_init(t_list **list, t_list **env);
-void	export(t_arr **arr, t_list **export, t_list **env);
+void	export(char **arr, t_list **export, t_list **env);
 
-//usnet.c
-int		unset_var_size(char *str);
-char	**unset(char **arr, char *str);
+//unset.c
+char	**unset(t_list **list, char **arr);
 
 void			ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstadd_front(t_list **lst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/14 12:59:38 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 18:02:58 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	**exp;
 
 	env = (t_list **)malloc(sizeof(env));
-	exp =  (t_list **)malloc(sizeof(export));
+	exp =  (t_list **)malloc(sizeof(exp));
 	*env = NULL;
 	*exp = NULL;
 	env_init(env, envp);

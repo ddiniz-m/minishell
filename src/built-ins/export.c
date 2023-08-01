@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/31 18:14:15 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 19:00:08 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ char	*export_str(char *str)
 	return (buf2);
 }
 
-int	export_check_dup(char *str, t_list **list)
+int	export_check_dup(char *str, t_list **export)
 {
 	char	*buf;
 	t_list	*tmp;
 
-	tmp = *list;
+	tmp = *export;
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (strchrcmp(buf, tmp->data, '=') == 0)
+		if (strcmp_chr(tmp->data, buf, '=') == 0
+			|| ft_strcmp(tmp->data, buf) == 0)
 		{
 			free(buf);
 			return (1);
@@ -86,17 +87,18 @@ int	export_check_dup(char *str, t_list **list)
 }
 
 //Checks if there is alredy str in export list;
-void	export_override(char *str, t_list **list)
+void	export_override(char *str, t_list **export)
 {
 	char	*buf;
 	t_list	*tmp;
 
-	tmp = *list;
+	tmp = *export;
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (!strchrcmp(buf, tmp->data,'='))
-			tmp->data = buf;
+		if (strcmp_chr(tmp->data, buf, '=') == 0
+			|| ft_strcmp(tmp->data, buf) == 0)
+			ft_strcpy(tmp->data, buf);
 		tmp = tmp->next;
 	}
 	free(buf);
@@ -120,28 +122,28 @@ void	export_init(t_list **list, t_list **env)
 	}
 }
 
-void	export(t_arr **arr, t_list **export, t_list **env)
+void	export(char **arr, t_list **export, t_list **env)
 {
 	int		i;
-	int		j;
 	t_list	*node;
 
-	i = 0;
-	j = 1;
-	while (j < arr_size(arr[i]->cmd))
+	i = 1;
+	while (i < arr_size(arr))
 	{
-		/* if (export_check_dup(arr[i]->cmd[j], export))
+		if (env_check_dup(arr[i], env))
+			env_override(arr[i], env);
+		if (export_check_dup(arr[i], export))
 		{
-			export_override(arr[i]->cmd[j], export);
+			export_override(arr[i++], export);
 			continue ;
-		} */
-		if (ft_strchr(arr[i]->cmd[j], '='))
+		}
+		if (ft_strchr(arr[i], '='))
 		{
-			node = ft_lstnew(arr[i]->cmd[j]);
+			node = ft_lstnew(arr[i]);
 			ft_lstadd_back(env, node);
 		}
-		node = ft_lstnew(export_str(arr[i]->cmd[j]));
+		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
-		j++;
+		i++;
 	}
 }

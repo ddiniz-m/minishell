@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/31 16:14:58 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 17:27:26 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*ft_strjoin(const char *s1, const char *s2);
 unsigned int	ft_strlcat(char *dest, const char *src, size_t size);
 unsigned int	ft_strlcpy(char *dest, const char *src, size_t size);
-size_t			ft_strlen(const char *s);
+int				ft_strlen(const char *s);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *big, const char *lil, size_t n);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strstr(char *str, char *to_find);
 char			*ft_strtrim(const char *s, const char *set);
-char			*ft_substr(char const *str, unsigned int c, size_t n);
+char			*ft_substr(char const *str, int c, int n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 

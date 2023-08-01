@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/14 13:11:03 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 17:43:32 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,19 @@ void	malloc_error(t_var *var)
 {
 	write(2, "Error: Malloc failed\n", 22);
 	free_var(var);
+}
+
+void	free_list(t_list **list)
+{
+	t_list	*head;
+	t_list	*temp;
+
+	head = *list;
+	while (head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
+	free(list);
 }

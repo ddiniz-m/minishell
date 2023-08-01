@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/31 18:11:45 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/01 18:35:06 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,28 @@ int	meta_char(char c)
 	return (0);
 }
 
-//Compares strings until s1 reaches c
-int	strchrcmp(char *s1, char *s2, char c)
+int	strlen_chr(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	if (!c)
-		return (0);
-	while (s1[i] && s2[i] && s1[i] == s2[i] && s2[i] != c)
+	while(str[i] && str[i] != c)
 		i++;
-	return (s1[i] - s2[i]);
+	return (i);
+}
+
+//Compares strings until s1 reaches c
+int	strcmp_chr(char *s1, char *s2, char c)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (i < strlen_chr(s2, c))
+	{
+		n += s1[i] - s2[i];
+		i++;
+	}
+	return (n);
 }
