@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/01 18:35:06 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:05:50 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	strcmp_chr(char *s1, char *s2, char c)
 
 	i = 0;
 	n = 0;
-	while (i < strlen_chr(s2, c))
+	while (s1[i] && i < strlen_chr(s2, c))
 	{
 		n += s1[i] - s2[i];
 		i++;

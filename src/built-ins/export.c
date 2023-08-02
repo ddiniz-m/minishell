@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/01 19:00:08 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:32:00 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,26 @@ void	export_override(char *str, t_list **export)
 	free(buf);
 }
 
-void	export_init(t_list **list, t_list **env)
+t_list	**export_init(t_list **env)
 {
-	int				i;
-	char			*tmp;
-	char			**env_arr;
-	struct s_list	*node;
+	int		i;
+	char	*tmp;
+	t_list	**exp;
+	t_list	*node;
+	char	**env_arr;
 
 	i = 1;
+	exp = (t_list **)malloc(sizeof(exp));
+	*exp = NULL;
 	env_arr = export_array(env);
 	while (i < arr_size(env_arr) - 1)
 	{
 		tmp = export_str(env_arr[i]);
 		node = ft_lstnew(tmp);
-		ft_lstadd_back(list, node);
+		ft_lstadd_back(exp, node);
 		i++;
 	}
+	return (exp);
 }
 
 void	export(char **arr, t_list **export, t_list **env)

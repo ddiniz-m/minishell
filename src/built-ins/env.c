@@ -6,24 +6,28 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:08:15 by mira              #+#    #+#             */
-/*   Updated: 2023/08/01 18:43:04 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:30:35 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	env_init(t_list **list, char **env)
+t_list	**env_init(char **envp)
 {
 	int		i;
 	t_list	*node;
+	t_list	**env;
 
 	i = 0;
-	while (env[i])
+	env = (t_list **)malloc(sizeof(env));
+	*env = NULL;
+	while (envp[i])
 	{
-		node = ft_lstnew(env[i]);
-		ft_lstadd_back(list, node);
+		node = ft_lstnew(envp[i]);
+		ft_lstadd_back(env, node);
 		i++;
 	}
+	return (env);
 }
 
 //Checks if there is alredy str in env;

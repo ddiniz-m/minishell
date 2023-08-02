@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/07/31 16:44:46 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 13:25:30 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,29 @@ void	list_swap(t_list *list)
 	head->next->data = str;
 }
 
+void	list_remove(t_list **list, int pos)
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*target;
+
+	i = 0;
+	tmp = *list;
+	if (pos == 0)
+	{
+		(*list) = (*list)->next;
+		return ;
+	}
+	while (i < pos - 1)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	target = tmp->next;
+	tmp->next = target->next;
+	ft_lstdelone(target, free);
+}
+
 void	list_sort(t_list **list)
 {
 	t_list	*head;
@@ -80,4 +103,19 @@ void	list_print(t_list **list)
 		printf("%s\n", tmp->data);
 		tmp = tmp->next;
 	}
+}
+
+int	list_size(t_list **list)
+{
+	int		i;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = *list;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }

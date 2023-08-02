@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/01 19:03:34 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 15:37:11 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,15 @@ void	parse_main(t_var *var, t_list **env, t_list **exp)
 				list_print(exp);
 			}
 		}
-		/* else if(ft_strcmp("unset", arr[i]->cmd[0]) == 0)
+		else if(ft_strcmp("unset", arr[i]->cmd[0]) == 0)
 		{
 			if (arr_size(arr[i]->cmd) > 1)
 			{
-				unset(env, arr[i]->cmd);
-				unset(exp, arr[i]->cmd);
+				unset(env, exp, arr[i]->cmd);
 			}
 			else
 				break ;
-		} */
+		}
 		i++;
 	}
 	free(arr);

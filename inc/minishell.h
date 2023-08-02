@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/01 19:01:22 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/02 15:41:33 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	var_init(t_var *var);
 // signals.c
 void	signal_init(void);
 void	signal_interrupt(int signum);
-void	signal_exit(t_var *var);
+void	signal_exit(t_var *var, t_list **env, t_list **exp);
 
 // prompt.c
 char	*set_prompt(t_var *var);
@@ -69,13 +69,16 @@ char	*set_prompt(t_var *var);
 void	free_var(t_var *var);
 void	free_array(char **arr);
 void	malloc_error(t_var *var);
-void	free_list(t_list **list);
+void	free_list(t_list **list, int flag);
+
 
 // list.c
 int		list_check_dup(t_list **list, char *str);
 void	list_swap(t_list *list);
 void	list_sort(t_list **list);
 void	list_print(t_list **list);
+void	list_remove(t_list **list, int pos);
+int		list_size(t_list **list);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c
@@ -109,18 +112,19 @@ char	**cmd_array(t_var *var, char **arr, int size);
 t_arr	**cmd_struct_init(t_var *var);
 
 //env.c
-void	env_init(t_list **list, char **env);
+t_list	**env_init(char **env);
 void	env_override(char *str, t_list **env);
 int		env_check_dup(char *str, t_list **env);
 
 //export.c
+int		export_check_dup(char *str, t_list **export);
 char	**export_array(t_list **list);
 char	*export_str(char *str);
-void	export_init(t_list **list, t_list **env);
+t_list	**export_init(t_list **env);
 void	export(char **arr, t_list **export, t_list **env);
 
 //unset.c
-char	**unset(t_list **list, char **arr);
+void	unset(t_list **env, t_list **exp, char **arr);
 
 void			ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstadd_front(t_list **lst, t_list *new);
