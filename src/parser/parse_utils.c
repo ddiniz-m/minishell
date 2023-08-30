@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/22 19:20:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:02:43 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	str_words_redirect(t_var *var, char *str, int i)
 	return (i);
 }
 
-int	str_words_envar(t_var *var, char *str, int i)
+int	str_words_others(t_var *var, char *str, int i)
 {
 	if (str[i] == '$')
 	{
@@ -63,6 +63,11 @@ int	str_words_envar(t_var *var, char *str, int i)
 	{
 		var->words++;
 		i++;
+	}
+	else if (str[i] && meta_char(str[i]) == 1)
+	{
+		while (str[i] && meta_char(str[i]) == 1)
+			i++;
 	}
 	return (i);
 }
@@ -78,19 +83,20 @@ void	str_words(t_var *var, char *str)
 		i = str_words_quotes(var, str, '\'', i);
 		i = str_words_quotes(var, str, '\"', i);
 		i = str_words_redirect(var, str, i);
-		i = str_words_envar(var, str, i);
+		i = str_words_others(var, str, i);
 		if (str[i] && (meta_char(str[i]) == 0))
 		{
 			var->words++;
 			while (str[i] && (meta_char(str[i]) == 0))
 				i++;
-			if ((str[i] && (meta_char(str[i]) == 3)))
+			if (str[i] && str[i] == '$')
+			{
 				var->words--;
-		}
-		else if (str[i] && meta_char(str[i]) == 1)
-		{
-			while (str[i] && meta_char(str[i]) == 1)
-				i++;
+				if (str[i + 1] && meta_char(str[i + 1]) == 3)
+					var->words--;
+			}
+			else if ((str[i] && (meta_char(str[i]) == 3)))
+				var->words--;
 		}
 	}
 }
