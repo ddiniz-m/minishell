@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split_word.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:45:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 15:03:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:37:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+// Error: Should give syntax error if quotes are unclosed
 int	split_word_quotes(char *str, char c, int i)
 {
 	if (str[i] && str[i] == c)
@@ -62,6 +63,8 @@ int	split_word_envar(char *str, int i)
 }
 
 // size of str until next specific character
+// Doesn't account for ($) inside (""); We have to keep that in mind for when
+// we start implementing enviroment variables
 int	split_word(char *str)
 {
 	int	i;

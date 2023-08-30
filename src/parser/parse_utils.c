@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 15:02:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:37:37 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int	str_words_others(t_var *var, char *str, int i)
 }
 
 // how many words are in str
+// Error: Separates words weirdly:
+//	Interprets ("a"b"c") as ("a"b;"c") and ("a""b""c") as ("a";"b";"c") but
+//		interprets (a"b"c) and (ab"c") correctly
+//	Interprets("a"$VAR) as ("a";$VAR), but interprets ($VAR"b") correctly
 void	str_words(t_var *var, char *str)
 {
 	int	i;
