@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/04 14:18:40 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:06:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,24 @@ void	arr_print(char *str, char **arr);
 
 // parse_split.c
 char	*split_temp(char *str, int word_len);
-int		split_word(char *str);
 char	**split_main(t_var *var, char *str);
+
+// parse_split_word.c
+int		split_plain(char *str, int i);
+int		split_quotes(char *str, char c, int i);
+int		split_envar(char *str, int i);
+int		split_others(char *str);
+int		split_word(char *str);
 
 // parse_str.c
 void	str_words(t_var *var, char *str);
 int		meta_char(char c);
 
 // parse_str_words.c
+int		str_words_plain(t_var *var, char *str, int i);
 int		str_words_quotes(t_var *var, char *str, char c, int i);
-int		str_words_redirect(t_var *var, char *str, int i);
-int		str_words_others(t_var *var, char *str, int i);
 int		str_words_envar(t_var *var, char *str, int i);
+int		str_words_others(t_var *var, char *str, int i);
 
 
 // ++++++++++ built-ins/[.....] ++++++++++

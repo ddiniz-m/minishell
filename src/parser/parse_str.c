@@ -6,13 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:26:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/04 14:18:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:40:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-//	Maybe make a separatefunction that checks if there's unclosed quotes
 
 // how many words are in str
 // Error:
@@ -32,18 +30,7 @@ void	str_words(t_var *var, char *str)
 		if (str[i] && str[i] == '$')
 			i = str_words_envar(var, str, i);
 		if (str[i] && !meta_char(str[i]))
-		{
-			var->words++;
-			while (str[i] && !meta_char(str[i]))
-				i++;
-			if (str[i] && str[i] == '$')
-			{
-				i = str_words_envar(var, str, i);
-				var->words--;
-			}
-			else if (str[i] && meta_char(str[i]) == 3)
-				var->words--;
-		}
+			i = str_words_plain(var, str, i);
 	}
 }
 
