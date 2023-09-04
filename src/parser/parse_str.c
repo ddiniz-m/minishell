@@ -6,16 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:26:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/04 16:40:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:54:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // how many words are in str
-// Error:
-//	- In the case (a"") the function doesn't see any words, maybe make a
-//		function specific for plain text
 void	str_words(t_var *var, char *str)
 {
 	int	i;
@@ -48,6 +45,6 @@ int	meta_char(char c)
 	if (c == '\'' || c == '\"')
 		return (3);
 	if (c == '$')
-		return (4); // currently not in use anywhere
+		return (4); // currently only used to distinguish between '$' and regular chars
 	return (0);
 }

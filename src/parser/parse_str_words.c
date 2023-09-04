@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/04 16:41:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:49:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,36 +53,27 @@ int	str_words_quotes(t_var *var, char *str, char c, int i)
 		i++;
 		if (str[i] && str[i] == c)
 			return (i + 1);
+		while (str[i] && str[i] != c)
+			i++;
 		if (!str[i])
 		{
 			write(1, "Syntax Error: unclosed quotes\n", 31);
-			return (i);
-			// Should stop the process
+			return (i);	// Should stop the process
 		}
-		if (str[i] && str[i] != c)
+		var->words++;
+		i++;
+		if (str[i] && (!meta_char(str[i]) || str[i] == '$'))
+			var->words--;
+		if (str[i] && !meta_char(str[i]))
+			return (str_words_plain(var, str, i));
+		else if (str[i] && str[i] == '$')
+			return (str_words_envar(var, str, i));
+		else if (str[i] && meta_char(str[i]) == 3)
 		{
-			while (str[i] && str[i] != c)
-				i++;
-			if (!str[i])
-			{
-				write(1, "Syntax Error: unclosed quotes\n", 31);
-				return (i);	// Should stop the process
-			}
-			var->words++;
-			i++;
 			words = var->words;
-			if (str[i] && (!meta_char(str[i]) || str[i] == '$'))
+			i = split_quotes(str, str[i], i);
+			if (words < var->words)
 				var->words--;
-			if (str[i] && !meta_char(str[i]))
-				i = str_words_plain(var, str, i);
-			else if (str[i] && str[i] == '$')
-				i = str_words_envar(var, str, i);
-			else if (str[i] && meta_char(str[i]) == 3)
-			{
-				i = split_quotes(str, str[i], i);
-				if (words < var->words)
-					var->words--;
-			}
 		}
 	}
 	return (i);
@@ -106,8 +97,8 @@ int	str_words_envar(t_var *var, char *str, int i)
 		}
 		else if (str[i] && !meta_char(str[i]))
 		{
-			i = str_words_plain(var, str, i);
 			var->words--;
+			return (str_words_plain(var, str, i));
 		}
 	}
 	return (i);

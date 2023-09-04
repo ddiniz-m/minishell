@@ -36,7 +36,7 @@ int	main(void)
 }
 
 /*	To do:
-	- Figure out how to handle unclosed quotes
+	- Figure out how to handle empty quotes
 	- Maybe check for syntax errors before starting to parse <var>
 	- Need a separate function to check if there are unclosed quote marks
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
