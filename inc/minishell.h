@@ -55,7 +55,10 @@ char	*set_prompt(t_var *var);
 // frees.c
 void	free_var(t_var *var);
 void	free_array(char **arr);
+
+// errors.c
 void	malloc_error(t_var *var);
+int		quote_error(char *str);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c

@@ -33,9 +33,3 @@ void	free_array(char **arr)
 		free(arr[i++]);
 	free(arr);
 }
-
-void	malloc_error(t_var *var)
-{
-	write(2, "Error: Malloc failed\n", 22);
-	free_var(var);
-}
