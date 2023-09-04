@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/31 18:14:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:18:05 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,21 @@ int	main(void)
 	free(var);
 }
 
-/* 	Note: maybe check for syntax errors before starting to parse <var>
-	-Need a separate function to check if the quotation marks are closed or empty
+/*	To do:
+	- Figure out how to handle unclosed quotes
+	- Maybe check for syntax errors before starting to parse <var>
+	- Need a separate function to check if there are unclosed quote marks
+	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
 
-	Errors on: str_words(); split_word_quotes(); split_word(); str_words_others()
+	Errors on:
+	- str_words();
+	- split_quotes();
+	- split_word();
+	- str_words_quotes();
 
-	Needs attention: malloc_error(); pwd(); split_word(); str_words_quotes()
+	Needs attention:
+	- malloc_error();
+	- pwd();
+	- split_word();
+	- str_words_quotes()
  */

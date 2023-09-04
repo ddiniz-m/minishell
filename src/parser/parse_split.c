@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/31 17:12:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:18:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ char	*split_temp(char *str, int word_len)
 }
 
 // splits str
+//	Need to rewrite split
+//	We need to be able to tell split where to start splitting,
+//	instead of just how many characters it needs to split
+//	Errors:
+//		Interprets (""test) as (""test) instead of (test)
 char	**split_main(t_var *var, char *str)
 {
 	int		i;
