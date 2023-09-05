@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
-/*   Updated: 2023/08/02 15:43:01 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/05 16:39:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@ void	unset(t_list **env, t_list **exp, char **arr)
 		{
 			while (j < list_size(env) - 1)
 			{
+				printf("UNSET arr[%i] = %s\ntmp->data = %s\n", i, arr[i], tmp->data);
 				if (strcmp_chr(arr[i], tmp->data, '=') == 0
 					|| ft_strcmp(arr[i], tmp->data) == 0)
+				{
+					printf("UNSET 4!!!\n");
 					list_remove(env, j);
+				}
 				tmp = tmp->next;
 				j++;
 			}
