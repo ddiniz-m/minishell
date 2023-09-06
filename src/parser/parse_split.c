@@ -6,34 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/04 14:18:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:19:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*split_temp(char *str, int word_len)
-{
-	int		i;
-	char	*temp;
-
-	i = 0;
-	temp = NULL;
-	temp = malloc(sizeof(char) * (word_len + 1));
-	if (!temp)
-		return (NULL);
-	while (*str && i < word_len)
-		temp[i++] = *str++;
-	temp[i] = '\0';
-	return (temp);
-}
-
-// splits str
-//	Need to rewrite split
-//	We need to be able to tell split where to start splitting,
-//	instead of just how many characters it needs to split
-//	Errors:
-//		Interprets (""test) as (""test) instead of (test)
+// Splits str into an array of char *
 char	**split_main(t_var *var, char *str)
 {
 	int		i;
@@ -55,4 +34,37 @@ char	**split_main(t_var *var, char *str)
 	}
 	buff[i] = 0;
 	return (buff);
+}
+
+// Returns the length of str until the next whitespace or separating meta-char
+int	split_word(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] && meta_char(str[i]) == 3)
+		return (str_quotes(str, str[i], i));
+	if (str[i] && meta_char(str[i]) == 2)
+		return (str_others(str, i));
+	if (str[i] && str[i] == '$')
+		return (str_envar(str, i));
+	if (str[i] && !meta_char(str[i]))
+		return (str_plain(str, i));
+	return (i);
+}
+
+char	*split_temp(char *str, int word_len)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = NULL;
+	temp = malloc(sizeof(char) * (word_len + 1));
+	if (!temp)
+		return (NULL);
+	while (*str && i < word_len)
+		temp[i++] = *str++;
+	temp[i] = '\0';
+	return (temp);
 }

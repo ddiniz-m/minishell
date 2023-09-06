@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/05 17:30:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:48:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,19 @@ char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 
 // parse_split.c
-char	*split_temp(char *str, int word_len);
 char	**split_main(t_var *var, char *str);
-
-// parse_split_word.c
-int		split_quotes(char *str, char c, int i);
-int		split_empty_quotes(char *str, int i);
 int		split_word(char *str);
+char	*split_temp(char *str, int word_len);
+
+// parse_counter.c
+void	str_counter(t_var *var, char *str);
 
 // parse_str.c
-void	str_words(t_var *var, char *str);
+int		str_plain(char *str, int i);
+int		str_quotes(char *str, char c, int i);
+int		str_envar(char *str, int i);
+int		str_others(char *str, int i);
 int		meta_char(char c);
-
-// parse_str_words.c
-int		str_words_plain(char *str, int i);
-int		str_words_quotes(t_var *var, char *str, char c, int i);
-int		str_words_envar(char *str, int i);
-int		str_words_others(char *str, int i);
 
 // ++++++++++ built-ins/[.....] ++++++++++
 // pwd.c
