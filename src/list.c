@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/08/02 13:25:30 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/06 16:55:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	list_remove(t_list **list, int pos)
 	}
 	target = tmp->next;
 	tmp->next = target->next;
-	ft_lstdelone(target, free);
+	free(target);
 }
 
 void	list_sort(t_list **list)
