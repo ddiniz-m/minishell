@@ -57,8 +57,7 @@ int	str_envar(char *str, int i)
 {
 	if (str[i] == '$')
 	{
-		while (str[i] == '$')
-			i++;
+		i++;
 		if (str[i] && meta_char(str[i]) == 3)
 			return (str_quotes(str, str[i], i));
 		else if (str[i] && !meta_char(str[i]))
