@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/06 16:22:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:14:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int	str_plain(char *str, int i)
 
 //	Need to figure out how to stop the whole proccess
 //	Need a separate function to check if there are unclosed quote marks
-/*
-	Error:
-	-Unclosed quotes: Should give syntax error, stop the process and change
-		exit status
-*/
 int	str_quotes(char *str, char c, int i)
 {
 	if (str[i] && str[i] == c)
@@ -41,7 +36,7 @@ int	str_quotes(char *str, char c, int i)
 		while (str[i] && str[i] != c)
 			i++;
 		if (!str[i])
-			return (i); // Should stop the process and syntax error
+			return (i);
 		i++;
 		if (str[i] && !meta_char(str[i]))
 			return (str_plain(str, i));

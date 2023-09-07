@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/07 15:53:31 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:01:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	free_array(char **arr);
 
 //errors.c
 void	malloc_error(t_var *var);
+int		syntax_error(char *str);
 int		quote_error(char *str);
+int		pipe_error(char *str);
+int		dollar_error(char *str);
 
 // ++++++++++ parser/[.........] ++++++++++
 // parse.c

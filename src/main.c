@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/07 16:19:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:16:49 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	{
 		var->prompt = set_prompt(var);
 		var->str = readline(var->prompt);
-		synt_err = quote_error(var->str);
+		synt_err = syntax_error(var->str);
 		if (!synt_err)
 		{
 			var_init(var);
@@ -40,3 +40,16 @@ int	main(void)
 	}
 	free(var);
 }
+
+/*	To do:
+	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
+
+	Errors on:
+	- str_quotes();
+
+	Needs attention:
+	- malloc_error();
+	- pwd();
+	- str_quotes();
+	- syntax_error();
+ */
