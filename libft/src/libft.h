@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 19:16:04 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:19:45 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,6 @@ int				ft_tolower(int c);
 int				ft_toupper(int c);
 
 // VV------------------------------ LIBFT BONUS ------------------------------VV
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
-void			ft_lstadd_back(t_list **lst, t_list *new);
-void			ft_lstadd_front(t_list **lst, t_list *new);
-void			ft_lstclear(t_list **lst, void (*del)(void*));
-void			ft_lstdelone(t_list *lst, void (*del)(void*));
-void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
-t_list			*ft_lstnew(void *content);
-int				ft_lstsize(t_list *lst);
 
 // VV----------------- FT_PRINTF -----------------VV
 

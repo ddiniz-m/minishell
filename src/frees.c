@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/02 15:29:21 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/07 17:31:38 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_var(t_var *var)
+void	free_ms(t_minishell *ms)
 {
-	if (var->str)
-		free(var->str);
-	if (var->prompt)
-		free(var->prompt);
-	if (var->main_arr)
-		free_array(var->main_arr);
-	free(var);
+	if (ms->str)
+		free(ms->str);
+	if (ms->prompt)
+		free(ms->prompt);
+	if (ms->main_arr)
+		free_array(ms->main_arr);
+	free(ms);
 	exit (0);
 }
 
@@ -34,10 +34,10 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	malloc_error(t_var *var)
+void	malloc_error(t_minishell *ms)
 {
 	write(2, "Error: Malloc failed\n", 22);
-	free_var(var);
+	free_ms(ms);
 }
 
 void	free_list(t_list **list, int flag)

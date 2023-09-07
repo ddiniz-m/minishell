@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 17:00:30 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:33:02 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_var	*var_struct_init(void)
+t_minishell	*struct_init(void)
 {
-	t_var	*var;
+	t_minishell	*ms;
 
-	var = malloc(sizeof(t_var));
-	return (var);
+	ms = malloc(sizeof(t_minishell));
+	ms->cmdtable = malloc(sizeof(t_cmdt));
+	ms->cmdtable->content = malloc(sizeof(t_cont));
+	return (ms);
 }
 
-void	var_init(t_var *var)
+void	init(t_minishell *ms)
 {
-	var->words = 0;
-	str_words(var, var->str);
-	var->main_arr = split_main(var, var->str);
+	ms->words = 0;
+	str_counter(ms, ms->str);
+	ms->main_arr = split_main(ms, ms->str);
 }
