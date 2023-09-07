@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/07 15:54:28 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/23 16:53:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	**arr_cpy(char **arr, int pos, int size)
 		return (NULL);
 	while (i < size)
 	{
-		buf[i] = ft_calloc(ft_strlen(arr[pos] + 1), sizeof(char));
-		buf[i] = arr[pos];
+		buf[i] = ft_calloc((ft_strlen(arr[pos]) + 1), sizeof(char));
+		ft_strlcpy(buf[i], arr[pos], ft_strlen(arr[pos]) + 1);
 		i++;
 		pos++;
 	}
@@ -48,38 +48,7 @@ void	arr_print(char *str, char **arr)
 	int	i;
 
 	i = 0;
-	if (str)
-		printf("\n%s:\n", str);
-	while (arr[i] && i < arr_size(arr))
+	printf("\n%s:\n", str);
+	while (i < arr_size(arr))
 		printf("%s\n", arr[i++]);
-}
-
-void	arr_free(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] && i < arr_size(arr))
-		free(arr[i++]);
-	free(arr);
-}
-
-char	**arr_add(char **arr, char *str)
-{
-	int		i;
-	int		size;
-	char	**buf;
-
-	i = 0;
-	size = arr_size(arr);
-	buf = ft_calloc(size + 2, sizeof(char *));
-	while (i < size)
-	{
-		buf[i] = ft_calloc(ft_strlen(arr[i]), sizeof(char));
-		buf[i] = arr[i];
-		i++;
-	}
-	buf[i] = ft_calloc(ft_strlen(str), sizeof(char));
-	buf[i] = str;
-	return (buf);
 }

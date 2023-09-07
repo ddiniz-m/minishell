@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/02 14:05:50 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/22 19:20:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	str_words_redirect(t_var *var, char *str, int i)
 	return (i);
 }
 
-int	str_words_others(t_var *var, char *str, int i)
+int	str_words_envar(t_var *var, char *str, int i)
 {
 	if (str[i] == '$')
 	{
@@ -63,11 +63,6 @@ int	str_words_others(t_var *var, char *str, int i)
 	{
 		var->words++;
 		i++;
-	}
-	else if (str[i] && meta_char(str[i]) == 1)
-	{
-		while (str[i] && meta_char(str[i]) == 1)
-			i++;
 	}
 	return (i);
 }
@@ -83,20 +78,19 @@ void	str_words(t_var *var, char *str)
 		i = str_words_quotes(var, str, '\'', i);
 		i = str_words_quotes(var, str, '\"', i);
 		i = str_words_redirect(var, str, i);
-		i = str_words_others(var, str, i);
+		i = str_words_envar(var, str, i);
 		if (str[i] && (meta_char(str[i]) == 0))
 		{
 			var->words++;
 			while (str[i] && (meta_char(str[i]) == 0))
 				i++;
-			if (str[i] && str[i] == '$')
-			{
+			if ((str[i] && (meta_char(str[i]) == 3)))
 				var->words--;
-				if (str[i + 1] && meta_char(str[i + 1]) == 3)
-					var->words--;
-			}
-			else if ((str[i] && (meta_char(str[i]) == 3)))
-				var->words--;
+		}
+		else if (str[i] && meta_char(str[i]) == 1)
+		{
+			while (str[i] && meta_char(str[i]) == 1)
+				i++;
 		}
 	}
 }
@@ -113,30 +107,4 @@ int	meta_char(char c)
 	if (c == '\'' || c == '\"')
 		return (3);
 	return (0);
-}
-
-int	strlen_chr(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while(str[i] && str[i] != c)
-		i++;
-	return (i);
-}
-
-//Compares strings until s1 reaches c
-int	strcmp_chr(char *s1, char *s2, char c)
-{
-	int	i;
-	int	n;
-
-	i = 0;
-	n = 0;
-	while (s1[i] && i < strlen_chr(s2, c))
-	{
-		n += s1[i] - s2[i];
-		i++;
-	}
-	return (n);
 }

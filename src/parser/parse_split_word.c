@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split_word.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:45:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/07/07 18:05:50 by mira             ###   ########.fr       */
+/*   Updated: 2023/06/23 17:16:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,15 @@ int	split_word_redirect(char *str)
 	return (i);
 }
 
-int	split_word_envar(char *str, int i)
+int	split_word_envar(char *str)
 {
+	int	i;
+
+	i = 0;
 	if (str[i] == '$')
 	{
 		i++;
-		while (str[i] && (meta_char(str[i]) == 0 || meta_char(str[i]) == 3))
+		while (str[i] && meta_char(str[i]) == 0)
 			i++;
 	}
 	else if (str[i] && str[i] == '|')
@@ -74,7 +77,7 @@ int	split_word(char *str)
 	if (str[i] == '>' || str[i] == '<')
 		return (split_word_redirect(str));
 	if (str[i] == '|' || str[i] == '$')
-		return (split_word_envar(str, 0));
+		return (split_word_envar(str));
 	if (str[i] && (meta_char(str[i]) == 0))
 	{
 		while (str[i] && (meta_char(str[i]) == 0))
@@ -83,8 +86,6 @@ int	split_word(char *str)
 			return (split_word_quotes(str, '\'', i));
 		else if (str[i] && str[i] == '\"')
 			return (split_word_quotes(str, '\"', i));
-		else if (str[i] && str[i] == '$')
-			return (split_word_envar(str, i));
 	}
 	return (i);
 }
