@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 17:14:09 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:53:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*set_prompt(t_var *var);
 void	free_var(t_var *var);
 void	free_array(char **arr);
 
-// errors.c
+//errors.c
 void	malloc_error(t_var *var);
 int		quote_error(char *str);
 
@@ -70,12 +70,18 @@ char	**arr_cpy(char **arr, int pos, int size);
 void	arr_print(char *str, char **arr);
 
 // parse_split.c
-char	*split_temp(char *str, int word_len);
-int		split_word(char *str);
 char	**split_main(t_var *var, char *str);
+int		split_word(char *str);
+char	*split_temp(char *str, int word_len);
 
-// parse_utils.c
-void	str_words(t_var *var, char *str);
+// parse_counter.c
+void	str_counter(t_var *var, char *str);
+
+// parse_str.c
+int		str_plain(char *str, int i);
+int		str_quotes(char *str, char c, int i);
+int		str_envar(char *str, int i);
+int		str_others(char *str, int i);
 int		meta_char(char c);
 
 // ++++++++++ built-ins/[.....] ++++++++++

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/04 17:17:09 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:15:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	quote_error(char *str)
 	char	c;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (meta_char(str[i]) == 3)
 		{
