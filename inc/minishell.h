@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/07 17:34:21 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:44:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,46 @@
 # include <signal.h>
 
 //-----------------------------------STRUCT-------------------------------------
+typedef struct s_content
+{
+	char	*cmd;
+	char	*input;
+	char	*output;
+}	t_content;
+
+typedef struct s_cmdlist
+{
+	t_content	*content;
+	struct s_cmdlist	*next;
+}	t_cmdlist;
+
 typedef struct s_minishell
 {
 	int			words;
+	int			cmd_count;
 	char		**main_arr;
 	char		*prompt;
 	char		*str;
-	t_cmdtable		*cmd_table;
+	t_cmdlist		*cmdlist;
 }	t_minishell;
 
-typedef struct s_cmdtable
-{
-	t_content	*content;
-	t_cmdtable	*next;
-}	t_cmdtable;
-
-typedef struct s_list
-{
-	char	*data;
-	t_list	*next;
-}	t_list;
-
-typedef struct s_content
-{
-	t_list	*cmd_flags;
-	t_list	*input;
-	t_list	*output;
-}	t_content;
 
 
 //------------------------------------SRCS--------------------------------------
 
 // init.c
 t_minishell	*struct_init(void);
-void	init(t_minishell *ms);
+void	var_init(t_minishell *ms);
+
+// list.c
+void		cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
+t_cmdlist	*cmd_lstlast(t_cmdlist *lst);
+void		list_print(t_list **list);
+int			list_size(t_list **list);
+void		list_sort(t_list **list);
+void		list_remove(t_list **list, int pos);
+void		list_swap(t_list *list);
+int			list_check_dup(t_list **list, char *str);
 
 // signals.c
 void	signal_init(void);
@@ -76,6 +82,7 @@ char	*set_prompt(t_minishell *ms);
 // frees.c
 void	free_ms(t_minishell *ms);
 void	free_array(char **arr);
+void	free_cmd_list(t_cmdlist *cmdlist);
 void	malloc_error(t_minishell *ms);
 
 // ++++++++++ parser/[.........] ++++++++++
@@ -106,17 +113,9 @@ int		meta_char(char c);
 // pwd.c
 void	pwd(void);
 
-// ++++++++++ libft ++++++++++++++++++
-
-void			ft_lstadd_back(t_list **lst, t_list *new);
-void			ft_lstadd_front(t_list **lst, t_list *new);
-void			ft_lstclear(t_list **lst, void (*del)(void*));
-void			ft_lstdelone(t_list *lst, void (*del)(void*));
-void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
-t_list			*ft_lstnew(char *data);
-int				ft_lstsize(t_list *lst);
-
+//cmd_utils.c
+int	cmd_validate(char *str);
+int	cmd_args(char **arr, int pos);
+int	cmd_count(t_minishell *ms, char **arr);
 
 #endif

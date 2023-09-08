@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/09/06 16:55:04 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:02:46 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	list_print(t_list **list)
 	tmp = *list;
 	while (tmp)
 	{
-		printf("%s\n", tmp->data);
+		printf("%p\n", tmp->data);
 		tmp = tmp->next;
 	}
 }
@@ -118,4 +118,21 @@ int	list_size(t_list **list)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+
+t_cmdlist	*cmd_lstlast(t_cmdlist *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst -> next)
+		lst = lst -> next;
+	return (lst);
+}
+
+void	cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new)
+{
+	if (cmd_lstlast(*lst))
+		cmd_lstlast(*lst)-> next = new;
+	else
+		*lst = new;
 }
