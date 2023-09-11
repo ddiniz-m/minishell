@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 12:49:29 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:44:54 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
 {
-	char	*cmd;
 	char	**cmd_flags;
 	char	*cmd_path;
 	char	*input;
@@ -58,10 +57,31 @@ typedef struct s_minishell
 
 
 //------------------------------------SRCS--------------------------------------
+// signals.c
+void		signal_init(void);
+void		signal_interrupt(int signum);
+void		signal_exit(t_minishell *ms);
+
+// prompt.c
+char		*set_prompt(t_minishell *ms);
+
+// frees.c
+void		free_ms(t_minishell *ms);
+void		free_array(char **arr);
+void		free_cmd_list(t_cmdlist *cmdlist);
+void		malloc_error(t_minishell *ms);
+
+// +++++++++++++++ struct/[.....] +++++++++++++++
+//cmd_utils.c
+int			cmd_validate(char *str);
+int			cmd_args(char **arr, int pos);
+int			cmd_count(t_minishell *ms, char **arr);
+char		**cmd_with_flags(char **arr, int pos);
+void		cmdlist_print(t_cmdlist **cmdlist);
 
 // init.c
 t_minishell	*struct_init(void);
-void	var_init(t_minishell *ms);
+void		var_init(t_minishell *ms);
 
 // list.c
 void		cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
@@ -73,53 +93,33 @@ void		list_remove(t_list **list, int pos);
 void		list_swap(t_list *list);
 int			list_check_dup(t_list **list, char *str);
 
-// signals.c
-void	signal_init(void);
-void	signal_interrupt(int signum);
-void	signal_exit(t_minishell *ms);
-
-// prompt.c
-char	*set_prompt(t_minishell *ms);
-
-// frees.c
-void	free_ms(t_minishell *ms);
-void	free_array(char **arr);
-void	free_cmd_list(t_cmdlist *cmdlist);
-void	malloc_error(t_minishell *ms);
-
-// ++++++++++ parser/[.........] ++++++++++
+// +++++++++++++ parser/[.........] +++++++++++++
 // parse.c
-void	parse_main(t_minishell *ms);
+void		parse_main(t_minishell *ms);
 
 // parse_array.c
-int		arr_size(char **arr);
-char	**arr_cpy(char **arr, int pos, int size);
-void	arr_print(char *str, char **arr);
+int			arr_size(char **arr);
+char		**arr_cpy(char **arr, int pos, int size);
+void		arr_print(char *str, char **arr);
 
 // parse_split.c
-char	**split_main(t_minishell *ms, char *str);
-int		split_word(char *str);
-char	*split_temp(char *str, int word_len);
+char		**split_main(t_minishell *ms, char *str);
+int			split_word(char *str);
+char		*split_temp(char *str, int word_len);
 
 // parse_counter.c
-void	str_counter(t_minishell *ms, char *str);
+void		str_counter(t_minishell *ms, char *str);
 
 // parse_str.c
-int		str_plain(char *str, int i);
-int		str_quotes(char *str, char c, int i);
-int		str_envar(char *str, int i);
-int		str_others(char *str, int i);
-int		meta_char(char c);
+int			str_plain(char *str, int i);
+int			str_quotes(char *str, char c, int i);
+int			str_envar(char *str, int i);
+int			str_others(char *str, int i);
+int			meta_char(char c);
 
-// ++++++++++ built-ins/[.....] ++++++++++
+// ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
-void	pwd(void);
-
-//cmd_utils.c
-int	cmd_validate(char *str);
-int	cmd_args(char **arr, int pos);
-int	cmd_count(t_minishell *ms, char **arr);
-char	**cmd_with_flags(char **arr, int pos);
+void		pwd(void);
 
 
 #endif

@@ -2,17 +2,18 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	init.c main.c signals.c prompt.c frees.c list.c
+SRC_MSH	=	main.c signals.c prompt.c frees.c
+SRC_STC	=	cmd_utils.c init.c list.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_array.c parse_counter.c
-SRC_BLT	=	pwd.c cmd_utils.c
+SRC_BLT	=	pwd.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
-			$(addprefix src/parser/, $(SRC_PRS))
+			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC))
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $(SRC_BLT:%.c=%.o)) \
-			$(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o))
+			$(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_STC:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
 YELLOW	=	"\033[1;33m"

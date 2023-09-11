@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/09/08 17:02:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:17:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 // parses list and checks if there is any data that is equal to the string
 // Returns position of duplicate if sucessful. Returns 0 otherwise.

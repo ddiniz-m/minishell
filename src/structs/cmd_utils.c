@@ -3,15 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 13:39:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:53:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+void	cmdlist_print(t_cmdlist **cmdlist)
+{
+	int			i;
+	t_cmdlist	*tmp;
+
+
+	i = 1;
+	tmp = *cmdlist;
+	printf("\nLIST:\n");
+	while (tmp)
+	{
+		printf("	NODE%i:\n", i);
+		printf("		CONTENT:\n");
+		arr_print("	Command with flags", tmp->content->cmd_flags);
+		printf("		Input: %s\n", tmp->content->input);
+		printf("		Output: %s\n",tmp->content->output);
+		i++;
+		if (tmp->next)
+			tmp = tmp->next;
+		else
+		{
+			printf("NO MORE CMDS\n");
+			break ;
+		}
+	}
+}
+
+//Takes main array and position of a command, and returns an array with the
+//command and it's flags
 char	**cmd_with_flags(char **arr, int pos)
 {
 	int		i;
@@ -19,19 +48,13 @@ char	**cmd_with_flags(char **arr, int pos)
 	int		args;
 
 	i = 0;
-	printf("pos = %i\n", pos);
-	args = cmd_args(arr, pos) + 1;
-	printf("args = %i\n", args);
+	args = cmd_args(arr, pos);
 	buf = malloc(sizeof(char *) * (args + 1));
 	if (!buf)
 		return (NULL);
-	while (i < args && pos < arr_size(arr))
-	{
-		buf[i] = arr[pos];
-		printf("buf = %s\narr = %s\n", buf[i], arr[pos]);
-		i++;
-		pos++;
-	}
+	while (i < args && arr[pos])
+		buf[i++] = arr[pos++];
+	buf[i] = NULL;
 	return (buf);
 }
 
@@ -52,13 +75,16 @@ int	cmd_validate(char *str)
 //Counts how many flags/arguments the fisrt command will use/print
 int	cmd_args(char **arr, int pos)
 {
-	while (arr[pos] && pos < arr_size(arr))
+	int	i;
+
+	i = pos;
+	while (arr[i] && i < arr_size(arr))
 	{
-		if (meta_char(arr[pos][0]) == 2)
+		if (meta_char(arr[i][0]) == 2)
 			break ;
-		pos++;
+		i++;
 	}
-	return (pos - 1);
+	return (i - pos);
 }
 
 //Counts how many valied commands there are in main->arr.
