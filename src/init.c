@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/08 17:56:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:45:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 	{
 		printf("	NODE%i:\n", i);
 		printf("		CONTENT:\n");
-		printf("		Command with flags: %s\n", tmp->content->cmd);
+		printf("		Command: %s\n", tmp->content->cmd);
+		arr_print("	Command with flags", tmp->content->cmd_flags);
 		printf("		Input: %s\n", tmp->content->input);
 		printf("		Output: %s\n",tmp->content->output);
 		i++;
@@ -37,10 +38,13 @@ t_content	*content_init(t_minishell *ms, int n_cmds)
 {
 	t_content *content;
 	
-	(void)ms;
-	(void)n_cmds;
 	content = malloc(sizeof(t_content));
-	content->cmd = "123";
+	
+	if (n_cmds != 0)
+		n_cmds += cmd_args(ms->main_arr, n_cmds) + 1;
+	
+	content->cmd_flags = cmd_with_flags(ms->main_arr, n_cmds);
+	content->cmd = "ABC";
 	content->input = "ABC";
 	content->output = "DEF";
 	return (content);
@@ -65,13 +69,13 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 	t_cmdlist	*node;
 	t_cmdlist	**cmdlist;
 
-	i = 1;
+	i = 0;
 	printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = malloc(sizeof(t_cmdlist));
 	*cmdlist = NULL;
-	while (i <= ms->cmd_count)
+	while (i < ms->cmd_count)
 	{
 		node = cmdlist_lstnew(ms, i);
 		cmd_lstadd_back(cmdlist, node);
@@ -87,7 +91,6 @@ t_minishell	*struct_init(void)
 	ms = malloc(sizeof(t_minishell));
 	return (ms);
 }
-
 
 void	var_init(t_minishell *ms)
 {

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/08 17:44:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:49:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 typedef struct s_content
 {
 	char	*cmd;
+	char	**cmd_flags;
+	char	*cmd_path;
 	char	*input;
 	char	*output;
 }	t_content;
@@ -117,5 +119,7 @@ void	pwd(void);
 int	cmd_validate(char *str);
 int	cmd_args(char **arr, int pos);
 int	cmd_count(t_minishell *ms, char **arr);
+char	**cmd_with_flags(char **arr, int pos);
+
 
 #endif

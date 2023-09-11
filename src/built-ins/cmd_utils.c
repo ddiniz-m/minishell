@@ -6,11 +6,34 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/08 17:08:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:39:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+char	**cmd_with_flags(char **arr, int pos)
+{
+	int		i;
+	char	**buf;
+	int		args;
+
+	i = 0;
+	printf("pos = %i\n", pos);
+	args = cmd_args(arr, pos) + 1;
+	printf("args = %i\n", args);
+	buf = malloc(sizeof(char *) * (args + 1));
+	if (!buf)
+		return (NULL);
+	while (i < args && pos < arr_size(arr))
+	{
+		buf[i] = arr[pos];
+		printf("buf = %s\narr = %s\n", buf[i], arr[pos]);
+		i++;
+		pos++;
+	}
+	return (buf);
+}
 
 // Checks if str is a valid command
 int	cmd_validate(char *str)
