@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 13:55:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:35:16 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 //Ja ponho noutro ficehiro, ok?
 t_list	*in_lst(char **arr)
 {
-	int				i;
-	struct s_list	*head;
-	t_list			*node;
+	int		i;
+	t_list	*node;
+	t_list	*input;
 
 	i = 0;
-	head = NULL;
+	input = NULL;
 	while (arr[i])
 	{
 		if (arr[i + 1] && (!ft_strcmp(">", arr[i]) || !ft_strcmp(">>", arr[i])))
 		{
 			node = ft_lstnew(arr[i + 1]);
-			if (node->data)
-				printf("MADE A NODE with (%s) as data\n", (char *)node->data);
-			ft_lstadd_back(head, node);
+			if (!node)
+			{
+				ft_lstclear(&input, free);
+				return (NULL);
+			}
+			ft_lstadd_back(&input, node);
 		}
 		i++;
 	}
-	printf("TEST\n");
-	printf("input node = %s\n", (char *)head->data);
-	printf("END TEST\n");
-	return (head);
+	return (input);
 }
 
 t_list	*out_lst(char **arr)
@@ -48,11 +48,15 @@ t_list	*out_lst(char **arr)
 	output = NULL;
 	while (arr[i])
 	{
-		if (arr[i + 1] && (!ft_strcmp("<", arr[i]) || !ft_strcmp("<<", arr[i]))
-			&& ft_strcmp(">", arr[i + 1]) && ft_strcmp(">>", arr[i + 1]))
+		if (arr[i + 1] && (!ft_strcmp("<", arr[i]) || !ft_strcmp("<<", arr[i])))
 		{
 			node = ft_lstnew(arr[i + 1]);
-			ft_lstadd_back(output, node);
+			if (!node)
+			{
+				ft_lstclear(&output, free);
+				return (NULL);
+			}
+			ft_lstadd_back(&output, node);
 		}
 		i++;
 	}

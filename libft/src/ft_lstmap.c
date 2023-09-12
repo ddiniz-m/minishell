@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:12:10 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/08 16:29:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:31:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *))
 			ft_lstclear(&head, d);
 			return (NULL);
 		}
-		ft_lstadd_back(head, node);
+		ft_lstadd_back(&head, node);
 		lst = lst -> next;
 	}
 	ft_lstclear(&lst, d);

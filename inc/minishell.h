@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 13:08:52 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:45:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_list	*out_lst(char **arr);
 // list.c
 void		cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
 t_cmdlist	*cmd_lstlast(t_cmdlist *lst);
-void		list_print(t_list *list);
+void		list_print(t_list **list);
 int			list_size(t_list **list);
 void		list_sort(t_list **list);
 void		list_remove(t_list **list, int pos);
@@ -96,8 +96,7 @@ void		list_swap(t_list *list);
 int			list_check_dup(t_list **list, char *str);
 
 // +++++++++++++ parser/[.........] +++++++++++++
-// parse.c
-void		parse_main(t_minishell *ms);
+// parse.clist_print(tmp->content->input);
 
 // parse_array.c
 int			arr_size(char **arr);
@@ -118,6 +117,9 @@ int			str_quotes(char *str, char c, int i);
 int			str_envar(char *str, int i);
 int			str_others(char *str, int i);
 int			meta_char(char c);
+
+//parse.c
+void	parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c

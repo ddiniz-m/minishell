@@ -18,6 +18,6 @@
 // execute, what to redirect, what to pipe, etc.)
 void	parse_main(t_minishell *ms)
 {
-	arr_print("MAIN ARRAY", ms->main_arr);
+	/* arr_print("MAIN ARRAY", ms->main_arr); */
 	(void)ms;
 }

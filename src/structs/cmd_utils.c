@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 13:25:49 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:43:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 		printf("		CONTENT:\n");
 		arr_print("	Command with flags", tmp->content->cmd_flags);
 		printf("		Input:\n");
+		list_print(&tmp->content->input);
 		printf("		Output:\n");
+		list_print(&tmp->content->output);
 		i++;
 		if (tmp->next)
 			tmp = tmp->next;

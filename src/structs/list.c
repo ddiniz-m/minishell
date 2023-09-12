@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/09/12 13:08:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:32:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ void	list_sort(t_list **list)
 	}
 }
 
-void	list_print(t_list *list)
+void	list_print(t_list **list)
 {
 	t_list	*tmp;
 
-	tmp = list;
+	tmp = *list;
 	while (tmp)
 	{
-		printf("%p\n", tmp->data);
+		printf("%s\n", (char *)tmp->data);
 		tmp = tmp->next;
 	}
 }
