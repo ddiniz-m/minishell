@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 17:02:43 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:28:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
 {
 	t_minishell	*ms;
 
-	ms = struct_init();
+	ms = malloc(sizeof(t_minishell));
 	signal_init();
 	while (1)
 	{
@@ -36,3 +36,23 @@ int	main(void)
 	free(ms->cmdlist);
 	free(ms);
 }
+
+/*
+	What if instead of always creating an array and then transforming it into a
+	lst, we created a struct from the begining?
+	We only need the array for execve so it would be easier and more productive. 
+	If we only created an array from t_cmdlist before calling execve, we would 
+	only create arrays when necessary, and we could free them after we used them.
+
+	Fixed: `< test.txt < test2.txt echo 1 2 3 > test3 > test4 | <test5 <testa export a b c> test6 >testb`
+		-fixed: when redirecting input, the program wouldn't see any commands after the redirect;
+		-fixed: all input and output redirects were being added to each t_cmdlist node;
+		-fixed: would break with multiple cmds with input/outputs
+		-fixed: would break with multiple cmds with multiple input/outputs
+	
+	Need to correct:
+		-cmd_count()
+		-out_lst()
+		-in_lst()
+		-Weird behavior when the line after prompt gets longer than the terminal window
+*/

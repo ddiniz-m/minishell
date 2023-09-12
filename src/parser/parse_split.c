@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:02:32 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 10:59:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:43:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	**split_main(t_minishell *ms, char *str)
 	char	**buff;
 
 	i = 0;
-	printf("Words = %d\n", ms->words);
 	buff = malloc(sizeof(char *) * (ms->words + 1));
 	if (!buff)
 		return (NULL);

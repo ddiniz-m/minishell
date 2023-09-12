@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 15:35:16 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:30:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //Ja ponho noutro ficehiro, ok?
-t_list	*in_lst(char **arr)
+t_list	*in_lst(char **arr, int cmd_index) // inteprets both `<` and `<<`
 {
-	int		i;
 	t_list	*node;
 	t_list	*input;
 
-	i = 0;
 	input = NULL;
-	while (arr[i])
+	while (arr[cmd_index] && arr[cmd_index][0] == '<')
 	{
-		if (arr[i + 1] && (!ft_strcmp(">", arr[i]) || !ft_strcmp(">>", arr[i])))
+		if (arr[cmd_index + 1])
 		{
-			node = ft_lstnew(arr[i + 1]);
+			node = ft_lstnew(arr[cmd_index + 1]);
 			if (!node)
 			{
 				ft_lstclear(&input, free);
@@ -33,24 +31,24 @@ t_list	*in_lst(char **arr)
 			}
 			ft_lstadd_back(&input, node);
 		}
-		i++;
+		cmd_index += 2;
 	}
 	return (input);
 }
 
-t_list	*out_lst(char **arr)
+t_list	*out_lst(char **arr, int cmd_index) // inteprets both `>` and `>>`
 {
-	int		i;
 	t_list	*node;
 	t_list	*output;
 
-	i = 0;
 	output = NULL;
-	while (arr[i])
+	while (arr[cmd_index] && !ft_strrchr(">|", arr[cmd_index][0]))
+		cmd_index++;
+	while (arr[cmd_index] && arr[cmd_index][0] == '>')
 	{
-		if (arr[i + 1] && (!ft_strcmp("<", arr[i]) || !ft_strcmp("<<", arr[i])))
+		if (arr[cmd_index + 1])
 		{
-			node = ft_lstnew(arr[i + 1]);
+			node = ft_lstnew(arr[cmd_index + 1]);
 			if (!node)
 			{
 				ft_lstclear(&output, free);
@@ -58,28 +56,28 @@ t_list	*out_lst(char **arr)
 			}
 			ft_lstadd_back(&output, node);
 		}
-		i++;
+		cmd_index += 2;
 	}
 	return (output);
 }
 
 t_content	*content_init(t_minishell *ms, int cmd_index)
 {
-	t_content *content;
-	
+	t_content	*content;
+
 	content = malloc(sizeof(t_content));
-	
-	if (cmd_index != 0)
-		cmd_index += cmd_args(ms->main_arr, cmd_index) + 1;
-	
+	content->input = in_lst(ms->main_arr, cmd_index);
+	while (ms->main_arr[cmd_index] && ms->main_arr[cmd_index][0] == '<' && \
+		ms->main_arr[cmd_index + 1])
+		cmd_index += 2;
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
+	content->output = out_lst(ms->main_arr, cmd_index);
 	content->cmd_path = "PATH";
-	content->input = in_lst(ms->main_arr);
-	content->output = out_lst(ms->main_arr);
 	return (content);
 }
 
-//Creates cmdlist. Initializes content by calling content_init. Similar to ft_lstnew.
+//Creates cmdlist. Initializes content by calling content_init.
+//Similar to ft_lstnew.
 t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 {
 	t_cmdlist	*cmdlist;
@@ -94,30 +92,31 @@ t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 
 t_cmdlist	*cmd_list_init(t_minishell *ms)
 {
+	int			cmd_n;
 	int			i;
+	int			a;
 	t_cmdlist	*node;
 	t_cmdlist	*cmdlist;
 
 	i = 0;
-	printf("\nCMD_COUNT = %i\n", ms->cmd_count);
+	cmd_n = 0;
+	a = 0;
+	printf("\nCMD_COUNT = %i\n", ms->cmd_count); //extra line
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
-	while (i < ms->cmd_count)
+	while (cmd_n < ms->cmd_count)
 	{
 		node = cmdlist_lstnew(ms, i);
+		if (node->content->input)
+			i += (ft_lstsize(node->content->input) * 2);
+		if (node->content->output)
+			i += (ft_lstsize(node->content->output) * 2);
+		i += arr_size(node->content->cmd_flags) + 1;
 		cmd_lstadd_back(&cmdlist, node);
-		i++;
+		cmd_n++;
 	}
 	return (cmdlist);
-}
-
-t_minishell	*struct_init(void)
-{
-	t_minishell	*ms;
-
-	ms = malloc(sizeof(t_minishell));
-	return (ms);
 }
 
 void	var_init(t_minishell *ms)
@@ -125,7 +124,7 @@ void	var_init(t_minishell *ms)
 	ms->words = 0;
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
-	ms->cmd_count =  cmd_count(ms, ms->main_arr);
+	ms->cmd_count = cmd_count(ms, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	cmdlist_print(&ms->cmdlist);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/12 15:19:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:28:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				ft_toupper(int c);
 
 typedef struct s_list
 {
-	void	*data;
+	void			*data;
 	struct s_list	*next;
 }	t_list;
 

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 15:42:43 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:28:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**arr_cpy(char **arr, int pos, int size)
 void	arr_print(char *str, char **arr)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	if (!arr)

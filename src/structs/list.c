@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:53:08 by mira              #+#    #+#             */
-/*   Updated: 2023/09/12 15:32:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:44:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	list_swap(t_list *list)
 	head->next->data = str;
 }
 
-void	list_remove(t_list **list, int pos)
+void	list_remove(t_list **list, int pos) //why do we have this?
 {
 	int		i;
 	t_list	*tmp;
@@ -83,7 +83,7 @@ void	list_sort(t_list **list)
 	while (tmp)
 	{
 		while (head->next)
-		{	
+		{
 			if (ft_strcmp(head->data, head->next->data) > 0)
 				list_swap(head);
 			head = head->next;
@@ -100,24 +100,9 @@ void	list_print(t_list **list)
 	tmp = *list;
 	while (tmp)
 	{
-		printf("%s\n", (char *)tmp->data);
+		printf("		%s\n", (char *)tmp->data);
 		tmp = tmp->next;
 	}
-}
-
-int	list_size(t_list **list)
-{
-	int		i;
-	t_list	*tmp;
-
-	i = 0;
-	tmp = *list;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
 }
 
 t_cmdlist	*cmd_lstlast(t_cmdlist *lst)

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/11 17:01:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:22:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ void	malloc_error(t_minishell *ms)
 
 void	free_list(t_list **list)
 {
-	t_list	*head;
 	t_list	*tmp;
 
-	head = *list;
-	while (head)
+	while (*list)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp->data);
+		tmp = *list;
+		*list = (*list)->next;
 		free(tmp);
 	}
 }
@@ -70,7 +67,11 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 		tmp = head;
 		head = head->next;
 		free(tmp->content->cmd_flags);
-		//etc...
+		if (tmp->content->input)
+			free_list(&tmp->content->input);
+		if (tmp->content->output)
+			free_list(&tmp->content->output);
+		// etc...
 		free(tmp->content);
 		free(tmp);
 	}
