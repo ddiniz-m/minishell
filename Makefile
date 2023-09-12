@@ -7,7 +7,7 @@ RM = rm -rf
 
 SRC_MSH	=	init.c main.c signals.c prompt.c frees.c
 SRC_PRS	=	parse.c parse_split.c parse_array.c parse_counter.c parse_str.c
-SRC_BLT	=	pwd.c
+SRC_BLT	=	pwd.c cd.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/parser/, $(SRC_PRS))

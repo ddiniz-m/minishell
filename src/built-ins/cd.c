@@ -12,29 +12,32 @@
 
 #include "../../inc/minishell.h"
 
+int	cd_home(void)
+{
+	if (!getenv("HOME"))
+	{
+		write(2, "Minishell: cd: HOME is undefined\n", 29);
+			// NEED TO CHANGE EXIT_STATUS
+		return (-1);
+	}
+	else if (chdir(getenv("HOME")) != 0)
+	{
+		perror("Minishell: cd: HOME");
+		// NEED TO CHANGE EXIT_STATUS
+		return (-1);
+	}
+	return (0);
+}
+
 // Returns 0 on success.
 // Returns -1 on error
 int	cd(char *path)
 {
-	if (!path)
-	{
-		if (!getenv("HOME"))
-		{
-			write(2, "Error: cd: HOME is undefined\n", 29);
-			// NEED TO CHANGE EXIT_STATUS
-			return (-1);
-		}
-		else if (chdir(getenv("HOME")) != 0)
-		{
-			perror("Error");
-			// NEED TO CHANGE EXIT_STATUS
-			return (-1);
-		}
-		// NEED TO CHECK ACCESS TO PATH
-	}
+	if (!path || !path[0])
+		return (cd_home());
 	else if (chdir(path) != 0)
 	{
-		perror("Error");
+		perror("Minishell: cd");
 		// NEED TO CHANGE EXIT_STATUS
 		return (-1);
 	}

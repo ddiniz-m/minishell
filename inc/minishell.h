@@ -84,5 +84,6 @@ int		meta_char(char c);
 // ++++++++++ built-ins/[.....] ++++++++++
 // pwd.c
 void	pwd(void);
+int		cd(char *path);
 
 #endif

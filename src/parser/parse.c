@@ -18,4 +18,9 @@
 void	parse_main(t_var *var)
 {
 	arr_print("MAIN ARRAY", var->main_arr);
+	if (var->main_arr && var->main_arr[0])
+	{
+		if (ft_strcmp(var->main_arr[0], "cd") == 0)
+			cd(var->main_arr[1]);
+	}
 }
