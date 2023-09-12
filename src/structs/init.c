@@ -3,27 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 17:11:33 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:55:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //Ja ponho noutro ficehiro, ok?
-char	*cmd_input(char **arr)
+t_list	*in_lst(char **arr)
 {
-	int		i;
-	char	*buf = NULL;
+	int				i;
+	struct s_list	*head;
+	t_list			*node;
 
 	i = 0;
+	head = NULL;
 	while (arr[i])
 	{
-		;
+		if (arr[i + 1] && (!ft_strcmp(">", arr[i]) || !ft_strcmp(">>", arr[i])))
+		{
+			node = ft_lstnew(arr[i + 1]);
+			if (node->data)
+				printf("MADE A NODE with (%s) as data\n", (char *)node->data);
+			ft_lstadd_back(head, node);
+		}
+		i++;
 	}
-	return (buf);
+	printf("TEST\n");
+	printf("input node = %s\n", (char *)head->data);
+	printf("END TEST\n");
+	return (head);
+}
+
+t_list	*out_lst(char **arr)
+{
+	int		i;
+	t_list	*node;
+	t_list	*output;
+
+	i = 0;
+	output = NULL;
+	while (arr[i])
+	{
+		if (arr[i + 1] && (!ft_strcmp("<", arr[i]) || !ft_strcmp("<<", arr[i]))
+			&& ft_strcmp(">", arr[i + 1]) && ft_strcmp(">>", arr[i + 1]))
+		{
+			node = ft_lstnew(arr[i + 1]);
+			ft_lstadd_back(output, node);
+		}
+		i++;
+	}
+	return (output);
 }
 
 t_content	*content_init(t_minishell *ms, int cmd_index)
@@ -37,8 +70,8 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
 	content->cmd_path = "PATH";
-	content->input = "ABC";
-	content->output = "DEF";
+	content->input = in_lst(ms->main_arr);
+	content->output = out_lst(ms->main_arr);
 	return (content);
 }
 

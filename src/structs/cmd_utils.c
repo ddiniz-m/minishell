@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 16:53:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:25:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 		printf("	NODE%i:\n", i);
 		printf("		CONTENT:\n");
 		arr_print("	Command with flags", tmp->content->cmd_flags);
-		printf("		Input: %s\n", tmp->content->input);
-		printf("		Output: %s\n",tmp->content->output);
+		printf("		Input:\n");
+		printf("		Output:\n");
 		i++;
 		if (tmp->next)
 			tmp = tmp->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/11 16:44:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:08:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ typedef struct s_content
 {
 	char	**cmd_flags;
 	char	*cmd_path;
-	char	*input;
-	char	*output;
+	t_list	*input;
+	t_list	*output;
 }	t_content;
 
 typedef struct s_cmdlist
 {
-	t_content	*content;
+	t_content			*content;
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
 typedef struct s_minishell
 {
-	int			words;
-	int			cmd_count;
-	char		**main_arr;
-	char		*prompt;
-	char		*str;
+	int				words;
+	int				cmd_count;
+	char			**main_arr;
+	char			*prompt;
+	char			*str;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 
@@ -82,11 +82,13 @@ void		cmdlist_print(t_cmdlist **cmdlist);
 // init.c
 t_minishell	*struct_init(void);
 void		var_init(t_minishell *ms);
+t_list	*in_lst(char **arr);
+t_list	*out_lst(char **arr);
 
 // list.c
 void		cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
 t_cmdlist	*cmd_lstlast(t_cmdlist *lst);
-void		list_print(t_list **list);
+void		list_print(t_list *list);
 int			list_size(t_list **list);
 void		list_sort(t_list **list);
 void		list_remove(t_list **list, int pos);
