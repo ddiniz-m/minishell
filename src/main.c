@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/06 16:11:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:15:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,45 @@
 //	allocated char *buffer
 int	main(void)
 {
-	t_var	*var;
+	t_minishell	*ms;
 
-	var = var_struct_init();
+	ms = malloc(sizeof(t_minishell));
 	signal_init();
 	while (1)
 	{
-		var->prompt = set_prompt(var);
-		var->str = readline(var->prompt);
-		var_init(var);
-		parse_main(var);
-		add_history(var->str);
-		signal_exit(var);
-		free(var->str);
-		free(var->prompt);
-		free_array(var->main_arr);
+		ms->prompt = set_prompt(ms);
+		ms->str = readline(ms->prompt);
+		var_init(ms);
+		parse_main(ms);
+		add_history(ms->str);
+		signal_exit(ms);
+		free(ms->str);
+		free(ms->prompt);
+		free_array(ms->main_arr);
+		free_cmd_list(ms->cmdlist);
 	}
-	free(var);
+	free(ms->cmdlist);
+	free(ms);
 }
 
-/*	To do:
-	- Check for syntax errors before starting to parse <var>
-	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
+/*
+	What if instead of always creating an array and then transforming it into a
+	lst, we created a struct from the begining?
+	We only need the array for execve so it would be easier and more productive. 
+	If we only created an array from t_cmdlist before calling execve, we would 
+	only create arrays when necessary, and we could free them after we used them.
 
-	Syntax Errors:
-	- Unclosed quote marks
-	- Some pipe behavior `||`; `| |`
+	Response: Nah
 
-	Errors on:
-	- str_quotes();
-
-	Needs attention:
-	- malloc_error();
-	- pwd();
-	- str_quotes()
- */
+	Fixed: `< test.txt < test2.txt echo 1 2 3 > test3 > test4 | <test5 <testa export a b c> test6 >testb`
+		-fixed: when redirecting input, the program wouldn't see any commands after the redirect;
+		-fixed: all input and output redirects were being added to each t_cmdlist node;
+		-fixed: would break with multiple cmds with input/outputs
+		-fixed: would break with multiple cmds with multiple input/outputs
+	
+	Need to correct:
+		-cmd_count()
+		-out_lst()
+		-in_lst()
+		-Weird behavior when the line after prompt gets longer than the terminal window
+*/

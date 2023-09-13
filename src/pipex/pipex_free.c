@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   pipex_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 16:09:40 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/08 13:48:26 by ddiniz-m         ###   ########.fr       */
+/*   Created: 2023/04/17 17:49:39 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/09/13 11:55:53 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-//	Deletes and frees the given node using the function ’del’ and free
-
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	close_all(t_pipex *pipex, int *fd)
 {
-	del(lst -> data);
-	free(lst);
+	if (fd[1] != -1)
+		close(fd[1]);
+	if (fd[0] != -1)
+		close(fd[0]);
+	if (pipex->fd_infile != -1)
+		close(pipex->fd_infile);
+	if (pipex->fd_outfile != -1)
+		close(pipex->fd_outfile);
+}
+
+void	free_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i++])
+		free(arr[i]);
+	free(arr);
 }

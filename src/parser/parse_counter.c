@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:26:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/06 15:33:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:06:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 // how many words are in str
-void	str_counter(t_var *var, char *str)
+void	str_counter(t_minishell *ms, char *str)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ void	str_counter(t_var *var, char *str)
 		while (str[i] && meta_char(str[i]) == 1)
 			i++;
 		if (str[i] && meta_char(str[i]) != 1)
-			var->words++;
+			ms->words++;
 		if (str[i] && meta_char(str[i]) == 2)
 			i = str_others(str, i);
 		else if (str[i] && meta_char(str[i]) == 3)
