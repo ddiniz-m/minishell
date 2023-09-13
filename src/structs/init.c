@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 18:30:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:20:02 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-//Ja ponho noutro ficehiro, ok?
 t_list	*in_lst(char **arr, int cmd_index) // inteprets both `<` and `<<`
 {
 	t_list	*node;
@@ -67,7 +66,7 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 
 	content = malloc(sizeof(t_content));
 	content->input = in_lst(ms->main_arr, cmd_index);
-	while (ms->main_arr[cmd_index] && ms->main_arr[cmd_index][0] == '<' && \
+	while (ms->main_arr[cmd_index] && ms->main_arr[cmd_index][0] == '<' &&
 		ms->main_arr[cmd_index + 1])
 		cmd_index += 2;
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);

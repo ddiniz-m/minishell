@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 18:30:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:25:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	**cmd_with_flags(char **arr, int pos)
 // Checks if str is a valid command
 int	cmd_validate(char *str)
 {
-	if (ft_strcmp("echo", str) == 0 || \
-		ft_strcmp("cd", str) == 0 || \
-		ft_strcmp("pwd", str) == 0 || \
-		ft_strcmp("unset", str) == 0 || \
-		ft_strcmp("env", str) == 0 || \
-		ft_strcmp("export", str) == 0 || \
+	if (ft_strcmp("echo", str) == 0 ||
+		ft_strcmp("cd", str) == 0 ||
+		ft_strcmp("pwd", str) == 0 ||
+		ft_strcmp("unset", str) == 0 ||
+		ft_strcmp("env", str) == 0 ||
+		ft_strcmp("export", str) == 0 ||
 		ft_strcmp("exit", str) == 0)
 		return (1);
 	return (0);
@@ -106,5 +106,5 @@ int	cmd_count(t_minishell *ms, char **arr)
 	}
 	return (j);
 	//this isnt gonna work long term
-	//(doesnt work with non-built-ins)
+	//(doesnt work with non-built-ins) Is it supposed to??
 }

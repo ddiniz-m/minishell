@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 18:28:01 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:15:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main(void)
 	We only need the array for execve so it would be easier and more productive. 
 	If we only created an array from t_cmdlist before calling execve, we would 
 	only create arrays when necessary, and we could free them after we used them.
+
+	Response: Nah
 
 	Fixed: `< test.txt < test2.txt echo 1 2 3 > test3 > test4 | <test5 <testa export a b c> test6 >testb`
 		-fixed: when redirecting input, the program wouldn't see any commands after the redirect;
