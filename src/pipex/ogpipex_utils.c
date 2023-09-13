@@ -6,31 +6,28 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:31:35 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:55:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:13:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
 char	**path_init(char **envp)
 {
+	int	i;
 	char	**paths;
 	char	*env_path;
 
+	i = 0;
 	while (ft_strnstr(*++envp, "PATH=", 5) == NULL)
 		;
 	env_path = ft_strtrim(*envp, "PATH=");
-	paths = ft_split2(env_path, ':');
+	paths = ft_split(env_path, ':');
+	while (paths[i])
+	{
+		paths[i] = ft_strjoin(paths[i], "/");
+		i++;
+	}
 	free(env_path);
 	return (paths);
 }

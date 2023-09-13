@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:30 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:57:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:05:10 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@
 #include "../../inc/minishell.h"
 
 //----------------------------------PIPEX--------------------------------------
-typedef struct s_pipex
-{
-	int		fd_infile;
-	int		fd_outfile;
-}			t_pipex;
 
-void		free_arr(char **arr);
 char		*get_cmd(char *cmd, char **paths);
 char		**path_init(char **envp);
 

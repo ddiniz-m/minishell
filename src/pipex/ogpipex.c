@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ogpipex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 14:03:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:56:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:26:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	child_process(char **av, int *fd, int arg, char **envp)
 	paths = path_init(envp);
 	buff = ft_split(av[arg], ' ');
 	str = get_cmd(buff[0], paths);
-	free_arr(paths);
+	free_array(paths);
 	if (!str || execve(str, buff, envp) == -1)
 		perror(buff[0]);
 	free(str);
-	free_arr(buff);
+	free_array(buff);
 	exit(0);
 }
 
@@ -93,11 +93,11 @@ int	outfile(t_pipex *pipex, char **av, int ac, char **envp)
 	paths = path_init(envp);
 	buff = ft_split(av[ac - 2], ' ');
 	str = get_cmd(buff[0], paths);
-	free_arr(paths);
+	free_array(paths);
 	if (!str || execve(str, buff, envp) == -1)
 		perror(buff[0]);
 	free(str);
-	free_arr(buff);
+	free_array(buff);
 	return (0);
 }
 
@@ -107,7 +107,7 @@ int	outfile(t_pipex *pipex, char **av, int ac, char **envp)
 //	"arg" reaches the second to last cmd.
 // part 3: outfile -> Same as mandatory "parent" (deals with last cmd and
 //	 outfile)
-int	main(int ac, char **av, char **envp)
+/* int	main(int ac, char **av, char **envp)
 {
 	int		arg;
 	int		fd[2];
@@ -123,4 +123,4 @@ int	main(int ac, char **av, char **envp)
 	if (outfile(&pipex, av, ac, envp) != 0)
 		return (1);
 	return (0);
-}
+} */

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:55:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:56:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,17 @@
 # include <signal.h>
 
 //-----------------------------------STRUCT-------------------------------------
+
+typedef struct s_pipex
+{
+	int		*fd_infile;
+	int		*fd_outfile;
+}			t_pipex;
+
 typedef struct s_content
 {
 	char	**cmd_flags;
-	char	*cmd_path;
+	
 	t_list	*input;
 	t_list	*output;
 }	t_content;
@@ -54,6 +61,7 @@ typedef struct s_minishell
 	char			**main_arr;
 	char			*prompt;
 	char			*str;
+	t_pipex			*pipex;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 
@@ -124,4 +132,6 @@ void		parse_main(t_minishell *ms);
 // pwd.c
 void		pwd(void);
 
+// ++++++++++++++ pipex/[.....] +++++++++++++
+int			pipe_redirect(t_minishell *ms, t_pipex *ppx);
 #endif
