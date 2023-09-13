@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:20:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:59:40 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,24 @@ t_list	*in_lst(char **arr, int cmd_index) // inteprets both `<` and `<<`
 	t_list	*input;
 
 	input = NULL;
-	while (arr[cmd_index] && arr[cmd_index][0] == '<')
+	while (arr[cmd_index] && arr[cmd_index][0] != '|')
 	{
-		if (arr[cmd_index + 1])
+		if (arr[cmd_index][0] == '<')
 		{
-			node = ft_lstnew(arr[cmd_index + 1]);
-			if (!node)
+			if (arr[cmd_index + 1])
 			{
-				ft_lstclear(&input, free);
-				return (NULL);
+				node = ft_lstnew(arr[cmd_index + 1]);
+				if (!node)
+				{
+					ft_lstclear(&input, free);
+					return (NULL);
+				}
+				ft_lstadd_back(&input, node);
 			}
-			ft_lstadd_back(&input, node);
+			cmd_index += 2;
 		}
-		cmd_index += 2;
+		else
+			cmd_index++;
 	}
 	return (input);
 }
@@ -41,37 +46,39 @@ t_list	*out_lst(char **arr, int cmd_index) // inteprets both `>` and `>>`
 	t_list	*output;
 
 	output = NULL;
-	while (arr[cmd_index] && !ft_strrchr(">|", arr[cmd_index][0]))
-		cmd_index++;
-	while (arr[cmd_index] && arr[cmd_index][0] == '>')
+	while (arr[cmd_index] && arr[cmd_index][0] != '|')
 	{
-		if (arr[cmd_index + 1])
+		if (arr[cmd_index][0] == '>')
 		{
-			node = ft_lstnew(arr[cmd_index + 1]);
-			if (!node)
+			if (arr[cmd_index + 1])
 			{
-				ft_lstclear(&output, free);
-				return (NULL);
+				node = ft_lstnew(arr[cmd_index + 1]);
+				if (!node)
+				{
+					ft_lstclear(&output, free);
+					return (NULL);
+				}
+				ft_lstadd_back(&output, node);
 			}
-			ft_lstadd_back(&output, node);
+			cmd_index += 2;
 		}
-		cmd_index += 2;
+		else
+			cmd_index++;
 	}
 	return (output);
 }
 
-t_content	*content_init(t_minishell *ms, int cmd_index)
+t_content	*content_init(t_minishell *ms, int cmd_index) //have to modify for `<<` and `>>`
 {
 	t_content	*content;
 
 	content = malloc(sizeof(t_content));
 	content->input = in_lst(ms->main_arr, cmd_index);
-	while (ms->main_arr[cmd_index] && ms->main_arr[cmd_index][0] == '<' &&
-		ms->main_arr[cmd_index + 1])
+	content->output = out_lst(ms->main_arr, cmd_index);
+	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
+		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
 		cmd_index += 2;
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
-	content->output = out_lst(ms->main_arr, cmd_index);
-	content->cmd_path = "PATH";
 	return (content);
 }
 
@@ -93,13 +100,11 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 {
 	int			cmd_n;
 	int			i;
-	int			a;
 	t_cmdlist	*node;
 	t_cmdlist	*cmdlist;
 
 	i = 0;
 	cmd_n = 0;
-	a = 0;
 	printf("\nCMD_COUNT = %i\n", ms->cmd_count); //extra line
 	if (ms->cmd_count <= 0)
 		return (NULL);
@@ -123,7 +128,7 @@ void	var_init(t_minishell *ms)
 	ms->words = 0;
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
-	ms->cmd_count = cmd_count(ms, ms->main_arr);
+	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	cmdlist_print(&ms->cmdlist);
 }

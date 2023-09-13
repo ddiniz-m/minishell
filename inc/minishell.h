@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/12 18:29:39 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:03:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 typedef struct s_content
 {
 	char	**cmd_flags;
-	char	*cmd_path;
 	t_list	*input;
 	t_list	*output;
+	t_list	*heredoc;
 }	t_content;
 
 typedef struct s_cmdlist
@@ -71,11 +71,11 @@ void		malloc_error(t_minishell *ms);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
-int			cmd_validate(char *str);
-int			cmd_args(char **arr, int pos);
-int			cmd_count(t_minishell *ms, char **arr);
-char		**cmd_with_flags(char **arr, int pos);
 void		cmdlist_print(t_cmdlist **cmdlist);
+char		**cmd_with_flags(char **arr, int pos);
+int			cmd_args(char **arr, int pos);
+int			is_builtin(char *str);
+int			cmd_count(char **arr);
 
 // init.c
 void		var_init(t_minishell *ms);
