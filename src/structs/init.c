@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 14:45:52 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:20:02 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,4 @@ void	var_init(t_minishell *ms)
 	ms->cmd_count = cmd_count(ms, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	cmdlist_print(&ms->cmdlist);
-	/* main_pipex(ms); */
 }

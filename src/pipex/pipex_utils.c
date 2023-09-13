@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   ogpipex_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:31:35 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 12:13:31 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:41:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**path_init(char **envp)
 {
-	int	i;
+	int		i;
 	char	**paths;
 	char	*env_path;
 
@@ -23,28 +23,25 @@ char	**path_init(char **envp)
 		;
 	env_path = ft_strtrim(*envp, "PATH=");
 	paths = ft_split(env_path, ':');
-	while (paths[i])
-	{
+	while (i++ < arr_size(paths))
 		paths[i] = ft_strjoin(paths[i], "/");
-		i++;
-	}
 	free(env_path);
 	return (paths);
 }
 
-char	*get_cmd(char *cmd, char **paths)
+int	is_exec(char *str, char **paths)
 {
 	int		i;
 	char	*buf;
-
+	
 	i = 0;
-	while ((paths)[i])
+	while (paths[i])
 	{
-		buf = ft_strjoin(paths[i], cmd);
+		buf = ft_strjoin(paths[i], str);
 		if (!access(buf, F_OK))
-			return (buf);
+			return (1);
 		free(buf);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
