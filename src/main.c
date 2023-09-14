@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 16:48:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:18:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,21 @@ int	main(void)
 	Need to figure out how we're actually gonna do heredoc
 */
 
-// `>output>>append cmd1 1 2 3<input<<heredoc | <in<<here a b c>out>>app`
+// `>output>>append cmd1 1 2 3<input<<heredoc | <in<<here cmd2 a b c>out>>app`
+
+/*	To do:
+	- Check for syntax errors before starting to parse <var>
+	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
+
+	Syntax Errors:
+	- Unclosed quote marks
+	- Some pipe behavior `||`; `| |`
+
+	Errors on:
+	- str_quotes();
+
+	Needs attention:
+	- malloc_error();
+	- pwd();
+	- str_quotes()
+ */
