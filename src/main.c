@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 18:01:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:48:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,24 @@ int	main(void)
 	free(ms);
 }
 /*
-	t_cmd	| t_content	content
-			| int		last_in
-			| int		last_out
-			| t_cmd		next
-
-	if last_in == 0
-		no input
-	if last_in == 1
-		input redir '<'
-	if last_in == 2
-		input redir '<<'
-	same for output
+	while (arr[i])
+	{
+		if (arr[i] == "<")
+		{
+			redir(buf, input);
+			input = input->next;
+		}
+		else if (arr[i] == "<<")
+		{
+			redir(buf, heredoc);
+			heredoc = heredoc->next;
+		}
+		i++
+	}
 */
 
 /*
-	What if instead of always creating an array and then transforming it into a
-	lst, we created a struct from the begining?
-	We only need the array for execve so it would be easier and more productive. 
-	If we only created an array from t_cmdlist before calling execve, we would 
-	only create arrays when necessary, and we could free them after we used them.
-
-	`< test.txt < test2.txt cmd1 1 2 3 > test3 > test4 | <test5 <testa cmd2 a b c> test6 >testb`
-	
-	Need to correct:
-		-out_lst()
-		-in_lst()
-		-content_init()
+	Need to figure out how we're actually gonna do heredoc
 */
+
+// `>output>>append cmd1 1 2 3<input<<heredoc | <in<<here a b c>out>>app`

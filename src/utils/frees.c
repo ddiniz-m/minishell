@@ -6,11 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/12 18:22:10 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:39:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	free_ms(t_minishell *ms)
 {
@@ -71,6 +71,10 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 			free_list(&tmp->content->input);
 		if (tmp->content->output)
 			free_list(&tmp->content->output);
+		if (tmp->content->append)
+			free_list(&tmp->content->append);
+		if (tmp->content->heredoc)
+			free_list(&tmp->content->heredoc);
 		// etc...
 		free(tmp->content);
 		free(tmp);

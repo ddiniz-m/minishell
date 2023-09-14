@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 17:03:45 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:47:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_content
 	char	**cmd_flags;
 	t_list	*input;
 	t_list	*output;
+	t_list	*append;
 	t_list	*heredoc;
 }	t_content;
 
@@ -72,29 +73,23 @@ void		malloc_error(t_minishell *ms);
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
 void		cmdlist_print(t_cmdlist **cmdlist);
-char		**cmd_with_flags(char **arr, int pos);
 int			cmd_args(char **arr, int pos);
-int			is_builtin(char *str);
 int			cmd_count(char **arr);
+
+//content.c
+t_list		*redir_lst(char **arr, int index, char *limiter);
+char		**cmd_with_flags(char **arr, int pos);
 
 // init.c
 void		var_init(t_minishell *ms);
-t_list		*in_lst(char **arr, int cmd_index);
-t_list		*out_lst(char **arr, int cmd_index);
 
 // list.c
-void		cmd_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
-t_cmdlist	*cmd_lstlast(t_cmdlist *lst);
 void		list_print(t_list **list);
-void		list_sort(t_list **list);
-void		list_remove(t_list **list, int pos);
-void		list_swap(t_list *list);
-int			list_check_dup(t_list **list, char *str);
 
 // +++++++++++++ parser/[.........] +++++++++++++
 // parse.clist_print(tmp->content->input);
 
-// parse_array.c
+// array_utils.c
 int			arr_size(char **arr);
 char		**arr_cpy(char **arr, int pos, int size);
 void		arr_print(char *str, char **arr);
@@ -120,5 +115,7 @@ void		parse_main(t_minishell *ms);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
+
+// ++++++++++++++++ utils/[.....] +++++++++++++++
 
 #endif

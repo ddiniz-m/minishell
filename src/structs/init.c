@@ -6,75 +6,22 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 17:59:40 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:52:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_list	*in_lst(char **arr, int cmd_index) // inteprets both `<` and `<<`
-{
-	t_list	*node;
-	t_list	*input;
-
-	input = NULL;
-	while (arr[cmd_index] && arr[cmd_index][0] != '|')
-	{
-		if (arr[cmd_index][0] == '<')
-		{
-			if (arr[cmd_index + 1])
-			{
-				node = ft_lstnew(arr[cmd_index + 1]);
-				if (!node)
-				{
-					ft_lstclear(&input, free);
-					return (NULL);
-				}
-				ft_lstadd_back(&input, node);
-			}
-			cmd_index += 2;
-		}
-		else
-			cmd_index++;
-	}
-	return (input);
-}
-
-t_list	*out_lst(char **arr, int cmd_index) // inteprets both `>` and `>>`
-{
-	t_list	*node;
-	t_list	*output;
-
-	output = NULL;
-	while (arr[cmd_index] && arr[cmd_index][0] != '|')
-	{
-		if (arr[cmd_index][0] == '>')
-		{
-			if (arr[cmd_index + 1])
-			{
-				node = ft_lstnew(arr[cmd_index + 1]);
-				if (!node)
-				{
-					ft_lstclear(&output, free);
-					return (NULL);
-				}
-				ft_lstadd_back(&output, node);
-			}
-			cmd_index += 2;
-		}
-		else
-			cmd_index++;
-	}
-	return (output);
-}
-
-t_content	*content_init(t_minishell *ms, int cmd_index) //have to modify for `<<` and `>>`
+t_content	*content_init(t_minishell *ms, int cmd_index)
 {
 	t_content	*content;
 
 	content = malloc(sizeof(t_content));
-	content->input = in_lst(ms->main_arr, cmd_index);
-	content->output = out_lst(ms->main_arr, cmd_index);
+	content->input = redir_lst(ms->main_arr, cmd_index, "<");
+	content->output = redir_lst(ms->main_arr, cmd_index, ">");
+	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
+	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
+// ^^ Might have to change it depending on how we handle heredoc ^^
 	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
 		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
 		cmd_index += 2;
@@ -105,19 +52,17 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 	i = 0;
 	cmd_n = 0;
-	printf("\nCMD_COUNT = %i\n", ms->cmd_count); //extra line
+	printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
 	while (cmd_n < ms->cmd_count)
 	{
 		node = cmdlist_lstnew(ms, i);
-		if (node->content->input)
-			i += (ft_lstsize(node->content->input) * 2);
-		if (node->content->output)
-			i += (ft_lstsize(node->content->output) * 2);
-		i += arr_size(node->content->cmd_flags) + 1;
-		cmd_lstadd_back(&cmdlist, node);
+		i += arr_size(node->content->cmd_flags) + ((ft_lstsize(node->content->\
+			output) + ft_lstsize(node->content->input) + ft_lstsize(node->\
+			content->append) + ft_lstsize(node->content->heredoc)) * 2) + 1;
+		ft_lstadd_back((t_list **)&cmdlist, (t_list *)node);
 		cmd_n++;
 	}
 	return (cmdlist);
