@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 13:14:55 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:21:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,21 @@ char	**path_init(char **envp)
 	char	**path_dir;
 	char	*env_path;
 
-	i = 0;
 	while (ft_strnstr(*++envp, "PATH=", 5) == NULL)
 		;
 	env_path = ft_strtrim(*envp, "PATH=");
-	printf("PATH_INIT: env_path = %s\n", env_path);
 	paths = ft_split(env_path, ':');
-	arr_print("PATH INIT: paths no /", paths);
-	while (i++ < arr_size(paths))
-		paths[i] = ft_strjoin(paths[i], "/");
-	arr_print("PATH INIT: paths no", paths);
+	path_dir = malloc(sizeof(char *) * (arr_size(paths) + 1));
+	i = 0;
+	while (i < arr_size(paths))
+	{
+		path_dir[i] = ft_strjoin(paths[i], "/");
+		i++;
+	}
+	path_dir[i] = NULL;
 	free(env_path);
-	return (paths);
+	free_array(paths);
+	return (path_dir);
 }
 
 char	*is_exec(char *str, char **paths)
@@ -42,7 +45,6 @@ char	*is_exec(char *str, char **paths)
 	while (paths[i])
 	{
 		buf = ft_strjoin(paths[i], str);
-		printf("IS_EXEC: buf = %s\n", buf);
 		if (!access(buf, F_OK))
 			return (buf);
 		free(buf);
@@ -69,17 +71,20 @@ int	exec(t_minishell *ms, char **env)
 			if (!is_builtin(cmds->content->cmd_flags[0]))
 			{
 				//call specific built-in func()
-				printf("BUILT-IN!");
+				printf("BUILT-IN!\n");
 			}
-			if (execve(cmd_path, cmds->content->cmd_flags, env) == -1)
+			else if (execve(cmd_path, cmds->content->cmd_flags, env) == -1)
 			{
 				free(cmd_path);
 				break ;
 			}
+			else
+				printf("ERROR\n");
 		}
 		i++;
 		cmds = cmds->next;
 		free(cmd_path);
 	}
+	free_array(paths);
 	return (1);
 }

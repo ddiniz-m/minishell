@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 13:08:21 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:23:19 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 //libft
 # include "../libft/src/libft.h"
-
-//pipex
-# include "../src/pipex/pipex.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
@@ -130,23 +127,6 @@ void		parse_main(t_minishell *ms);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
-
-//env.c
-t_list	**env_init(char **env);
-void	env_override(char *str, t_list **env);
-int		env_check_dup(char *str, t_list **env);
-
-//export.c
-int		export_check_dup(char *str, t_list **export);
-char	**export_array(t_list **list);
-char	*export_str(char *str);
-t_list	**export_init(t_list **env);
-void	export(char **arr, t_list **export, t_list **env);
-
-//unset.c
-int		strlen_chr(char *str, char c);
-int		strcmp_chr(char *s1, char *s2, char c);
-void	unset(t_list **env, t_list **exp, char **arr);
 
 // ++++++++++++++ pipex/[.....] +++++++++++++
 
