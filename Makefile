@@ -8,8 +8,8 @@ RM = rm -rf
 SRC_MSH	=	main.c signals.c prompt.c frees.c
 SRC_STC	=	cmd_utils.c init.c list.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_array.c parse_counter.c
-SRC_BLT	=	pwd.c
-SRC_PPX =	ogpipex_free.c pipex_utils.c ogpipex.c
+SRC_BLT	=	pwd.c export.c unset.c env.c
+SRC_PPX =	exe.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \

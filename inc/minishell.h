@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 14:56:54 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:08:21 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_pipex
 typedef struct s_content
 {
 	char	**cmd_flags;
-	
 	t_list	*input;
 	t_list	*output;
 }	t_content;
@@ -82,9 +81,9 @@ void		malloc_error(t_minishell *ms);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
-int			cmd_validate(char *str);
+int			is_builtin(char *str);
 int			cmd_args(char **arr, int pos);
-int			cmd_count(t_minishell *ms, char **arr);
+int			cmd_count(char **arr);
 char		**cmd_with_flags(char **arr, int pos);
 void		cmdlist_print(t_cmdlist **cmdlist);
 
@@ -132,6 +131,25 @@ void		parse_main(t_minishell *ms);
 // pwd.c
 void		pwd(void);
 
+//env.c
+t_list	**env_init(char **env);
+void	env_override(char *str, t_list **env);
+int		env_check_dup(char *str, t_list **env);
+
+//export.c
+int		export_check_dup(char *str, t_list **export);
+char	**export_array(t_list **list);
+char	*export_str(char *str);
+t_list	**export_init(t_list **env);
+void	export(char **arr, t_list **export, t_list **env);
+
+//unset.c
+int		strlen_chr(char *str, char c);
+int		strcmp_chr(char *s1, char *s2, char c);
+void	unset(t_list **env, t_list **exp, char **arr);
+
 // ++++++++++++++ pipex/[.....] +++++++++++++
-int			pipe_redirect(t_minishell *ms, t_pipex *ppx);
+
+int		exec(t_minishell *ms, char **env);
+
 #endif

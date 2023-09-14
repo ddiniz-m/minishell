@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 11:15:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:09:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
 	t_minishell	*ms;
+	t_list	**env;
+	t_list	**exp;
 
+
+	env = env_init(envp);
+	exp = export_init(env);
 	ms = malloc(sizeof(t_minishell));
 	signal_init();
 	while (1)
@@ -26,6 +31,7 @@ int	main(void)
 		ms->str = readline(ms->prompt);
 		var_init(ms);
 		parse_main(ms);
+		exec(ms, envp);
 		add_history(ms->str);
 		signal_exit(ms);
 		free(ms->str);
@@ -35,7 +41,23 @@ int	main(void)
 	}
 	free(ms->cmdlist);
 	free(ms);
+	(void)ac;
+	(void)av;
 }
+/*
+	t_cmd	| t_content	content
+			| int		last_in
+			| int		last_out
+			| t_cmd		next
+
+	if last_in == 0
+		no input
+	if last_in == 1
+		input redir '<'
+	if last_in == 2
+		input redir '<<'
+	same for output
+*/
 
 /*
 	What if instead of always creating an array and then transforming it into a
@@ -44,17 +66,10 @@ int	main(void)
 	If we only created an array from t_cmdlist before calling execve, we would 
 	only create arrays when necessary, and we could free them after we used them.
 
-	Response: Nah
-
-	Fixed: `< test.txt < test2.txt echo 1 2 3 > test3 > test4 | <test5 <testa export a b c> test6 >testb`
-		-fixed: when redirecting input, the program wouldn't see any commands after the redirect;
-		-fixed: all input and output redirects were being added to each t_cmdlist node;
-		-fixed: would break with multiple cmds with input/outputs
-		-fixed: would break with multiple cmds with multiple input/outputs
+	`< test.txt < test2.txt cmd1 1 2 3 > test3 > test4 | <test5 <testa cmd2 a b c> test6 >testb`
 	
 	Need to correct:
-		-cmd_count()
 		-out_lst()
 		-in_lst()
-		-Weird behavior when the line after prompt gets longer than the terminal window
+		-content_init()
 */

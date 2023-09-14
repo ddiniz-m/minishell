@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:40:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/08 13:31:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:52:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,17 @@ char	*set_prompt(t_minishell *ms)
 {
 	char	cwd[PATH_MAX];
 	char	*prompt;
-	char	*buf;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		prompt = malloc(sizeof(char) * 25);
+		prompt = malloc(sizeof(char) * 12);
 		if (!prompt)
 			malloc_error(ms);
-		prompt = "\033[1;33mMinishell $> \033[0m";
+		prompt = "Minishell$> ";
 		return (prompt);
 	}
-	buf = ft_strjoin("\033[1;33m", ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') \
-		+ 1);
-	if (!buf)
-		malloc_error(ms);
-	prompt = ft_strjoin(buf, " $> \033[0m");
+	prompt = ft_strjoin(ft_strrchr(getcwd(cwd, sizeof(cwd)), '/') + 1, "$> ");
 	if (!prompt)
 		malloc_error(ms);
-	free(buf);
 	return (prompt);
 }
