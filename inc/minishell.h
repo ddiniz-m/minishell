@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:10:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:14:32 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ void		list_print(t_list **list);
 // +++++++++++++ parser/[.........] +++++++++++++
 // parse.clist_print(tmp->content->input);
 
-// array_utils.c
-int			arr_size(char **arr);
-char		**arr_cpy(char **arr, int pos, int size);
-void		arr_print(char *str, char **arr);
+// parse_array.c
+int		arr_size(char **arr);
+char	**arr_cpy(char **arr, int pos, int size);
+void	arr_print(char *str, char **arr);
 
 // parse_split.c
 char		**split_main(t_minishell *ms, char *str);
@@ -112,10 +112,11 @@ int			meta_char(char c);
 //parse.c
 void		parse_main(t_minishell *ms);
 
+//syntax_error
+int	syntax_errors(char *str);
+
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
-
-// ++++++++++++++++ utils/[.....] +++++++++++++++
 
 #endif
