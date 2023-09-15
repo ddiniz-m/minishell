@@ -6,11 +6,11 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 14:03:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/13 12:26:04 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:55:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../inc/minishell.h"
 
 // opens infile and makes its fd, stdin
 int	infile(t_pipex *pipex, char **av)

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 11:17:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:47:24 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
+# include <linux/limits.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -52,6 +55,8 @@ typedef struct s_minishell
 	char			**main_arr;
 	char			*prompt;
 	char			*str;
+	char			*inpipe_fd;
+	char			*outpipe_fd;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 

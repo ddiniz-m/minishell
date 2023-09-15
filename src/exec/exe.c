@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 11:28:27 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:44:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,26 @@ void	built_ins(char *builtin)
 		/* exit() */;
 }
 
-void	exec(char **cmd_flags, char **paths, char **env)
+int	exec(char **cmd_flags, char **paths, char **env)
 {
+	pid_t		child;
 	char		*cmd_path;
-
+	(void)env;
 	cmd_path = is_exec(cmd_flags[0], paths);
-	if (!ft_strcmp(cmd_flags[0], "echo"))
-	{
+	if (!ft_strcmp(cmd_flags[0], "pwd"))
 		built_ins(cmd_flags[0]);
+	else if (cmd_path) 
+	{
+		child = fork();
+		if (child == -1)
+			return(printf("Fork Error\n"));
+		if (!child && execve(cmd_path, cmd_flags, env) == -1)
+			printf("EXECVE ERROR\n");
+		if (child)
+			wait(NULL);
 	}
-	else if (cmd_path && execve(cmd_path, cmd_flags, env) == -1)
-		free(cmd_path);
 	free(cmd_path);
+	return (0);
 }
 
 int	run_cmds(t_minishell *ms, char **env)
