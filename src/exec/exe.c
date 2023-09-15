@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:21:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:28:27 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,37 +53,52 @@ char	*is_exec(char *str, char **paths)
 	return (NULL);
 }
 
-int	exec(t_minishell *ms, char **env)
+void	built_ins(char *builtin)
+{
+	if (!ft_strcmp(builtin, "echo"))
+		/* echo() */;
+	if (!ft_strcmp(builtin, "cd"))
+		/* cd() */;
+	if (!ft_strcmp(builtin, "pwd"))
+		pwd();
+	if (!ft_strcmp(builtin, "export"))
+		/* export() */;
+	if (!ft_strcmp(builtin, "unset"))
+		/* unset */;
+	if (!ft_strcmp(builtin, "env"))
+		/* env() */;
+	if (!ft_strcmp(builtin, "exit"))
+		/* exit() */;
+}
+
+void	exec(char **cmd_flags, char **paths, char **env)
+{
+	char		*cmd_path;
+
+	cmd_path = is_exec(cmd_flags[0], paths);
+	if (!ft_strcmp(cmd_flags[0], "echo"))
+	{
+		built_ins(cmd_flags[0]);
+	}
+	else if (cmd_path && execve(cmd_path, cmd_flags, env) == -1)
+		free(cmd_path);
+	free(cmd_path);
+}
+
+int	run_cmds(t_minishell *ms, char **env)
 {
 	int			i;
 	t_cmdlist	*cmds;
 	char		**paths;
-	char		*cmd_path;
 	
 	i = 0;
 	cmds = ms->cmdlist;
 	paths = path_init(env);
 	while (i < cmd_count(ms->main_arr))
 	{
-		cmd_path = is_exec(cmds->content->cmd_flags[0], paths);
-		if (cmd_path)
-		{
-			if (!is_builtin(cmds->content->cmd_flags[0]))
-			{
-				//call specific built-in func()
-				printf("BUILT-IN!\n");
-			}
-			else if (execve(cmd_path, cmds->content->cmd_flags, env) == -1)
-			{
-				free(cmd_path);
-				break ;
-			}
-			else
-				printf("ERROR\n");
-		}
-		i++;
+		exec(cmds->content->cmd_flags, paths, env);
 		cmds = cmds->next;
-		free(cmd_path);
+		i++;
 	}
 	free_array(paths);
 	return (1);

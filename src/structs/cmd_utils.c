@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 13:01:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:51:01 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 		list_print(&tmp->content->input);
 		printf("		Output:\n");
 		list_print(&tmp->content->output);
+		printf("		HereDoc:\n");
+		list_print(&tmp->content->heredoc);
+		printf("		Append:\n");
+		list_print(&tmp->content->append);
 		i++;
 		if (tmp->next)
 			tmp = tmp->next;
@@ -37,26 +41,7 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 	}
 }
 
-//Takes main array and position of a command, and returns an array with the
-//command and it's flags
-char	**cmd_with_flags(char **arr, int pos)
-{
-	int		i;
-	char	**buf;
-	int		args;
-
-	i = 0;
-	args = cmd_args(arr, pos);
-	buf = malloc(sizeof(char *) * (args + 1));
-	if (!buf)
-		return (NULL);
-	while (i < args && arr[pos])
-		buf[i++] = arr[pos++];
-	buf[i] = NULL;
-	return (buf);
-}
-
-//Counts how many flags/arguments the fisrt command will use/print
+//Counts how many words a command has
 int	cmd_args(char **arr, int pos)
 {
 	int	i;
@@ -69,20 +54,6 @@ int	cmd_args(char **arr, int pos)
 		i++;
 	}
 	return (i - pos);
-}
-
-// Checks if str is a valid command
-int	is_builtin(char *str)
-{
-	if (ft_strcmp("echo", str) == 0 
-		|| ft_strcmp("cd", str) == 0
-		|| ft_strcmp("pwd", str) == 0 
-		|| ft_strcmp("unset", str) == 0 
-		|| ft_strcmp("env", str) == 0 
-		|| ft_strcmp("export", str) == 0 
-		|| ft_strcmp("exit", str) == 0)
-		return (0);
-	return (1);
 }
 
 //Counts how many valid commands there are in main->arr.
