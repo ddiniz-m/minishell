@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:39:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:52:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ int	double_redir_error(char *str, char c)
 			i++;
 		while (i < size && meta_char(str[i]) == 1)
 			i++;
-		if (i < size && meta_char(str[i]) == 2 && meta_char(str[i - 1]) == 1)
-		{
-			printf("test3\n");
+		if (i < size && ((str[i] == '|' && str[i - 1] == '<') || \
+			(meta_char(str[i]) == 2 && meta_char(str[i - 1]) == 1)))
 			return (token_message(str[i]));
-		}
 		i++;
 	}
 	return (0);
@@ -114,10 +112,7 @@ int	sucession_error(char *str)
 		else
 			i++;
 		if (i < size && meta_char(str[i]) == 2)
-		{
-			printf("test4\n");
 			return (token_message(str[i]));
-		}
 		i++;
 	}
 	return (0);

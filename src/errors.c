@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:40:48 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:58:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,14 @@ int	token_message(char c)
 
 int	syntax_error(t_minishell *ms)
 {
-	int	i;
-
-	i = 0;
-	i += quote_error(ms->str);
-	i += pipe_error(ms->str);
-	i += begin_error(ms->str);
-	i += end_of_string_error(ms->str);
-	i += double_redir_error(ms->str, '<');
-	i += double_redir_error(ms->str, '>');
-	i += dollar_error(ms->str);
-	i += sucession_error(ms->str);
-	i += redir_error(ms->str);
-	if (i)
+	if (quote_error(ms->str) || pipe_error(ms->str) || begin_error(ms->str) || \
+		end_of_string_error(ms->str) || double_redir_error(ms->str, '<') || \
+		double_redir_error(ms->str, '>') || dollar_error(ms->str) || \
+		sucession_error(ms->str) || redir_error(ms->str))
 	{
-		free(ms->str);
 		free(ms->prompt);
-		free(ms);
+		free(ms->str);
+		return (1);
 	}
-	return (i); // I think it should change exit status
+	return (0); // I think it should change exit status
 }
