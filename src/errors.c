@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 15:21:44 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:02:01 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,18 @@ int	dollar_error(char *str)
 			i++;
 	}
 	return (0);
+}
+
+int	token_message(char c)
+{
+	/* write(2,"MiniShell: syntax error near unexpected token", 45);
+	write(2, " \'", 2);
+	write(2, &c, 1);
+	write(2, "\'", 1);
+	write(2, "\n", 1); */
+	dup2(STDIN_FILENO ,STDERR_FILENO);
+	printf("MiniShell: syntax error near unexpected token '%c'\n", c);
+	return (1);
 }
 
 int	syntax_error(t_minishell *ms)

@@ -6,23 +6,11 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 15:28:59 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:13:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	token_message(char c)
-{
-	/* write(2,"MiniShell: syntax error near unexpected token", 45);
-	write(2, " \'", 2);
-	write(2, &c, 1);
-	write(2, "\'", 1);
-	write(2, "\n", 1); */
-	dup2(0 ,2);
-	printf("MiniShell: syntax error near unexpected token '%c'\n", c);
-	return (1);
-}
 
 //Checks for metachar at the start of str
 int	begin_error(char *str)
@@ -37,7 +25,8 @@ int	begin_error(char *str)
 	if (str[i] && str[i] == '|')
 		return(token_message(str[i]));
 	else if (str[i] && meta_char(str[i]) == 2)
-		return(token_message('\n'));
+		return (write(2, 
+		"MiniShell: syntax error near unexpected token 'newline'", 55));
 	return (0);
 }
 
@@ -50,8 +39,11 @@ int	end_of_string_error(char *str)
 	while(size >= 0)
 	{
 		if (meta_char(str[size]) == 2)
+		{
+			printf("test1\n");
 			return (token_message(str[size]));
-		size--;
+		}
+		
 	}
 	return (0);
 }
@@ -70,7 +62,10 @@ int	redir_error(char *str)
 			i++;
 		if (str[i] && str[i] == '>')
 			if (str[++i] == '<')
+			{
+				printf("test2\n");
 				return(token_message(str[i]));
+			}
 		i++;
 	}
 	return (0);
@@ -94,7 +89,10 @@ int	heredoc_error(char *str)
 		while (i < size && meta_char(str[i]) == 1)
 			i++;
 		if (i < size  && meta_char(str[i]) == 2)
+		{
+			printf("test3\n");
 			return (token_message(str[i]));
+		}
 		i++;
 	}
 	return (0);
@@ -120,7 +118,10 @@ int	sucession_error(char *str)
 		else
 			i++;
 		if (i < size && meta_char(str[i]) == 2)
+		{
+			printf("test4\n");
 			return (token_message(str[i]));
+		}
 		i++;
 	}
 	return (0);
