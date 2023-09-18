@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 16:13:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:01:22 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	begin_error(char *str)
 		i++;
 	if (str[i] && str[i] == '|')
 		return(token_message(str[i]));
-	else if (str[i] && meta_char(str[i]) == 2)
+	else if (str[i] && str[i] == '|')
 		return (write(2, 
 		"MiniShell: syntax error near unexpected token 'newline'", 55));
 	return (0);
@@ -35,15 +35,14 @@ int	end_of_string_error(char *str)
 {
 	int	size;
 	
-	size = ft_strlen(str);
+	size = ft_strlen(str) - 1;
 	while(size >= 0)
 	{
 		if (meta_char(str[size]) == 2)
-		{
-			printf("test1\n");
 			return (token_message(str[size]));
-		}
-		
+		if (meta_char(str[size]) == 0)
+			break ;
+		size--;
 	}
 	return (0);
 }
@@ -71,8 +70,8 @@ int	redir_error(char *str)
 	return (0);
 }
 
-//Checks for >> |
-int	heredoc_error(char *str)
+//Checks for << | and for >> |
+int	double_redir_error(char *str, char c)
 {
 	int	i;
 	int	size;
@@ -81,14 +80,14 @@ int	heredoc_error(char *str)
 	size = ft_strlen(str);
 	while (i < size - 1)
 	{
-		while (i < size && str[i] != '<')
+		while (i < size && str[i] != c)
 			i++;
 		i++;
-		if (i < size && str[i] == '<')
+		if (i < size && str[i] == c)
 			i++;
 		while (i < size && meta_char(str[i]) == 1)
 			i++;
-		if (i < size  && meta_char(str[i]) == 2)
+		if (i < size  && meta_char(str[i]) == 2 && meta_char(str[i - 1]) == 1)
 		{
 			printf("test3\n");
 			return (token_message(str[i]));

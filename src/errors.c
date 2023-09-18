@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 16:02:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:30:39 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int	syntax_error(t_minishell *ms)
 	i += pipe_error(ms->str);
 	i += begin_error(ms->str);
 	i += end_of_string_error(ms->str);
-	i += heredoc_error(ms->str);
+	i += double_redir_error(ms->str, '<');
+	i += double_redir_error(ms->str, '>');
 	i += dollar_error(ms->str);
 	i += sucession_error(ms->str);
 	i += redir_error(ms->str);

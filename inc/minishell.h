@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 15:21:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:30:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int		begin_pipe_error(char *str);
 int		end_of_string_error(char *str);
 int		heredoc_error(char *str);
 int		begin_error(char *str);
+int		double_redir_error(char *str, char c);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
