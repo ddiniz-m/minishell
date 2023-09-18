@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 16:30:39 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:40:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	token_message(char c)
 	write(2, &c, 1);
 	write(2, "\'", 1);
 	write(2, "\n", 1); */
-	dup2(STDIN_FILENO ,STDERR_FILENO);
+	dup2(STDIN_FILENO, STDERR_FILENO);
 	printf("MiniShell: syntax error near unexpected token '%c'\n", c);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 16:30:04 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:38:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void		list_print(t_list **list);
 // parse.clist_print(tmp->content->input);
 
 // parse_array.c
-int		arr_size(char **arr);
-char	**arr_cpy(char **arr, int pos, int size);
-void	arr_print(char *str, char **arr);
+int			arr_size(char **arr);
+char		**arr_cpy(char **arr, int pos, int size);
+void		arr_print(char *str, char **arr);
 
 // parse_split.c
 char		**split_main(t_minishell *ms, char *str);
@@ -113,17 +113,17 @@ int			meta_char(char c);
 void		parse_main(t_minishell *ms);
 
 //errors
-int	syntax_error(t_minishell *ms);
+int			syntax_error(t_minishell *ms);
 
 //errors2
-int		token_message(char c);
-int		sucession_error(char *str);
-int		redir_error(char *str);
-int		begin_pipe_error(char *str);
-int		end_of_string_error(char *str);
-int		heredoc_error(char *str);
-int		begin_error(char *str);
-int		double_redir_error(char *str, char c);
+int			token_message(char c);
+int			sucession_error(char *str);
+int			redir_error(char *str);
+int			begin_pipe_error(char *str);
+int			end_of_string_error(char *str);
+int			heredoc_error(char *str);
+int			begin_error(char *str);
+int			double_redir_error(char *str, char c);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
