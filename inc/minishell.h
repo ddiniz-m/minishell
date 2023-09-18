@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 17:14:32 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:21:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,17 @@ int			meta_char(char c);
 //parse.c
 void		parse_main(t_minishell *ms);
 
-//syntax_error
-int	syntax_errors(char *str);
+//errors
+int	syntax_error(t_minishell *ms);
+
+//errors2
+int		token_message(char c);
+int		sucession_error(char *str);
+int		redir_error(char *str);
+int		begin_pipe_error(char *str);
+int		end_of_string_error(char *str);
+int		heredoc_error(char *str);
+int		begin_error(char *str);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c

@@ -5,9 +5,9 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-SRC_MSH	=	main.c signals.c prompt.c
+SRC_MSH	=	main.c signals.c prompt.c errors.c errors2.c
 SRC_STC	=	cmd_utils.c init.c list.c content.c
-SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c syntax_errors.c
+SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
 SRC_BLT	=	pwd.c
 SRC_UTL	=	frees.c array_utils.c
 
