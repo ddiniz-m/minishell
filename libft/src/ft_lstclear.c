@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:15:48 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/11 15:39:31 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/31 13:46:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
-#include"../../inc/minishell.h"
+#include "libft.h"
 
 //	Deletes and frees the given node and all of its successors
 //	using the function ’del’ and free

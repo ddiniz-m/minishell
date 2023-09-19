@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:09:40 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/13 14:54:29 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/08 13:48:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
-#include"../../inc/minishell.h"
+#include "libft.h"
 
 //	Deletes and frees the given node using the function ’del’ and free
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	del(lst->data);
+	del(lst -> data);
 	free(lst);
 }

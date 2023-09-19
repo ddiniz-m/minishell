@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 17:21:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/01 17:27:09 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/31 13:47:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 //	Returns a substring from the string 's'
 //	The substring begins at index 'c' and is of maximum size 'n'
 
-char	*ft_substr(char const *str, int c, int n)
+char	*ft_substr(char const *str, unsigned int c, size_t n)
 {
 	char	*sub;
-	int		i;
+	size_t	i;
 
 	if (ft_strlen(str) <= c)
 		n = 0;

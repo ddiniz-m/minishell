@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:30:24 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/01 17:27:26 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/12 18:28:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include"../../inc/minishell.h"
 
 int				ft_atoi(const char *s);
 void			ft_bzero(void *s, size_t n);
@@ -45,18 +44,33 @@ void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*ft_strjoin(const char *s1, const char *s2);
 unsigned int	ft_strlcat(char *dest, const char *src, size_t size);
 unsigned int	ft_strlcpy(char *dest, const char *src, size_t size);
-int				ft_strlen(const char *s);
+size_t			ft_strlen(const char *s);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *big, const char *lil, size_t n);
 char			*ft_strrchr(const char *s, int c);
-char			*ft_strstr(char *str, char *to_find);
 char			*ft_strtrim(const char *s, const char *set);
-char			*ft_substr(char const *str, int c, int n);
+char			*ft_substr(char const *str, unsigned int c, size_t n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 
 // VV------------------------------ LIBFT BONUS ------------------------------VV
+
+typedef struct s_list
+{
+	void			*data;
+	struct s_list	*next;
+}	t_list;
+
+void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstadd_front(t_list **lst, t_list *new);
+void			ft_lstclear(t_list **lst, void (*del)(void*));
+void			ft_lstdelone(t_list *lst, void (*del)(void*));
+void			ft_lstiter(t_list *lst, void (*f)(void *));
+t_list			*ft_lstlast(t_list *lst);
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
+t_list			*ft_lstnew(void *data);
+int				ft_lstsize(t_list *lst);
 
 // VV----------------- FT_PRINTF -----------------VV
 

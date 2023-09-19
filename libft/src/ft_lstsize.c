@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:58:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/07/13 15:40:20 by mira             ###   ########.fr       */
+/*   Updated: 2023/08/31 13:46:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
-#include"../../inc/minishell.h"
+#include "libft.h"
 
 //	Counts the number of nodes in a list
 
 int	ft_lstsize(t_list *lst)
 {
 	int	count;
-	t_list	*tmp;
 
 	count = 0;
-	tmp = lst;
-	while (tmp)
+	while (lst)
 	{
-		tmp = tmp -> next;
+		lst = lst -> next;
 		count++;
 	}
 	return (count);
