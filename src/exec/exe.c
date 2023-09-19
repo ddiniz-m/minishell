@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 13:44:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:16:35 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ char	*is_exec(char *str, char **paths)
 
 void	built_ins(char *builtin)
 {
-	if (!ft_strcmp(builtin, "echo"))
+	if (ft_strcmp(builtin, "echo") == 0)
 		/* echo() */;
-	if (!ft_strcmp(builtin, "cd"))
+	if (ft_strcmp(builtin, "cd") == 0)
 		/* cd() */;
-	if (!ft_strcmp(builtin, "pwd"))
+	if (ft_strcmp(builtin, "pwd") == 0)
 		pwd();
-	if (!ft_strcmp(builtin, "export"))
+	if (ft_strcmp(builtin, "export") == 0)
 		/* export() */;
-	if (!ft_strcmp(builtin, "unset"))
+	if (ft_strcmp(builtin, "unset") == 0)
 		/* unset */;
-	if (!ft_strcmp(builtin, "env"))
+	if (ft_strcmp(builtin, "env") == 0)
 		/* env() */;
-	if (!ft_strcmp(builtin, "exit"))
+	if (ft_strcmp(builtin, "exit") == 0)
 		/* exit() */;
 }
 
