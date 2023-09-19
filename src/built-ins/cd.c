@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 17:29:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:57:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	cd_home(void)
 		// NEED TO CHANGE EXIT_STATUS
 		return (-1);
 	}
+	// NEED TO CHANGE EXIT_STATUS
 	return (0);
 }
 
@@ -43,5 +44,4 @@ int	cd(char *path)
 	}
 	// NEED TO CHANGE EXIT_STATUS
 	return (0);
-
 }
