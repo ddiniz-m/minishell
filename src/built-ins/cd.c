@@ -14,6 +14,7 @@
 
 int	cd_home(void)
 {
+
 	if (!getenv("HOME")) // replace with our env
 	{
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
