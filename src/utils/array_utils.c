@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_array.c                                      :+:      :+:    :+:   */
+/*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/06/23 16:53:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:08:21 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ char	**arr_cpy(char **arr, int pos, int size)
 void	arr_print(char *str, char **arr)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	printf("\n%s:\n", str);
-	while (i < arr_size(arr))
-		printf("%s\n", arr[i++]);
+	if (!arr)
+		return ;
+	j = arr_size(arr);
+	printf("	%s:\n", str);
+	while (arr[i] && i < j)
+		printf("			%s\n", arr[i++]);
 }

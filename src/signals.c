@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/08/02 15:30:13 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/19 12:27:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ void	signal_interrupt(int signum)
 
 //	CTRL-D represents "No input".
 //	When pressed, str is NULL and it exits the shell.
-void	signal_exit(t_var *var, t_list **env, t_list **exp)
+void	signal_exit(t_minishell *ms)
 {
-	if (!(var->str))
+	if (!(ms->str))
 	{
 		printf("exit\n");
-		free_list(env, 1);
-		free_list(exp, 0);
-		free_var(var);
+		free_ms(ms);
 		exit (0);
 	}
 }

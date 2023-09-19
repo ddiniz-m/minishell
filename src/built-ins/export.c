@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/02 14:32:00 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/19 15:21:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,24 +129,26 @@ t_list	**export_init(t_list **env)
 void	export(char **arr, t_list **export, t_list **env)
 {
 	int		i;
+	char	*buf;
 	t_list	*node;
 
 	i = 1;
 	while (i < arr_size(arr))
 	{
-		if (env_check_dup(arr[i], env))
-			env_override(arr[i], env);
-		if (export_check_dup(arr[i], export))
+		buf = ft_strdup(arr[i]);
+		if (env_check_dup(buf, env))
+			env_override(buf, env);
+		if (export_check_dup(buf, export))
 		{
 			export_override(arr[i++], export);
 			continue ;
 		}
-		if (ft_strchr(arr[i], '='))
+		if (ft_strchr(buf, '='))
 		{
-			node = ft_lstnew(arr[i]);
+			node = ft_lstnew(buf);
 			ft_lstadd_back(env, node);
 		}
-		node = ft_lstnew(export_str(arr[i]));
+		node = ft_lstnew(export_str(buf));
 		ft_lstadd_back(export, node);
 		i++;
 	}

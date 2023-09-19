@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
-/*   Updated: 2023/09/06 16:53:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:25:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	unset_env(t_list **env, char *str)
 
 	i = 0;
 	tmp = *env;
-	while (i < list_size(env))
+	while (i < ft_lstsize(*env))
 	{
 		if (strcmp_chr(str, tmp->data, '=') == 0
 			|| ft_strcmp(str, tmp->data) == 0)
@@ -39,7 +39,7 @@ void	unset_exp(t_list **exp, char *str)
 
 	i = 0;
 	tmp = *exp;
-	while (i < list_size(exp))
+	while (i < ft_lstsize(*exp))
 	{
 		if (strcmp_chr(str, tmp->data, '=') == 0
 			|| ft_strcmp(str, tmp->data) == 0)
@@ -56,16 +56,18 @@ void	unset(t_list **env, t_list **exp, char **arr)
 {
 	int		i;
 	char	*buf;
+	char	*exp_buf;
 	
 	i = 1;
 	while (i < arr_size(arr))
 	{
-		if (env_check_dup(arr[i], env) == 0)
-			unset_env(env, arr[i]);
-		buf = export_str(arr[i]);
-		if (export_check_dup(buf, exp) == 0)
-			unset_exp(exp, buf);
+		buf = ft_strdup(arr[i]);
+		if (env_check_dup(buf, env) == 0)
+			unset_env(env, buf);
+		exp_buf = export_str(buf);
+		if (export_check_dup(exp_buf, exp) == 0)
+			unset_exp(exp, exp_buf);
 		i++;
-		free(buf);
+		free(exp_buf);
 	}
 }

@@ -3,52 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/08/02 15:37:11 by mira             ###   ########.fr       */
+/*   Updated: 2023/09/19 15:06:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	parse_main(t_var *var, t_list **env, t_list **exp)
+void	parse_main(t_cmdlist *cmd, t_list **env, t_list **exp)
 {
-	int		i;
-	t_arr	**arr;
+	int			i;
+	char		**arr;
 
 	i = 0;
-	arr = cmd_struct_init(var);
-	arr_print("MAIN ARRAY", var->main_arr);
-	while(i < var->cmd_count)
+	while(cmd)
 	{
-		arr_print("COMMAND", arr[i]->cmd);
-		if(ft_strcmp("env", arr[i]->cmd[0]) == 0)
+		arr = cmd->content->cmd_flags;
+		arr_print("ARR", arr);
+		if(ft_strcmp("env", arr[0]) == 0)
 		{
+			printf("%s\n", arr[0]);
 			printf("ENV OUTPUT\n");
 			list_print(env);
 		}
-		else if(ft_strcmp("export", arr[i]->cmd[0]) == 0)
+		else if(ft_strcmp("export", arr[0]) == 0)
 		{
 			list_sort(exp);
-			if (arr_size(arr[i]->cmd) > 1)
-				export(arr[i]->cmd, exp, env);
+			if (arr_size(arr) > 1)
+				export(arr, exp, env);
 			else
 			{
 				printf("EXPORT OUTPUT\n");
 				list_print(exp);
 			}
 		}
-		else if(ft_strcmp("unset", arr[i]->cmd[0]) == 0)
+		else if(ft_strcmp("unset", arr[0]) == 0)
 		{
-			if (arr_size(arr[i]->cmd) > 1)
+			if (arr_size(arr) > 1)
 			{
-				unset(env, exp, arr[i]->cmd);
+				unset(env, exp, arr);
 			}
 			else
 				break ;
 		}
-		i++;
+		cmd = cmd->next;
 	}
-	free(arr);
 }
