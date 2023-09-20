@@ -38,24 +38,10 @@ void	env_override(char *str, t_list **env)
 	tmp = *env;
 	while (tmp)
 	{
+		if (!ft_strchr(str, '='))
+			break ;
 		if (strcmp_chr(tmp->data, str, '=') == 0)
 			ft_strcpy(tmp->data, str);
 		tmp = tmp->next;
 	}
-}
-
-int	env_check_dup(char *str, t_list **env)
-{
-	t_list	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strchr(str, '='))
-			break ;
-		if (strcmp_chr(tmp->data, str, '=') == 0)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
 }

@@ -84,7 +84,6 @@ int	strlen_chr(char *str, char c)
 	i = 0;
 	while(str[i] && str[i] != c)
 		i++;
-	i++;
 	return (i);
 }
 
@@ -96,7 +95,7 @@ int	strcmp_chr(char *s1, char *s2, char c)
 
 	i = 0;
 	n = 0;
-	while (i < strlen_chr(s2, c))
+	while (i < strlen_chr(s2, c) - 1)
 	{
 		n += s1[i] - s2[i];
 		i++;

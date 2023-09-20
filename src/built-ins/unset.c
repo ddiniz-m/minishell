@@ -21,7 +21,7 @@ void	unset_env(t_list **env, char *str)
 	tmp = *env;
 	while (i < ft_lstsize(*env))
 	{
-		if (strcmp_chr(str, tmp->data, '=') == 0
+		if (strcmp_chr(tmp->data, str, '=') == 0
 			|| ft_strcmp(str, tmp->data) == 0)
 		{
 			list_remove(env, i);
@@ -41,7 +41,7 @@ void	unset_exp(t_list **exp, char *str)
 	tmp = *exp;
 	while (i < ft_lstsize(*exp))
 	{
-		if (strcmp_chr(str, tmp->data, '=') == 0
+		if (strcmp_chr(tmp->data, str, '=') == 0
 			|| ft_strcmp(str, tmp->data) == 0)
 		{
 			list_remove(exp, i);
@@ -55,18 +55,18 @@ void	unset_exp(t_list **exp, char *str)
 void	unset(t_list **env, t_list **exp, char **arr)
 {
 	int		i;
+	int		size;
 	char	*buf;
 	char	*exp_buf;
 	
 	i = 1;
-	while (i < arr_size(arr))
+	size = arr_size(arr);
+	while (i < size)
 	{
-		buf = ft_strdup(arr[i]);
-		if (env_check_dup(buf, env) == 0)
-			unset_env(env, buf);
+		buf = ft_strcpy(buf, arr[i]);
+		unset_env(env, buf);
 		exp_buf = export_str(buf);
-		if (export_check_dup(exp_buf, exp) == 0)
-			unset_exp(exp, exp_buf);
+		unset_exp(exp, exp_buf);
 		i++;
 		free(exp_buf);
 	}

@@ -140,13 +140,10 @@ void		pwd(void);
 //env.c
 t_list		**env_init(char **envp);
 void		env_override(char *str, t_list **env);
-int			env_check_dup(char *str, t_list **env);
 
 //export.c
-char		**export_array(t_list **list);
 char		*export_str(char *str);
-int			export_check_dup(char *str, t_list **export);
-void		export_override(char *str, t_list **export);
+int			export_override(char *str, t_list **export);
 void		export(char **arr, t_list **export, t_list **env);
 t_list		**export_init(t_list **env);
 
