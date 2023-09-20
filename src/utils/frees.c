@@ -22,9 +22,10 @@ void	free_ms(t_minishell *ms)
 		free_array(ms->main_arr);
 	if (ms->cmdlist)
 		free_cmd_list(ms->cmdlist);
+	free_list(ms, ms->env);
+	free_exp(ms->exp);
 	free(ms->cmdlist);
 	free(ms);
-	exit (0);
 }
 
 void	free_array(char **arr)
@@ -52,24 +53,22 @@ void	free_list(t_list **list)
 	{
 		tmp = *list;
 		*list = (*list)->next;
+
 		free(tmp);
 	}
 }
 
-void	free_exp(t_list **list)
+void	free_exp(t_list **exp)
 {
-	t_list	*head;
-	t_list	*temp;
+	t_list	*tmp;
 
-	head = *list;
-	while (head)
+	while (*exp)
 	{
-		temp = head;
-		head = head->next;
-		free(temp->data);
-		free(temp);
+		tmp = *exp;
+		*exp = (*exp)->next;
+		free(tmp->data);
+		free(tmp);
 	}
-	free(list);
 }
 
 void	free_cmd_list(t_cmdlist *cmdlist)

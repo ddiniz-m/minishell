@@ -52,6 +52,8 @@ typedef struct s_minishell
 	char			**main_arr;
 	char			*prompt;
 	char			*str;
+	t_list			**env;
+	t_list			**exp;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 
@@ -79,7 +81,6 @@ int			cmd_args(char **arr, int pos);
 int			cmd_count(char **arr);
 int			strcmp_chr(char *s1, char *s2, char c);
 int			strlen_chr(char *str, char c);
-
 
 //content.c
 t_list		*redir_lst(char **arr, int index, char *limiter);
@@ -119,7 +120,7 @@ int			str_others(char *str, int i);
 int			meta_char(char c);
 
 //parse.c
-void	parse_main(t_cmdlist *cmd, t_list **env, t_list **exp);
+void		parse_main(t_cmdlist *cmd, t_list **env, t_list **exp);
 
 //errors
 int			syntax_error(t_minishell *ms);

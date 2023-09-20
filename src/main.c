@@ -17,12 +17,10 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_minishell	*ms;
-	t_list		**env;
-	t_list		**exp;
 
-	env = env_init(envp);
-	exp = export_init(env);
 	ms = malloc(sizeof(t_minishell));
+	ms->env = env_init(envp);
+	ms->exp = export_init(ms->env);
 	signal_init();
 	while (1)
 	{
@@ -32,15 +30,15 @@ int	main(int ac, char **av, char **envp)
 		if (ms->str && syntax_error(ms))
 			continue ;
 		var_init(ms);
-		parse_main(ms->cmdlist, env, exp);
+		parse_main(ms->cmdlist, ms->env, ms->exp);
 		signal_exit(ms);
 		free(ms->str);
 		free(ms->prompt);
 		free_array(ms->main_arr);
 		free_cmd_list(ms->cmdlist);
 	}
-	free_list(env);
-	free_exp(exp);
+	free_list(ms, ms->env);
+	free_exp(ms->exp);
 	free(ms->cmdlist);
 	free(ms);
 	(void)ac;

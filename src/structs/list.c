@@ -67,6 +67,7 @@ void	list_remove(t_list **list, int pos)
 	}
 	target = tmp->next;
 	tmp->next = target->next;
+	free(target->data);
 	free(target);
 }
 

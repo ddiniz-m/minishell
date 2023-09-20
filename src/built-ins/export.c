@@ -62,41 +62,31 @@ char	*export_str(char *str)
 	return (buf2);
 }
 
-int	export_check(char *list_str, char *str)
-{
-	if (!ft_strchr(str, '='))
-		return (1);
-	if (strcmp_chr(list_str, str, '=') == 0
-		|| ft_strcmp(list_str, str) == 0)
-	{
-		ft_strcpy(list_str, str);
-		return (1);
-	}
-	return (0);
-}
-
 //Checks if there is alredy str in export list;
 int	export_override(char *str, t_list **export)
 {
-	int		i;
 	char	*buf;
 	t_list	*tmp;
 
-	i = 0;
 	tmp = *export;
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (export_check(tmp->data, buf))
+		if (!ft_strchr(buf, '='))
+			break ;
+		if (strcmp_chr(tmp->data, buf, '=') == 0
+			|| ft_strcmp(tmp->data, buf) == 0)
 		{
-			free(buf);
-			return (1);
+			free(tmp->data);
+			tmp->data = ft_strdup(buf);
+			break ;
 		}
 		tmp = tmp->next;
-		i++;
 	}
 	free(buf);
-	return (0);
+	if (!tmp)
+		return (0);
+	return (1);
 }
 
 void	export(char **arr, t_list **export, t_list **env)
@@ -125,6 +115,5 @@ void	export(char **arr, t_list **export, t_list **env)
 		node = ft_lstnew(export_str(buf));
 		ft_lstadd_back(export, node);
 		i++;
-		free(buf);
 	}
 }
