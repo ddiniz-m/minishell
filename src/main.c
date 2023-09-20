@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:46:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(void)
 	}
 	free(ms->cmdlist);
 	free(ms);
+	//return (EXIT_STATUS);
 }
 /*
 	while (arr[i])
@@ -64,10 +65,6 @@ int	main(void)
 /*	To do:
 	- Check for syntax errors before starting to parse <var>
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
-
-	Syntax Errors:
-	- Unclosed quote marks
-	- Some pipe behavior `||`; `| |`
 
 	Errors on:
 	- str_quotes();

@@ -8,7 +8,7 @@ RM = rm -rf
 SRC_MSH	=	main.c signals.c prompt.c errors.c errors2.c
 SRC_STC	=	cmd_utils.c init.c list.c content.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
-SRC_BLT	=	pwd.c cd.c
+SRC_BLT	=	pwd.c cd.c exit.c
 SRC_UTL	=	frees.c array_utils.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
