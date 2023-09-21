@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ogpipex.c                                          :+:      :+:    :+:   */
+/*   zpipex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 14:03:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 11:55:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:46:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	outfile(t_pipex *pipex, char **av, int ac, char **envp)
 //	"arg" reaches the second to last cmd.
 // part 3: outfile -> Same as mandatory "parent" (deals with last cmd and
 //	 outfile)
-/* int	main(int ac, char **av, char **envp)
+int	pipex(int ac, char **av, char **envp)
 {
 	int		arg;
 	int		fd[2];
@@ -123,4 +123,4 @@ int	outfile(t_pipex *pipex, char **av, int ac, char **envp)
 	if (outfile(&pipex, av, ac, envp) != 0)
 		return (1);
 	return (0);
-} */
+}

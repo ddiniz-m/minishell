@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/15 13:47:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:49:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <fcntl.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -40,6 +41,8 @@ typedef struct s_content
 	t_list	*output;
 	t_list	*append;
 	t_list	*heredoc;
+	int		fd_in;
+	int		fd_out;
 }	t_content;
 
 typedef struct s_cmdlist
@@ -55,8 +58,6 @@ typedef struct s_minishell
 	char			**main_arr;
 	char			*prompt;
 	char			*str;
-	char			*inpipe_fd;
-	char			*outpipe_fd;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 
@@ -123,17 +124,27 @@ void		pwd(void);
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
 
-int		arr_size(char **arr);
-char	**arr_cpy(char **arr, int pos, int size);
-void	arr_print(char *str, char **arr);
-void	free_ms(t_minishell *ms);
-void	free_array(char **arr);
-void	free_list(t_list **list);
-void	malloc_error(t_minishell *ms);
-void	free_cmd_list(t_cmdlist *cmdlist);
-
+int			arr_size(char **arr);
+char		**arr_cpy(char **arr, int pos, int size);
+void		arr_print(char *str, char **arr);
+void		free_ms(t_minishell *ms);
+void		free_array(char **arr);
+void		free_list(t_list **list);
+void		malloc_error(t_minishell *ms);
+void		free_cmd_list(t_cmdlist *cmdlist);
 
 // ++++++++++++++++ exec/[.....] +++++++++++++++
-int		run_cmds(t_minishell *ms, char **env);
+
+//exe.c
+char		**path_init(char **envp);
+char		*is_exec(char *str, char **paths);
+int			is_built_in(char *str);
+void		built_ins(char *builtin);
+int			childs(char **cmd_flags, char **envp, char *cmd_path);
+int			exec(int fd_buf, char **cmd_flags, char **paths, char **envp);
+
+//redir_hdoc
+int			redir_hdoc(t_content *content, char **arr);
+void		run(t_minishell *ms, char **envp);
 
 #endif

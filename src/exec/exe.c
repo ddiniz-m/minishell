@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 12:16:35 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:09:53 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ char	*is_exec(char *str, char **paths)
 	return (NULL);
 }
 
+int	is_built_in(char *str)
+{
+	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 ||
+		ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0 ||
+		ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 ||
+		ft_strcmp(str, "exit") == 0)
+		return (1);
+	return (0);
+}
+
 void	built_ins(char *builtin)
 {
 	if (ft_strcmp(builtin, "echo") == 0)
@@ -71,43 +81,40 @@ void	built_ins(char *builtin)
 		/* exit() */;
 }
 
-int	exec(char **cmd_flags, char **paths, char **env)
+int	childs(char **cmd_flags, char **envp, char *cmd_path)
+{
+	if (is_built_in(cmd_flags[0]))
+	{
+		built_ins(cmd_flags[0]);
+		return (0);
+	}
+	if (cmd_path && execve(cmd_path, cmd_flags, envp) == -1)
+		return (printf("EXECVE ERROR\n"));
+	return (0);
+}
+
+int	exec(int fd_buf, char **cmd_flags, char **paths, char **envp)
 {
 	pid_t		child;
 	char		*cmd_path;
-	(void)env;
-	cmd_path = is_exec(cmd_flags[0], paths);
-	if (!ft_strcmp(cmd_flags[0], "pwd"))
-		built_ins(cmd_flags[0]);
-	else if (cmd_path) 
+
+	cmd_path = NULL;
+	if (!is_built_in(cmd_flags[0]))
+		cmd_path = is_exec(cmd_flags[0], paths);
+	if (cmd_path || is_built_in(cmd_flags[0])) 
 	{
 		child = fork();
 		if (child == -1)
 			return(printf("Fork Error\n"));
-		if (!child && execve(cmd_path, cmd_flags, env) == -1)
-			printf("EXECVE ERROR\n");
-		if (child)
+		if (child == 0)
+			childs(cmd_flags, envp, cmd_path);
+		else
+		{
 			wait(NULL);
+			dup2(fd_buf, STDOUT_FILENO);
+			close(fd_buf);
+		}
 	}
 	free(cmd_path);
 	return (0);
-}
-
-int	run_cmds(t_minishell *ms, char **env)
-{
-	int			i;
-	t_cmdlist	*cmds;
-	char		**paths;
-	
-	i = 0;
-	cmds = ms->cmdlist;
-	paths = path_init(env);
-	while (i < cmd_count(ms->main_arr))
-	{
-		exec(cmds->content->cmd_flags, paths, env);
-		cmds = cmds->next;
-		i++;
-	}
-	free_array(paths);
-	return (1);
 }
