@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/19 14:58:48 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:29:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	free_ms(t_minishell *ms)
 		free_array(ms->main_arr);
 	if (ms->cmdlist)
 		free_cmd_list(ms->cmdlist);
-	free_list(ms, ms->env);
-	free_exp(ms->exp);
+	free_list_malloc(ms->exp);
+	free_list_malloc(ms->env);
 	free(ms->cmdlist);
 	free(ms);
 }
@@ -53,12 +53,11 @@ void	free_list(t_list **list)
 	{
 		tmp = *list;
 		*list = (*list)->next;
-
 		free(tmp);
 	}
 }
 
-void	free_exp(t_list **exp)
+void	free_list_malloc(t_list **exp)
 {
 	t_list	*tmp;
 

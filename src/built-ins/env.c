@@ -15,6 +15,7 @@
 t_list	**env_init(char **envp)
 {
 	int		i;
+	char	*buf;
 	t_list	*node;
 	t_list	**env;
 
@@ -23,7 +24,8 @@ t_list	**env_init(char **envp)
 	*env = NULL;
 	while (envp[i])
 	{
-		node = ft_lstnew(envp[i]);
+		buf = ft_strdup(envp[i]);
+		node = ft_lstnew(buf);
 		ft_lstadd_back(env, node);
 		i++;
 	}

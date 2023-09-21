@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 15:21:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:27:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ t_list	**export_init(t_list **env)
 	}
 	list_sort(exp);
 	return (exp);
+}
+
+//Checks if export arguments are valid
+int	export_error(char **arr)
+{
+	int	i;
+	int	j;
+	int	size;
+
+	j = 0;
+	size = arr_size(arr);
+	while (j < size)
+	{
+		i = 0;
+		if (ft_isdigit(arr[j][0]))
+			return (printf("Minishell: export: '%s':"
+					"not a valid identifier\n", arr[j]));
+		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=') 
+		{
+			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
+				return (printf("Minishell: export: '%s':"
+						"not a valid identifier\n", arr[j]));
+			i++;
+		}
+		j++;
+	}
+	return (0);
 }
 
 // takes str and creates new string in specific format

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 14:53:32 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:29:27 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	strlen_chr(char *str, char c)
 	int	i;
 
 	i = 0;
-	while(str[i] && str[i] != c)
+	while (str[i] && str[i] != c)
 		i++;
 	return (i);
 }

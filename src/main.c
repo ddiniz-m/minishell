@@ -37,8 +37,8 @@ int	main(int ac, char **av, char **envp)
 		free_array(ms->main_arr);
 		free_cmd_list(ms->cmdlist);
 	}
-	free_list(ms, ms->env);
-	free_exp(ms->exp);
+	free_list_malloc(ms->env);
+	free_list_malloc(ms->exp);
 	free(ms->cmdlist);
 	free(ms);
 	(void)ac;

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 15:06:54 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:00:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		free_ms(t_minishell *ms);
 void		free_array(char **arr);
 void		free_cmd_list(t_cmdlist *cmdlist);
 void		free_list(t_list **list);
-void		free_exp(t_list **list);
+void		free_list_malloc(t_list **list);
 void		malloc_error(t_minishell *ms);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
@@ -143,10 +143,11 @@ t_list		**env_init(char **envp);
 void		env_override(char *str, t_list **env);
 
 //export.c
+t_list		**export_init(t_list **env);
+int			export_error(char **arr);
 char		*export_str(char *str);
 int			export_override(char *str, t_list **export);
 void		export(char **arr, t_list **export, t_list **env);
-t_list		**export_init(t_list **env);
 
 //unset.c
 void		unset_env(t_list **env, char *str);

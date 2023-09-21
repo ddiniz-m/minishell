@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 15:09:10 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:28:38 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	list_sort(t_list **list)
 	while (tmp)
 	{
 		while (head->next)
-		{	
+		{
 			if (ft_strcmp(head->data, head->next->data) > 0)
 				list_swap(head);
 			head = head->next;

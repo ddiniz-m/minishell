@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 15:06:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:26:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,27 @@
 
 void	parse_main(t_cmdlist *cmd, t_list **env, t_list **exp)
 {
-	int			i;
-	char		**arr;
+	int		i;
+	char	**arr;
 
 	i = 0;
-	while(cmd)
+	while (cmd)
 	{
 		arr = cmd->content->cmd_flags;
 		arr_print("ARR", arr);
-		if(ft_strcmp("env", arr[0]) == 0)
-		{
-			printf("%s\n", arr[0]);
-			printf("ENV OUTPUT\n");
+		if (ft_strcmp("env", arr[0]) == 0)
 			list_print(env);
-		}
-		else if(ft_strcmp("export", arr[0]) == 0)
+		else if (ft_strcmp("export", arr[0]) == 0)
 		{
 			list_sort(exp);
+			if (export_error(arr))
+				break ;
 			if (arr_size(arr) > 1)
 				export(arr, exp, env);
 			else
-			{
-				printf("EXPORT OUTPUT\n");
 				list_print(exp);
-			}
 		}
-		else if(ft_strcmp("unset", arr[0]) == 0)
+		else if (ft_strcmp("unset", arr[0]) == 0)
 		{
 			if (arr_size(arr) > 1)
 			{

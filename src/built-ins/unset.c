@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
-/*   Updated: 2023/09/19 15:25:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:28:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	unset(t_list **env, t_list **exp, char **arr)
 	int		size;
 	char	*buf;
 	char	*exp_buf;
-	
+
 	i = 1;
 	size = arr_size(arr);
 	while (i < size)
@@ -67,7 +67,7 @@ void	unset(t_list **env, t_list **exp, char **arr)
 		unset_env(env, buf);
 		exp_buf = export_str(buf);
 		unset_exp(exp, exp_buf);
-		i++;
 		free(exp_buf);
+		i++;
 	}
 }
