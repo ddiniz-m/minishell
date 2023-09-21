@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/20 17:38:25 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:19:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <linux/limits.h>
+# include <limits.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -126,7 +127,7 @@ int			double_redir_error(char *str, char c);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 int			cd(char *path);
-void		exit(t_minishell *ms, char *arg);
+void		ft_exit(t_minishell *ms, char *arg);
 void		pwd(void);
 
 #endif

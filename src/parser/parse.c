@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 14:03:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:18:59 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,7 @@ void	parse_main(t_minishell *ms)
 {
 	(void)ms;
 	/* arr_print("MAIN ARRAY", ms->main_arr); */
+	/* if (ms->cmdlist)
+		if (strcmp(ms->cmdlist->content->cmd_flags[0], "exit") == 0)
+			ft_exit(ms, ms->cmdlist->content->cmd_flags[1]); */
 }
