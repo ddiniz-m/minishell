@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 14:49:59 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:20:55 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
 {
-	char	**cmd_flags;
+	int		fd_in;
+	int		fd_out;
 	t_list	*input;
 	t_list	*output;
 	t_list	*append;
 	t_list	*heredoc;
-	int		fd_in;
-	int		fd_out;
+	char	**cmd_flags;
 }	t_content;
 
 typedef struct s_cmdlist
@@ -54,11 +54,13 @@ typedef struct s_cmdlist
 
 typedef struct s_minishell
 {
+	char			*str;
 	int				words;
+	char			*prompt;
+	int				fdin_buf;
+	int				fdout_buf;
 	int				cmd_count;
 	char			**main_arr;
-	char			*prompt;
-	char			*str;
 	t_cmdlist		*cmdlist;
 }	t_minishell;
 
@@ -144,9 +146,8 @@ char					**path_init(char **envp);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
 void					built_ins(char *builtin);
-int						childs(t_content *content, char **envp, char *cmd_path);
-int						exec(t_cmdlist *cmdlist, int fd_buf,
-							char **paths, char **envp);
+int						child_process(t_content *content, char **envp, char *cmd_path);
+int						exec(t_minishell *ms, t_cmdlist *cmdlist, char **paths, char **envp);
 
 //redir_hdoc
 int						redir_hdoc(t_content *content, char **arr);

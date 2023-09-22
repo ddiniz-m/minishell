@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 12:59:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:27:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*is_exec(char *str, char **paths)
 {
 	int		i;
 	char	*buf;
-	
+
 	i = 0;
 	while (paths[i])
 	{
@@ -55,10 +55,10 @@ char	*is_exec(char *str, char **paths)
 
 int	is_built_in(char *str)
 {
-	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 ||
-		ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0 ||
-		ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 ||
-		ft_strcmp(str, "exit") == 0)
+	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 
+		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0
+		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 
+		|| ft_strcmp(str, "exit") == 0)
 		return (1);
 	return (0);
 }
@@ -66,22 +66,22 @@ int	is_built_in(char *str)
 void	built_ins(char *builtin)
 {
 	if (ft_strcmp(builtin, "echo") == 0)
-		/* echo() */;
+		;/* echo() */
 	if (ft_strcmp(builtin, "cd") == 0)
-		/* cd() */;
+		;/* cd() */
 	if (ft_strcmp(builtin, "pwd") == 0)
 		pwd();
 	if (ft_strcmp(builtin, "export") == 0)
-		/* export() */;
+		;/* export() */
 	if (ft_strcmp(builtin, "unset") == 0)
-		/* unset */;
+		;/* unset */
 	if (ft_strcmp(builtin, "env") == 0)
-		/* env() */;
+		;/* env() */
 	if (ft_strcmp(builtin, "exit") == 0)
-		/* exit() */;
+		;/* exit() */
 }
 
-int	childs(t_content *content, char **envp, char *cmd_path)
+int	child_process(t_content *content, char **envp, char *cmd_path)
 {
 	if (is_built_in(content->cmd_flags[0]))
 	{
@@ -89,11 +89,11 @@ int	childs(t_content *content, char **envp, char *cmd_path)
 		exit (0);
 	}
 	if (cmd_path && execve(cmd_path, content->cmd_flags, envp) == -1)
-		return (printf("EXECVE ERROR\n"));
+		perror("EXECVE ERROR\n");
 	return (0);
 }
 
-int	exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp)
+int	exec(t_minishell *ms, t_cmdlist *cmdlist, char **paths, char **envp)
 {
 	pid_t		child;
 	char		*cmd_path;
@@ -101,21 +101,17 @@ int	exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp)
 	cmd_path = NULL;
 	if (!is_built_in(cmdlist->content->cmd_flags[0]))
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], paths);
-
-
-	list_print(&cmdlist->content->input);
 	if (cmd_path || is_built_in(cmdlist->content->cmd_flags[0])) 
 	{
 		child = fork();
 		if (child == -1)
-			return(printf("Fork Error\n"));
+			return (printf("Fork Error\n"));
 		if (child == 0)
-			childs(cmdlist->content, envp, cmd_path);
+			child_process(cmdlist->content, envp, cmd_path);
 		else
 		{
-			wait(NULL);
-			dup2(fd_buf, STDOUT_FILENO);
-			close(fd_buf);
+			free(cmd_path);
+			return (child);
 		}
 	}
 	free(cmd_path);
