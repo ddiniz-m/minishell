@@ -35,9 +35,6 @@ int	main(void)
 		free_array(ms->main_arr);
 		free_cmd_list(ms->cmdlist);
 	}
-	free(ms->cmdlist);
-	free(ms);
-	//return (EXIT_STATUS);
 }
 /*
 	while (arr[i])
