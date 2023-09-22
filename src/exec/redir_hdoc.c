@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 14:36:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:50:32 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	redir_in(t_content *content, char **arr)
 		if(tmp->heredoc && ft_strcmp(arr[size], "<<") == 0)
 		{
 			content->fd_in = open(tmp->heredoc->data, O_RDONLY);
-			tmp->heredoc = tmp->heredoc->next;
 			dup2(content->fd_in, STDIN_FILENO);
 			close(content->fd_in);
 			break ;
@@ -55,7 +54,6 @@ int	redir_out(t_content *content, char **arr)
 		if(tmp->output && ft_strcmp(arr[size], ">") == 0)
 		{
 			content->fd_out = open(tmp->output->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
-			tmp->output = tmp->output->next;
 			dup2(content->fd_out, STDOUT_FILENO);
 			close(content->fd_out);
 			break ;
@@ -63,7 +61,6 @@ int	redir_out(t_content *content, char **arr)
 		if(tmp->append && ft_strcmp(arr[size], ">>") == 0)
 		{
 			content->fd_out = open(tmp->append->data, O_CREAT | O_RDWR | O_APPEND, 0777);
-			tmp->append = tmp->append->next;
 			dup2(content->fd_out, STDOUT_FILENO);
 			close(content->fd_out);
 			break ;

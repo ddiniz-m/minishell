@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 12:43:48 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:49:59 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -64,92 +64,92 @@ typedef struct s_minishell
 
 //------------------------------------SRCS--------------------------------------
 // signals.c
-void		signal_init(void);
-void		signal_interrupt(int signum);
-void		signal_exit(t_minishell *ms);
+void					signal_init(void);
+void					signal_interrupt(int signum);
+void					signal_exit(t_minishell *ms);
 
 // prompt.c
-char		*set_prompt(t_minishell *ms);
+char					*set_prompt(t_minishell *ms);
 
 // frees.c
-void		free_ms(t_minishell *ms);
-void		free_array(char **arr);
-void		free_cmd_list(t_cmdlist *cmdlist);
-void		malloc_error(t_minishell *ms);
+void					free_ms(t_minishell *ms);
+void					free_array(char **arr);
+void					free_cmd_list(t_cmdlist *cmdlist);
+void					malloc_error(t_minishell *ms);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
-void		cmdlist_print(t_cmdlist **cmdlist);
-int			cmd_args(char **arr, int pos);
-int			cmd_count(char **arr);
+void					cmdlist_print(t_cmdlist **cmdlist);
+int						cmd_args(char **arr, int pos);
+int						cmd_count(char **arr);
 
 //content.c
-t_list		*redir_lst(char **arr, int index, char *limiter);
-char		**cmd_with_flags(char **arr, int pos);
+t_list					*redir_lst(char **arr, int index, char *limiter);
+char					**cmd_with_flags(char **arr, int pos);
 
 // init.c
-void		var_init(t_minishell *ms);
+void					var_init(t_minishell *ms);
 
 // list.c
-void		list_print(t_list **list);
+void					list_print(t_list **list);
 
 // +++++++++++++ parser/[.........] +++++++++++++
 // parse.clist_print(tmp->content->input);
 
 // array_utils.c
-int			arr_size(char **arr);
-char		**arr_cpy(char **arr, int pos, int size);
-void		arr_print(char *str, char **arr);
+int						arr_size(char **arr);
+char					**arr_cpy(char **arr, int pos, int size);
+void					arr_print(char *str, char **arr);
 
 // parse_split.c
-char		**split_main(t_minishell *ms, char *str);
-int			split_word(char *str);
-char		*split_temp(char *str, int word_len);
+char					**split_main(t_minishell *ms, char *str);
+int						split_word(char *str);
+char					*split_temp(char *str, int word_len);
 
 // parse_counter.c
-void		str_counter(t_minishell *ms, char *str);
+void					str_counter(t_minishell *ms, char *str);
 
 // parse_str.c
-int			str_plain(char *str, int i);
-int			str_quotes(char *str, char c, int i);
-int			str_envar(char *str, int i);
-int			str_others(char *str, int i);
-int			meta_char(char c);
+int						str_plain(char *str, int i);
+int						str_quotes(char *str, char c, int i);
+int						str_envar(char *str, int i);
+int						str_others(char *str, int i);
+int						meta_char(char c);
 
 //parse.c
-void		parse_main(t_minishell *ms);
+void					parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
-void		pwd(void);
+void					pwd(void);
 unsigned long long int	exit_atoull(const char *s);
-int	exit_format_error(char *arg);
-void	ft_exit(t_minishell *ms, char *arg);
-
+int						exit_format_error(char *arg);
+void					ft_exit(t_minishell *ms, char *arg);
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
 
-int			arr_size(char **arr);
-char		**arr_cpy(char **arr, int pos, int size);
-void		arr_print(char *str, char **arr);
-void		free_ms(t_minishell *ms);
-void		free_array(char **arr);
-void		free_list(t_list **list);
-void		malloc_error(t_minishell *ms);
-void		free_cmd_list(t_cmdlist *cmdlist);
+int						arr_size(char **arr);
+char					**arr_cpy(char **arr, int pos, int size);
+void					arr_print(char *str, char **arr);
+void					free_ms(t_minishell *ms);
+void					free_array(char **arr);
+void					free_list(t_list **list);
+void					malloc_error(t_minishell *ms);
+void					free_cmd_list(t_cmdlist *cmdlist);
 
 // ++++++++++++++++ exec/[.....] +++++++++++++++
 
 //exe.c
-char		**path_init(char **envp);
-char		*is_exec(char *str, char **paths);
-int			is_built_in(char *str);
-void		built_ins(char *builtin);
-int			childs(t_content *content, char **envp, char *cmd_path);
-int			exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp);
+char					**path_init(char **envp);
+char					*is_exec(char *str, char **paths);
+int						is_built_in(char *str);
+void					built_ins(char *builtin);
+int						childs(t_content *content, char **envp, char *cmd_path);
+int						exec(t_cmdlist *cmdlist, int fd_buf,
+							char **paths, char **envp);
 
 //redir_hdoc
-int			redir_hdoc(t_content *content, char **arr);
-void		run(t_minishell *ms, char **envp);
+int						redir_hdoc(t_content *content, char **arr);
+void					run(t_minishell *ms, char **envp);
 
 #endif
