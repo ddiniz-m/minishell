@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 11:33:33 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:43:48 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <linux/limits.h>
+# include <limits.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -121,6 +122,10 @@ void		parse_main(t_minishell *ms);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
+unsigned long long int	exit_atoull(const char *s);
+int	exit_format_error(char *arg);
+void	ft_exit(t_minishell *ms, char *arg);
+
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
 
@@ -140,7 +145,7 @@ char		**path_init(char **envp);
 char		*is_exec(char *str, char **paths);
 int			is_built_in(char *str);
 void		built_ins(char *builtin);
-int			childs(char **cmd_flags, char **envp, char *cmd_path);
+int			childs(t_content *content, char **envp, char *cmd_path);
 int			exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp);
 
 //redir_hdoc

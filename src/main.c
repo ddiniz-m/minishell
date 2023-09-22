@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 13:10:01 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:27:16 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	main(int ac, char **av, char **envp)
 		free_array(ms->main_arr);
 		free_cmd_list(ms->cmdlist);
 	}
-	free(ms->cmdlist);
-	free(ms);
 	(void)av;
 	(void)ac;
 }

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 11:39:37 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:59:30 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,36 @@ void	built_ins(char *builtin)
 		/* exit() */;
 }
 
-int	childs(char **cmd_flags, char **envp, char *cmd_path)
+int	childs(t_content *content, char **envp, char *cmd_path)
 {
-	if (is_built_in(cmd_flags[0]))
+	if (is_built_in(content->cmd_flags[0]))
 	{
-		built_ins(cmd_flags[0]);
+		built_ins(content->cmd_flags[0]);
 		exit (0);
 	}
-	if (cmd_path && execve(cmd_path, cmd_flags, envp) == -1)
+	if (cmd_path && execve(cmd_path, content->cmd_flags, envp) == -1)
 		return (printf("EXECVE ERROR\n"));
 	return (0);
 }
 
 int	exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp)
 {
-	char		**tmp;
 	pid_t		child;
 	char		*cmd_path;
 
 	cmd_path = NULL;
-	tmp = cmdlist->content->cmd_flags;
-	if (!is_built_in(tmp[0]))
-		cmd_path = is_exec(tmp[0], paths);
-	if (cmd_path || is_built_in(tmp[0])) 
+	if (!is_built_in(cmdlist->content->cmd_flags[0]))
+		cmd_path = is_exec(cmdlist->content->cmd_flags[0], paths);
+
+
+	list_print(&cmdlist->content->input);
+	if (cmd_path || is_built_in(cmdlist->content->cmd_flags[0])) 
 	{
 		child = fork();
 		if (child == -1)
 			return(printf("Fork Error\n"));
 		if (child == 0)
-			childs(tmp, envp, cmd_path);
+			childs(cmdlist->content, envp, cmd_path);
 		else
 		{
 			wait(NULL);

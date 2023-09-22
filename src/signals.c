@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/15 12:59:38 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:27:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ void	signal_exit(t_minishell *ms)
 	{
 		printf("exit\n");
 		free_ms(ms);
-		exit (0);
 	}
 }
