@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 14:50:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:33:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	run(t_minishell *ms, char **envp)
 	{
 		redir_in(tmp->content, ms->main_arr);
 		redir_out(tmp->content, ms->main_arr);
-		exec(fd_buf, tmp->content->cmd_flags, paths, envp);
+		exec(tmp, fd_buf, paths, envp);
 		tmp = tmp->next;
 	}
 	free_array(paths);

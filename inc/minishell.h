@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 14:49:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:33:33 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char		*is_exec(char *str, char **paths);
 int			is_built_in(char *str);
 void		built_ins(char *builtin);
 int			childs(char **cmd_flags, char **envp, char *cmd_path);
-int			exec(int fd_buf, char **cmd_flags, char **paths, char **envp);
+int			exec(t_cmdlist *cmdlist, int fd_buf, char **paths, char **envp);
 
 //redir_hdoc
 int			redir_hdoc(t_content *content, char **arr);
