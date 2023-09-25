@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 16:27:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:15:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,39 +81,20 @@ void	built_ins(char *builtin)
 		;/* exit() */
 }
 
-int	child_process(t_content *content, char **envp, char *cmd_path)
+int	exec(t_cmdlist *cmdlist, char **paths, char **envp)
 {
-	if (is_built_in(content->cmd_flags[0]))
-	{
-		built_ins(content->cmd_flags[0]);
-		exit (0);
-	}
-	if (cmd_path && execve(cmd_path, content->cmd_flags, envp) == -1)
-		perror("EXECVE ERROR\n");
-	return (0);
-}
-
-int	exec(t_minishell *ms, t_cmdlist *cmdlist, char **paths, char **envp)
-{
-	pid_t		child;
 	char		*cmd_path;
 
 	cmd_path = NULL;
-	if (!is_built_in(cmdlist->content->cmd_flags[0]))
+	/* if (!is_built_in(cmdlist->content->cmd_flags[0])) */
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], paths);
-	if (cmd_path || is_built_in(cmdlist->content->cmd_flags[0])) 
+	/* if (is_built_in(cmdlist->content->cmd_flags[0]))
 	{
-		child = fork();
-		if (child == -1)
-			return (printf("Fork Error\n"));
-		if (child == 0)
-			child_process(cmdlist->content, envp, cmd_path);
-		else
-		{
-			free(cmd_path);
-			return (child);
-		}
-	}
+		built_ins(cmdlist->content->cmd_flags[0]);
+		exit (0);
+	} */
+	if (cmd_path && execve(cmd_path, cmdlist->content->cmd_flags, envp) == -1)
+		perror("EXECVE ERROR\n");
 	free(cmd_path);
 	return (0);
 }

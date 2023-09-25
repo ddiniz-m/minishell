@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 17:02:31 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:58:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,46 +72,94 @@ int	redir_out(t_content *content, char **arr)
 	return (0);
 }
 
-/* void	ft_pipe(t_minishell *ms, t_cmdlist *cmd)
+int		close_parent(t_minishell *ms)
 {
-	int	pipe_fd[2];
-	
-} */
-
-void	run(t_minishell *ms, char **envp)
-{
-	t_cmdlist	*tmp;
-	char		**paths;
-	int			child_pid;
-	int			pipe_fd[2];
-	
-
-	tmp = ms->cmdlist;
-	paths = path_init(envp);
-	while (tmp)
-	{
-		if (!tmp->next) //if there isn't a pipe
-		{	
-			redir_in(tmp->content, ms->main_arr);
-			redir_out(tmp->content, ms->main_arr);
-			child_pid = exec(ms, tmp, paths, envp);
-		}
-		else //if there's a pipe
-		{
-			/* ft_pipe(ms, tmp); */
-			
-			tmp = tmp->next;
-			child_pid = exec(ms, tmp, paths, envp);
-			continue ;
-		}
-		if (child_pid)
-			break ;
-		tmp = tmp->next;
-	}
 	wait(NULL);
 	dup2(ms->fdout_buf, STDOUT_FILENO);
 	dup2(ms->fdin_buf, STDIN_FILENO);
 	close(ms->fdin_buf);
 	close(ms->fdout_buf);
-	free_array(paths);	
+	return (0);
+}
+
+int	no_pipe(t_cmdlist *tmp, char **paths, char **envp, char **arr)
+{
+	pid_t		child;
+
+	child = fork();
+	redir_in(tmp->content, arr);
+	redir_out(tmp->content, arr);
+	if (child == 0)
+		exec(tmp, paths, envp);
+	else
+		wait(NULL);
+	return (0);
+}
+
+int	run(t_minishell *ms, char **envp)
+{
+	int			i;
+	int			cmds;
+	t_cmdlist	*tmp;
+	pid_t		child;
+	char		**paths;
+	int			pipe_fd[2];
+
+	
+	i = 1;
+	tmp = ms->cmdlist;
+	paths = path_init(envp);
+	cmds = ms->cmd_count;
+	if (cmds == 1) //if there isn't a pipe
+	{
+		no_pipe(tmp, paths, envp, ms->main_arr);
+	}
+	while (i <= cmds) //if there's a pipe
+	{
+		if (pipe(pipe_fd) < 0)
+		{
+			printf("Pipe error\n");
+			break ;
+		}
+		child = fork();
+		if (child == -1)
+			return (printf("Fork Error\n"));
+		if (child == 0)
+		{
+			if (i == 1) //first pipe
+			{
+				close(pipe_fd[0]);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[1]);
+				exec(tmp, paths, envp);
+			}
+			else if(i == cmds)// last pipe
+			{
+				close(pipe_fd[1]);
+				wait (NULL);
+				dup2(pipe_fd[0], STDIN_FILENO);
+				close(pipe_fd[0]);
+				exec(tmp, paths, envp);
+			}
+			else
+			{
+				close(pipe_fd[0]);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[1]);
+				dup2(pipe_fd[0], STDIN_FILENO);
+				close(pipe_fd[0]);
+				exec(tmp, paths, envp);
+			}
+		}
+		else
+		{
+			wait(NULL);
+			break ;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+	free_array(paths);
+	close_parent(ms);
+	return (0);
 }
