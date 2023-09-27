@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/25 16:15:17 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:59:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ int	exec(t_cmdlist *cmdlist, char **paths, char **envp)
 	char		*cmd_path;
 
 	cmd_path = NULL;
-	/* if (!is_built_in(cmdlist->content->cmd_flags[0])) */
+	if (!is_built_in(cmdlist->content->cmd_flags[0]))
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], paths);
-	/* if (is_built_in(cmdlist->content->cmd_flags[0]))
+	else
 	{
 		built_ins(cmdlist->content->cmd_flags[0]);
 		exit (0);
-	} */
+	}
 	if (cmd_path && execve(cmd_path, cmdlist->content->cmd_flags, envp) == -1)
 		perror("EXECVE ERROR\n");
 	free(cmd_path);

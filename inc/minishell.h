@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/25 15:03:21 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:35:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,13 @@ void					built_ins(char *builtin);
 int						child_process(t_content *content, char **envp, char *cmd_path);
 int						exec(t_cmdlist *cmdlist, char **paths, char **envp);
 
+//open_file.c
+int						open_file_in(t_content *content, t_list *lst);
+int						open_file_hdoc(t_content *content, t_list *lst);
+int						open_file_out(t_content *content, t_list *lst);
+int						open_file_app(t_content *content, t_list *lst);
+
 //redir_hdoc
-int						redir_hdoc(t_content *content, char **arr);
 int						run(t_minishell *ms, char **envp);
 
 #endif
