@@ -33,6 +33,7 @@ CASE 1: NO PIPES
 		<, << and >>
 
 	-----------Currently it only writes to file1 and nothing happens to file2-----------------
+	****************************************FIXED*********************************************
 
 	When everything is duped correctly, we enter the no_pipe function that has the purpose
 		of executing the command (I guess I should change it's name).
@@ -74,7 +75,5 @@ CASE 2: PIPES ********EXITS PROGRAM (IT SHOULDN'T)*********
 	ls -l > file1 | ls -l > file2
 
 	-----------It outputs into both files but also outputs last command to terminal------------
-
-
-
+	****************************************FIXED*********************************************
 }

@@ -6,11 +6,31 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/27 17:53:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:17:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	redir_check(t_minishell *ms)
+{
+	int			i;
+	t_cmdlist	*tmp;
+	int			size;
+
+	i = 0;
+	tmp = ms->cmdlist;
+	size = ms->cmd_count;
+	while (i < size - 1)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (tmp->content->append || tmp->content->output || tmp->content->input
+		|| tmp->content->heredoc)
+		return (1);
+	return (0);
+}
 
 //This function is supposed to check for >,<,>>,<< in main_array starting form
 //	pos, until it reaches a pipe
@@ -79,8 +99,10 @@ int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, char **envp, char
 		return (printf("Fork Error\n"));
 	if (child == 0)
 	{
-		if (cmdlist->content->output)
+		if (redir_check(ms))
+		{
 			redir_in_out(cmdlist->content, ms->main_arr, j);
+		}
 		else
 		{	
 			close(pipe_fd[0]);
@@ -130,8 +152,12 @@ int	run(t_minishell *ms, char **envp)
 		j++;
 		i++;
 	}
-	if (tmp && cmds)
+	if (tmp && !redir_check(ms))
 		exec(tmp, paths, envp);
+	dup2(ms->fdout_buf, STDOUT_FILENO);
+	close(ms->fdout_buf);
+	dup2(ms->fdin_buf, STDIN_FILENO);
+	close(ms->fdin_buf);
 	free_array(paths);
 	return (0);
 }
