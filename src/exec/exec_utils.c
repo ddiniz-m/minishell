@@ -6,22 +6,24 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:48:35 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:18:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	**path_init(char **envp)
+char	**path_init(t_list **env)
 {
 	int		i;
 	char	**paths;
 	char	**path_dir;
 	char	*env_path;
+	t_list	*tmp;
 
-	while (ft_strnstr(*++envp, "PATH=", 5) == NULL)
-		;
-	env_path = ft_strtrim(*envp, "PATH=");
+	tmp = *env;
+	while (ft_strnstr((char *)tmp->data, "PATH=", 5) == NULL)
+		tmp = tmp->next;
+	env_path = ft_strtrim((char *)tmp->data, "PATH=");
 	paths = ft_split(env_path, ':');
 	path_dir = malloc(sizeof(char *) * (arr_size(paths) + 1));
 	i = 0;
@@ -63,7 +65,7 @@ int	is_built_in(char *str)
 	return (0);
 }
 
-void	built_ins(char *builtin)
+void	built_ins(t_minishell *ms, char *builtin)
 {
 	if (ft_strcmp(builtin, "echo") == 0)
 		;/* echo() */
@@ -72,16 +74,27 @@ void	built_ins(char *builtin)
 	if (ft_strcmp(builtin, "pwd") == 0)
 		pwd();
 	if (ft_strcmp(builtin, "export") == 0)
-		;/* export() */
+	{
+		list_sort(ms->exp);
+		if (export_error(ms->main_arr))
+			return ;
+		if (arr_size(ms->main_arr) > 1)
+			export(ms->main_arr, ms->exp, ms->env);
+		else
+			list_print(ms->exp);
+	}
 	if (ft_strcmp(builtin, "unset") == 0)
-		;/* unset */
+	{
+		if (arr_size(ms->main_arr) > 1)
+			unset(ms->env, ms->exp, ms->main_arr);
+}
 	if (ft_strcmp(builtin, "env") == 0)
-		;/* env() */
+		list_print(ms->env);
 	if (ft_strcmp(builtin, "exit") == 0)
 		;/* exit() */
 }
 
-int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp)
+int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	pid_t	child;
 
@@ -89,7 +102,7 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp)
 	{
 		child = fork();
 		if (child == 0)
-			exec(cmdlist, ms->paths, envp);
+			exec(ms, cmdlist);
 		else
 			wait(NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:49:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:18:11 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_minishell
 {
 	char			*str;
 	int				words;
+	t_list			**env;
+	t_list			**exp;
 	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
@@ -79,12 +81,15 @@ void					free_ms(t_minishell *ms);
 void					free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					malloc_error(t_minishell *ms);
+void					free_list_malloc(t_list **exp);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
 void					cmdlist_print(t_cmdlist **cmdlist);
 int						cmd_args(char **arr, int pos);
 int						cmd_count(char **arr);
+int						strcmp_chr(char *s1, char *s2, char c);
+int						strlen_chr(char *str, char c);
 
 //content.c
 t_list					*redir_lst(char **arr, int index, char *limiter);
@@ -95,6 +100,10 @@ void					var_init(t_minishell *ms);
 
 // list.c
 void					list_print(t_list **list);
+void					list_sort(t_list **list);
+void					list_remove(t_list **list, int pos);
+int						list_check_dup(t_list **list, char *str);
+void					list_swap(t_list *list);
 
 // +++++++++++++ parser/[.........] +++++++++++++
 // parse.clist_print(tmp->content->input);
@@ -123,11 +132,33 @@ int						meta_char(char c);
 void					parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
+
 // pwd.c
 void					pwd(void);
 unsigned long long int	exit_atoull(const char *s);
 int						exit_format_error(char *arg);
 void					ft_exit(t_minishell *ms, char *arg);
+
+//env.c
+t_list					**env_init(char **envp);
+void					env_override(char *str, t_list **env);
+
+//exit.c
+unsigned long long int	exit_atoull(const char *s);
+int						exit_format_error(char *arg);
+void					ft_exit(t_minishell *ms, char *arg);
+
+//export.c
+t_list					**export_init(t_list **env);
+int						export_error(char **arr);
+char					*export_str(char *str);
+int						export_override(char *str, t_list **export);
+void					export(char **arr, t_list **export, t_list **env);
+
+//unset.c
+void					unset_env(t_list **env, char *str);
+void					unset_exp(t_list **exp, char *str);
+void					unset(t_list **env, t_list **exp, char **arr);
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
 
@@ -143,15 +174,14 @@ void					free_cmd_list(t_cmdlist *cmdlist);
 // ++++++++++++++++ exec/[.....] +++++++++++++++
 
 //exec_utils.c
-char					**path_init(char **envp);
+char					**path_init(t_list **env);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
-void					built_ins(char *builtin);
-int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp);
-
+void					built_ins(t_minishell *ms, char *builtin);
+int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist);
 
 //exec.c
-int						exec(t_cmdlist *cmdlist, char **paths, char **envp);
+int						exec(t_minishell *ms, t_cmdlist *cmdlist);
 
 //open_file.c
 int						open_file_in(t_content *content, t_list *lst);
@@ -165,6 +195,6 @@ int						redir_in_out(t_content *content, char **arr, int pos);
 void					set_fd(t_minishell *ms);
 
 //run_pipes.c
-int						run(t_minishell *ms, char **envp);
+int						run(t_minishell *ms);
 
 #endif

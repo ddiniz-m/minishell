@@ -8,7 +8,7 @@ RM = rm -rf
 SRC_MSH	=	main.c signals.c prompt.c
 SRC_STC	=	cmd_utils.c init.c list.c content.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
-SRC_BLT	=	pwd.c exit.c
+SRC_BLT	=	pwd.c exit.c env.c export.c unset.c
 SRC_UTL	=	frees.c array_utils.c
 SRC_EXE =	exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
 

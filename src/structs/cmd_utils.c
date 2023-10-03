@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/02 13:06:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:52:12 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ int	cmd_count(char **arr)
 			i++;
 	}
 	return (cmd_n);
+}
+
+//Returns lenght of string when it reaches c
+int	strlen_chr(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+//Compares s1 and s2 until s2 reaches c
+int	strcmp_chr(char *s1, char *s2, char c)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (i < strlen_chr(s2, c) - 1)
+	{
+		n += s1[i] - s2[i];
+		i++;
+	}
+	return (n);
 }

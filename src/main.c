@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 12:27:16 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:14:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int ac, char **av, char **envp)
 	t_minishell	*ms;
 
 	ms = malloc(sizeof(t_minishell));
+	ms->env = env_init(envp);
+	ms->exp = export_init(ms->env);
 	signal_init();
 	while (1)
 	{
@@ -26,7 +28,7 @@ int	main(int ac, char **av, char **envp)
 		ms->str = readline(ms->prompt);
 		var_init(ms);
 		parse_main(ms);
-		run(ms, envp);
+		run(ms);
 		add_history(ms->str);
 		signal_exit(ms);
 		free(ms->str);
