@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/22 16:17:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:06:37 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 	i = 0;
 	cmd_n = 0;
-	printf("\nCMD_COUNT = %i\n", ms->cmd_count);
+	//printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
@@ -74,5 +74,5 @@ void	var_init(t_minishell *ms)
 	ms->main_arr = split_main(ms, ms->str);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	cmdlist_print(&ms->cmdlist);
+	//cmdlist_print(&ms->cmdlist);
 }

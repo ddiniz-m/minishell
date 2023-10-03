@@ -10,7 +10,7 @@ SRC_STC	=	cmd_utils.c init.c list.c content.c
 SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
 SRC_BLT	=	pwd.c exit.c
 SRC_UTL	=	frees.c array_utils.c
-SRC_EXE =	exe.c redir_hdoc.c open_file.c
+SRC_EXE =	exec.c redir_hdoc.c open_file.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/28 11:21:21 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:21:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_minishell
 {
 	char			*str;
 	int				words;
+	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
@@ -146,7 +147,6 @@ char					**path_init(char **envp);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
 void					built_ins(char *builtin);
-int						child_process(t_content *content, char **envp, char *cmd_path);
 int						exec(t_cmdlist *cmdlist, char **paths, char **envp);
 
 //open_file.c
