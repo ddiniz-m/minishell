@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:32:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:48:35 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,19 @@ void	built_ins(char *builtin)
 		;/* env() */
 	if (ft_strcmp(builtin, "exit") == 0)
 		;/* exit() */
+}
+
+int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp)
+{
+	pid_t	child;
+
+	if (cmdlist && !redir_check(ms))
+	{
+		child = fork();
+		if (child == 0)
+			exec(cmdlist, ms->paths, envp);
+		else
+			wait(NULL);
+	}
+	return (0);
 }

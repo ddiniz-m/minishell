@@ -1,49 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   exec1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:31:10 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:42:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int	exec(t_cmdlist *cmdlist, char **paths, char **envp)
-{
-	char		*cmd_path;
-
-	cmd_path = NULL;
-	if (!is_built_in(cmdlist->content->cmd_flags[0]))
-		cmd_path = is_exec(cmdlist->content->cmd_flags[0], paths);
-	else
-	{
-		built_ins(cmdlist->content->cmd_flags[0]);
-		exit (0);
-	}
-	if (cmd_path && execve(cmd_path, cmdlist->content->cmd_flags, envp) == -1)
-		perror("EXECVE ERROR\n");
-	free(cmd_path);
-	return (0);
-}
-
-int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp)
-{
-	pid_t	child;
-
-	if (cmdlist && !redir_check(ms))
-	{
-		child = fork();
-		if (child == 0)
-			exec(cmdlist, ms->paths, envp);
-		else
-			wait(NULL);
-	}
-	return (0);
-}
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, char **envp, int *pipe_fd, int i)
 {
@@ -64,6 +31,51 @@ void	parent_process(int *pipe_fd)
 	wait (NULL);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
+}
+
+int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, char **envp, int i)
+{
+	pid_t	child;
+	int		pipe_fd[2];
+
+	if (pipe(pipe_fd) < 0)
+	{
+		printf("Pipe error\n");
+		return (1);
+	}
+	child = fork();
+	if (child == -1)
+		return (printf("Fork Error\n"));
+	if (child == 0)
+		child_process(ms, cmdlist, envp, pipe_fd, i);
+	else
+		parent_process(pipe_fd);
+	return (1);
+}
+
+int	run_pipes(t_minishell *ms, t_cmdlist *cmdlist, char **envp, int i)
+{
+	ft_pipe(ms, cmdlist, envp, i);
+	while (ms->main_arr[i] && ft_strcmp(ms->main_arr[i], "|") != 0)
+		i++;
+	i++;
+	return (i);
+}
+
+int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist, char **envp)
+{
+	pid_t	child;
+
+	redir_in_out(cmdlist->content, ms->main_arr, 0);
+	child = fork();
+	if (child == 0)
+		exec(cmdlist, ms->paths, envp);
+	else
+	{
+		wait(NULL);
+		set_fd(ms);
+	}
+	return (0);
 }
 
 int	run(t_minishell *ms, char **envp)

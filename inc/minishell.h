@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:21:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:49:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,15 @@ void					free_cmd_list(t_cmdlist *cmdlist);
 
 // ++++++++++++++++ exec/[.....] +++++++++++++++
 
-//exe.c
+//exec_utils.c
 char					**path_init(char **envp);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
 void					built_ins(char *builtin);
+int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist, char **envp);
+
+
+//exec.c
 int						exec(t_cmdlist *cmdlist, char **paths, char **envp);
 
 //open_file.c
@@ -155,7 +159,12 @@ int						open_file_hdoc(t_content *content, t_list *lst);
 int						open_file_out(t_content *content, t_list *lst);
 int						open_file_app(t_content *content, t_list *lst);
 
-//redir_hdoc
+//redir_hdoc.c
+int						redir_check(t_minishell *ms);
+int						redir_in_out(t_content *content, char **arr, int pos);
+void					set_fd(t_minishell *ms);
+
+//run_pipes.c
 int						run(t_minishell *ms, char **envp);
 
 #endif
