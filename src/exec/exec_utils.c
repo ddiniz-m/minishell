@@ -6,24 +6,38 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 15:18:29 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:04:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	**path_init(t_list **env)
+char	*path_str(t_list *env)
+{
+	t_list	*tmp;
+
+	tmp = env;
+	while (tmp->data)
+	{
+		if (ft_strncmp((char *)tmp->data, "PATH=", 5) == 0)
+			break ;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+		return (NULL);
+	return (tmp->data);
+}
+
+char	**path_init(t_minishell *ms)
 {
 	int		i;
 	char	**paths;
-	char	**path_dir;
 	char	*env_path;
-	t_list	*tmp;
+	char	**path_dir;
+	char	*env_path_str;
 
-	tmp = *env;
-	while (ft_strnstr((char *)tmp->data, "PATH=", 5) == NULL)
-		tmp = tmp->next;
-	env_path = ft_strtrim((char *)tmp->data, "PATH=");
+	env_path_str = path_str(*ms->env);
+	env_path = ft_strtrim(env_path_str, "PATH=");
 	paths = ft_split(env_path, ':');
 	path_dir = malloc(sizeof(char *) * (arr_size(paths) + 1));
 	i = 0;
@@ -65,46 +79,66 @@ int	is_built_in(char *str)
 	return (0);
 }
 
-void	built_ins(t_minishell *ms, char *builtin)
+void	built_ins(t_minishell *ms, char **cmd_with_flags)
 {
-	if (ft_strcmp(builtin, "echo") == 0)
+	if (ft_strcmp(cmd_with_flags[0], "echo") == 0)
 		;/* echo() */
-	if (ft_strcmp(builtin, "cd") == 0)
+	if (ft_strcmp(cmd_with_flags[0], "cd") == 0)
 		;/* cd() */
-	if (ft_strcmp(builtin, "pwd") == 0)
+	if (ft_strcmp(cmd_with_flags[0], "pwd") == 0)
 		pwd();
-	if (ft_strcmp(builtin, "export") == 0)
+	if (ft_strcmp(cmd_with_flags[0], "exit") == 0)
+		;/* exit() */
+	exp_env_unset(ms, cmd_with_flags);
+	(void)ms;
+}
+
+void	exp_env_unset(t_minishell *ms, char **cmd_with_flags)
+{
+	if (ft_strcmp(cmd_with_flags[0], "export") == 0)
 	{
 		list_sort(ms->exp);
-		if (export_error(ms->main_arr))
+		if (export_error(cmd_with_flags))
 			return ;
-		if (arr_size(ms->main_arr) > 1)
-			export(ms->main_arr, ms->exp, ms->env);
+		if (arr_size(cmd_with_flags) > 1)
+			export(cmd_with_flags, ms->exp, ms->env);
 		else
 			list_print(ms->exp);
 	}
-	if (ft_strcmp(builtin, "unset") == 0)
+	if (ft_strcmp(cmd_with_flags[0], "unset") == 0)
 	{
-		if (arr_size(ms->main_arr) > 1)
-			unset(ms->env, ms->exp, ms->main_arr);
-}
-	if (ft_strcmp(builtin, "env") == 0)
-		list_print(ms->env);
-	if (ft_strcmp(builtin, "exit") == 0)
-		;/* exit() */
+		if (arr_size(cmd_with_flags) > 1)
+			unset(ms->env, ms->exp, cmd_with_flags);
+	}
+	if (ft_strcmp(cmd_with_flags[0], "env") == 0)
+	list_print(ms->env);
+	
 }
 
-int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist)
+int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
 
-	if (cmdlist && !redir_check(ms))
+	if (cmdlist)
 	{
+		exp_env_unset(ms, cmdlist->content->cmd_flags);
+		if (redir_check_out(cmdlist->content, ms->main_arr, i)
+			|| redir_check_in(cmdlist->content, ms->main_arr, i))
+		{
+			redir_in(cmdlist->content, ms->main_arr, i);
+			redir_out(cmdlist->content, ms->main_arr, i);
+		}
 		child = fork();
 		if (child == 0)
+		{
+			ms->running = 1;
 			exec(ms, cmdlist);
+		}
 		else
+		{
 			wait(NULL);
+			ms->running = 0;
+		}
 	}
 	return (0);
 }

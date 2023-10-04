@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 15:18:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:53:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_minishell
 	int				words;
 	t_list			**env;
 	t_list			**exp;
+	int				running;
 	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
@@ -69,8 +70,7 @@ typedef struct s_minishell
 
 //------------------------------------SRCS--------------------------------------
 // signals.c
-void					signal_init(void);
-void					signal_interrupt(int signum);
+void					signal_init(t_minishell *ms);
 void					signal_exit(t_minishell *ms);
 
 // prompt.c
@@ -174,14 +174,18 @@ void					free_cmd_list(t_cmdlist *cmdlist);
 // ++++++++++++++++ exec/[.....] +++++++++++++++
 
 //exec_utils.c
-char					**path_init(t_list **env);
+char					**path_init(t_minishell *ms);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char *builtin);
-int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist);
+void					built_ins(t_minishell *ms, char **cmd_with_flags);
+int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
+void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
 
 //exec.c
 int						exec(t_minishell *ms, t_cmdlist *cmdlist);
+void					child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i);
+void					parent_process(t_minishell *ms, int *pipe_fd);
+
 
 //open_file.c
 int						open_file_in(t_content *content, t_list *lst);
@@ -190,8 +194,10 @@ int						open_file_out(t_content *content, t_list *lst);
 int						open_file_app(t_content *content, t_list *lst);
 
 //redir_hdoc.c
-int						redir_check(t_minishell *ms);
-int						redir_in_out(t_content *content, char **arr, int pos);
+int						redir_check_out(t_content *content, char **arr, int pos);
+int						redir_check_in(t_content *content, char **arr, int pos);
+int						redir_in(t_content *content, char **arr, int pos);
+int						redir_out(t_content *content, char **arr, int pos);
 void					set_fd(t_minishell *ms);
 
 //run_pipes.c

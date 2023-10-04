@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/02 13:06:37 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:44:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 void	var_init(t_minishell *ms)
 {
+	ms->running = 0;
 	ms->words = 0;
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);

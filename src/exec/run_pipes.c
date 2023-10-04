@@ -6,32 +6,11 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 15:19:38 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:05:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
-{
-	if (redir_check(ms))
-		redir_in_out(cmdlist->content, ms->main_arr, i);
-	else
-	{
-		close(pipe_fd[0]); 
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
-	}
-	exec(ms, cmdlist);
-}
-
-void	parent_process(int *pipe_fd)
-{
-	close(pipe_fd[1]);
-	wait (NULL);
-	dup2(pipe_fd[0], STDIN_FILENO);
-	close(pipe_fd[0]);
-}
 
 int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
@@ -49,7 +28,7 @@ int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 	if (child == 0)
 		child_process(ms, cmdlist, pipe_fd, i);
 	else
-		parent_process(pipe_fd);
+		parent_process(ms, pipe_fd);
 	return (1);
 }
 
@@ -66,13 +45,18 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	pid_t	child;
 
-	redir_in_out(cmdlist->content, ms->main_arr, 0);
+	redir_in(cmdlist->content, ms->main_arr, 0);
+	redir_out(cmdlist->content, ms->main_arr, 0);
 	child = fork();
 	if (child == 0)
+	{
+		ms->running = 1;
 		exec(ms, cmdlist);
+	}
 	else
 	{
 		wait(NULL);
+		ms->running = 0;
 		set_fd(ms);
 	}
 	return (0);
@@ -86,21 +70,24 @@ int	run(t_minishell *ms)
 
 	i = 0;
 	tmp = ms->cmdlist;
-	ms->paths = path_init(ms->env);
+	ms->paths = path_init(ms);
 	cmds = ms->cmd_count;
 	if (cmds == 1) //if there isn't a pipe
 	{
+		exp_env_unset(ms, tmp->content->cmd_flags);
 		no_pipe(ms, tmp);
 		free_array(ms->paths);
 		return (1);
 	}
 	while (cmds-- > 0) //if there's a pipe
 	{
-		i = run_pipes(ms, tmp, i);
-		if (tmp->next)
-			tmp = tmp->next;
+		exp_env_unset(ms, tmp->content->cmd_flags);
+		i += run_pipes(ms, tmp, i);
+		tmp = tmp->next;
+		if (!tmp->next)
+			break ;
 	}
-	last_cmd(ms, tmp);
+	last_cmd(ms, tmp, i);
 	set_fd(ms);
 	free_array(ms->paths);
 	return (0);

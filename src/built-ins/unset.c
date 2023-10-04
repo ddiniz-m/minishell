@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
-/*   Updated: 2023/09/21 11:28:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:04:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	unset(t_list **env, t_list **exp, char **arr)
 	size = arr_size(arr);
 	while (i < size)
 	{
-		buf = ft_strcpy(buf, arr[i]);
+		buf = ft_strdup(arr[i]);
 		unset_env(env, buf);
 		exp_buf = export_str(buf);
 		unset_exp(exp, exp_buf);
 		free(exp_buf);
+		free(buf);
 		i++;
 	}
 }

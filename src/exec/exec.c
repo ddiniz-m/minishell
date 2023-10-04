@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 15:38:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:05:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,65 @@ char	**list_to_array(t_list **env)
 	char	**buf;
 
 	i = 0;
-	size = ft_lstsize(*env);
 	tmp = *env;
+	size = ft_lstsize(tmp);
 	buf = malloc(sizeof(char *) * (size + 1));
 	while (tmp && i < size)
 	{
-		buf[i] = malloc(sizeof(char) * (ft_strlen((char *)tmp->data) + 1));
-		ft_strcpy(buf[i], (char *)tmp->data);
+		buf[i] = ft_strdup((char *)tmp->data);
 		tmp = tmp->next;
 		i++;
 	}
+	buf[i] = 0;
 	return (buf);
 }
 
 int	exec(t_minishell *ms, t_cmdlist *cmdlist)
 {
+	char		**env_arr;
 	char		*cmd_path;
 
 	cmd_path = NULL;
+	env_arr = list_to_array(ms->env);
 	if (!is_built_in(cmdlist->content->cmd_flags[0]))
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], ms->paths);
 	else
 	{
-		built_ins(ms, cmdlist->content->cmd_flags[0]);
+		built_ins(ms, cmdlist->content->cmd_flags);
+		free_array(env_arr);
 		exit (0);
 	}
-	if (cmd_path && execve(cmd_path, cmdlist->content->cmd_flags, list_to_array(ms->env)) == -1)
+	if (cmd_path 
+		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
 		perror("EXECVE ERROR\n");
+	free_array(env_arr);
 	free(cmd_path);
 	return (0);
+}
+
+void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
+{
+	ms->running = 1;
+	if (redir_check_out(cmdlist->content, ms->main_arr, i))
+	{
+		redir_in(cmdlist->content, ms->main_arr, i);
+		redir_out(cmdlist->content, ms->main_arr, i);
+	}
+	else
+	{
+		redir_in(cmdlist->content, ms->main_arr, i);
+		close(pipe_fd[0]); 
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
+	}
+	exec(ms, cmdlist);
+}
+
+void	parent_process(t_minishell *ms, int *pipe_fd)
+{
+	close(pipe_fd[1]);
+	wait(NULL);
+	ms->running = 0;
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[0]);
 }
