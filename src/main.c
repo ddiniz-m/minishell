@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 15:34:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:46:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(void)
 
 	ms = malloc(sizeof(t_minishell));
 	signal_init();
+	exit_status = 0;
 	while (1)
 	{
 		ms->prompt = set_prompt(ms);
@@ -37,7 +38,7 @@ int	main(void)
 	}
 	free(ms->cmdlist);
 	free(ms);
-	// exit (EXIT_STATUS);
+	exit (exit_status);
 }
 /*
 	while (arr[i])

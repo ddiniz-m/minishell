@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/19 13:20:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:46:54 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <linux/limits.h>
+# include <errno.h>
 
 //libft
 # include "../libft/src/libft.h"
@@ -28,6 +29,8 @@
 
 //signal
 # include <signal.h>
+
+int	exit_status;
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
@@ -127,6 +130,6 @@ int			double_redir_error(char *str, char c);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 // pwd.c
 void		pwd(void);
-int			cd(char *path);
+void		cd(char *path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:05:31 by mortins-          #+#    #+#             */
-/*   Updated: 2023/06/23 15:18:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:04:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	pwd(void)
 	else
 	{
 		perror("Error");
-		// NEED TO CHANGE EXIT_STATUS
+		exit_status = errno;
 		return ;
 	}
-	// NEED TO CHANGE EXIT_STATUS
+	exit_status = 0;
 }
 // PATH_MAX is defined in <limits.h> and represents the maximum length of a
 // file path on the current system (including the null terminator).

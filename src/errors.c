@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/19 13:38:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:06:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	token_message(char c)
 	write(2, "\'", 1);
 	write(2, "\n", 1); */
 	fd = dup(STDOUT_FILENO);
+	exit_status = errno;
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("MiniShell: syntax error near unexpected token '%c'\n", c);
 	dup2(fd, STDOUT_FILENO);
@@ -109,7 +110,8 @@ int	syntax_error(t_minishell *ms)
 	{
 		free(ms->prompt);
 		free(ms->str);
+		exit_status = 2;
 		return (1);
 	}
-	return (0); // I think it should change exit status
+	return (0);
 }
