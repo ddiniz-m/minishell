@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 18:04:52 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:59:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,11 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 		child = fork();
 		if (child == 0)
 		{
-			ms->running = 1;
 			exec(ms, cmdlist);
 		}
 		else
 		{
 			wait(NULL);
-			ms->running = 0;
 		}
 	}
 	return (0);

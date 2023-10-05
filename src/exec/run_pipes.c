@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 18:05:31 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:49:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 	if (child == 0)
 		child_process(ms, cmdlist, pipe_fd, i);
 	else
-		parent_process(ms, pipe_fd);
+		parent_process(pipe_fd);
 	return (1);
 }
 
@@ -50,13 +50,11 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	child = fork();
 	if (child == 0)
 	{
-		ms->running = 1;
 		exec(ms, cmdlist);
 	}
-	else
+	if (child > 0)
 	{
 		wait(NULL);
-		ms->running = 0;
 		set_fd(ms);
 	}
 	return (0);
@@ -70,8 +68,8 @@ int	run(t_minishell *ms)
 
 	i = 0;
 	tmp = ms->cmdlist;
-	ms->paths = path_init(ms);
 	cmds = ms->cmd_count;
+	ms->paths = path_init(ms);
 	if (cmds == 1) //if there isn't a pipe
 	{
 		exp_env_unset(ms, tmp->content->cmd_flags);

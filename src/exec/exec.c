@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 18:05:15 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:53:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**list_to_array(t_list **env)
 	return (buf);
 }
 
-int	exec(t_minishell *ms, t_cmdlist *cmdlist)
+void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	char		**env_arr;
 	char		*cmd_path;
@@ -53,12 +53,11 @@ int	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		perror("EXECVE ERROR\n");
 	free_array(env_arr);
 	free(cmd_path);
-	return (0);
+	exit(0);
 }
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 {
-	ms->running = 1;
 	if (redir_check_out(cmdlist->content, ms->main_arr, i))
 	{
 		redir_in(cmdlist->content, ms->main_arr, i);
@@ -74,11 +73,10 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 	exec(ms, cmdlist);
 }
 
-void	parent_process(t_minishell *ms, int *pipe_fd)
+void	parent_process(int *pipe_fd)
 {
 	close(pipe_fd[1]);
 	wait(NULL);
-	ms->running = 0;
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
 }
