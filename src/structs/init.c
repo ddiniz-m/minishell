@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:06:25 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
 		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
 		cmd_index += 2;
-	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
+	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }
 
@@ -37,7 +37,7 @@ t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 
 	cmdlist = malloc(sizeof(t_cmdlist));
 	if (!cmdlist)
-		return (NULL);
+		malloc_error(ms);
 	cmdlist->content = content_init(ms, cmd_index);
 	cmdlist->next = NULL;
 	return (cmdlist);

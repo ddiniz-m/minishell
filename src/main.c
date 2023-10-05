@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 15:46:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:38:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
+int	g_exit = 0;
+
 int	main(void)
 {
 	t_minishell	*ms;
 
 	ms = malloc(sizeof(t_minishell));
 	signal_init();
-	exit_status = 0;
 	while (1)
 	{
 		ms->prompt = set_prompt(ms);
@@ -38,7 +39,7 @@ int	main(void)
 	}
 	free(ms->cmdlist);
 	free(ms);
-	exit (exit_status);
+	exit (g_exit);
 }
 /*
 	while (arr[i])

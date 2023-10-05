@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/04 18:07:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:38:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_ms(t_minishell *ms)
 		free_cmd_list(ms->cmdlist);
 	free(ms->cmdlist);
 	free(ms);
-	exit (exit_status);
+	exit (g_exit);
 }
 
 void	free_array(char **arr)
@@ -43,7 +43,7 @@ void	free_array(char **arr)
 void	malloc_error(t_minishell *ms)
 {
 	write(2, "Error: Malloc failed\n", 22);
-	exit_status = 12;
+	g_exit = 12;
 	free_ms(ms);
 }
 

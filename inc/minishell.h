@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 17:46:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:38:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 //signal
 # include <signal.h>
 
-int	exit_status;
+extern int g_exit;
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
@@ -81,7 +81,7 @@ int			cmd_count(char **arr);
 
 //content.c
 t_list		*redir_lst(char **arr, int index, char *limiter);
-char		**cmd_with_flags(char **arr, int pos);
+char		**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
 void		var_init(t_minishell *ms);
@@ -94,13 +94,13 @@ void		list_print(t_list **list);
 
 // parse_array.c
 int			arr_size(char **arr);
-char		**arr_cpy(char **arr, int pos, int size);
+char		**arr_cpy(t_minishell *ms, char **arr, int pos, int size);
 void		arr_print(char *str, char **arr);
 
 // parse_split.c
 char		**split_main(t_minishell *ms, char *str);
 int			split_word(char *str);
-char		*split_temp(char *str, int word_len);
+char		*split_temp(t_minishell *ms, char *str, int word_len);
 
 // parse_counter.c
 void		str_counter(t_minishell *ms, char *str);
