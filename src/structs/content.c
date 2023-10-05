@@ -54,7 +54,14 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 	if (!buf)
 		malloc_error(ms);
 	while (i < args && arr[pos])
-		buf[i++] = arr[pos++];
+	{
+		if (arr[pos][0] == '<' || arr[pos][0] == '>')
+			pos += 2;
+		else if (ft_strcmp(arr[i], "|") == 0)
+			break;
+		else
+			buf[i++] = arr[pos++];
+	}
 	buf[i] = NULL;
 	return (buf);
 }
