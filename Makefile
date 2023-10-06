@@ -2,7 +2,7 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
 SRC_MSH	=	main.c signals.c prompt.c
