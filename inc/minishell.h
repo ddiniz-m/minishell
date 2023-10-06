@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 11:45:49 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:55:50 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct s_minishell
 
 //------------------------------------SRCS--------------------------------------
 // signals.c
+void		signal_init(void);
+void		signal_interrupt(int signum);
+void		signal_exit(t_minishell *ms);
 void					signal_init(t_minishell *ms);
 void					signal_exit(t_minishell *ms);
 

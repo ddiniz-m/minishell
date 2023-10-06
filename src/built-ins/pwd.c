@@ -16,12 +16,19 @@
 void	pwd(void)
 {
 	char	cwd[PATH_MAX];
+	int		i;
 
+	i = 0;
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	{
 		printf("%s\n", getcwd(cwd, sizeof(cwd)));
+		while (cwd[i])
+			cwd[i++] = 0;
+	}
 	else
 	{
 		perror("Error");
+		// NEED TO CHANGE EXIT_STATUS
 		return ;
 	}
 	// NEED TO CHANGE EXIT_STATUS
