@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 11:55:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:29:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,12 @@ typedef struct s_minishell
 
 //------------------------------------SRCS--------------------------------------
 // signals.c
-void		signal_init(void);
-void		signal_interrupt(int signum);
-void		signal_exit(t_minishell *ms);
-void					signal_init(t_minishell *ms);
+void					signal_init(void);
+void					signal_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);
-
-// frees.c
-void					free_ms(t_minishell *ms);
-void					free_array(char **arr);
-void					free_cmd_list(t_cmdlist *cmdlist);
-void					malloc_error(t_minishell *ms);
-void					free_list_malloc(t_list **exp);
 
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
@@ -136,6 +127,12 @@ void					parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 
+//cd.c
+int						cd(t_minishell *ms, char *path);
+
+//echo.c
+int						echo(char **cmd_flags);
+
 // pwd.c
 void					pwd(void);
 unsigned long long int	exit_atoull(const char *s);
@@ -165,14 +162,20 @@ void					unset(t_list **env, t_list **exp, char **arr);
 
 // ++++++++++++++++ utils/[.....] +++++++++++++++
 
+//array_utils.c
 int						arr_size(char **arr);
 char					**arr_cpy(char **arr, int pos, int size);
 void					arr_print(char *str, char **arr);
+
+// frees.c
 void					free_ms(t_minishell *ms);
-void					free_array(char **arr);
-void					free_list(t_list **list);
-void					malloc_error(t_minishell *ms);
+int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
+void					malloc_error(t_minishell *ms);
+void					free_list_malloc(t_list **exp);
+
+//str_utils.c
+void					env_var(t_list **env, char **arr);
 
 // ++++++++++++++++ exec/[.....] +++++++++++++++
 

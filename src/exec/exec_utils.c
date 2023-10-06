@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/05 12:59:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:29:32 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,40 +79,38 @@ int	is_built_in(char *str)
 	return (0);
 }
 
-void	built_ins(t_minishell *ms, char **cmd_with_flags)
+void	built_ins(t_minishell *ms, char **cmd_flags)
 {
-	if (ft_strcmp(cmd_with_flags[0], "echo") == 0)
-		;/* echo() */
-	if (ft_strcmp(cmd_with_flags[0], "cd") == 0)
-		;/* cd() */
-	if (ft_strcmp(cmd_with_flags[0], "pwd") == 0)
+	if (ft_strcmp(cmd_flags[0], "echo") == 0)
+		echo(cmd_flags);
+	if (ft_strcmp(cmd_flags[0], "cd") == 0)
+		cd(ms, cmd_flags[1]);
+	if (ft_strcmp(cmd_flags[0], "pwd") == 0)
 		pwd();
-	if (ft_strcmp(cmd_with_flags[0], "exit") == 0)
+	if (ft_strcmp(cmd_flags[0], "exit") == 0)
 		;/* exit() */
-	exp_env_unset(ms, cmd_with_flags);
 	(void)ms;
 }
 
-void	exp_env_unset(t_minishell *ms, char **cmd_with_flags)
+void	exp_env_unset(t_minishell *ms, char **cmd_flags)
 {
-	if (ft_strcmp(cmd_with_flags[0], "export") == 0)
+	if (ft_strcmp(cmd_flags[0], "export") == 0)
 	{
 		list_sort(ms->exp);
-		if (export_error(cmd_with_flags))
+		if (export_error(cmd_flags))
 			return ;
-		if (arr_size(cmd_with_flags) > 1)
-			export(cmd_with_flags, ms->exp, ms->env);
+		if (arr_size(cmd_flags) > 1)
+			export(cmd_flags, ms->exp, ms->env);
 		else
 			list_print(ms->exp);
 	}
-	if (ft_strcmp(cmd_with_flags[0], "unset") == 0)
+	if (ft_strcmp(cmd_flags[0], "unset") == 0)
 	{
-		if (arr_size(cmd_with_flags) > 1)
-			unset(ms->env, ms->exp, cmd_with_flags);
+		if (arr_size(cmd_flags) > 1)
+			unset(ms->env, ms->exp, cmd_flags);
 	}
-	if (ft_strcmp(cmd_with_flags[0], "env") == 0)
-	list_print(ms->env);
-	
+	if (ft_strcmp(cmd_flags[0], "env") == 0)
+		list_print(ms->env);
 }
 
 int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/06 11:57:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:49:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_ms(t_minishell *ms)
 	exit (0);
 }
 
-void	free_array(char **arr)
+int	free_array(char **arr)
 {
 	int	i;
 
@@ -37,6 +37,7 @@ void	free_array(char **arr)
 		free(arr[i++]);
 	if (arr)
 		free(arr);
+	return (0);
 }
 
 void	malloc_error(t_minishell *ms)

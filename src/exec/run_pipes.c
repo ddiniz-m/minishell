@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/05 14:49:15 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:37:24 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	pid_t	child;
 
+	exp_env_unset(ms, cmdlist->content->cmd_flags);
 	redir_in(cmdlist->content, ms->main_arr, 0);
 	redir_out(cmdlist->content, ms->main_arr, 0);
 	child = fork();
@@ -72,12 +73,11 @@ int	run(t_minishell *ms)
 	ms->paths = path_init(ms);
 	if (cmds == 1) //if there isn't a pipe
 	{
-		exp_env_unset(ms, tmp->content->cmd_flags);
 		no_pipe(ms, tmp);
 		free_array(ms->paths);
-		return (1);
+		return (0);
 	}
-	while (cmds-- > 0) //if there's a pipe
+	while (cmds > 1 && cmds-- > 0) //if there's a pipe
 	{
 		exp_env_unset(ms, tmp->content->cmd_flags);
 		i += run_pipes(ms, tmp, i);
@@ -87,6 +87,5 @@ int	run(t_minishell *ms)
 	}
 	last_cmd(ms, tmp, i);
 	set_fd(ms);
-	free_array(ms->paths);
-	return (0);
+	return (free_array(ms->paths));
 }
