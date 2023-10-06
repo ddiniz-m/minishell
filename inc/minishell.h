@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 17:53:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:45:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,9 +182,9 @@ int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
 
 //exec.c
-int						exec(t_minishell *ms, t_cmdlist *cmdlist);
+void					exec(t_minishell *ms, t_cmdlist *cmdlist);
 void					child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i);
-void					parent_process(t_minishell *ms, int *pipe_fd);
+void					parent_process(int *pipe_fd);
 
 
 //open_file.c
