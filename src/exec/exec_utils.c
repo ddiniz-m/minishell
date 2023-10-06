@@ -88,8 +88,7 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 	if (ft_strcmp(cmd_flags[0], "pwd") == 0)
 		pwd();
 	if (ft_strcmp(cmd_flags[0], "exit") == 0)
-		;/* exit() */
-	(void)ms;
+		ft_exit(ms, cmd_flags);
 }
 
 void	exp_env_unset(t_minishell *ms, char **cmd_flags)
@@ -128,13 +127,9 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 		}
 		child = fork();
 		if (child == 0)
-		{
 			exec(ms, cmdlist);
-		}
 		else
-		{
 			wait(NULL);
-		}
 	}
 	return (0);
 }
