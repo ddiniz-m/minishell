@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:03:12 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/03 13:25:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:08:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	open_file_in(t_content *content, t_list *lst)
 	return (0);
 }
 
-int	open_file_hdoc(t_content *content, t_list *lst)
+/* int	open_file_hdoc(t_content *content, t_list *lst)
 {
 	while (lst)
 	{
@@ -38,7 +38,7 @@ int	open_file_hdoc(t_content *content, t_list *lst)
 		lst = lst->next;
 	}
 	return (0);
-}
+} */
 
 int	open_file_out(t_content *content, t_list *lst)
 {

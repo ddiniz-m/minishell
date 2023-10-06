@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/04 16:18:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:07:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ int	redir_out(t_content *content, char **arr, int pos)
 	return (0);
 }
 
+void	heredoc(t_list *heredoc)
+{
+	printf("TEST\n");
+	(void)heredoc;
+}
+
 int	redir_in(t_content *content, char **arr, int pos)
 {
 	int			size;
@@ -83,7 +89,7 @@ int	redir_in(t_content *content, char **arr, int pos)
 		if (tmp->input && ft_strcmp(arr[pos], "<") == 0)
 			open_file_in(tmp, tmp->input);
 		if (tmp->heredoc && ft_strcmp(arr[pos], "<<") == 0)
-			open_file_hdoc(tmp, tmp->heredoc);
+			heredoc(tmp->heredoc);
 		pos++;
 	}
 	return (0);

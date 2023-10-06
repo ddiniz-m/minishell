@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:29:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:18:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	echo_flag(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i++] != '-')
+	if (str[i] != '-')
 		return (1);
+	i++;
 	while (str[i] && str[i] == 'n')
 		i++;
 	if (str[i])
@@ -35,7 +36,7 @@ int	echo(char **cmd_flags)
 	j = 1;
 	n_flag = 0;
 	cmds = cmd_args(cmd_flags, 0);
-	if (cmd_flags && echo_flag(cmd_flags[1]) == 0)
+	if (cmd_flags[1] && echo_flag(cmd_flags[1]) == 0)
 	{
 		n_flag = 1;
 		j++;
