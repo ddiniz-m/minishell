@@ -128,7 +128,7 @@ void					parse_main(t_minishell *ms);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 
 //cd.c
-int						cd(t_minishell *ms, char *path);
+int						cd(t_minishell *ms, char **path);
 
 //echo.c
 int						echo(char **cmd_flags);

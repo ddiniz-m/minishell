@@ -57,11 +57,17 @@ int	cd_home(t_minishell *ms)
 
 // Returns 0 on success.
 // Returns -1 on error
-int	cd(t_minishell *ms, char *path)
+int	cd(t_minishell *ms, char **path)
 {
-	if (!path || !path[0])
+	if (path && arr_size(path) > 2)
+	{
+		write(2, "Minishell: cd: too many arguments\n", 34);
+		// CHANGE EXIT_STATUS TO 1
+		return (1);
+	}
+	else if (!path || !path[1] || !path[1][0])
 		return (cd_home(ms));
-	else if (chdir(path) != 0)
+	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
 		// NEED TO CHANGE EXIT_STATUS

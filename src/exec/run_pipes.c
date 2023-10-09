@@ -51,11 +51,15 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	child = fork();
 	if (child == 0)
 	{
-		exec(ms, cmdlist);
+		if (!is_built_in(cmdlist->content->cmd_flags[0]))
+			exec(ms, cmdlist);
+		exit (0);
 	}
-	if (child > 0)
+	else
 	{
 		wait(NULL);
+		if (is_built_in(cmdlist->content->cmd_flags[0]))
+			built_ins(ms, cmdlist->content->cmd_flags);
 		set_fd(ms);
 	}
 	return (0);
@@ -77,13 +81,11 @@ int	run(t_minishell *ms)
 		free_array(ms->paths);
 		return (0);
 	}
-	while (cmds > 1 && cmds-- > 0) //if there's a pipe
+	while (cmds > 1 && cmds-- > 0 && tmp->next) //if there's a pipe
 	{
 		exp_env_unset(ms, tmp->content->cmd_flags);
 		i += run_pipes(ms, tmp, i);
 		tmp = tmp->next;
-		if (!tmp->next)
-			break ;
 	}
 	last_cmd(ms, tmp, i);
 	set_fd(ms);

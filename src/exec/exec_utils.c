@@ -84,11 +84,14 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 	if (ft_strcmp(cmd_flags[0], "echo") == 0)
 		echo(cmd_flags);
 	if (ft_strcmp(cmd_flags[0], "cd") == 0)
-		cd(ms, cmd_flags[1]);
+		cd(ms, cmd_flags);
 	if (ft_strcmp(cmd_flags[0], "pwd") == 0)
 		pwd();
 	if (ft_strcmp(cmd_flags[0], "exit") == 0)
+	{
+		free_array(ms->paths);
 		ft_exit(ms, cmd_flags);
+	}
 }
 
 void	exp_env_unset(t_minishell *ms, char **cmd_flags)
@@ -126,10 +129,16 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 			redir_out(cmdlist->content, ms->main_arr, i);
 		}
 		child = fork();
-		if (child == 0)
+		if (child == 0 && !is_built_in(cmdlist->content->cmd_flags[0]))
 			exec(ms, cmdlist);
+		else if (child == 0)
+			exit (0);
 		else
+		{
 			wait(NULL);
+			if (is_built_in(cmdlist->content->cmd_flags[0]))
+				built_ins(ms, cmdlist->content->cmd_flags);
+		}
 	}
 	return (0);
 }
