@@ -19,7 +19,4 @@ void	parse_main(t_minishell *ms)
 {
 	(void)ms;
 	/* arr_print("MAIN ARRAY", ms->main_arr); */
-	/* if (ms->cmdlist)
-		if (strcmp(ms->cmdlist->content->cmd_flags[0], "exit") == 0)
-			ft_exit(ms, ms->cmdlist->content->cmd_flags[1]); */
 }
