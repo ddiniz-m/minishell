@@ -105,4 +105,5 @@ void	ft_exit(t_minishell *ms, char **args)
 	dup2(buf_fdout, STDOUT_FILENO);
 	close(buf_fdout);
 	printf("EXIT_STATUS = %d\n",EXIT_STATUS);
+	free_ms(ms);
 }
