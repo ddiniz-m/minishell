@@ -94,4 +94,5 @@ void	free_list_malloc(t_list **exp)
 		free(tmp->data);
 		free(tmp);
 	}
+	free(exp);
 }

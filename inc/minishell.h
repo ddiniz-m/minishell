@@ -128,16 +128,13 @@ void					parse_main(t_minishell *ms);
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 
 //cd.c
-int						cd(t_minishell *ms, char *path);
+int						cd(t_minishell *ms, char **path);
 
 //echo.c
 int						echo(char **cmd_flags);
 
 // pwd.c
 void					pwd(void);
-unsigned long long int	exit_atoull(const char *s);
-int						exit_format_error(char *arg);
-void					ft_exit(t_minishell *ms, char *arg);
 
 //env.c
 t_list					**env_init(char **envp);
@@ -146,7 +143,7 @@ void					env_override(char *str, t_list **env);
 //exit.c
 unsigned long long int	exit_atoull(const char *s);
 int						exit_format_error(char *arg);
-void					ft_exit(t_minishell *ms, char *arg);
+void					ft_exit(t_minishell *ms, char **args);
 
 //export.c
 t_list					**export_init(t_list **env);
