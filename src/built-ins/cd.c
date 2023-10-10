@@ -31,7 +31,7 @@ char	*find_home(t_list **env)
 	return (NULL);
 }
 
-int	cd_home(t_minishell *ms)
+void	cd_home(t_minishell *ms)
 {
 	char	*buf;
 
@@ -51,13 +51,12 @@ int	cd_home(t_minishell *ms)
 	g_exit = 0;
 }
 
-int	cd(t_minishell *ms, char **path)
+void	cd(t_minishell *ms, char **path)
 {
 	if (path && arr_size(path) > 2)
 	{
 		write(2, "Minishell: cd: too many arguments\n", 34);
-		// CHANGE EXIT_STATUS TO 1
-		return (1);
+		g_exit = 1;
 	}
 	else if (!path || !path[1] || !path[1][0])
 		return (cd_home(ms));

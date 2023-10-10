@@ -87,11 +87,6 @@ int	dollar_error(char *str)
 int	token_message(char token)
 {
 	int	fd;
-	/* write(2,"MiniShell: syntax error near unexpected token", 45);
-	write(2, " \'", 2);
-	write(2, &c, 1);
-	write(2, "\'", 1);
-	write(2, "\n", 1); */
 	fd = dup(STDOUT_FILENO);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("MiniShell: syntax error near unexpected token '%c'\n", token);
