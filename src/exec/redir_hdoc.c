@@ -6,11 +6,13 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 16:07:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:34:19 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	heredoc(t_minishell *ms, t_list *heredoc);
 
 int	redir_check_out(t_content *content, char **arr, int pos)
 {
@@ -46,8 +48,8 @@ int	redir_check_in(t_content *content, char **arr, int pos)
 	return (0);
 }
 
-//This function is supposed to check for >,<,>>,<< in main_array starting form
-//	pos, until it reaches a pipe
+//These two functions are supposed to check for >,<,>>,<< in main_array
+//	starting form pos, until it reaches a pipe
 //For example for the str= ls -l > file | wc -l < file;
 //I call this function with pos = 0 to deal with all the redirects before the
 //	1st pipe;
@@ -71,25 +73,27 @@ int	redir_out(t_content *content, char **arr, int pos)
 	return (0);
 }
 
-void	heredoc(t_list *heredoc)
-{
-	printf("TEST\n");
-	(void)heredoc;
-}
-
-int	redir_in(t_content *content, char **arr, int pos)
+int	redir_in(t_minishell *ms, t_content *content, char **arr, int pos)
 {
 	int			size;
 	t_content	*tmp;
+	t_list		*hdoc;
 
 	tmp = content;
+	hdoc = content->heredoc;
 	size = arr_size(arr);
 	while (pos < size && ft_strcmp(arr[pos], "|") != 0)
 	{
 		if (tmp->input && ft_strcmp(arr[pos], "<") == 0)
 			open_file_in(tmp, tmp->input);
-		if (tmp->heredoc && ft_strcmp(arr[pos], "<<") == 0)
-			heredoc(tmp->heredoc);
+		if (hdoc && ft_strcmp(arr[pos], "<<") == 0)
+		{
+			while (hdoc)
+			{
+				heredoc(ms, hdoc->data);
+				hdoc = hdoc->next;
+			}
+		}
 		pos++;
 	}
 	return (0);

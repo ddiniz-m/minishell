@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:29:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:35:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_minishell
 	int				words;
 	t_list			**env;
 	t_list			**exp;
+	int				fd_tmp;
 	int				running;
 	char			**paths;
 	char			*prompt;
@@ -199,7 +200,7 @@ int						open_file_app(t_content *content, t_list *lst);
 //redir_hdoc.c
 int						redir_check_out(t_content *content, char **arr, int pos);
 int						redir_check_in(t_content *content, char **arr, int pos);
-int						redir_in(t_content *content, char **arr, int pos);
+int						redir_in(t_minishell *ms, t_content *content, char **arr, int pos);
 int						redir_out(t_content *content, char **arr, int pos);
 void					set_fd(t_minishell *ms);
 

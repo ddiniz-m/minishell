@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:29:32 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:37:13 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*is_exec(char *str, char **paths)
 
 int	is_built_in(char *str)
 {
+	if (!str)
+		return (0);
 	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0 
 		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0
 		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0 
@@ -96,6 +98,8 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 
 void	exp_env_unset(t_minishell *ms, char **cmd_flags)
 {
+	if (!*cmd_flags)
+		return ;
 	if (ft_strcmp(cmd_flags[0], "export") == 0)
 	{
 		list_sort(ms->exp);
@@ -125,7 +129,7 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 		if (redir_check_out(cmdlist->content, ms->main_arr, i)
 			|| redir_check_in(cmdlist->content, ms->main_arr, i))
 		{
-			redir_in(cmdlist->content, ms->main_arr, i);
+			redir_in(ms, cmdlist->content, ms->main_arr, i);
 			redir_out(cmdlist->content, ms->main_arr, i);
 		}
 		child = fork();

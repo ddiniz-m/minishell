@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 14:37:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:34:25 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	pid_t	child;
 
 	exp_env_unset(ms, cmdlist->content->cmd_flags);
-	redir_in(cmdlist->content, ms->main_arr, 0);
+	redir_in(ms, cmdlist->content, ms->main_arr, 0);
 	redir_out(cmdlist->content, ms->main_arr, 0);
 	child = fork();
 	if (child == 0)
