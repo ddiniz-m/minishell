@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 16:59:06 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:18:03 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
 	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
 // ^^ Might have to change it depending on how we handle heredoc ^^
-	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
-		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
-		cmd_index += 2;
 	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
 	return (content);
 }
@@ -52,7 +49,7 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 	i = 0;
 	cmd_n = 0;
-	/* printf("\nCMD_COUNT = %i\n", ms->cmd_count); */
+	//printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
@@ -71,9 +68,12 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 void	var_init(t_minishell *ms)
 {
 	ms->words = 0;
+	ms->fdin_buf = dup(STDIN_FILENO);
+	ms->fdout_buf = dup(STDOUT_FILENO);
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
+	env_var(ms->env, ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	/* cmdlist_print(&ms->cmdlist); */
+	//cmdlist_print(&ms->cmdlist);
 }

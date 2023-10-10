@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:56:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,23 @@ void	cmdlist_print(t_cmdlist **cmdlist)
 int	cmd_args(char **arr, int pos)
 {
 	int	i;
+	int	counter;
 
 	i = pos;
+	counter = 0;
 	while (arr[i] && i < arr_size(arr))
 	{
-		if (ft_strcmp(arr[i], "|") == 0 || ft_strcmp(arr[i], "<") == 0 || \
-			ft_strcmp(arr[i], ">") == 0)
-			break ;
-		i++;
+		if (arr[i][0] == '<' || arr[i][0] == '>')
+			i += 2;
+		else if (ft_strcmp(arr[i], "|") == 0)
+			break;
+		else
+		{
+			counter++;
+			i++;
+		}
 	}
-	return (i - pos);
+	return (counter);
 }
 
 //Counts how many valid commands there are in main->arr.
@@ -74,4 +81,31 @@ int	cmd_count(char **arr)
 			i++;
 	}
 	return (cmd_n);
+}
+
+//Returns lenght of string when it reaches c
+int	strlen_chr(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+//Compares s1 and s2 until s2 reaches c
+int	strcmp_chr(char *s1, char *s2, char c)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (i < strlen_chr(s2, c) - 1)
+	{
+		n += s1[i] - s2[i];
+		i++;
+	}
+	return (n);
 }
