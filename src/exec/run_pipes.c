@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 14:37:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:49:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
-	int		pipe_fd[2];
+	int		pipe_fd[3];
 
 	if (pipe(pipe_fd) < 0)
 	{

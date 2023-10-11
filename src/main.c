@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 14:39:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:58:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ int	main(int ac, char **av, char **envp)
 	{
 		ms->prompt = set_prompt(ms);
 		ms->str = readline(ms->prompt);
+		add_history(ms->str);
+		if (ms->str && syntax_error(ms))
+			continue ;
 		var_init(ms);
 		parse_main(ms);
 		run(ms);
-		add_history(ms->str);
+		printf("EXIT= %d\n", g_exit);
 		signal_exit(ms);
 		free(ms->str);
 		free(ms->prompt);
@@ -40,7 +43,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	(void)av;
 	(void)ac;
-  exit (g_exit);
+	exit (g_exit);
 }
 
 /*

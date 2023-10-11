@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:18:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:01:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	var_init(t_minishell *ms)
 	ms->words = 0;
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
+	ms->fderr_buf = dup(STDERR_FILENO);
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
 	env_var(ms->env, ms->main_arr);

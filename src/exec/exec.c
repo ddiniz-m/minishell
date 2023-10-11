@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/05 14:53:44 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:03:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		free_array(env_arr);
 		exit (0);
 	}
-	if (cmd_path
+	if (cmd_path \
 		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
+	{
 		perror("EXECVE ERROR\n");
+		g_exit = errno;
+	}
 	free_array(env_arr);
 	free(cmd_path);
 	exit(0);
@@ -58,6 +61,8 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 {
+	dup2(pipe_fd[2], STDERR_FILENO);
+	close(pipe_fd[2]);
 	if (redir_check_out(cmdlist->content, ms->main_arr, i))
 	{
 		redir_in(cmdlist->content, ms->main_arr, i);
@@ -76,6 +81,7 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 void	parent_process(int *pipe_fd)
 {
 	close(pipe_fd[1]);
+	close(pipe_fd[2]);
 	wait(NULL);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);

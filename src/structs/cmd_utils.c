@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 11:56:20 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:38:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,9 @@ int	strlen_chr(char *str, char c)
 int	strcmp_chr(char *s1, char *s2, char c)
 {
 	int	i;
-	int	n;
 
 	i = 0;
-	n = 0;
 	while (i < strlen_chr(s2, c) - 1)
-	{
-		n += s1[i] - s2[i];
 		i++;
-	}
-	return (n);
+	return (s1[i] - s2[i]);
 }
