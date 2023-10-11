@@ -6,13 +6,13 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/10 15:34:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:49:42 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	heredoc(t_minishell *ms, t_list *heredoc);
+void	heredoc(t_list *heredoc);
 
 int	redir_check_out(t_content *content, char **arr, int pos)
 {
@@ -73,7 +73,7 @@ int	redir_out(t_content *content, char **arr, int pos)
 	return (0);
 }
 
-int	redir_in(t_minishell *ms, t_content *content, char **arr, int pos)
+int	redir_in(t_content *content, char **arr, int pos)
 {
 	int			size;
 	t_content	*tmp;
@@ -90,7 +90,7 @@ int	redir_in(t_minishell *ms, t_content *content, char **arr, int pos)
 		{
 			while (hdoc)
 			{
-				heredoc(ms, hdoc->data);
+				heredoc(hdoc->data);
 				hdoc = hdoc->next;
 			}
 		}

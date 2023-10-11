@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/10 15:34:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:48:42 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 {
 	if (redir_check_out(cmdlist->content, ms->main_arr, i))
 	{
-		redir_in(ms, cmdlist->content, ms->main_arr, i);
+		redir_in(cmdlist->content, ms->main_arr, i);
 		redir_out(cmdlist->content, ms->main_arr, i);
 	}
 	else
 	{
-		redir_in(ms, cmdlist->content, ms->main_arr, i);
+		redir_in(cmdlist->content, ms->main_arr, i);
 		close(pipe_fd[0]); 
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);

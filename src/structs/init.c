@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/10 15:45:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:53:38 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 void	var_init(t_minishell *ms)
 {
-	ms->fd_tmp = open("NewFile", O_CREAT | O_TRUNC | O_RDWR , 0777);
-	if (ms->str)
-		ft_putstr_fd(ms->str, ms->fd_tmp);
 	ms->words = 0;
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
@@ -78,5 +75,5 @@ void	var_init(t_minishell *ms)
 	env_var(ms->env, ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	//cmdlist_print(&ms->cmdlist);
+	cmdlist_print(&ms->cmdlist);
 }
