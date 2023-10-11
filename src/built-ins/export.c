@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 11:27:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:31:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	export_override(char *str, t_list **export)
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (!ft_strchr(buf, '='))
+		if (!ft_strchr(buf, '=') && ft_strcmp(tmp->data, buf) == 0)
 			break ;
 		if (strcmp_chr(tmp->data, buf, '=') == 0
 			|| ft_strcmp(tmp->data, buf) == 0)
@@ -126,20 +126,19 @@ void	export(char **arr, t_list **export, t_list **env)
 	buf = NULL;
 	while (i < arr_size(arr))
 	{
-		buf = ft_strdup(arr[i]);
-		env_override(buf, env);
-		if (export_override(buf, export))
+		env_override(arr[i], env);
+		if (ft_strchr(arr[i], '='))
 		{
-			i++;
-			free(buf);
-			continue ;
-		}
-		if (ft_strchr(buf, '='))
-		{
+			buf = ft_strdup(arr[i]);
 			node = ft_lstnew(buf);
 			ft_lstadd_back(env, node);
 		}
-		node = ft_lstnew(export_str(buf));
+		if (export_override(arr[i], export) == 1)
+		{
+			i++;
+			continue ;
+		}
+		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
 		i++;
 	}
