@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 14:54:33 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 12:56:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
 	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
 // ^^ Might have to change it depending on how we handle heredoc ^^
-	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
+	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }
 
@@ -34,7 +34,7 @@ t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 
 	cmdlist = malloc(sizeof(t_cmdlist));
 	if (!cmdlist)
-		return (NULL);
+		malloc_error(ms);
 	cmdlist->content = content_init(ms, cmd_index);
 	cmdlist->next = NULL;
 	return (cmdlist);

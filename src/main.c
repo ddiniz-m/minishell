@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 14:39:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 12:56:02 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
+int	g_exit = 0;
+
 int	main(int ac, char **av, char **envp)
 {
 	t_minishell	*ms;
@@ -38,6 +40,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	(void)av;
 	(void)ac;
+	exit (g_exit);
 }
 
 /*
@@ -51,7 +54,10 @@ int	main(int ac, char **av, char **envp)
 	- Return error message when command is invalid
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 	Errors on:
 	- str_quotes();
 

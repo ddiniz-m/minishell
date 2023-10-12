@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/22 12:26:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 12:59:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,12 @@ int	exit_format_error(char *arg)
 		else if (arg[i] && !n && (arg[i] == '-' || arg[i] == '+'))
 			n = 1;
 		else if (arg[i] && arg[i] != quotes && !ft_isdigit(arg[i]))
-		{
-			quotes = 0;
-			printf("Minishell: exit: %s: numeric argument required\n", arg);
-			return (1);
-		}
-		else if (quotes && arg[i] && arg[i] == quotes)
 			quotes = 0;
 		i++;
 	}
 	return (0);
 }
+
 void	exit_args_error(void)
 {
 	printf("Minishell: exit: too many arguments\n");
@@ -82,7 +77,6 @@ void	ft_exit(t_minishell *ms, char **args)
 	int		buf_fdout;
 	int		neg;
 
-	int EXIT_STATUS = 0;
 	buf_fdout = dup(STDOUT_FILENO);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("exit\n");
@@ -93,15 +87,16 @@ void	ft_exit(t_minishell *ms, char **args)
 	{
 		if (ft_strchr(args[1],'-'))
 			neg = 1;
-		if (exit_format_error(args[1]))
-			EXIT_STATUS = 2; // have to change EXIT_STATUS
-		else if (exit_atoull(args[1]) > (unsigned long long)(LLONG_MAX + neg))
+		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
+			(unsigned long long)(LLONG_MAX + neg))
+		{
 			printf("Minishell: exit: %s: numeric argument required\n", args[1]);
+			g_exit = 2;
+		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
-			EXIT_STATUS = (int)exit_atoull(args[1]); // have to change EXIT_STATUS
+			g_exit = (int)exit_atoull(args[1]);
 	}
 	dup2(buf_fdout, STDOUT_FILENO);
 	close(buf_fdout);
-	printf("EXIT_STATUS = %d\n",EXIT_STATUS);
 	free_ms(ms);
 }

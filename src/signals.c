@@ -23,6 +23,7 @@ void	signal_interrupt(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_exit = 128 + SIGINT;
 	}
 }
 
@@ -41,7 +42,7 @@ void	signal_exit(t_minishell *ms)
 {
 	if (!(ms->str))
 	{
-		printf("exit\n");
+		write(2, "exit\n", 5);
 		free_ms(ms);
 	}
 }
