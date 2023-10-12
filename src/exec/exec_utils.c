@@ -6,27 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:24:10 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:58:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-char	*path_str(t_list *env)
-{
-	t_list	*tmp;
-
-	tmp = env;
-	while (tmp->data)
-	{
-		if (ft_strncmp((char *)tmp->data, "PATH=", 5) == 0)
-			break ;
-		tmp = tmp->next;
-	}
-	if (!tmp)
-		return (NULL);
-	return (tmp->data);
-}
 
 char	**path_init(t_minishell *ms)
 {
@@ -67,65 +51,6 @@ char	*is_exec(char *str, char **paths)
 		i++;
 	}
 	return (NULL);
-}
-
-int	is_built_in(char *str)
-{
-	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0
-		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0
-		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0
-		|| ft_strcmp(str, "exit") == 0)
-		return (1);
-	return (0);
-}
-
-void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
-{
-	if (ft_strcmp(cmd_flags[0], "echo") == 0)
-		echo(cmd_flags);
-	else if (ft_strcmp(cmd_flags[0], "cd") == 0)
-		cd(ms, cmd_flags);
-	else if (ft_strcmp(cmd_flags[0], "pwd") == 0)
-		pwd();
-	else if (ft_strcmp(cmd_flags[0], "exit") == 0)
-	{
-		if (exit)
-			write(STDERR_FILENO, "exit\n", 5);
-		ft_exit(ms, cmd_flags, exit);
-		if (exit)
-		{
-			free_array(ms->paths);
-			free_ms(ms);
-		}
-	}
-	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0 || ft_strcmp(cmd_flags[0], "env") == 0)
-		exp_env_unset(ms, cmd_flags);
-}
-
-void	exp_env_unset(t_minishell *ms, char **cmd_flags)
-{
-	if (ft_strcmp(cmd_flags[0], "export") == 0)
-	{
-		list_sort(ms->exp);
-		if (export_error(cmd_flags))
-		{
-			g_exit = 1;
-			return ;
-		}
-		if (arr_size(cmd_flags) > 1)
-			export(cmd_flags, ms->exp, ms->env);
-		else
-			list_print(ms->exp);
-	}
-	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
-	{
-		if (arr_size(cmd_flags) > 1)
-			unset(ms->env, ms->exp, cmd_flags);
-	}
-	else if (ft_strcmp(cmd_flags[0], "env") == 0)
-		list_print(ms->env);
-	g_exit = 0;
 }
 
 void	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)

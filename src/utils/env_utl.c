@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:50:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:58:45 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ void	env_var(t_list **env, char **arr)
 		}
 		i++;
 	}
+}
+
+char	*path_str(t_list *env)
+{
+	t_list	*tmp;
+
+	tmp = env;
+	while (tmp->data)
+	{
+		if (ft_strncmp((char *)tmp->data, "PATH=", 5) == 0)
+			break ;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+		return (NULL);
+	return (tmp->data);
 }
