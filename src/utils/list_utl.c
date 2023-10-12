@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:50:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:18:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	list_check_dup(t_list **list, char *str)
 	return (0);
 }
 
-void	list_swap(t_list *list) //what is this?
+void	list_swap(t_list *list)
 {
 	char	*str;
 	t_list	*head;

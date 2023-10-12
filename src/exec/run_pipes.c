@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 15:40:58 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:17:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	run(t_minishell *ms)
 	tmp = ms->cmdlist;
 	cmds = ms->cmd_count;
 	ms->paths = path_init(ms);
-	if (cmds == 1) //if there isn't a pipe
+	if (cmds == 1)
 	{
 		no_pipe(ms, tmp);
 		free_array(ms->paths);
 		return (0);
 	}
-	while (cmds > 1 && cmds-- > 0 && tmp->next) //if there's a pipe
+	while (cmds > 1 && cmds-- > 0 && tmp->next)
 	{
 		i += run_pipes(ms, tmp, i);
 		tmp = tmp->next;

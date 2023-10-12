@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:50:57 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:18:49 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	cmd_args(char **arr, int pos)
 		if (arr[i][0] == '<' || arr[i][0] == '>')
 			i += 2;
 		else if (ft_strcmp(arr[i], "|") == 0)
-			break;
+			break ;
 		else
 		{
 			counter++;

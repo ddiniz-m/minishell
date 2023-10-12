@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 16:00:33 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:22:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ int	exit_format_error(char *arg)
 
 void	exit_status(char **args)
 {
-	int		neg;
+	int	neg;
 
 	neg = 0;
 	if (arr_size(args) > 2)
 		g_exit = 1;
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
 	{
-		if (ft_strchr(args[1],'-'))
+		if (ft_strchr(args[1], '-'))
 			neg = 1;
 		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
 			(unsigned long long)(LLONG_MAX + neg))
@@ -82,6 +82,7 @@ void	exit_status(char **args)
 			g_exit = (int)exit_atoull(args[1]);
 	}
 }
+
 /*
 	In bash, <exit [n]> prints an error if n is larger than LLONG_MAX or smaller
 	than LLONG_MIN. Therefore I had to create a function that could convert
@@ -102,7 +103,7 @@ void	ft_exit(t_minishell *ms, char **args, int exit)
 	}
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
 	{
-		if (ft_strchr(args[1],'-'))
+		if (ft_strchr(args[1], '-'))
 			neg = 1;
 		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
 			(unsigned long long)(LLONG_MAX + neg))

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:13:06 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:25:50 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 //signal
 # include <signal.h>
 
-extern int g_exit;
+extern int	g_exit;
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
@@ -120,11 +120,11 @@ int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
 
-
 //++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_with_flags, int exit);
+void					built_ins(t_minishell *ms, char **cmd_with_flags, \
+	int exit);
 void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
 
 // exec_utils.c
@@ -134,9 +134,9 @@ void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 
 // exec.c
 void					exec(t_minishell *ms, t_cmdlist *cmdlist);
-void					child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i);
+void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
+	int *pipe_fd, int i);
 void					parent_process(int *pipe_fd);
-
 
 // open_file.c
 int						open_file_in(t_content *content, t_list *lst);
@@ -145,7 +145,8 @@ int						open_file_out(t_content *content, t_list *lst);
 int						open_file_app(t_content *content, t_list *lst);
 
 // redir_hdoc.c
-int						redir_check_out(t_content *content, char **arr, int pos);
+int						redir_check_out(t_content *content, char **arr, \
+	int pos);
 int						redir_check_in(t_content *content, char **arr, int pos);
 int						redir_in(t_content *content, char **arr, int pos);
 int						redir_out(t_content *content, char **arr, int pos);
@@ -189,19 +190,14 @@ void					var_init(t_minishell *ms);
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
 // array_utl.c
 int						arr_size(char **arr);
-char					**arr_cpy(t_minishell *ms, char **arr, int pos, int size);
+char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
+	int size);
 void					arr_print(char *str, char **arr);
 
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);
 void					env_var(t_list **env, char **arr);
 char					*path_str(t_list *env);
-
-// frees.c
-void					free_ms(t_minishell *ms);
-int						free_array(char **arr);
-void					free_cmd_list(t_cmdlist *cmdlist);
-void					free_list_malloc(t_list **exp);
 
 // list_utl.c
 void					list_print(t_list **list);
@@ -215,6 +211,12 @@ int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
+// frees.c
+void					free_ms(t_minishell *ms);
+int						free_array(char **arr);
+void					free_cmd_list(t_cmdlist *cmdlist);
+void					free_list_malloc(t_list **exp);
+
 // prompt.c
 char					*set_prompt(t_minishell *ms);
 
@@ -222,6 +224,5 @@ char					*set_prompt(t_minishell *ms);
 void					signal_init(void);
 void					signal_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
-
 
 #endif
