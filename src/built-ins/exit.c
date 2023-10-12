@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/11 17:08:43 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:00:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,24 @@ int	exit_format_error(char *arg)
 	return (0);
 }
 
+void	exit_status(char **args)
+{
+	int		neg;
+
+	neg = 0;
+	if (arr_size(args) > 2)
+		g_exit = 1;
+	else if (arr_size(args) == 2 && args[1] && args[1][0])
+	{
+		if (ft_strchr(args[1],'-'))
+			neg = 1;
+		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
+			(unsigned long long)(LLONG_MAX + neg))
+			g_exit = 2;
+		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
+			g_exit = (int)exit_atoull(args[1]);
+	}
+}
 /*
 	In bash, <exit [n]> prints an error if n is larger than LLONG_MAX or smaller
 	than LLONG_MIN. Therefore I had to create a function that could convert
@@ -72,15 +90,14 @@ int	exit_format_error(char *arg)
 	so that I can add 1 to LLONG_MAX on line 91.33. (since exit_atoull() converts
 	n to an unsigned number).
 */
-void	ft_exit(t_minishell *ms, char **args)
+void	ft_exit(t_minishell *ms, char **args, int exit)
 {
 	int		neg;
 
-	write(2, "exit\n", 5);
 	neg = 0;
 	if (arr_size(args) > 2)
 	{
-		write(2, "Minishell: exit: too many arguments\n", 36);
+		write(STDERR_FILENO, "Minishell: exit: too many arguments\n", 36);
 		g_exit = 1;
 	}
 	else if (arr_size(args) == 2 && args[1] && args[1][0])
@@ -90,13 +107,14 @@ void	ft_exit(t_minishell *ms, char **args)
 		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
 			(unsigned long long)(LLONG_MAX + neg))
 		{
-			write(2, "Minishell: exit: ", 17);
-			ft_putstr_fd(args[1], 2);
-			write(2, ": numeric argument required\n", 28);
+			write(STDERR_FILENO, "Minishell: exit: ", 17);
+			ft_putstr_fd(args[1], STDERR_FILENO);
+			write(STDERR_FILENO, ": numeric argument required\n", 28);
 			g_exit = 2;
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
 			g_exit = (int)exit_atoull(args[1]);
 	}
-	free_ms(ms);
+	if (!exit)
+		free_ms(ms);
 }

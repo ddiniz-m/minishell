@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 16:58:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:46:46 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int ac, char **av, char **envp)
 		var_init(ms);
 		parse_main(ms);
 		run(ms);
-		printf("EXIT= %d\n", g_exit);
 		signal_exit(ms);
 		free(ms->str);
 		free(ms->prompt);
@@ -45,6 +44,9 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	exit (g_exit);
 }
+/*	ERRORS:
+	- `exit 2 | exit 3` should change exit status
+*/
 
 /*
 	Need to figure out how we're actually gonna do heredoc
@@ -56,12 +58,4 @@ int	main(int ac, char **av, char **envp)
 	- `export VAR` should create an environment variable VAR when there isn't already one
 	- Return error message when command is invalid
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
-
-	Errors on:
-	- str_quotes();
-
-	Needs attention:
-	- malloc_error();
-	- pwd();
-	- str_quotes()
  */

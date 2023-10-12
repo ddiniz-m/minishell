@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 18:03:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:54:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	**list_to_array(t_list **env)
 
 void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 {
-	char		**env_arr;
-	char		*cmd_path;
+	char	**env_arr;
+	char	*cmd_path;
 
 	cmd_path = NULL;
 	env_arr = list_to_array(ms->env);
@@ -44,25 +44,26 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], ms->paths);
 	else
 	{
-		built_ins(ms, cmdlist->content->cmd_flags);
+		built_ins(ms, cmdlist->content->cmd_flags, 0);
 		free_array(env_arr);
-		exit (0);
+		exit (g_exit);
 	}
-	if (cmd_path \
-		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
+	if (cmd_path)
 	{
-		perror("EXECVE ERROR\n");
-		g_exit = errno;
+		g_exit = execve(cmd_path, cmdlist->content->cmd_flags, env_arr);
+		if (g_exit < 0)
+		{
+			g_exit = errno;
+			perror("EXECVE ERROR\n");
+		}
 	}
 	free_array(env_arr);
 	free(cmd_path);
-	exit(0);
+	exit (g_exit);
 }
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 {
-	dup2(pipe_fd[2], STDERR_FILENO);
-	close(pipe_fd[2]);
 	if (redir_check_out(cmdlist->content, ms->main_arr, i))
 	{
 		redir_in(cmdlist->content, ms->main_arr, i);
@@ -80,9 +81,8 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 
 void	parent_process(int *pipe_fd)
 {
-	close(pipe_fd[1]);
-	close(pipe_fd[2]);
 	wait(NULL);
+	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
 }

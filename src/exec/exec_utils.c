@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 16:30:59 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:24:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	is_built_in(char *str)
 	return (0);
 }
 
-void	built_ins(t_minishell *ms, char **cmd_flags)
+void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 {
 	if (ft_strcmp(cmd_flags[0], "echo") == 0)
 		echo(cmd_flags);
@@ -89,11 +89,17 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 		pwd();
 	else if (ft_strcmp(cmd_flags[0], "exit") == 0)
 	{
-		free_array(ms->paths);
-		ft_exit(ms, cmd_flags);
+		if (exit)
+			write(STDERR_FILENO, "exit\n", 5);
+		ft_exit(ms, cmd_flags, exit);
+		if (exit)
+		{
+			free_array(ms->paths);
+			free_ms(ms);
+		}
 	}
 	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0 || ft_strcmp(cmd_flags[0], "unset") == 0)
+		"unset") == 0 || ft_strcmp(cmd_flags[0], "env") == 0)
 		exp_env_unset(ms, cmd_flags);
 }
 
@@ -122,7 +128,7 @@ void	exp_env_unset(t_minishell *ms, char **cmd_flags)
 	g_exit = 0;
 }
 
-int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
+void	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
 
@@ -136,17 +142,12 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 		}
 		child = fork();
 		if (child == 0)
-		{
-			if (is_built_in(cmdlist->content->cmd_flags[0]))
-			{
-				built_ins(ms, cmdlist->content->cmd_flags);
-				exit (g_exit);
-			}
-			else
-				exec(ms, cmdlist);
-		}
+			exec(ms, cmdlist);
 		else
+		{
 			wait(NULL);
+			if (ft_strcmp(cmdlist->content->cmd_flags[0], "exit") == 0)
+				exit_status(cmdlist->content->cmd_flags);
+		}
 	}
-	return (0);
 }

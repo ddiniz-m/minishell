@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 16:49:15 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:40:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
-	int		pipe_fd[3];
+	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) < 0)
 	{
@@ -52,13 +52,13 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	{
 		if (!is_built_in(cmdlist->content->cmd_flags[0]))
 			exec(ms, cmdlist);
-		exit (0);
+		exit (g_exit);
 	}
 	else
 	{
 		wait(NULL);
 		if (is_built_in(cmdlist->content->cmd_flags[0]))
-			built_ins(ms, cmdlist->content->cmd_flags);
+			built_ins(ms, cmdlist->content->cmd_flags, 1);
 		set_fd(ms);
 	}
 	return (0);

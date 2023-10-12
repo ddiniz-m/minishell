@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 17:56:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:03:18 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_minishell
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
-	int				fderr_buf;
 	int				cmd_count;
 	char			**main_arr;
 	t_cmdlist		*cmdlist;
@@ -88,7 +87,8 @@ t_list					**env_init(char **envp);
 void					env_override(char *str, t_list **env);
 
 // exit.c
-void					ft_exit(t_minishell *ms, char **args);
+void					exit_status(char **args);
+void					ft_exit(t_minishell *ms, char **args, int exit);
 
 // export.c
 t_list					**export_init(t_list **env);
@@ -107,8 +107,8 @@ void					unset(t_list **env, t_list **exp, char **arr);
 char					**path_init(t_minishell *ms);
 char					*is_exec(char *str, char **paths);
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_with_flags);
-int						last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
+void					built_ins(t_minishell *ms, char **cmd_with_flags, int exit);
+void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
 
 // exec.c

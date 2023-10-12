@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 17:02:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:30:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,4 @@ void	set_fd(t_minishell *ms)
 	close(ms->fdout_buf);
 	dup2(ms->fdin_buf, STDIN_FILENO);
 	close(ms->fdin_buf);
-	dup2(ms->fderr_buf, STDERR_FILENO);
-	close(ms->fderr_buf);
 }
