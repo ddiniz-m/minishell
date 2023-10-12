@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 12:59:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:50:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ int	run(t_minishell *ms)
 	last_cmd(ms, tmp, i);
 	set_fd(ms);
 	return (free_array(ms->paths));
+	return (0);
 }

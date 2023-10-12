@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 13:02:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:11:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	env_var(t_list **env, char **arr)
 	{
 		if (arr[i][0] == '$')
 		{
+			if (ft_strlen(arr[i]) == 1 || (ft_strlen(arr[i]) == 2 && arr[i][1] == '?'))
+				return ;
 			buf = env_var_str(arr[i], env);
 			free(arr[i]);
 			arr[i] = ft_strdup(buf);

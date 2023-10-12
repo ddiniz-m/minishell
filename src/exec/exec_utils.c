@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 12:59:20 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:53:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*path_str(t_list *env)
 	t_list	*tmp;
 
 	tmp = env;
-	while (tmp->data)
+	while (tmp && tmp->data)
 	{
 		if (ft_strncmp((char *)tmp->data, "PATH=", 5) == 0)
 			break ;
@@ -37,6 +37,8 @@ char	**path_init(t_minishell *ms)
 	char	*env_path_str;
 
 	env_path_str = path_str(*ms->env);
+	if (!env_path_str)
+		return (NULL);
 	env_path = ft_strtrim(env_path_str, "PATH=");
 	paths = ft_split(env_path, ':');
 	path_dir = malloc(sizeof(char *) * (arr_size(paths) + 1));
@@ -58,7 +60,7 @@ char	*is_exec(char *str, char **paths)
 	char	*buf;
 
 	i = 0;
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		buf = ft_strjoin(paths[i], str);
 		if (!access(buf, F_OK))
@@ -93,7 +95,7 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 		ft_exit(ms, cmd_flags);
 	}
 	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0 || ft_strcmp(cmd_flags[0], "unset") == 0)
+		"unset") == 0 || ft_strcmp(cmd_flags[0], "env") == 0)
 		exp_env_unset(ms, cmd_flags);
 }
 

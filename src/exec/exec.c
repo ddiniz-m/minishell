@@ -6,11 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/11 12:48:42 by ddiniz-m         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/05 14:53:44 by ddiniz-m         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/10/12 13:53:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +40,22 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 
 	cmd_path = NULL;
 	env_arr = list_to_array(ms->env);
-<<<<<<< HEAD
 	if (!cmdlist->content->cmd_flags[0])
 		exit (0);
-=======
->>>>>>> main
 	if (!is_built_in(cmdlist->content->cmd_flags[0]))
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], ms->paths);
 	else
 	{
 		built_ins(ms, cmdlist->content->cmd_flags);
 		free_array(env_arr);
-		exit (0);
+		exit (g_exit);
 	}
-<<<<<<< HEAD
 	if (cmd_path 
-=======
-	if (cmd_path
->>>>>>> main
 		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
 		perror("EXECVE ERROR\n");
 	free_array(env_arr);
 	free(cmd_path);
-	exit(0);
+	exit(g_exit);
 }
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
@@ -79,11 +68,7 @@ void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)
 	else
 	{
 		redir_in(cmdlist->content, ms->main_arr, i);
-<<<<<<< HEAD
 		close(pipe_fd[0]); 
-=======
-		close(pipe_fd[0]);
->>>>>>> main
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}

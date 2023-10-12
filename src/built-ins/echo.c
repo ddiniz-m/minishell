@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 12:53:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:51:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ int	quote_print_char(char *str, char c, int i)
 		i++;
 		while (str[i] && str[i] != c)
 			printf("%c", str[i++]);
-		i++;
 	}
-	else
-		printf("%c", str[i++]);
+	i++;
 	return (i);
 }
 
 void	echo_print(char **cmd_flags, int pos)
 {
 	int		i;
+	int		size;
 	char	*buf;
 
 	buf = NULL;
 	while (cmd_flags && pos < arr_size(cmd_flags))
 	{
 		i = 0;
-		while (cmd_flags[pos][i])
+		size = ft_strlen(cmd_flags[pos]);
+		while (i < size && cmd_flags[pos][i])
 		{
 			if (cmd_flags[pos][i] == '\'')
-				i += quote_print_char(cmd_flags[pos], '\'', i);
+				i = quote_print_char(cmd_flags[pos], '\'', i);
 			else if (cmd_flags[pos][i] == '\"')
-				i += quote_print_char(cmd_flags[pos], '\"', i);
+				i = quote_print_char(cmd_flags[pos], '\"', i);
 			else
 				printf("%c", cmd_flags[pos][i++]);
 		}
@@ -101,5 +101,6 @@ int	echo(char **cmd_flags)
 		return (printf("\n"));
 	if (!n_flag)
 		printf("\n");
+	g_exit = 0;
 	return (0);
 }

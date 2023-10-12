@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 12:53:25 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:48:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	heredoc_child(char *delimiter)
 		if (ft_strncmp(delimiter, line, ft_strlen(line) - 1) == 0)
 		{
 			free(line);
+			g_exit = 0;
 			exit (0);
 		}
 		write(1, "> ", 2);
