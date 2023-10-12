@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:03:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:52:07 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,6 @@ void					parse_main(t_minishell *ms);
 void					cmdlist_print(t_cmdlist **cmdlist);
 int						cmd_args(char **arr, int pos);
 int						cmd_count(char **arr);
-int						strlen_chr(char *str, char c);
-int						strcmp_chr(char *s1, char *s2, char c);
 
 // content.c
 t_list					*redir_lst(char **arr, int index, char *limiter);
@@ -167,18 +165,15 @@ char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 // init.c
 void					var_init(t_minishell *ms);
 
-// list.c
-void					list_print(t_list **list);
-void					list_sort(t_list **list);
-void					list_remove(t_list **list, int pos);
-int						list_check_dup(t_list **list, char *str);
-void					list_swap(t_list *list);
-
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
-// array_utils.c
+// array_utl.c
 int						arr_size(char **arr);
 char					**arr_cpy(t_minishell *ms, char **arr, int pos, int size);
 void					arr_print(char *str, char **arr);
+
+// env_utl.c
+char					*env_var_str(char *str, t_list **env);
+void					env_var(t_list **env, char **arr);
 
 // frees.c
 void					free_ms(t_minishell *ms);
@@ -187,9 +182,16 @@ void					malloc_error(t_minishell *ms);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
 
-// str_utils.c
-char					*env_var_str(char *str, t_list **env);
-void					env_var(t_list **env, char **arr);
+// list_utl.c
+void					list_print(t_list **list);
+void					list_sort(t_list **list);
+void					list_remove(t_list **list, int pos);
+int						list_check_dup(t_list **list, char *str);
+void					list_swap(t_list *list);
+
+// str_utl.c
+int						strlen_chr(char *str, char c);
+int						strcmp_chr(char *s1, char *s2, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // errors.c

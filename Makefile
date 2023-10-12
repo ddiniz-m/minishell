@@ -9,8 +9,8 @@ SRC_MSH	=	errors.c errors2.c main.c prompt.c signals.c
 SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRC_EXE =	exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
 SRC_PRS	=	parse_counter.c parse_split.c parse_str.c parse.c
-SRC_STC	=	cmd_utils.c content.c init.c list.c
-SRC_UTL	=	array_utils.c frees.c str_utils.c
+SRC_STC	=	cmd_utils.c content.c init.c
+SRC_UTL	=	array_utl.c frees.c list_utl.c env_utl.c str_utl.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/exec/, $(SRC_EXE)) $(addprefix src/parser/, $(SRC_PRS)) \

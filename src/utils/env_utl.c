@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   env_utl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/06 15:14:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:50:19 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*env_var_str(char *str, t_list **env)
 	char	*buf1;
 	char	*buf2;
 	t_list	*tmp;
-	
+
 	tmp = *env;
 	buf1 = ft_strtrim(str, "$");
 	while (tmp)
