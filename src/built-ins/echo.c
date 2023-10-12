@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/11 18:02:29 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 12:25:52 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	echo_flag(char *str)
 //Returns 0 otherwise
 int	quote_ends(char *str, int i, char c)
 {
+	i++;
 	while (str[i])
 	{
 		if (str[i] == c)
@@ -42,47 +43,38 @@ int	quote_ends(char *str, int i, char c)
 	return (0);
 }
 
-void	quote_print(char *str)
+int	quote_print_char(char *str, char c, int i)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (quote_ends(str, i, c))
 	{
-		if (str[i] == '\'')
-		{
-			i++;
-			if (quote_ends(str, i, '\''))
-			{
-				while (str[i] && str[i] != '\'')
-					printf("%c", str[i++]);
-			}
-		}
-		else if (str[i] == '\"')
-		{
-			i++;
-			if (quote_ends(str, i, '\"'))
-			{
-				while (str[i] && str[i] != '\"')
-					printf("%c", str[i++]);
-			}
-		}
-		else
-		{
-			printf("%c", str[i]);
-			i++;
-		}
+		i++;
+		while (str[i] && str[i] != c)
+			printf("%c", str[i++]);
+		i++;
 	}
+	else
+		printf("%c", str[i++]);
+	return (i);
 }
 
 void	echo_print(char **cmd_flags, int pos)
 {
+	int		i;
 	char	*buf;
 
 	buf = NULL;
 	while (cmd_flags && pos < arr_size(cmd_flags))
 	{
-		quote_print(cmd_flags[pos]);
+		i = 0;
+		while (cmd_flags[pos][i])
+		{
+			if (cmd_flags[pos][i] == '\'')
+				i += quote_print_char(cmd_flags[pos], '\'', i);
+			else if (cmd_flags[pos][i] == '\"')
+				i += quote_print_char(cmd_flags[pos], '\"', i);
+			else
+				printf("%c", cmd_flags[pos][i++]);
+		}
 		pos++;
 		if (cmd_flags && pos != arr_size(cmd_flags))
 			printf(" ");
