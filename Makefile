@@ -5,20 +5,6 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
-<<<<<<< HEAD
-SRC_MSH	=	main.c signals.c prompt.c
-SRC_GNL =	gnl.c gnl_utils.c
-SRC_STC	=	cmd_utils.c init.c list.c content.c
-SRC_PRS	=	parse.c parse_split.c parse_str.c parse_counter.c
-SRC_BLT	=	cd.c echo.c pwd.c exit.c env.c export.c unset.c
-SRC_UTL	=	frees.c array_utils.c str_utils.c
-SRC_EXE =	exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c heredoc.c
-
-SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
-			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
-			$(addprefix src/utils/, $(SRC_UTL)) $(addprefix src/exec/, $(SRC_EXE)) \
-			$(addprefix gnl/, $(SRC_GNL))
-=======
 SRC_MSH	=	frees.c main.c prompt.c signals.c
 SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRC_ERR =	errors.c syntax_errors.c syntax_errors2.c
@@ -31,7 +17,6 @@ SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/error_handling/, $(SRC_ERR)) $(addprefix src/exec/, $(SRC_EXE)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
 			$(addprefix src/utils/, $(SRC_UTL))
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $(SRC_BLT:%.c=%.o)) \
 			$(addprefix, $(OBJ_DIR)/, $(SRC_ERR:%.c=%.o))$(addprefix, $(OBJ_DIR)/, $(SRC_EXE:%.c=%.o)) \
 			$(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_STC:%.c=%.o)) \
