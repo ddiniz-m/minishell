@@ -6,55 +6,51 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:08:39 by mortins-          #+#    #+#             */
-
-/*   Updated: 2023/09/20 17:48:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:43:10 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	cd_home(char *buf)
+void	cd_home(t_minishell *ms)
 {
-	if (!getenv("HOME")) // replace with our env
+	char	*buf;
+
+	buf = env_var_str("HOME", ms->env);
+	if (!buf)
 	{
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
-		free(buf);
-			// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
-	else if (chdir(getenv("HOME")) != 0)  // replace with our env
+	else if (chdir(buf) != 0)
 	{
 		perror("Minishell: cd: HOME");
-		free(buf);
-		// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
-	// $OLDPWD = buf;
-	// $PWD = getcwd();
-	free(buf);
-	// NEED TO CHANGE EXIT_STATUS
-	return (0);
+	else
+		g_exit = 0;
+	// define OLDPWD
+	// PWD = getcwd()
+	if (buf)
+		free(buf);
 }
 
-// Returns 0 on success.
-// Returns -1 on error
-int	cd(char *path)
+void	cd(t_minishell *ms, char **path)
 {
-	char	buf[PATH_MAX + 1];
-
-	getcwd(buf, sizeof(buf));
-	if (!path || !path[0])
-		return (cd_home(buf));
-	else if (chdir(path) != 0)
+	if (path && arr_size(path) > 2)
+	{
+		write(2, "Minishell: cd: too many arguments\n", 34);
+		g_exit = 1;
+	}
+	else if (!path || !path[1] || !path[1][0])
+		return (cd_home(ms));
+	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
-		free(buf);
-		// NEED TO CHANGE EXIT_STATUS
-		return (-1);
+		g_exit = 1;
 	}
-	// $OLDPWD = buf;
-	// $PWD = getcwd();
-	free(buf);
-	// NEED TO CHANGE EXIT_STATUS
-	return (0);
+	else
+		g_exit = 0;
+	// define OLDPWD
+	// PWD = getcwd()
 }

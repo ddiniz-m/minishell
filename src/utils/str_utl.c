@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   str_utl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/14 17:14:28 by mortins-         ###   ########.fr       */
+/*   Created: 2023/10/12 16:48:00 by mortins-          #+#    #+#             */
+/*   Updated: 2023/10/12 17:18:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	list_print(t_list **list)
+//Returns lenght of string when it reaches c
+int	strlen_chr(char *str, char c)
 {
-	t_list	*tmp;
+	int	i;
 
-	tmp = *list;
-	while (tmp)
-	{
-		printf("		%s\n", (char *)tmp->data);
-		tmp = tmp->next;
-	}
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+//Compares s1 and s2 until s2 reaches c
+int	strcmp_chr(char *s1, char *s2, char c)
+{
+	int	i;
+
+	i = 0;
+	while (i < strlen_chr(s2, c) - 1)
+		i++;
+	return (s1[i] - s2[i]);
 }

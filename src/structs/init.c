@@ -6,12 +6,14 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:20:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+// Might have to change how we handle content->heredoc, depending on our
+// solution for heredoc
 t_content	*content_init(t_minishell *ms, int cmd_index)
 {
 	t_content	*content;
@@ -21,11 +23,7 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->output = redir_lst(ms->main_arr, cmd_index, ">");
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
 	content->heredoc = redir_lst(ms->main_arr, cmd_index, "<<");
-// ^^ Might have to change it depending on how we handle heredoc ^^
-	while (ms->main_arr[cmd_index] && (ms->main_arr[cmd_index][0] == '<' || \
-		ms->main_arr[cmd_index][0] == '>') && ms->main_arr[cmd_index + 1])
-		cmd_index += 2;
-	content->cmd_flags = cmd_with_flags(ms->main_arr, cmd_index);
+	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }
 
@@ -37,7 +35,7 @@ t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 
 	cmdlist = malloc(sizeof(t_cmdlist));
 	if (!cmdlist)
-		return (NULL);
+		malloc_error(ms);
 	cmdlist->content = content_init(ms, cmd_index);
 	cmdlist->next = NULL;
 	return (cmdlist);
@@ -52,7 +50,7 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 	i = 0;
 	cmd_n = 0;
-	printf("\nCMD_COUNT = %i\n", ms->cmd_count);
+	//printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
@@ -71,9 +69,12 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 void	var_init(t_minishell *ms)
 {
 	ms->words = 0;
+	ms->fdin_buf = dup(STDIN_FILENO);
+	ms->fdout_buf = dup(STDOUT_FILENO);
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
+	env_var(ms->env, ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	cmdlist_print(&ms->cmdlist);
+	//cmdlist_print(&ms->cmdlist);
 }

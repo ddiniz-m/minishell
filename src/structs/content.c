@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/09/18 17:01:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:20:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list	*redir_lst(char **arr, int index, char *limiter)
 
 //Takes main array and position of a command, and returns an array with the
 //command and it's flags
-char	**cmd_with_flags(char **arr, int pos)
+char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 {
 	int		i;
 	char	**buf;
@@ -52,9 +52,16 @@ char	**cmd_with_flags(char **arr, int pos)
 	args = cmd_args(arr, pos);
 	buf = malloc(sizeof(char *) * (args + 1));
 	if (!buf)
-		return (NULL);
+		malloc_error(ms);
 	while (i < args && arr[pos])
-		buf[i++] = arr[pos++];
+	{
+		if (arr[pos][0] == '<' || arr[pos][0] == '>')
+			pos += 2;
+		else if (ft_strcmp(arr[pos], "|") == 0)
+			break ;
+		else
+			buf[i++] = arr[pos++];
+	}
 	buf[i] = NULL;
 	return (buf);
 }
