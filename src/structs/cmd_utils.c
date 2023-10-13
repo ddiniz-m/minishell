@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 12:59:53 by ddiniz-m         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:18:49 by mortins-         ###   ########.fr       */
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +58,7 @@ int	cmd_args(char **arr, int pos)
 		if (arr[i][0] == '<' || arr[i][0] == '>')
 			i += 2;
 		else if (ft_strcmp(arr[i], "|") == 0)
-			break;
+			break ;
 		else
 		{
 			counter++;
@@ -82,6 +86,7 @@ int	cmd_count(char **arr)
 	}
 	return (cmd_n);
 }
+<<<<<<< HEAD
 
 //Returns lenght of string when it reaches c
 int	strlen_chr(char *str, char c)
@@ -104,3 +109,5 @@ int	strcmp_chr(char *s1, char *s2, char c)
 		i++;
 	return (s1[i] - s2[i]);
 }
+=======
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes

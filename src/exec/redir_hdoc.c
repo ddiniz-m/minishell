@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_hdoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 12:59:35 by ddiniz-m         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 15:30:16 by mortins-         ###   ########.fr       */
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 /*                                                                            */
 /* ************************************************************************** */
 

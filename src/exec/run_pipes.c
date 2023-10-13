@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/12 14:50:20 by ddiniz-m         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:17:36 by mortins-         ###   ########.fr       */
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +56,13 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	{
 		if (!is_built_in(cmdlist->content->cmd_flags[0]))
 			exec(ms, cmdlist);
-		exit (0);
+		exit (g_exit);
 	}
 	else
 	{
 		wait(NULL);
 		if (is_built_in(cmdlist->content->cmd_flags[0]))
-			built_ins(ms, cmdlist->content->cmd_flags);
+			built_ins(ms, cmdlist->content->cmd_flags, 1);
 		set_fd(ms);
 	}
 	return (0);
@@ -74,13 +78,13 @@ int	run(t_minishell *ms)
 	tmp = ms->cmdlist;
 	cmds = ms->cmd_count;
 	ms->paths = path_init(ms);
-	if (cmds == 1) //if there isn't a pipe
+	if (cmds == 1)
 	{
 		no_pipe(ms, tmp);
 		free_array(ms->paths);
 		return (0);
 	}
-	while (cmds > 1 && cmds-- > 0 && tmp->next) //if there's a pipe
+	while (cmds > 1 && cmds-- > 0 && tmp->next)
 	{
 		i += run_pipes(ms, tmp, i);
 		tmp = tmp->next;

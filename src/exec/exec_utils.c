@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 14:53:44 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/13 11:29:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,13 @@ int	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 			redir_out(cmdlist->content, ms->main_arr, i);
 		}
 		child = fork();
-		if (child == 0 && !is_built_in(cmdlist->content->cmd_flags[0]))
+		if (child == 0)
 			exec(ms, cmdlist);
-		else if (child == 0)
-			exit (0);
 		else
 		{
 			wait(NULL);
-			if (is_built_in(cmdlist->content->cmd_flags[0]))
-				built_ins(ms, cmdlist->content->cmd_flags);
+			if (ft_strcmp(cmdlist->content->cmd_flags[0], "exit") == 0)
+				exit_status(cmdlist->content->cmd_flags);
 		}
 	}
-	return (0);
 }

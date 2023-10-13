@@ -1,12 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   list_utl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
+<<<<<<< HEAD:src/structs/list.c
 /*   Updated: 2023/10/12 13:00:19 by ddiniz-m         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 17:18:16 by mortins-         ###   ########.fr       */
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes:src/utils/list_utl.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +99,8 @@ void	list_swap(t_list *list)
 	head = list;
 	if (!head && !head->next)
 	{
-		printf("List Swap Error\n");
+		write(2, "List Swap Error\n", 16);
+		g_exit = 1;
 		return ;
 	}
 	tmp = head;

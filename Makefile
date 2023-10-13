@@ -5,6 +5,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm -rf
 
+<<<<<<< HEAD
 SRC_MSH	=	main.c signals.c prompt.c
 SRC_GNL =	gnl.c gnl_utils.c
 SRC_STC	=	cmd_utils.c init.c list.c content.c
@@ -17,9 +18,24 @@ SRCS	=	$(addprefix src/, $(SRC_MSH))  $(addprefix src/built-ins/, $(SRC_BLT)) \
 			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
 			$(addprefix src/utils/, $(SRC_UTL)) $(addprefix src/exec/, $(SRC_EXE)) \
 			$(addprefix gnl/, $(SRC_GNL))
+=======
+SRC_MSH	=	frees.c main.c prompt.c signals.c
+SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
+SRC_ERR =	errors.c syntax_errors.c syntax_errors2.c
+SRC_EXE =	exec_built_ins.c exec_utils.c exec.c open_file.c redir_hdoc.c run_pipes.c
+SRC_PRS	=	parse_counter.c parse_split.c parse_str.c parse.c
+SRC_STC	=	cmd_utils.c content.c init.c
+SRC_UTL	=	array_utl.c list_utl.c env_utl.c str_utl.c
+
+SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \
+			$(addprefix src/error_handling/, $(SRC_ERR)) $(addprefix src/exec/, $(SRC_EXE)) \
+			$(addprefix src/parser/, $(SRC_PRS)) $(addprefix src/structs/, $(SRC_STC)) \
+			$(addprefix src/utils/, $(SRC_UTL))
+>>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRC_MSH:%.c=%.o)) $(addprefix $(OBJ_DIR)/,  $(SRC_BLT:%.c=%.o)) \
+			$(addprefix, $(OBJ_DIR)/, $(SRC_ERR:%.c=%.o))$(addprefix, $(OBJ_DIR)/, $(SRC_EXE:%.c=%.o)) \
 			$(addprefix, $(OBJ_DIR)/, $(SRC_PRS:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_STC:%.c=%.o)) \
-			$(addprefix, $(OBJ_DIR)/, $(SRC_UTL:%.c=%.o)) $(addprefix, $(OBJ_DIR)/, $(SRC_EXE:%.c=%.o))
+			$(addprefix, $(OBJ_DIR)/, $(SRC_UTL:%.c=%.o))
 
 GREEN	=	"\033[0;32m"
 YELLOW	=	"\033[1;33m"
