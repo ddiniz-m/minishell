@@ -127,16 +127,16 @@ void	export(char **arr, t_list **export, t_list **env)
 	while (i < arr_size(arr))
 	{
 		env_override(arr[i], env);
+		if (export_override(arr[i], export) == 1)
+		{
+			i++;
+			continue ;
+		}
 		if (ft_strchr(arr[i], '='))
 		{
 			buf = ft_strdup(arr[i]);
 			node = ft_lstnew(buf);
 			ft_lstadd_back(env, node);
-		}
-		if (export_override(arr[i], export) == 1)
-		{
-			i++;
-			continue ;
 		}
 		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
