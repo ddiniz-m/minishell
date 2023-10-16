@@ -29,7 +29,7 @@ int	strcmp_chr(char *s1, char *s2, char c)
 	int	i;
 
 	i = 0;
-	while (i < strlen_chr(s2, c) - 1)
+	while (s1[i] && s2[i] && (s1[i] == s2[i]) && i < strlen_chr(s2, c))
 		i++;
 	return (s1[i] - s2[i]);
 }

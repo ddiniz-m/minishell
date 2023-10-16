@@ -101,8 +101,8 @@ int	export_override(char *str, t_list **export)
 	{
 		if (!ft_strchr(buf, '='))
 			break ;
-		if (strcmp_chr(tmp->data, buf, '=') == 0
-			|| ft_strcmp(tmp->data, buf) == 0)
+		if (strcmp_chr((char *)tmp->data, buf, '=') == 0
+			|| ft_strcmp((char *)tmp->data, buf) == 0)
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(buf);
