@@ -14,23 +14,23 @@
 
 void	cd_home(t_minishell *ms)
 {
-	char	*buf;
+	char	*home;
 
-	buf = env_var_str("HOME", ms->env);
-	if (!buf)
+	home = ft_strtrim(var_str(*ms->env, "HOME="), "HOME=");
+	if (!home)
 	{
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
 		g_exit = 1;
 	}
-	else if (chdir(buf) != 0)
+	else if (chdir(home) != 0)
 	{
 		perror("Minishell: cd: HOME");
 		g_exit = 1;
 	}
 	else
 		g_exit = 0;
-	if (buf)
-		free(buf);
+	if (home)
+		free(home);
 }
 
 void	cd_env(t_minishell *ms, char *old_pwd)

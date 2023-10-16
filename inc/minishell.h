@@ -197,7 +197,7 @@ void					arr_print(char *str, char **arr);
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);
 void					env_var(t_list **env, char **arr);
-char					*path_str(t_list *env);
+char					*var_str(t_list *env, char *var);
 
 // list_utl.c
 void					list_print(t_list **list);
