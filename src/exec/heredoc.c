@@ -34,10 +34,8 @@ void	heredoc_child(char *delimiter)
 
 void	heredoc(char *delimiter)
 {
-	int		i;
 	pid_t	child;
 
-	i = 0;
 	write(1, "> ", 2);
 	child = fork();
 	if (child < 0)

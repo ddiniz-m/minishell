@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   redir_hdoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
 /*   Updated: 2023/10/13 11:37:57 by ddiniz-m         ###   ########.fr       */
@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	heredoc(t_list *heredoc);
 
 int	redir_check_out(t_content *content, char **arr, int pos)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:54:07 by mira              #+#    #+#             */
-/*   Updated: 2023/10/13 11:29:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:21:21 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	unset_env(t_list **env, char *str)
 	tmp = *env;
 	while (i < ft_lstsize(*env))
 	{
-		if (strcmp_chr(tmp->data, str, '=') == 0
-			|| ft_strcmp(str, tmp->data) == 0)
+		if (strcmp_nochr(str, (char *)tmp->data, '=') == 0
+			|| ft_strcmp((char *)tmp->data, str) == 0)
 		{
 			list_remove(env, i);
 			return ;
@@ -41,8 +41,8 @@ void	unset_exp(t_list **exp, char *str)
 	tmp = *exp;
 	while (i < ft_lstsize(*exp))
 	{
-		if (strcmp_chr(tmp->data, str, '=') == 0
-			|| ft_strcmp(str, tmp->data) == 0)
+		if (strcmp_nochr(str, (char *)tmp->data, '=') == 0
+			|| ft_strcmp((char *)tmp->data, str) == 0)
 		{
 			list_remove(exp, i);
 			return ;

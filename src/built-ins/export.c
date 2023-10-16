@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 11:29:08 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:01:06 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	export_override(char *str, t_list **export)
 	{
 		if (!ft_strchr(buf, '=') && ft_strcmp(tmp->data, buf) == 0)
 			break ;
-		if (strcmp_chr(tmp->data, buf, '=') == 0
-			|| ft_strcmp(tmp->data, buf) == 0)
+		if (strcmp_chr((char *)tmp->data, buf, '=') == 0
+			|| ft_strcmp((char *)tmp->data, buf) == 0)
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(buf);

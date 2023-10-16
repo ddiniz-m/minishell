@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 14:52:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:58:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**path_init(t_minishell *ms)
 	char	**path_dir;
 	char	*env_path_str;
 
-	env_path_str = path_str(*ms->env);
+	env_path_str = var_str(*ms->env, "PATH=");
 	if (!env_path_str)
 		return (NULL);
 	env_path = ft_strtrim(env_path_str, "PATH=");

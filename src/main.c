@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 15:11:17 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:54:22 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **envp)
 	- Return error message when command is invalid
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 
@@ -73,4 +74,6 @@ int	main(int ac, char **av, char **envp)
 	- str_quotes()
 =======
 >>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
+=======
+>>>>>>> origin/main
  */

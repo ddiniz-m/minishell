@@ -148,10 +148,8 @@ char	*env_var_str(char *str, t_list **env)
 	char	*buf1;
 	char	*buf2;
 	char	*buf3;
-	t_list	*tmp;
 
 	i = 0;
-	tmp = *env;
 	buf2 = NULL;
 	printf("STR = %s\n", str);
 	if (str[i] != '$' && str[i] != '\"')
@@ -225,14 +223,15 @@ void	env_var(t_list **env, char **arr)
 	}
 }
 
-char	*path_str(t_list *env)
+// equivalent to `env | grep var`
+char	*var_str(t_list *env, char *var)
 {
 	t_list	*tmp;
 
 	tmp = env;
 	while (tmp->data)
 	{
-		if (ft_strncmp((char *)tmp->data, "PATH=", 5) == 0)
+		if (ft_strncmp((char *)tmp->data, var, ft_strlen(var)) == 0)
 			break ;
 		tmp = tmp->next;
 	}

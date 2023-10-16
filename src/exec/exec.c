@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 14:53:22 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:54:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 	cmd_path = NULL;
 	env_arr = list_to_array(ms->env);
 	if (!cmdlist->content->cmd_flags[0])
-		exit (0);
+		exit (g_exit);
 	if (!is_built_in(cmdlist->content->cmd_flags[0]))
 		cmd_path = is_exec(cmdlist->content->cmd_flags[0], ms->paths);
 	else
@@ -59,7 +59,6 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 			perror("EXECVE ERROR\n");
 		}
 	}
-	g_exit = 127;
 	free_array(env_arr);
 	free(cmd_path);
 	exit (g_exit);
