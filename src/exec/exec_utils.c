@@ -52,7 +52,9 @@ char	*is_exec(char *str, char **paths)
 		free(buf);
 		i++;
 	}
-	printf("Minishell: command not found: %s\n", str);
+	write(2, "Minishell: command not found: ", 30);
+	ft_putstr_fd(str, 2);
+	write(2, "\n", 1);
 	return (NULL);
 }
 

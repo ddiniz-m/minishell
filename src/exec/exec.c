@@ -56,7 +56,7 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		if (g_exit < 0)
 		{
 			g_exit = errno;
-			perror("EXECVE ERROR\n");
+			perror("Minishell: execve error\n");
 		}
 	}
 	free_array(env_arr);
