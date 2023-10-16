@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 12:56:02 by ddiniz-m         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 16:54:22 by mortins-         ###   ########.fr       */
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
+/*   Updated: 2023/10/13 15:11:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +32,6 @@ int	main(int ac, char **av, char **envp)
 		if (ms->str && syntax_error(ms))
 			continue ;
 		var_init(ms);
-		parse_main(ms);
 		run(ms);
 		signal_exit(ms);
 		free(ms->str);

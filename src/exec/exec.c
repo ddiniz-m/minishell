@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 13:53:49 by ddiniz-m         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 15:54:38 by mortins-         ###   ########.fr       */
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
+/*   Updated: 2023/10/13 14:53:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +49,6 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		built_ins(ms, cmdlist->content->cmd_flags, 0);
 		free_array(env_arr);
 		exit (g_exit);
-<<<<<<< HEAD
-	}
-	if (cmd_path 
-		&& execve(cmd_path, cmdlist->content->cmd_flags, env_arr) == -1)
-		perror("EXECVE ERROR\n");
-	free_array(env_arr);
-	free(cmd_path);
-	exit(g_exit);
-=======
 	}
 	if (cmd_path)
 	{
@@ -72,10 +59,10 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 			perror("EXECVE ERROR\n");
 		}
 	}
+	g_exit = 127;
 	free_array(env_arr);
 	free(cmd_path);
 	exit (g_exit);
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
 }
 
 void	child_process(t_minishell *ms, t_cmdlist *cmdlist, int *pipe_fd, int i)

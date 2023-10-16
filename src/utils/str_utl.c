@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:48:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:18:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:12:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,23 @@ int	strcmp_chr(char *s1, char *s2, char c)
 	int	i;
 
 	i = 0;
-	while (i < strlen_chr(s2, c) - 1)
+	while (s1[i] && s2[i] && i < strlen_chr(s2, c) - 1)
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+char	*str_front_trim(char *str, char *trim)
+{
+	int		i;
+	char	*buff;
+
+	while (*str && ft_strchr(trim, *str))
+		str++;
+	i = ft_strlen(str) - 1;
+	i++;
+	buff = (char *)malloc(sizeof(char) * (i + 1));
+	if (!buff)
+		return (0);
+	ft_strlcpy(buff, str, i + 1);
+	return (buff);
 }

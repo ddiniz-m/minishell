@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 11:28:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:11:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,6 @@ typedef struct s_minishell
 }	t_minishell;
 
 //------------------------------------SRCS--------------------------------------
-//++++++++++++++++ built-ins/[.....] ++++++++++++++++++++++++++++++++++++++++++
-// cd.c
-void					cd(t_minishell *ms, char **path);
-
-// prompt.c
-char					*set_prompt(t_minishell *ms);
-
 // +++++++++++++++ struct/[.....] +++++++++++++++
 //cmd_utils.c
 void					cmdlist_print(t_cmdlist **cmdlist);
@@ -124,7 +117,7 @@ void					parse_main(t_minishell *ms);
 
 // ++++++++++++++ built-ins/[.....] +++++++++++++
 //cd.c
-void						cd(t_minishell *ms, char **path);
+void					cd(t_minishell *ms, char **path);
 
 //echo.c
 int						echo(char **cmd_flags);
@@ -259,6 +252,7 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+char					*str_front_trim(char *str, char *trim);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c

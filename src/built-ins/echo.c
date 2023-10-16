@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 13:51:09 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:09:17 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	quote_print_char(char *str, char c, int i)
 	{
 		i++;
 		while (str[i] && str[i] != c)
+		{
 			printf("%c", str[i++]);
+		}
 	}
 	i++;
 	return (i);
@@ -59,26 +61,28 @@ void	echo_print(char **cmd_flags, int pos)
 {
 	int		i;
 	int		size;
-	char	*buf;
 
-	buf = NULL;
 	while (cmd_flags && pos < arr_size(cmd_flags))
 	{
 		i = 0;
 		size = ft_strlen(cmd_flags[pos]);
 		while (i < size && cmd_flags[pos][i])
 		{
-			if (cmd_flags[pos][i] == '\'')
+			if (cmd_flags[pos][i] == '$')
+				break ;
+			else if (cmd_flags[pos][i] == '\'')
 				i = quote_print_char(cmd_flags[pos], '\'', i);
 			else if (cmd_flags[pos][i] == '\"')
 				i = quote_print_char(cmd_flags[pos], '\"', i);
 			else
 				printf("%c", cmd_flags[pos][i++]);
 		}
+		if (ft_strcmp(cmd_flags[pos], "$?") == 0)
+			printf("%i", g_exit);
 		pos++;
-		if (cmd_flags && pos != arr_size(cmd_flags))
+		if (cmd_flags && pos != arr_size(cmd_flags)
+			&& cmd_flags[pos][i] != '$')
 			printf(" ");
-		free(buf);
 	}
 }
 

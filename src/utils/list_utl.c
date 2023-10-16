@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-<<<<<<< HEAD:src/structs/list.c
-/*   Updated: 2023/10/12 13:00:19 by ddiniz-m         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 17:18:16 by mortins-         ###   ########.fr       */
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes:src/utils/list_utl.c
+/*   Updated: 2023/10/13 11:38:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

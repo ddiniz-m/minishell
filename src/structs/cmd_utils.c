@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/12 12:59:53 by ddiniz-m         ###   ########.fr       */
-=======
-/*   Updated: 2023/10/12 17:18:49 by mortins-         ###   ########.fr       */
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
+/*   Updated: 2023/10/13 11:45:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,28 +82,4 @@ int	cmd_count(char **arr)
 	}
 	return (cmd_n);
 }
-<<<<<<< HEAD
 
-//Returns lenght of string when it reaches c
-int	strlen_chr(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	return (i);
-}
-
-//Compares s1 and s2 until s2 reaches c
-int	strcmp_chr(char *s1, char *s2, char c)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && i < strlen_chr(s2, c) - 1)
-		i++;
-	return (s1[i] - s2[i]);
-}
-=======
->>>>>>> martim-branch/WudDoo-exit_cd_fixpipes
