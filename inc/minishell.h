@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:25:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:13:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
 void					parent_process(int *pipe_fd);
 
 // heredoc.c
-void					heredoc_child(char *delimiter);
-void					heredoc(char *delimiter);
+/* void					heredoc_child(char *delimiter); */
+int						*heredoc(char *delimiter, int *hd_fd);
 
 // open_file.c
 int						open_file_in(t_content *content, t_list *lst);

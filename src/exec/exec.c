@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 15:54:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:29:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 		if (g_exit < 0)
 		{
 			g_exit = errno;
-			perror("EXECVE ERROR\n");
+			perror("Minishell: EXECVE ERROR\n");
 		}
 	}
 	free_array(env_arr);
