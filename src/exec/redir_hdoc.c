@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_hdoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 15:30:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:43:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	redir_check_in(t_content *content, char **arr, int pos)
 //	1st pipe;
 //Then I would call the function again with pos = 6 beacause thats where the
 //	next command starts;
-int	redir_out(t_content *content, char **arr, int pos)
+void	redir_out(t_content *content, char **arr, int pos)
 {
 	int			size;
 	t_content	*tmp;
@@ -68,10 +68,9 @@ int	redir_out(t_content *content, char **arr, int pos)
 			open_file_app(tmp, tmp->append);
 		pos++;
 	}
-	return (0);
 }
 
-int	redir_in(t_content *content, char **arr, int pos)
+void	redir_in(t_content *content, char **arr, int pos)
 {
 	int			size;
 	t_content	*tmp;
@@ -86,7 +85,6 @@ int	redir_in(t_content *content, char **arr, int pos)
 			open_file_hdoc(tmp, tmp->heredoc);
 		pos++;
 	}
-	return (0);
 }
 
 void	set_fd(t_minishell *ms)

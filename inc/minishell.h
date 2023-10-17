@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:13:21 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/17 15:44:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ int						open_file_app(t_content *content, t_list *lst);
 int						redir_check_out(t_content *content, char **arr, \
 	int pos);
 int						redir_check_in(t_content *content, char **arr, int pos);
-int						redir_in(t_content *content, char **arr, int pos);
-int						redir_out(t_content *content, char **arr, int pos);
+void					redir_in(t_content *content, char **arr, int pos);
+void					redir_out(t_content *content, char **arr, int pos);
 void					set_fd(t_minishell *ms);
 
 // run_pipes.c

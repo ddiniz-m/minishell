@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:27:28 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/17 15:58:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	*heredoc(char *delimiter, int *hd_fd)
 	while (1)
 	{
 		line = get_next_line(STDIN_FILENO);
+		//printf("LINE: %s", line);
 		if (strcmp_nochr(delimiter, line, '\n') == 0)
 		{
 			free(line);

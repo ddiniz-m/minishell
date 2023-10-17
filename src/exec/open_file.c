@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:03:12 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:30:34 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/17 15:55:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	open_file_hdoc(t_content *content, t_list *lst)
 
 	while (lst)
 	{
+		//printf("+++++++++++++++++HEREDOC++++++++++++++\n");
 		heredoc(lst->data, hd_fd);
 		content->fd_in = hd_fd[0];
 		close(hd_fd[1]);
@@ -49,6 +50,7 @@ int	open_file_hdoc(t_content *content, t_list *lst)
 		}
 		dup2(content->fd_in, STDIN_FILENO);
 		close(content->fd_in);
+		close(hd_fd[0]);
 		lst = lst->next;
 	}
 	return (0);
