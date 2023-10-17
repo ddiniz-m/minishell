@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 16:58:06 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:42:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,31 @@ int	*heredoc(char *delimiter, int *hd_fd)
 	}
 	return (hd_fd);
 }
+
+/* int	*heredoc(char *delimiter, int *hd_fd)
+{
+	char	*line;
+	char	*buf;
+
+	if (pipe(hd_fd) < 0)
+	{
+		printf("Pipe error\n");
+		return (NULL);
+	}
+	line = NULL;
+	while (1)
+	{
+		buf =  readline("> ");
+		line = ft_strjoin(buf,"\n");
+		free(buf);
+		printf("LINE: %s", line);
+		if (strcmp_nochr(delimiter, line, '\n') == 0)
+		{
+			free(line);
+			return (hd_fd);
+		}
+		ft_putstr_fd(line, hd_fd[1]);
+		free(line);
+	}
+	return (hd_fd);
+} */

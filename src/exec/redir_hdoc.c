@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 16:56:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:41:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	redir_in(t_content *content, char **arr, int pos)
 {
 	int			size;
 	t_content	*tmp;
+	t_list	*buf;
 
 	tmp = content;
 	size = arr_size(arr);
@@ -84,7 +85,9 @@ void	redir_in(t_content *content, char **arr, int pos)
 		if (tmp->heredoc && ft_strcmp(arr[pos], "<<") == 0)
 		{
 			open_file_hdoc(tmp, tmp->heredoc);
-			tmp->heredoc = tmp->heredoc->next;
+			buf = tmp->heredoc->next;
+			free(tmp->heredoc);
+			tmp->heredoc = buf;
 		}
 		pos++;
 	}
