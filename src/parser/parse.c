@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:19:33 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/09/21 17:18:59 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:59:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@
 // execute, what to redirect, what to pipe, etc.)
 void	parse_main(t_minishell *ms)
 {
-	(void)ms;
-	/* arr_print("MAIN ARRAY", ms->main_arr); */
+	arr_print("MAIN ARRAY", ms->main_arr);
 }

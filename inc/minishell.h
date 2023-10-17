@@ -138,6 +138,10 @@ void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
 	int *pipe_fd, int i);
 void					parent_process(int *pipe_fd);
 
+// heredoc.c
+void					heredoc_child(char *delimiter);
+void					heredoc(char *delimiter);
+
 // open_file.c
 int						open_file_in(t_content *content, t_list *lst);
 int						open_file_hdoc(t_content *content, t_list *lst);
@@ -209,6 +213,7 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
