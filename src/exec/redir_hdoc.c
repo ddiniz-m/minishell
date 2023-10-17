@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:43:27 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/17 16:36:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ void	redir_in(t_content *content, char **arr, int pos)
 		if (tmp->input && ft_strcmp(arr[pos], "<") == 0)
 			open_file_in(tmp, tmp->input);
 		if (tmp->heredoc && ft_strcmp(arr[pos], "<<") == 0)
+		{
 			open_file_hdoc(tmp, tmp->heredoc);
+			tmp->heredoc = tmp->heredoc->next;
+		}
 		pos++;
 	}
 }

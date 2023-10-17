@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:03:12 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:55:23 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/17 16:44:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,23 @@ int	open_file_in(t_content *content, t_list *lst)
 int	open_file_hdoc(t_content *content, t_list *lst)
 {
 	int	hd_fd[2];
+	int	fd_in;
 
-	while (lst)
+	fd_in = dup(STDIN_FILENO);
+	printf("+++++++++++++++++HEREDOC++++++++++++++\n");
+	heredoc(lst->data, hd_fd);
+	content->fd_in = hd_fd[0];
+	close(hd_fd[1]);
+	if (content->fd_in < 0)
 	{
-		//printf("+++++++++++++++++HEREDOC++++++++++++++\n");
-		heredoc(lst->data, hd_fd);
-		content->fd_in = hd_fd[0];
-		close(hd_fd[1]);
-		if (content->fd_in < 0)
-		{
-			write(2, "Minishell: ", 11);
-			perror(lst->data);
-			g_exit = errno;
-			return (1);
-		}
-		dup2(content->fd_in, STDIN_FILENO);
-		close(content->fd_in);
-		close(hd_fd[0]);
-		lst = lst->next;
+		write(STDERR_FILENO, "Minishell: heredoc failed\n", 26);
+		g_exit = errno;
+		return (1);
 	}
+	dup2(content->fd_in, STDIN_FILENO);
+	close(content->fd_in);
+	if (lst->next)
+		dup2(fd_in, STDIN_FILENO);
 	return (0);
 }
 
