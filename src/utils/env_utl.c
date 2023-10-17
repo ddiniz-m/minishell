@@ -6,54 +6,15 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/16 12:19:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:43:48 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/* int	n_quotes(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while(str[i])
-	{
-		if (str[i] == '\"')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-// To deal with echo "$HOME"aaa, I can't use strtrim.
-char	*remove_quotes(char *str)
-{
-	int		i;
-	int		j;
-	char	*buf;
-
-	i = 0;
-	j = 0;
-	buf = calloc(sizeof(char), ft_strlen(str) - n_quotes(str) + 1);
-	while (str[i])
-	{
-		while (str[i] == '\"')
-			i++;
-		while (str[i] && str[i] != '\"')
-		{
-			buf[j] = str[i];
-			j++;
-			i++;
-		}
-	}
-	return (buf);
-} */
-
-// Cases where there is stuff attached to var (aaaaa$HOMEaaa and "$HOME")
-char	*chr_var(char *str)
+// Trims str untils a $ is reached
+// Cases where there is stuff attached to var aaaaa$HOMEaaa
+char	*str_chr_trim(char *str)
 {
 	int		i;
 	int		size;
@@ -64,7 +25,6 @@ char	*chr_var(char *str)
 		size = strlen_chr(str, '$');
 	else
 		size = strlen_chr(str, '\"');
-	printf("SIZE = %i\n", size + 1);
 	buf1 = ft_calloc(sizeof(char), size + 1);
 	while (str[i] && str[i] != '$' && str[i] != '\"')
 	{
@@ -72,24 +32,6 @@ char	*chr_var(char *str)
 		i++;
 	}
 	return (buf1);
-}
-
-// Cases where $ is called simply (no asdasd$HOMEasd nor "$HOME")
-char	*quote_var(char *str)
-{
-	int		i;
-	char	*buf1;
-	char	*buf2;
-
-	i = 0;
-	buf1 = ft_strdup(str);
-	if (str[i] == '\"')
-	{
-		
-	}
-	buf2 = str_front_trim(buf1, "$");
-	free(buf1);
-	return (buf2);
 }
 
 //Compares env variables with var.
@@ -102,21 +44,17 @@ char	*var_cmp(char *env, char *trim, char *var)
 	char	*buf1;
 	char	*buf2;
 	
-	if (strcmp_chr(env, var, '=') == 0 && strcmp_chr(var, env, '=') == 0)
+	if (ft_strncmp(var, env, ft_strlen(var)) == 0)
 	{
 		buf1 = str_front_trim(env, var);
-		printf("var_cmp buf1 = %s\n", buf1);
 		buf2 = str_front_trim(buf1, "=");
-		printf("var_cmp buf2 = %s\n", buf2);
 		free(buf1);
 		if (trim)
 		{
 			buf1 = ft_strjoin(trim, buf2);
-			printf("var_cmp buf1 = %s\n", buf1);
 			free(buf2);
 			return (buf1);
 		}
-		printf("var_cmp buf2 = %s\n", buf2);
 		return (buf2);
 	}
 	return (NULL);
@@ -132,10 +70,7 @@ char	*var_iter(t_list **env, char *trim, char *var)
 	{
 		buf = var_cmp((char *)tmp->data, trim, var);
 		if (buf)
-		{
-			printf("buf = %s\n", buf);
 			return (buf);
-		}
 		tmp = tmp->next;
 		free(buf);
 	}
@@ -144,38 +79,193 @@ char	*var_iter(t_list **env, char *trim, char *var)
 
 char	*env_var_str(char *str, t_list **env)
 {
-	int		i;
 	char	*buf1;
 	char	*buf2;
-	char	*buf3;
+
+	buf1 = NULL;
+	buf2 = NULL;
+	if (!str)
+		return (NULL);
+	buf1 = ft_strtrim(str, "\"");
+	buf2 = str_front_trim(buf1, "$");
+	free(buf1);
+	buf1 = var_iter(env, NULL, buf2);
+	free(buf2);
+	return (buf1);
+}
+
+char	*var_sub(char *str, t_list **env)
+{
+	char	*buf;
+
+	if (!str)
+		return (NULL);
+	if (ft_strcmp(str, "$?") == 0)
+		return (NULL);
+	buf = env_var_str(str, env);
+	if (!buf)
+		return (NULL);
+	return (buf);
+}
+
+int		var_split_size(char *str)
+{
+	int	i;
+	int	count;
 
 	i = 0;
-	buf2 = NULL;
-	printf("STR = %s\n", str);
-	if (str[i] != '$' && str[i] != '\"')
+	count = 0;
+	while (str[i])
 	{
-		buf1 = chr_var(str);
-		printf("chr buf1 = %s\n", buf1);
-		buf3 = str_front_trim(str, buf1);
-		buf2 = str_front_trim(buf3, "$");
-		free(buf3);
-		printf("chr buf2 = %s\n", buf2);
-		buf3 = var_iter(env, buf1, buf2);
-		free(buf1);
+		count++;
+		if (str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+			while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+				i++;
+		else if (str[i] == '\"')
+		{
+			i++;
+			while (str[i] && str[i] != '\"')
+				i++;
+			i++;
+		}
+		else if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+			i++;
+		}
+		else if (str[i] == '$')
+		{
+			i++;
+			while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+				i++;
+		}
+	}
+	return (count);
+}
+
+int	var_split_word_size(char *str, int prev)
+{
+	int	i;
+
+	i = prev;
+	if (str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+		while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+			i++;
+	else if (str[i] == '\"')
+	{
+		i++;
+		while (str[i] && str[i] != '\"')
+			i++;
+		i++;
+	}
+	else if (str[i] == '\'')
+	{
+		i++;
+		while (str[i] && str[i] != '\'')
+			i++;
+		i++;
+	}
+	else if (str[i] == '$')
+	{
+		i++;
+		while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+			i++;
+	}
+	return (i - prev);
+}
+
+char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = NULL;
+	temp = malloc(sizeof(char) * (word_len + 1));
+	if (!temp)
+		malloc_error(ms);
+	while (str[pos] && i < word_len)
+		temp[i++] = str[pos++];
+	temp[i] = '\0';
+	return (temp);
+}
+
+
+char	**var_split(t_minishell *ms, char *str)
+{
+	int		i;
+	int		pos;
+	int		size;
+	char	**buff;
+	int		word_len;
+
+	i = 0;
+	pos = 0;
+	word_len = 0;
+	size = var_split_size(str);
+	buff = malloc(sizeof(char *) * (size + 1));
+	if (!buff)
+		malloc_error(ms);
+	while (i < size)
+	{
+		word_len = var_split_word_size(str, pos);
+		buff[i++] = var_split_temp(ms, str, word_len, pos);
+		pos += var_split_word_size(str, pos);
+	}
+	buff[i] = 0;
+	return (buff);
+}
+
+/* char	*var_sub_dollar(char *res, char *str, t_list **env)
+{
+	char	*buf1;
+	char	*buf2;
+	buf2 = var_sub(str, env);
+	free(str);
+	buf1 = ft_strdup(res);
+	free(res);
+	res = ft_strjoin(buf1, buf2);
+	if (buf2)
 		free(buf2);
-		if (buf3)
-			return(buf3);
-	}
-	else
+	free(buf1);
+	return (res)
+} */
+
+char	*var_sub_join(t_minishell *ms, char *str, t_list **env)
+{
+	int		i;
+	char	*res;
+	char	*buf1;
+	char	*buf2;
+	char	**arr;
+
+	i = 0;
+	res = NULL;
+	buf2 = NULL;
+	arr = var_split(ms, str);
+	arr_print("arr", arr);
+	free(str);
+	while (arr[i])
 	{
-		buf1 = quote_var(str);
-		printf("quote buf1 = %s\n", buf1);
-		buf2 = var_iter(env, NULL, buf1);
+		buf1 = ft_strdup(res);
+		free(res);
+		if (ft_strchr(arr[i],'$'))
+		{
+			buf2 = var_sub(arr[i], env);
+			res = ft_strjoin(buf1, buf2);
+			if (buf2)
+				free(buf2);
+		}
+		else
+			res = ft_strjoin(buf1, arr[i]);
+		free(arr[i]);
 		free(buf1);
-		if (buf2)
-			return(buf2);
+		i++;
 	}
-	return (NULL);
+	free(arr);
+	return (res);
 }
 
 /* If $ is encountered in the array, it replaces the variable with its value
@@ -184,19 +274,15 @@ array         new_array
 echo   ---->  echo
 $HOME  ---->  /ddiniz/home
 $VAR   ---->  value */
-void	env_var(t_list **env, char **arr)
+void	env_var(t_minishell *ms, t_list **env, char **arr)
 {
 	int		i;
 	int		j;
-	int		size;
-	char	*buf;
 
 	i = 0;
-	size = arr_size(arr);
-	while (i < size)
+	while (i < arr_size(arr))
 	{
 		j = 0;
-		
 		while (j < (int)ft_strlen(arr[i]))
 		{
 			if (arr[i][j] == '\'')
@@ -206,15 +292,7 @@ void	env_var(t_list **env, char **arr)
 			}
 			if (arr[i][j] == '$')
 			{
-				if (ft_strcmp(arr[i], "$?") == 0)
-					break ;
-				buf = env_var_str(arr[i], env);
-				printf("Var Value: %s\n", buf);
-				if (!buf)
-					break ;
-				free(arr[i]);
-				arr[i] = ft_strdup(buf);
-				free(buf);
+				arr[i] = var_sub_join(ms, arr[i], env);
 				break ;
 			}
 			j++;

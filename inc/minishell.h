@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:25:50 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:13:50 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void					arr_print(char *str, char **arr);
 
 // env_utl.c
 char					*env_var_str(char *str, t_list **env);
-void					env_var(t_list **env, char **arr);
+void					env_var(t_minishell *ms, t_list **env, char **arr);
 char					*var_str(t_list *env, char *var);
 
 // list_utl.c

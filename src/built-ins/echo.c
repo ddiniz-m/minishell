@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/16 12:09:17 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:37:33 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	echo_print(char **cmd_flags, int pos)
 		size = ft_strlen(cmd_flags[pos]);
 		while (i < size && cmd_flags[pos][i])
 		{
-			if (cmd_flags[pos][i] == '$')
-				break ;
-			else if (cmd_flags[pos][i] == '\'')
+			if (cmd_flags[pos][i] == '\'')
 				i = quote_print_char(cmd_flags[pos], '\'', i);
 			else if (cmd_flags[pos][i] == '\"')
 				i = quote_print_char(cmd_flags[pos], '\"', i);
@@ -80,8 +78,7 @@ void	echo_print(char **cmd_flags, int pos)
 		if (ft_strcmp(cmd_flags[pos], "$?") == 0)
 			printf("%i", g_exit);
 		pos++;
-		if (cmd_flags && pos != arr_size(cmd_flags)
-			&& cmd_flags[pos][i] != '$')
+		if (cmd_flags && pos != arr_size(cmd_flags))
 			printf(" ");
 	}
 }

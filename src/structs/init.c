@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 11:38:20 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:52:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	var_init(t_minishell *ms)
 	ms->fdout_buf = dup(STDOUT_FILENO);
 	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
-	env_var(ms->env, ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
+	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	//cmdlist_print(&ms->cmdlist);
 }
