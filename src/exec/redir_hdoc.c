@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_hdoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:43:52 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/13 11:37:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:28:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,6 @@ int	redir_in(t_content *content, char **arr, int pos)
 	{
 		if (tmp->input && ft_strcmp(arr[pos], "<") == 0)
 			open_file_in(tmp, tmp->input);
-		if (hdoc && ft_strcmp(arr[pos], "<<") == 0)
-		{
-			while (hdoc)
-			{
-				heredoc(hdoc->data);
-				hdoc = hdoc->next;
-			}
-		}
 		pos++;
 	}
 	return (0);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:15:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:48:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	skip_quotes(char *str, int i);
 
 // Checks for unclosed quote marks
 int	quote_error(char *str)
@@ -32,7 +34,8 @@ int	quote_error(char *str)
 				return (1);
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }
@@ -51,6 +54,7 @@ int	pipe_error(char *str)
 			i++;
 			while (str[i] && meta_char(str[i]) == 1)
 				i++;
+			i = skip_quotes(str, i);
 			if (str[i] && str[i] == '|')
 				return (token_message('|'));
 		}
@@ -82,4 +86,38 @@ int	dollar_error(char *str)
 			i++;
 	}
 	return (0);
+}
+
+int	skip_quotes(char *str, int i)
+{
+	if (str[i] && str[i] == '\'')
+	{
+		i++;
+		while (str[i] && str[i] != '\'')
+			i++;
+	}
+	else if (str[i] && str[i] == '\"')
+	{
+		i++;
+		while (str[i] && str[i] != '\"')
+			i++;
+	}
+	return (i);
+}
+
+int	skip_quotes_rev(char *str, int size)
+{
+	if (str[size] && str[size] == '\'')
+	{
+		size--;
+		while (str[size] && str[size] != '\'')
+			size--;
+	}
+	else if (str[size] && str[size] == '\"')
+	{
+		size--;
+		while (str[size] && str[size] != '\"')
+			size--;
+	}
+	return (size);
 }

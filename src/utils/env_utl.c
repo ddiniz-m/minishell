@@ -6,11 +6,13 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:43:48 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:51:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	skip_quotes(char *str, int i);
 
 // Trims str untils a $ is reached
 // Cases where there is stuff attached to var aaaaa$HOMEaaa
@@ -39,28 +41,22 @@ char	*str_chr_trim(char *str)
 // var = HOME
 // env: HOME=/nfs/homes/ddiniz-m
 // return: /nfs/homes/ddiniz-m
-char	*var_cmp(char *env, char *trim, char *var)
+char	*var_cmp(char *env, char *var)
 {
 	char	*buf1;
 	char	*buf2;
 	
-	if (ft_strncmp(var, env, ft_strlen(var)) == 0)
+	if (strcmp_nochr(var, env, '=') == 0)
 	{
 		buf1 = str_front_trim(env, var);
 		buf2 = str_front_trim(buf1, "=");
 		free(buf1);
-		if (trim)
-		{
-			buf1 = ft_strjoin(trim, buf2);
-			free(buf2);
-			return (buf1);
-		}
 		return (buf2);
 	}
 	return (NULL);
 }
 
-char	*var_iter(t_list **env, char *trim, char *var)
+char	*var_iter(t_list **env, char *var)
 {
 	char	*buf;
 	t_list	*tmp;
@@ -68,7 +64,7 @@ char	*var_iter(t_list **env, char *trim, char *var)
 	tmp = *env;
 	while (tmp)
 	{
-		buf = var_cmp((char *)tmp->data, trim, var);
+		buf = var_cmp((char *)tmp->data, var);
 		if (buf)
 			return (buf);
 		tmp = tmp->next;
@@ -77,37 +73,56 @@ char	*var_iter(t_list **env, char *trim, char *var)
 	return (NULL);
 }
 
-char	*env_var_str(char *str, t_list **env)
+
+char	*var_sub_join(t_minishell *ms, char *str, t_list **env);
+
+char	*env_var_str(t_minishell *ms, char *buf, t_list **env)
+{
+	char	*buf2;
+
+	buf2 = NULL;
+	if (buf[0] != '$')
+	{
+		buf2 = var_sub_join(ms, buf, env);
+		buf = str_front_trim(buf2, "$");
+		free(buf2);
+		return (buf);
+	}
+	else
+	{
+		buf2 = str_front_trim(buf, "$");
+		if (meta_char(buf2[0]) == 5 || meta_char(buf2[0]) == 2
+			|| meta_char(buf2[0]) == 3)
+		{
+			free(buf2);
+			return (buf);
+		}
+		free(buf);
+		buf = var_iter(env, buf2);
+		free(buf2);
+	}
+	return (buf);
+}
+
+char	*var_sub(t_minishell *ms, char *str, t_list **env)
 {
 	char	*buf1;
 	char	*buf2;
 
-	buf1 = NULL;
+	if (!str)
+		return (NULL);
 	buf2 = NULL;
-	if (!str)
-		return (NULL);
 	buf1 = ft_strtrim(str, "\"");
-	buf2 = str_front_trim(buf1, "$");
-	free(buf1);
-	buf1 = var_iter(env, NULL, buf2);
-	free(buf2);
-	return (buf1);
+	printf("buf1 = %s\n", buf1);
+	if (ft_strcmp(buf1, "$") == 0 || ft_strcmp(buf1, "$?") == 0)
+		return (buf1);
+	buf2 = env_var_str(ms, buf1, env);
+	if (!buf2)
+		return (NULL);
+	return (buf2);
 }
 
-char	*var_sub(char *str, t_list **env)
-{
-	char	*buf;
-
-	if (!str)
-		return (NULL);
-	if (ft_strcmp(str, "$?") == 0)
-		return (NULL);
-	buf = env_var_str(str, env);
-	if (!buf)
-		return (NULL);
-	return (buf);
-}
-
+//Returns how many "words" it'll split str into
 int		var_split_size(char *str)
 {
 	int	i;
@@ -115,67 +130,54 @@ int		var_split_size(char *str)
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (i < (int)ft_strlen(str))
 	{
 		count++;
-		if (str[i] != '\"' && str[i] != '$' && str[i] != '\'')
-			while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+		if (str[i] && meta_char(str[i]) != 3 && meta_char(str[i]) != 4)
+			while (meta_char(str[i]) != 3 && meta_char(str[i]) != 4)
 				i++;
-		else if (str[i] == '\"')
+		else if ((meta_char(str[i]) == 3))
 		{
-			i++;
-			while (str[i] && str[i] != '\"')
-				i++;
-			i++;
-		}
-		else if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
+			i = skip_quotes(str, i);
 			i++;
 		}
 		else if (str[i] == '$')
 		{
 			i++;
-			while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+			while (str[i] && meta_char(str[i]) != 3 && meta_char(str[i]) != 4
+				&& meta_char(str[i]) != 1)
 				i++;
 		}
 	}
 	return (count);
 }
 
+//Receives previous position returns lenght of word it started on
 int	var_split_word_size(char *str, int prev)
 {
 	int	i;
 
 	i = prev;
-	if (str[i] != '\"' && str[i] != '$' && str[i] != '\'')
-		while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+	if (str[i] && meta_char(str[i]) != 3 && meta_char(str[i]) != 4)
+		while (str[i] && meta_char(str[i]) != 3 && meta_char(str[i]) != 4)
 			i++;
-	else if (str[i] == '\"')
+	else if (meta_char(str[i]) == 3)
 	{
-		i++;
-		while (str[i] && str[i] != '\"')
-			i++;
+		i = skip_quotes(str, i);
 		i++;
 	}
-	else if (str[i] == '\'')
+	else if (meta_char(str[i]) == 4 && str[i + 1] && meta_char(str[i + 1]) != 1)
 	{
 		i++;
-		while (str[i] && str[i] != '\'')
-			i++;
-		i++;
-	}
-	else if (str[i] == '$')
-	{
-		i++;
-		while (str[i] && str[i] != '\"' && str[i] != '$' && str[i] != '\'')
+		while (str[i] && meta_char(str[i]) != 3 && meta_char(str[i]) != 4)
 			i++;
 	}
+	else
+		i++;
 	return (i - prev);
 }
 
+//Creates each string of the split array
 char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
 {
 	int		i;
@@ -192,7 +194,11 @@ char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
 	return (temp);
 }
 
-
+//Splits str to be easier to work with
+//E.g.: abc"abc$HOME"$PATHb becomes:
+// arr0 = abc
+// arr1 = "abc$HOME"
+// arr2 = $PATHb
 char	**var_split(t_minishell *ms, char *str)
 {
 	int		i;
@@ -218,45 +224,39 @@ char	**var_split(t_minishell *ms, char *str)
 	return (buff);
 }
 
-/* char	*var_sub_dollar(char *res, char *str, t_list **env)
+char	*var_sub_dollar(t_minishell *ms, char *str, char *buf, t_list **env)
 {
-	char	*buf1;
 	char	*buf2;
-	buf2 = var_sub(str, env);
-	free(str);
-	buf1 = ft_strdup(res);
-	free(res);
-	res = ft_strjoin(buf1, buf2);
+	char	*res;
+
+	buf2 = NULL;
+	buf2 = var_sub(ms, str, env);
+	res = ft_strjoin(buf, buf2);
 	if (buf2)
 		free(buf2);
-	free(buf1);
-	return (res)
-} */
+	return (res);
+}
 
+//Joins all substituted strings from the split str
 char	*var_sub_join(t_minishell *ms, char *str, t_list **env)
 {
 	int		i;
 	char	*res;
 	char	*buf1;
-	char	*buf2;
 	char	**arr;
 
 	i = 0;
 	res = NULL;
-	buf2 = NULL;
 	arr = var_split(ms, str);
-	arr_print("arr", arr);
+	//arr_print("arr", arr);
 	free(str);
 	while (arr[i])
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (ft_strchr(arr[i],'$'))
+		if (arr[i][0] == '$' || arr[i][0] == '\"')
 		{
-			buf2 = var_sub(arr[i], env);
-			res = ft_strjoin(buf1, buf2);
-			if (buf2)
-				free(buf2);
+			res = var_sub_dollar(ms, arr[i], buf1, env);
 		}
 		else
 			res = ft_strjoin(buf1, arr[i]);
@@ -283,6 +283,7 @@ void	env_var(t_minishell *ms, t_list **env, char **arr)
 	while (i < arr_size(arr))
 	{
 		j = 0;
+		printf("arr[i] = %s\n", arr[i]);
 		while (j < (int)ft_strlen(arr[i]))
 		{
 			if (arr[i][j] == '\'')
@@ -290,7 +291,7 @@ void	env_var(t_minishell *ms, t_list **env, char **arr)
 				j++;
 				continue ;
 			}
-			if (arr[i][j] == '$')
+			if (ft_strchr(arr[i], '$'))
 			{
 				arr[i] = var_sub_join(ms, arr[i], env);
 				break ;

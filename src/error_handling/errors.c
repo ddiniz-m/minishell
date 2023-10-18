@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:09:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:56:07 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	syntax_error(t_minishell *ms)
 {
-	if (quote_error(ms->str) || pipe_error(ms->str) || begin_error(ms->str) || \
-		end_of_string_error(ms->str) || double_redir_error(ms->str, '<') || \
-		double_redir_error(ms->str, '>') || dollar_error(ms->str) || \
-		sucession_error(ms->str) || redir_error(ms->str))
+	if (quote_error(ms->str) || pipe_error(ms->str) || begin_error(ms->str)
+		|| double_redir_error(ms->str, '<') || double_redir_error(ms->str, '>')
+		|| dollar_error(ms->str) || sucession_error(ms->str) 
+		|| redir_error(ms->str) || end_of_string_error(ms->str))
 	{
 		free(ms->prompt);
 		free(ms->str);

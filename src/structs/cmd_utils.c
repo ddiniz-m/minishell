@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:08:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:18:49 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:52:49 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	cmd_args(char **arr, int pos)
 
 	i = pos;
 	counter = 0;
-	while (arr[i] && i < arr_size(arr))
+	while (i < arr_size(arr))
 	{
-		if (arr[i][0] == '<' || arr[i][0] == '>')
+		if (arr[i] && (arr[i][0] == '<' || arr[i][0] == '>'))
 			i += 2;
 		else if (ft_strcmp(arr[i], "|") == 0)
 			break ;

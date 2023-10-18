@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 15:52:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:04:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,17 @@ int	quote_print_char(char *str, char c, int i)
 void	echo_print(char **cmd_flags, int pos)
 {
 	int		i;
-	int		size;
 
 	while (cmd_flags && pos < arr_size(cmd_flags))
 	{
 		i = 0;
-		size = ft_strlen(cmd_flags[pos]);
-		while (i < size && cmd_flags[pos][i])
+		if (ft_strcmp(cmd_flags[pos], "$?") == 0)
+		{
+			printf("%i", g_exit);
+			pos++;
+			continue ;
+		}
+		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
 			if (cmd_flags[pos][i] == '\'')
 				i = quote_print_char(cmd_flags[pos], '\'', i);
@@ -75,8 +79,6 @@ void	echo_print(char **cmd_flags, int pos)
 			else
 				printf("%c", cmd_flags[pos][i++]);
 		}
-		if (ft_strcmp(cmd_flags[pos], "$?") == 0)
-			printf("%i", g_exit);
 		pos++;
 		if (cmd_flags && pos != arr_size(cmd_flags))
 			printf(" ");
@@ -91,17 +93,17 @@ int	echo(char **cmd_flags)
 
 	j = 1;
 	n_flag = 0;
-	cmds = cmd_args(cmd_flags, 0);
+	cmds = arr_size(cmd_flags);
 	if (cmd_flags[1] && echo_flag(cmd_flags[1]) == 0)
 	{
 		n_flag = 1;
 		j++;
 	}
 	echo_print(cmd_flags, j);
+	g_exit = 0;
 	if (cmds == 1)
 		return (printf("\n"));
 	if (!n_flag)
 		printf("\n");
-	g_exit = 0;
 	return (0);
 }
