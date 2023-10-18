@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 17:40:40 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:49:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,19 @@
 //libft
 # include "../libft/src/libft.h"
 
+//gnl
+#include "../gnl/gnl.h"
+
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
 # include <readline/history.h>
 
 //signal
 # include <signal.h>
+
+# include <termios.h>
+# include <term.h>
+# include <curses.h>
 
 extern int	g_exit;
 
@@ -77,7 +84,7 @@ typedef struct s_minishell
 void					cd(t_minishell *ms, char **path);
 
 // echo.c
-int						echo(char **cmd_flags);
+int						ft_echo(char **cmd_flags);
 
 // pwd.c
 void					pwd(void);

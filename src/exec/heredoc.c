@@ -6,12 +6,20 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 17:42:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:22:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include "../../gnl/gnl.h"
+
+void	change_terminal(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	tcsetattr(STDIN_FILENO, TCSANOW ,&term);
+}
 
 /* void	heredoc_child(char *delimiter)
 {
@@ -19,6 +27,7 @@
 	char	*line;
 
 	line = NULL;
+	change_terminal();
 	while ((line = get_next_line(STDIN_FILENO)))
 	{
 		if (ft_strncmp(delimiter, line, ft_strlen(line) - 1) == 0)

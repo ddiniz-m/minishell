@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 17:17:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:49:48 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
+	int		status;
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) < 0)
@@ -28,7 +29,12 @@ int	ft_pipe(t_minishell *ms, t_cmdlist *cmdlist, int i)
 	if (child == 0)
 		child_process(ms, cmdlist, pipe_fd, i);
 	else
+	{
+		waitpid(child, &status, 0);
+		if (WIFEXITED(status))
+			g_exit = WEXITSTATUS(status);
 		parent_process(pipe_fd);
+	}
 	return (1);
 }
 
@@ -44,6 +50,7 @@ int	run_pipes(t_minishell *ms, t_cmdlist *cmdlist, int i)
 int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 {
 	pid_t	child;
+	int		status;
 
 	redir_in(cmdlist->content, ms->main_arr, 0);
 	redir_out(cmdlist->content, ms->main_arr, 0);
@@ -56,7 +63,9 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(child, &status, 0);
+		if (WIFEXITED(status))
+			g_exit = WEXITSTATUS(status);
 		if (is_built_in(cmdlist->content->cmd_flags[0]))
 			built_ins(ms, cmdlist->content->cmd_flags, 1);
 		set_fd(ms);

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/12 16:58:36 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:48:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*is_exec(char *str, char **paths)
 void	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 {
 	pid_t	child;
+	int		status;
 
 	if (cmdlist)
 	{
@@ -70,7 +71,9 @@ void	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 			exec(ms, cmdlist);
 		else
 		{
-			wait(NULL);
+			waitpid(child, &status, 0);
+			if (WIFEXITED(status))
+				g_exit = WEXITSTATUS(status);
 			if (ft_strcmp(cmdlist->content->cmd_flags[0], "exit") == 0)
 				exit_status(cmdlist->content->cmd_flags);
 		}

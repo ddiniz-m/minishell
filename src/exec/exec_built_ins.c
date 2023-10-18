@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 16:56:22 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:49:05 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_built_in(char *str)
 void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 {
 	if (ft_strcmp(cmd_flags[0], "echo") == 0)
-		echo(cmd_flags);
+		ft_echo(cmd_flags);
 	else if (ft_strcmp(cmd_flags[0], "cd") == 0)
 		cd(ms, cmd_flags);
 	else if (ft_strcmp(cmd_flags[0], "pwd") == 0)
