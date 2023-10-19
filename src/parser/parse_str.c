@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 16:46:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/19 10:47:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	str_others(char *str, int i)
 	Return 2 if any other meta character;
 	Return 3 if quotation mark;
 	Return 4 if dollar sign; ---> currently only used to distinguish between '$'
-	Return 5 if is not alfanumeric nor whitespaces;
 	and regular chars in other functions
 */
 int	meta_char(char c)
@@ -104,7 +103,5 @@ int	meta_char(char c)
 		return (3);
 	if (c == '$')
 		return (4);
-	if ((c > 32 && c < 65) || (c > 90 && c < 96) || (c > 122 && c < 127))
-		return (5);
 	return (0);
 }

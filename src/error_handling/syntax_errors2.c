@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/18 12:48:49 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:51:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,38 +86,4 @@ int	dollar_error(char *str)
 			i++;
 	}
 	return (0);
-}
-
-int	skip_quotes(char *str, int i)
-{
-	if (str[i] && str[i] == '\'')
-	{
-		i++;
-		while (str[i] && str[i] != '\'')
-			i++;
-	}
-	else if (str[i] && str[i] == '\"')
-	{
-		i++;
-		while (str[i] && str[i] != '\"')
-			i++;
-	}
-	return (i);
-}
-
-int	skip_quotes_rev(char *str, int size)
-{
-	if (str[size] && str[size] == '\'')
-	{
-		size--;
-		while (str[size] && str[size] != '\'')
-			size--;
-	}
-	else if (str[size] && str[size] == '\"')
-	{
-		size--;
-		while (str[size] && str[size] != '\"')
-			size--;
-	}
-	return (size);
 }

@@ -1,0 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_split_utl.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/10/19 14:42:44 by ddiniz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/minishell.h"
+
+int		skip_quotes(char *str, int i);
+
+//Returns how many "words" it'll split str into
+int		var_split_size(char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i < (int)ft_strlen(str))
+	{
+		count++;
+		if (str[i] && meta_char(str[i]) < 3)
+			while (str[i] && meta_char(str[i]) < 3)
+				i++;
+		else if ((meta_char(str[i]) == 3))
+		{
+			i = skip_quotes(str, i);
+			i++;
+		}
+		else if (str[i] == '$')
+		{
+			i++;
+			while (str[i] && meta_char(str[i]) != 1 && meta_char(str[i]) < 3)
+				i++;
+		}
+	}
+	return (count);
+}
+
+//Receives previous position returns lenght of word it started on
+int	var_split_word_size(char *str, int prev)
+{
+	int	i;
+
+	i = prev;
+	if (str[i] && meta_char(str[i]) < 3)
+		while (str[i] && meta_char(str[i]) < 3)
+			i++;
+	else if (meta_char(str[i]) == 3)
+	{
+		i = skip_quotes(str, i);
+		i++;
+	}
+	else if (str[i] == '$' && str[i + 1] && meta_char(str[i + 1]) != 1)
+	{
+		i++;
+		while (str[i] && meta_char(str[i]) != 1 && meta_char(str[i]) < 3)
+			i++;
+	}
+	else
+		i++;
+	return (i - prev);
+}
+
+//Creates each string of the split array
+char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = NULL;
+	temp = malloc(sizeof(char) * (word_len + 1));
+	if (!temp)
+		malloc_error(ms);
+	while (str[pos] && i < word_len)
+		temp[i++] = str[pos++];
+	temp[i] = '\0';
+	return (temp);
+}
+
+//Splits str to be easier to work with
+//E.g.: abc"abc$HOME"$PATHb becomes:
+// arr0 = abc
+// arr1 = "abc$HOME"
+// arr2 = $PATHb
+char	**var_split(t_minishell *ms, char *str)
+{
+	int		i;
+	int		pos;
+	int		size;
+	char	**buff;
+	int		word_len;
+
+	i = 0;
+	pos = 0;
+	word_len = 0;
+	size = var_split_size(str);
+	buff = malloc(sizeof(char *) * (size + 1));
+	if (!buff)
+		malloc_error(ms);
+	while (i < size)
+	{
+		word_len = var_split_word_size(str, pos);
+		buff[i++] = var_split_temp(ms, str, word_len, pos);
+		pos += var_split_word_size(str, pos);
+	}
+	buff[i] = 0;
+	return (buff);
+}
