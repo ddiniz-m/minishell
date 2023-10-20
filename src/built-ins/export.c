@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:16:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:46:34 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	export_error(char **arr)
 	{
 		i = 0;
 		if (ft_isdigit(arr[j][0]))
-			return (printf("Minishell: export: '%s':"
+			return (printf("Minishell: export: `%s':"
 					" not a valid identifier\n", arr[j]));
-		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=') 
+		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
 		{
 			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
-				return (printf("Minishell: export: '%s':"
+				return (printf("Minishell: export: `%s':"
 						" not a valid identifier\n", arr[j]));
 			i++;
 		}

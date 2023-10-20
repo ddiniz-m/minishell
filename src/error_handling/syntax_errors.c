@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:44:37 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 13:04:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:51:04 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	end_of_string_error(char *str)
 	{
 		size = skip_quotes_rev(str, size);
 		if (str[size] && (str[size] == '<' || str[size] == '>'
-			|| str[size] == '|') && str[size] != '\"' && str[size] != '\'')
+				|| str[size] == '|') && str[size] != '\"'
+			&& str[size] != '\'')
 			return (write(2, \
 			"MiniShell: syntax error near unexpected token 'newline'\n", 56));
 		if (meta_char(str[size]) == 0)
@@ -95,7 +96,7 @@ int	double_redir_error(char *str, char c)
 			i = skip_quotes(str, i);
 		if (i < size && ((str[i] == '|' && str[i - 1] == '<') || \
 			(meta_char(str[i]) == 2 && meta_char(str[i - 1]) == 1)))
-				return (token_message(str[i]));
+			return (token_message(str[i]));
 		i++;
 	}
 	return (0);

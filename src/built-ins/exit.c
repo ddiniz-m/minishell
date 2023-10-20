@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/13 11:29:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:47:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	exit_status(char **args)
 			g_exit = (int)exit_atoull(args[1]);
 	}
 }
+
 /*
 	In bash, <exit [n]> prints an error if n is larger than LLONG_MAX or smaller
 	than LLONG_MIN. Therefore I had to create a function that could convert

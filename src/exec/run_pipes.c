@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:00:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:06:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	run(t_minishell *ms)
 	}
 	while (cmds > 1 && cmds-- > 0 && tmp->next)
 	{
-		i += run_pipes(ms, tmp, i);
+		i = run_pipes(ms, tmp, i);
 		tmp = tmp->next;
 	}
 	last_cmd(ms, tmp, i);

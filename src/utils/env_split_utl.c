@@ -6,16 +6,16 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 15:58:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:44:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int		skip_quotes(char *str, int i);
+int	skip_quotes(char *str, int i);
 
 //Returns how many "words" it'll split str into
-int		var_split_size(char *str)
+int	var_split_size(char *str)
 {
 	int	i;
 	int	count;
@@ -29,10 +29,7 @@ int		var_split_size(char *str)
 			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
 		else if (meta_char(str[i]) == 3)
-		{
-			i = skip_quotes(str, i);
-			i++;
-		}
+			i = skip_quotes(str, i++);
 		else if (str[i] == '$')
 		{
 			i++;

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:10:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:46:48 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	quote_print_char(char *str, char c, int i)
 		i++;
 		while (str[i] && str[i] != c)
 		{
-			if (c == '\"' && str[i] == '$' && (str[i + 1]) && (str[i + 1]) == '?')
+			if (c == '\"' && str[i] == '$' && (str[i + 1])
+				&& (str[i + 1]) == '?')
 			{
 				printf("%i", g_exit);
 				i += 2;
@@ -65,14 +66,14 @@ int	quote_print_char(char *str, char c, int i)
 
 void	echo_print(char **cmd_flags, int pos)
 {
-	int		i;
+	int	i;
 
 	while (cmd_flags && pos < arr_size(cmd_flags))
 	{
 		i = 0;
 		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
-			if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1]) 
+			if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
 				&& (cmd_flags[pos][i + 1]) == '?')
 			{
 				printf("%i", g_exit);
