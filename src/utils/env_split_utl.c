@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 14:42:44 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:58:46 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		var_split_size(char *str)
 	while (i < (int)ft_strlen(str))
 	{
 		count++;
-		if (str[i] && meta_char(str[i]) < 3)
-			while (str[i] && meta_char(str[i]) < 3)
+		if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
+			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
-		else if ((meta_char(str[i]) == 3))
+		else if (meta_char(str[i]) == 3)
 		{
 			i = skip_quotes(str, i);
 			i++;
@@ -36,9 +36,11 @@ int		var_split_size(char *str)
 		else if (str[i] == '$')
 		{
 			i++;
-			while (str[i] && meta_char(str[i]) != 1 && meta_char(str[i]) < 3)
+			while (str[i] && meta_char(str[i]) != 1 && ft_isalpha(str[i]))
 				i++;
 		}
+		else
+			i++;
 	}
 	return (count);
 }
@@ -49,18 +51,18 @@ int	var_split_word_size(char *str, int prev)
 	int	i;
 
 	i = prev;
-	if (str[i] && meta_char(str[i]) < 3)
-		while (str[i] && meta_char(str[i]) < 3)
+	if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
+		while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			i++;
 	else if (meta_char(str[i]) == 3)
 	{
 		i = skip_quotes(str, i);
 		i++;
 	}
-	else if (str[i] == '$' && str[i + 1] && meta_char(str[i + 1]) != 1)
+	else if (str[i] == '$')
 	{
 		i++;
-		while (str[i] && meta_char(str[i]) != 1 && meta_char(str[i]) < 3)
+		while (str[i] && meta_char(str[i]) != 1 && ft_isalpha(str[i]))
 			i++;
 	}
 	else
@@ -69,7 +71,7 @@ int	var_split_word_size(char *str, int prev)
 }
 
 //Creates each string of the split array
-char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
+char	*var_split_temp(char *str, int word_len, int pos)
 {
 	int		i;
 	char	*temp;
@@ -78,7 +80,7 @@ char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
 	temp = NULL;
 	temp = malloc(sizeof(char) * (word_len + 1));
 	if (!temp)
-		malloc_error(ms);
+		return (NULL);
 	while (str[pos] && i < word_len)
 		temp[i++] = str[pos++];
 	temp[i] = '\0';
@@ -90,7 +92,7 @@ char	*var_split_temp(t_minishell *ms, char *str, int word_len, int pos)
 // arr0 = abc
 // arr1 = "abc$HOME"
 // arr2 = $PATHb
-char	**var_split(t_minishell *ms, char *str)
+char	**var_split(char *str)
 {
 	int		i;
 	int		pos;
@@ -104,11 +106,13 @@ char	**var_split(t_minishell *ms, char *str)
 	size = var_split_size(str);
 	buff = malloc(sizeof(char *) * (size + 1));
 	if (!buff)
-		malloc_error(ms);
+		return (NULL);
 	while (i < size)
 	{
 		word_len = var_split_word_size(str, pos);
-		buff[i++] = var_split_temp(ms, str, word_len, pos);
+		buff[i++] = var_split_temp(str, word_len, pos);
+		if (!buff[i])
+			return (NULL);
 		pos += var_split_word_size(str, pos);
 	}
 	buff[i] = 0;

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 13:36:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:01:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*remove_quotes(char *str, char c)
 		if (str[i] && str[i] == c)
 			i++;
 	}
-	free(str);
 	return(buf);
 }
 
@@ -83,7 +82,6 @@ char	*add_quotes(char *str, char c)
 	while (str[i])
 		buf[j++] = str[i++];
 	buf[j] = c;
-	free(str);
 	return (buf);
 }
 

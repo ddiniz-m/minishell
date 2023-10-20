@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 11:10:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:10:12 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ int	quote_print_char(char *str, char c, int i)
 		i++;
 		while (str[i] && str[i] != c)
 		{
-			printf("%c", str[i++]);
+			if (c == '\"' && str[i] == '$' && (str[i + 1]) && (str[i + 1]) == '?')
+			{
+				printf("%i", g_exit);
+				i += 2;
+			}
+			if (str[i])
+				printf("%c", str[i++]);
 		}
 	}
 	i++;

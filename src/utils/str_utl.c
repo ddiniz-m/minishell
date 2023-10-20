@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:48:00 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 15:05:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/20 13:19:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,37 @@ int	strcmp_chr(char *s1, char *s2, char c)
 	return (s1[i] - s2[i]);
 }
 
+int	strchr_malloc(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!s || !s[i])
+		return (0);
+	while (s[i] && s[i] != c)
+		i++;
+	if (s[i] && s[i] == c)
+		return (1);
+	return (0);
+}
+
 char	*str_front_trim(char *str, char *trim)
 {
 	int		i;
-	char	*buff;
+	int		j;
+	char	*buf;
 
-	while (*str && ft_strchr(trim, *str))
-		str++;
-	i = ft_strlen(str) - 1;
-	i++;
-	buff = (char *)malloc(sizeof(char) * (i + 1));
-	if (!buff)
+	j = 0;
+	while (str[j] && ft_strchr(trim, str[j]))
+		j++;
+	i = ft_strlen(str) - j;
+	buf = calloc(sizeof(char), (i + 1));
+	if (!buf)
 		return (0);
-	ft_strlcpy(buff, str, i + 1);
-	return (buff);
+	i = 0;
+	while (str[j])
+		buf[i++] = str[j++];
+	return (buf);
 }
 
 // Compares s1 and s2 until s2 reaches c, excluding c.

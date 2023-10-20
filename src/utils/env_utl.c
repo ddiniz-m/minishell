@@ -1,14 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env_utl.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 15:14:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 15:04:20 by ddiniz-m         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/* ***************************************************************************/
+
+/*                                                                           */
+
+/*                                                        :::      ::::::::  */
+
+/*   env_utl.c                                          :+:      :+:    :+:  */
+
+/*                                                    +:+ +:+         +:+    */
+
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+       */
+
+/*                                                +#+#+#+#+#+   +#+          */
+
+/*   Created: 2023/10/06 15:14:04 by  ddiniz-m         #+#    #+#            */
+
+/*   Updated: 2023/10/20 11:59:50 by ddiniz-m         ###   ########.fr      */
+
+/*                                                                           */
+
+/* ***************************************************************************/
+
 
 #include "../../inc/minishell.h"
 
@@ -17,8 +28,8 @@ int		skip_quotes(char *str, int i);
 char	*str_chr_trim(char *str);
 int		skip_quotes_rev(char *str, int size);
 char	*remove_quotes(char *str, char c);
-char	**var_split(t_minishell *ms, char *str);
-char	*var_sub_join(t_minishell *ms, char *str, t_list **env);
+char	**var_split(char *str);
+char	*var_sub_join(char *str, t_list **env, int flag);
 
 
 //Compares env variables with var.
@@ -58,81 +69,71 @@ char	*var_iter(t_list **env, char *var)
 	return (NULL);
 }
 
-char	*env_var_str(t_minishell *ms, char *buf, t_list **env)
-{
-	char	*buf2;
-
-	buf2 = NULL;
-	if (!buf)
-		return (buf);
-	if (buf[0] && buf[0] != '$')
-	{
-		buf2 = var_sub_join(ms, buf, env);
-		buf = str_front_trim(buf2, "$");
-		return (buf);
-	}
-	else
-	{
-		buf2 = str_front_trim(buf, "$");
-	/* 	if (meta_char(buf[0]) != 1 && (meta_char(buf[0]) == 2 
-			|| !ft_isalnum(buf[0]) || meta_char(buf[0]) == 3))
-		{
-			printf("env_var buf2 = %s\n", buf2);
-			return (buf2);
-		} */
-		free(buf);
-		buf = var_iter(env, buf2);
-		free(buf2);
-	}
-	return (buf);
-}
-
-char	*var_sub(t_minishell *ms, char *str, t_list **env)
+//Takes str without quotes, removes anything else that needs removing and calls
+//	var_iter to compare str with env variables.
+char	*env_var_str(char *str, t_list **env, int flag)
 {
 	char	*buf1;
 	char	*buf2;
 
-	if (!str)
-		return (NULL);
 	buf2 = NULL;
-	buf1 = ft_strtrim(str, "\"");
-	/* if (ft_strcmp(buf1, str) != 0 && ft_strchr(buf1, '\''))
-	{
-		buf2 = remove_quotes(buf1, '\'');
-		printf("buf2 = %s\n", buf2);
-		buf1 = env_var_str(ms, buf2, env);
-		printf("buf1 = %s\n", buf1);
-		if (!buf1)
-		{
-			free(buf2);
-			return (NULL);
-		}
-		return (buf2);
-	} */
-	if (ft_strcmp(buf1, "$") == 0)
+	buf1 = ft_strdup(str);
+	if (!buf1)
 		return (buf1);
-	buf2 = env_var_str(ms, buf1, env);
-	printf("buf2 = %s\n", buf2);
+	if (strchr_malloc(buf1, '$') || strchr_malloc(buf1, '\'')
+		|| strchr_malloc(buf1, '\''))
+		buf2 = var_sub_join(buf1, env, flag);
+	else
+		buf2 = var_iter(env, buf1);
+	free(buf1);
 	if (!buf2)
 		return (NULL);
 	return (buf2);
 }
 
-char	*var_sub_dollar(t_minishell *ms, char *str, char *buf, t_list **env)
+char	*var_sub_double_quotes(char *str, char *buf, t_list **env, char c)
 {
-	char	*buf2;
 	char	*res;
+	char	*buf1;
+	char	*buf2;
+
+	buf1 = remove_quotes(str, c);
+	buf2 = env_var_str(buf1, env, 1);
+	free(buf1);
+	buf1 = add_quotes(buf2, '\"');
+	res = ft_strjoin(buf, buf1);
+	free(buf1);
+	free(buf2);
+	return (res);
+}
+
+char	*var_sub_dollar(char *str, char *buf, t_list **env)
+{
+	char	*res;
+	char	*buf1;
+	char	*buf2;
 
 	buf2 = NULL;
-	buf2 = var_sub(ms, str, env);
+	if (ft_strcmp(str, "$") == 0)
+	{
+		res = ft_strjoin(buf, str);
+		return (res);
+	}
+	if (str[1] && !ft_isalpha(str[1]) && str[1] != '\\' && str[1] != '\'')
+	{
+		res = ft_strjoin(buf, str);
+		return (res);
+	}
+	buf1 = str_front_trim(str, "$");
+	buf2 = env_var_str(buf1, env, 0);
 	res = ft_strjoin(buf, buf2);
-	if (buf2)
-		free(buf2);
+	free(buf1);
+	free(buf2);
 	return (res);
 }
 
 //Joins all substituted strings from the split str
-char	*var_sub_join(t_minishell *ms, char *str, t_list **env)
+char	*var_sub_join(char *str, t_list **env, int flag)
 {
 	int		i;
 	char	*res;
@@ -141,24 +142,34 @@ char	*var_sub_join(t_minishell *ms, char *str, t_list **env)
 
 	i = 0;
 	res = NULL;
-	arr = var_split(ms, str);
-	arr_print("arr", arr);
-	free(str);
+	arr = var_split(str);
+	if (!arr)
+		return (NULL);
+	//arr_print("arr", arr);
 	while (arr[i])
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (arr[i][0] == '$' || arr[i][0] == '\"')
+		if (arr[i][0] == '$')
 		{
-			res = var_sub_dollar(ms, arr[i], buf1, env);
+			res = var_sub_dollar(arr[i], buf1, env);
+		}
+		else if (arr[i][0] == '\"')
+		{
+			res = var_sub_double_quotes(arr[i], buf1, env, '\"');
+		}
+		else if (arr[i][0] == '\'' && flag == 1)
+		{
+			res = var_sub_double_quotes(arr[i], buf1, env, '\'');
 		}
 		else
+		{
 			res = ft_strjoin(buf1, arr[i]);
-		free(arr[i]);
+		}
 		free(buf1);
 		i++;
 	}
-	free(arr);
+	free_array(arr);
 	return (res);
 }
 
@@ -171,25 +182,19 @@ $VAR   ---->  value */
 void	env_var(t_minishell *ms, t_list **env, char **arr)
 {
 	int		i;
-	int		j;
+	char	*buf;
 
 	i = 0;
 	while (i < arr_size(arr))
 	{
-		j = 0;
-		while (j < (int)ft_strlen(arr[i]))
+		if (strchr_malloc(arr[i], '$'))
 		{
-			if (arr[i][j] == '\'')
-			{
-				j++;
-				continue ;
-			}
-			if (ft_strchr(arr[i], '$'))
-			{
-				arr[i] = var_sub_join(ms, arr[i], env);
-				break ;
-			}
-			j++;
+			buf = ft_strdup(arr[i]);
+			free(arr[i]);
+			arr[i] = var_sub_join(buf, env, 0);
+			if (!arr[i])
+				malloc_error(ms);
+			free(buf);
 		}
 		i++;
 	}
