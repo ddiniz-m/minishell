@@ -11,7 +11,7 @@ SRC_ERR =	errors.c syntax_errors.c syntax_errors2.c
 SRC_EXE =	exec_built_ins.c exec_utils.c exec.c run_pipes.c redirections.c heredoc.c
 SRC_PRS	=	parse_counter.c parse_split.c parse_str.c
 SRC_STC	=	cmd_utils.c content.c init.c
-SRC_UTL	=	array_utl.c env_split_utl.c env_var_utl.c env_var.c list_utl.c str_utl.c str_utl2.c
+SRC_UTL	=	array_utl.c env_split_utl.c env_var_utl.c env_var.c list_utl.c str_utl.c str_utl2.c replacer.c
 SRC_GNL =	gnl.c gnl_utils.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \

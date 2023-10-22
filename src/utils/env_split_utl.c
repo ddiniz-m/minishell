@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_split_utl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:44:15 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:24:21 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	skip_quotes(char *str, int i);
+int	skip_quotes(char *str, int pos);
+int	skip_var(char *str, int pos);
 
 //Returns how many "words" it'll split str into
 int	var_split_size(char *str)
@@ -29,13 +30,9 @@ int	var_split_size(char *str)
 			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
 		else if (meta_char(str[i]) == 3)
-			i = skip_quotes(str, i++);
+			i = skip_quotes(str, i);
 		else if (str[i] == '$')
-		{
-			i++;
-			while (str[i] && meta_char(str[i]) != 1 && ft_isalpha(str[i]))
-				i++;
-		}
+			i = skip_var(str, i);
 		else
 			i++;
 	}
@@ -52,16 +49,9 @@ int	var_split_word_size(char *str, int prev)
 		while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			i++;
 	else if (meta_char(str[i]) == 3)
-	{
 		i = skip_quotes(str, i);
-		i++;
-	}
 	else if (str[i] == '$')
-	{
-		i++;
-		while (str[i] && meta_char(str[i]) != 1 && ft_isalpha(str[i]))
-			i++;
-	}
+		i = skip_var(str, i);
 	else
 		i++;
 	return (i - prev);

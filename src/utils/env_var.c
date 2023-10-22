@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 18:08:10 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:46:02 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*env_var_str(char *str, t_list **env, int flag)
 	if (!buf1)
 		return (buf1);
 	if (strchr_malloc(buf1, '$') || strchr_malloc(buf1, '\'')
-		|| strchr_malloc(buf1, '\''))
+		|| strchr_malloc(buf1, '\"'))
 		buf2 = var_sub_join(buf1, env, flag);
 	else
 		buf2 = var_iter(env, buf1);
@@ -72,7 +72,8 @@ char	*var_sub_dollar(char *str, char *buf, t_list **env)
 		res = ft_strjoin(buf, str);
 		return (res);
 	}
-	if (str[1] && !ft_isalpha(str[1]) && str[1] != '\\' && str[1] != '\'')
+	if (str[1] && !ft_isalnum(str[1]) && str[1] != '_' && str[1] != '\\' && \
+		str[1] != '\'')
 	{
 		res = ft_strjoin(buf, str);
 		return (res);

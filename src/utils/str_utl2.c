@@ -3,47 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   str_utl2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:25:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:12:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	skip_quotes(char *str, int i)
+int	skip_quotes(char *str, int pos)
 {
-	if (str[i] && str[i] == '\'')
+	char	quote;
+
+	if (meta_char(str[pos]) == 3)
 	{
-		i++;
-		while (str[i] && str[i] != '\'')
-			i++;
+		quote = str[pos++];
+		while (str[pos] && str[pos] != quote)
+			pos++;
+		pos++;
 	}
-	else if (str[i] && str[i] == '\"')
-	{
-		i++;
-		while (str[i] && str[i] != '\"')
-			i++;
-	}
-	return (i);
+	return (pos);
 }
 
-int	skip_quotes_rev(char *str, int size)
+int	skip_rquotes(char *str, int pos)
 {
-	if (str[size] && str[size] == '\'')
+	char	quote;
+
+	if (meta_char(str[pos]) == 3)
 	{
-		size--;
-		while (str[size] && str[size] != '\'')
-			size--;
+		quote = str[pos--];
+		while (str[pos] && str[pos] != quote)
+			pos--;
 	}
-	else if (str[size] && str[size] == '\"')
-	{
-		size--;
-		while (str[size] && str[size] != '\"')
-			size--;
-	}
-	return (size);
+	return (pos);
 }
 
 //Removes quotes from str. Used for case echo "'$HOME'"
@@ -55,8 +48,7 @@ char	*remove_quotes(char *str, char c)
 
 	i = 0;
 	j = 0;
-	while (str[i++])
-		i = skip_quotes(str, i);
+	i = skip_quotes(str, i);
 	buf = calloc(sizeof(char), i);
 	i = 0;
 	while (str[i])
