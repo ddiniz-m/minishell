@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:49:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:15:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int						dollar_error(char *str);
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_with_flags, \
 	int exit);
-void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
 
 // exec_utils.c
 char					**path_init(t_minishell *ms);
@@ -145,23 +144,14 @@ void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
 	int *pipe_fd, int i);
 void					parent_process(int *pipe_fd);
 
-// heredoc.c
-/* void					heredoc_child(char *delimiter); */
-int						*heredoc(char *delimiter, int *hd_fd);
-
-// open_file.c
-int						open_file_in(t_content *content, t_list *lst);
-int						open_file_hdoc(t_content *content, t_list *lst);
-int						open_file_out(t_content *content, t_list *lst);
-int						open_file_app(t_content *content, t_list *lst);
-
-// redir_hdoc.c
-int						redir_check_out(t_content *content, char **arr, \
-	int pos);
-int						redir_check_in(t_content *content, char **arr, int pos);
-void					redir_in(t_content *content, char **arr, int pos);
-void					redir_out(t_content *content, char **arr, int pos);
+// redirections.c
 void					set_fd(t_minishell *ms);
+void					redirect_out(t_content *cmd, t_list *out, int append);
+void					redirect_in(t_content *cmd, t_list *in);
+void					redirect(t_content *cmd, char **main_arr, int pos);
+
+// heredoc.c
+void					heredoc(char *limiter);
 
 // run_pipes.c
 int						run(t_minishell *ms);

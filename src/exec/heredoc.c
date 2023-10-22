@@ -6,13 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:22:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:17:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	change_terminal(void)
+/* void	change_terminal(void)
 {
 	struct termios	term;
 
@@ -21,7 +21,7 @@ void	change_terminal(void)
 	tcsetattr(STDIN_FILENO, TCSANOW ,&term);
 }
 
-/* void	heredoc_child(char *delimiter)
+ void	heredoc_child(char *delimiter)
 {
 	int		hd_fd;
 	char	*line;
@@ -41,9 +41,9 @@ void	change_terminal(void)
 		free(line);
 	}
 	exit (g_exit);
-} */
+}
 
-/* void	heredoc(char *delimiter)
+ void	heredoc(char *delimiter)
 {
 	pid_t	child;
 
@@ -54,7 +54,7 @@ void	change_terminal(void)
 	else if (child == 0)
 		heredoc_child(delimiter);
 	wait(NULL);
-} */
+}
 
 int	*heredoc(char *delimiter, int *hd_fd)
 {
@@ -83,7 +83,7 @@ int	*heredoc(char *delimiter, int *hd_fd)
 	return (hd_fd);
 }
 
-/* int	*heredoc(char *delimiter, int *hd_fd)
+ int	*heredoc(char *delimiter, int *hd_fd)
 {
 	char	*line;
 	char	*buf;
@@ -110,3 +110,8 @@ int	*heredoc(char *delimiter, int *hd_fd)
 	}
 	return (hd_fd);
 } */
+
+void	heredoc(char *limiter)
+{
+	ft_printf("This would be a heredoc: %s\n", limiter);
+}

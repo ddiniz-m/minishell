@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:28:56 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:49:48 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:15:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	no_pipe(t_minishell *ms, t_cmdlist *cmdlist)
 	pid_t	child;
 	int		status;
 
-	redir_in(cmdlist->content, ms->main_arr, 0);
-	redir_out(cmdlist->content, ms->main_arr, 0);
+	redirect(cmdlist->content, ms->main_arr, 0);
 	child = fork();
 	if (child == 0)
 	{
@@ -91,7 +90,7 @@ int	run(t_minishell *ms)
 	}
 	while (cmds > 1 && cmds-- > 0 && tmp->next)
 	{
-		i += run_pipes(ms, tmp, i);
+		i = run_pipes(ms, tmp, i);
 		tmp = tmp->next;
 	}
 	last_cmd(ms, tmp, i);

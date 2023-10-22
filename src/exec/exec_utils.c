@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:22:20 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:48:13 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:15:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,7 @@ void	last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i)
 
 	if (cmdlist)
 	{
-		if (redir_check_out(cmdlist->content, ms->main_arr, i)
-			|| redir_check_in(cmdlist->content, ms->main_arr, i))
-		{
-			redir_in(cmdlist->content, ms->main_arr, i);
-			redir_out(cmdlist->content, ms->main_arr, i);
-		}
+		redirect(cmdlist->content, ms->main_arr, i);
 		child = fork();
 		if (child == 0)
 			exec(ms, cmdlist);
