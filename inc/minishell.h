@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 16:56:02 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:30:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,59 +120,39 @@ int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
 
-/* //++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
-// exec_built_ins.c
-int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_with_flags, \
-	int exit);
-void					exp_env_unset(t_minishell *ms, char **cmd_with_flags);
-
-// exec_utils.c
-char					**path_init(t_minishell *ms);
-char					*is_exec(char *str, char **paths);
-void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
-
-// exec.c
-void					exec(t_minishell *ms, t_cmdlist *cmdlist);
-void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
-	int *pipe_fd, int i);
-void					parent_process(int *pipe_fd);
-
-// open_file.c
-int						open_file_in(t_content *content, t_list *lst);
-int						open_file_hdoc(t_content *content, t_list *lst);
-int						open_file_out(t_content *content, t_list *lst);
-int						open_file_app(t_content *content, t_list *lst);
-
-// redir_hdoc.c
-int						redir_check_out(t_content *content, char **arr, \
-	int pos);
-int						redir_check_in(t_content *content, char **arr, int pos);
-int						redir_in(t_content *content, char **arr, int pos);
-int						redir_out(t_content *content, char **arr, int pos);
-void					set_fd(t_minishell *ms);
-
-// run_pipes.c
-int						run(t_minishell *ms) ;*/
-
-//++++++++++++++++ new_exec/[.........] +++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // exec_built_ins.c
 int						is_built_in(t_minishell *ms, char **cmd_arr);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 
-// heredoc.c
-void					heredoc(char *limiter);
+// exec_utils.c
+//char					**path_init(t_minishell *ms);
+//char					*is_exec(char *str, char **paths);
+//void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 
-// processes.c
-void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
-char					**get_directories(t_list **env);
-char					*get_cmd_path(char **paths, char *cmd);
-void					exec(t_minishell *ms, char **cmd_arr);
+// exec.c
+//void					exec(t_minishell *ms, t_cmdlist *cmdlist);
+//void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
+	int *pipe_fd, int i);
+//void					parent_process(int *pipe_fd);
 
 // redirections.c
 void					redirect_out(t_content *cmd, t_list *out, int append);
 void					redirect_in(t_content *cmd, t_list *in);
 void					redirect(t_content *cmd, char **main_arr, int pos);
+
+// heredoc.c
+void					heredoc(char *limiter);
+
+// run_pipes.c
+//int						run(t_minishell *ms);
+
+//++++++++++++++++ new_exec/[.........] +++++++++++++++++++++++++++++++++++++++
+// processes.c
+void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
+char					**get_directories(t_list **env);
+char					*get_cmd_path(char **paths, char *cmd);
+void					exec(t_minishell *ms, char **cmd_arr);
 
 // run.c
 void					reset_fds(t_minishell *ms);
