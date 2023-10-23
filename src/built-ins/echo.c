@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:46:48 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:26:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,20 @@ int	quote_print_char(char *str, char c, int i)
 	return (i);
 }
 
+int		echo_print_cond(char **cmd_flags, int pos, int i)
+{
+	if (cmd_flags[pos][i] == '$' && cmd_flags[pos][i + 1] 
+			&& meta_char(cmd_flags[pos][i + 1]) == 3)
+		i++;
+	else if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
+		&& (cmd_flags[pos][i + 1]) == '?')
+	{
+		printf("%i", g_exit);
+		i += 2;
+	}
+	return (i);
+}
+
 void	echo_print(char **cmd_flags, int pos)
 {
 	int	i;
@@ -73,13 +87,8 @@ void	echo_print(char **cmd_flags, int pos)
 		i = 0;
 		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
-			if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
-				&& (cmd_flags[pos][i + 1]) == '?')
-			{
-				printf("%i", g_exit);
-				i += 2;
-			}
-			else if (cmd_flags[pos][i] == '\'')
+			i = echo_print_cond(cmd_flags, pos, i);
+			if (cmd_flags[pos][i] == '\'')
 				i = quote_print_char(cmd_flags[pos], '\'', i);
 			else if (cmd_flags[pos][i] == '\"')
 				i = quote_print_char(cmd_flags[pos], '\"', i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utl2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/22 17:12:31 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:52:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char	*add_quotes(char *str, char c)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	buf = calloc(sizeof(char), ft_strlen(str) + 3);
 	buf[j++] = c;
 	while (str[i])

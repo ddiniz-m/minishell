@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/22 17:46:02 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:26:51 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*var_iter(t_list **env, char *var);
+char	**var_split(char *str);
 char	*add_quotes(char *str, char c);
 char	*remove_quotes(char *str, char c);
-char	**var_split(char *str);
+char	*var_iter(t_list **env, char *var);
+char	*var_double_single(char *str, t_list **env);
 char	*var_sub_join(char *str, t_list **env, int flag);
+char	*var_sub_cond(char *str, char *buf1, t_list **env, int flag);
 
 //Takes str without quotes, removes anything else that needs removing and calls
 //	var_iter to compare str with env variables.
@@ -29,9 +31,11 @@ char	*env_var_str(char *str, t_list **env, int flag)
 	buf1 = ft_strdup(str);
 	if (!buf1)
 		return (buf1);
-	if (strchr_malloc(buf1, '$') || strchr_malloc(buf1, '\'')
-		|| strchr_malloc(buf1, '\"'))
+	if ((strchr_malloc(buf1, '$') || strchr_malloc(buf1, '\"') 
+			|| (strchr_malloc(buf1, '\''))) && flag == 1)
 		buf2 = var_sub_join(buf1, env, flag);
+	else if ((strchr_malloc(buf1, '\'') && flag == 0))
+		buf2 = var_double_single(buf1, env);
 	else
 		buf2 = var_iter(env, buf1);
 	free(buf1);
@@ -51,7 +55,16 @@ char	*var_sub_quotes(char *str, char *buf, t_list **env)
 		buf1 = remove_quotes(str, '\'');
 	else if (str[0] && str[0] == '\"')
 		buf1 = remove_quotes(str, '\"');
-	buf2 = env_var_str(buf1, env, 1);
+	if (strchr_malloc(buf1, '$') == 0)
+	{
+		res = ft_strjoin(buf, buf1);
+		free(buf1);
+		return (res);
+	}
+	if (buf1[0] && buf1[0] == '\'')
+		buf2 = env_var_str(buf1, env, 0);
+	else
+		buf2 = env_var_str(buf1, env, 1);
 	free(buf1);
 	buf1 = add_quotes(buf2, '\"');
 	res = ft_strjoin(buf, buf1);
@@ -103,12 +116,12 @@ char	*var_sub_join(char *str, t_list **env, int flag)
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (arr[i][0] == '$')
-			res = var_sub_dollar(arr[i], buf1, env);
-		else if (arr[i][0] == '\"' || (arr[i][0] == '\'' && flag == 1))
-			res = var_sub_quotes(arr[i], buf1, env);
+		if (arr[i][0] && arr[i][0] == '$' && arr[i + 1]
+			&& !ft_isalnum(arr[i + 1][0]) && arr[i + 1][0] != '_'
+			&& arr[i + 1][0] != '\\' && arr[i + 1][0] != '\'')
+			;
 		else
-			res = ft_strjoin(buf1, arr[i]);
+			res = var_sub_cond(arr[i], buf1, env, flag);
 		free(buf1);
 		i++;
 	}
