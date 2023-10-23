@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/23 15:30:11 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:30:56 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int						dollar_error(char *str);
 
 //++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // exec_built_ins.c
-int						is_built_in(t_minishell *ms, char **cmd_arr);
+int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 
 // exec_utils.c
@@ -133,7 +133,7 @@ void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 // exec.c
 //void					exec(t_minishell *ms, t_cmdlist *cmdlist);
 //void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
-	int *pipe_fd, int i);
+//	int *pipe_fd, int i);
 //void					parent_process(int *pipe_fd);
 
 // redirections.c
@@ -149,15 +149,18 @@ void					heredoc(char *limiter);
 
 //++++++++++++++++ new_exec/[.........] +++++++++++++++++++++++++++++++++++++++
 // processes.c
-void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
-char					**get_directories(t_list **env);
-char					*get_cmd_path(char **paths, char *cmd);
-void					exec(t_minishell *ms, char **cmd_arr);
+//void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
+//char					**get_directories(t_list **env);
+//char					*get_cmd_path(char **paths, char *cmd);
+//void					exec(t_minishell *ms, char **cmd_arr);
 
 // run.c
-void					reset_fds(t_minishell *ms);
-int						find_cmd_pos(char **main_arr, int pos);
-void					run(t_minishell *ms);
+//void					reset_fds(t_minishell *ms);
+//int						find_cmd_pos(char **main_arr, int pos);
+//void					run(t_minishell *ms);
+
+//another_run.c
+void	run(t_minishell *ms);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c

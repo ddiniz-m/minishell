@@ -6,32 +6,11 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:48:41 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/20 17:45:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:26:15 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-char	**list_to_array(t_list **env)
-{
-	int		i;
-	int		size;
-	t_list	*tmp;
-	char	**buf;
-
-	i = 0;
-	tmp = *env;
-	size = ft_lstsize(tmp);
-	buf = malloc(sizeof(char *) * (size + 1));
-	while (tmp && i < size)
-	{
-		buf[i] = ft_strdup((char *)tmp->data);
-		tmp = tmp->next;
-		i++;
-	}
-	buf[i] = 0;
-	return (buf);
-}
 
 void	exec(t_minishell *ms, t_cmdlist *cmdlist)
 {

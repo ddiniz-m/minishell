@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rascunho                                           :+:      :+:    :+:   */
+/*   rascunho.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:31:34 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/10/23 15:24:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:25:37 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,26 +168,20 @@ char* get_command_path(char* command)
 {
 	char* path = NULL;
 
-	// Tokenize the PATH environment variable
 	char* path_env = getenv("PATH");
-	char* path_token = strtok(path_env, ":");
+	char* path_token = strtok(path_env, ":"); // Tokenize the PATH environment variable
 	while (path_token != NULL)
 	{
-		// Construct the full command path
 		char* command_path = ft_strjoin(path_token, "/");
-		command_path = ft_strjoin(command_path, command);
-
-		// Check if the command path is executable
-		if (access(command_path, X_OK) == 0)
+		command_path = ft_strjoin(command_path, command); // Construct the full command path
+		if (access(command_path, X_OK) == 0) // Check if the command path is executable
 		{
 			path = command_path;
 			break;
 		}
-
 		free(command_path);
 		path_token = strtok(NULL, ":");
 	}
-
 	return path;
 }
 
@@ -196,41 +190,33 @@ void execute_command(char* command)
 	char* arguments[MAX_ARGS];
 	int arg_count = 0;
 
-	// Tokenize the command string
-	char* token = strtok(command, " \t\n");
-	while (token != NULL) {
+	char* token = strtok(command, " \t\n"); // Tokenize the command string
+	while (token != NULL)
+	{
 		arguments[arg_count] = token;
 		arg_count++;
 		token = strtok(NULL, " \t\n");
 	}
-
 	arguments[arg_count] = NULL; // Set last argument to NULL for execve
-
 	char* command_path = get_command_path(arguments[0]);
 	if (command_path != NULL)
 	{
 		pid_t pid = fork();
-
 		if (pid < 0)
 		{
 			perror("fork failed");
 			exit(1);
 		}
-		else if (pid == 0)
+		else if (pid == 0) // Child process
 		{
-			// Child process
 			char* envp[] = {NULL}; // Empty environment array
 			execve(command_path, arguments, envp);
 			perror("execve failed");
 			free(command_path);
 			exit(1);
 		}
-		else
-		{
-			// Parent process
+		else // Parent process
 			wait(NULL);
-		}
-
 		free(command_path);
 	}
 	else
@@ -247,42 +233,33 @@ void execute_commands(char** commands, int num_commands)
 
 	for (int i = 0; i < num_commands; i++)
 	{
-		// Create pipe for inter-process communication
 		if (i < num_commands - 1)
 		{
-			if (pipe(pipe_fd) < 0)
+			if (pipe(pipe_fd) < 0) // Create pipe for inter-process communication
 			{
 				perror("pipe failed");
 				exit(1);
 			}
 		}
-
 		pid_t pid = fork();
-
 		if (pid < 0)
 		{
 			perror("fork failed");
 			exit(1);
 		}
-		else if (pid == 0)
+		else if (pid == 0) // Child process
 		{
-			// Child process
-
-			// Redirect input from the previous command or file
-			if (i != 0)
+			if (i != 0) // Redirect input from the previous command or file
 			{
 				dup2(in_fd, STDIN_FILENO);
 				close(in_fd);
 			}
-
-			// Redirect output to the next command or file
-			if (i < num_commands - 1)
+			if (i < num_commands - 1) // Redirect output to the next command or file
 			{
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[0]);
 				close(pipe_fd[1]);
 			}
-
 			char* command = commands[i];
 			char* arguments[100];
 			int arg_count = 0;
@@ -305,66 +282,52 @@ void execute_commands(char** commands, int num_commands)
 					char* file = strtok(NULL, " ");
 					redirect_output(file, 1);
 				}
-				else         if (strcmp(token, "<<") == 0) {
-			// Handle "<<" input redirection
-			char* delimiter = strtok(NULL, " \t\n");
-			if (delimiter != NULL) {
-				// Read input from the user until the delimiter is found
-				char* line = NULL;
-				char* temp_input = NULL;
-				size_t temp_input_len = 0;
-				ssize_t read_len;
-
-				while ((read_len = getline(&line, &temp_input_len, stdin)) != -1) {
-					if (strcmp(line, delimiter) == 0) {
-						free(line);
-						break;
-					}
-					temp_input = ft_strjoin(temp_input, line);
-					free(line);
-				}
-
-				if (temp_input == NULL) {
-					printf("Invalid input redirection\n");
-					exit(1);
-				}
-
-				// Create a temporary file
-				char temp_file[] = "/tmp/tempfileXXXXXX";
-				int temp_fd = mkstemp(temp_file);
-				if (temp_fd < 0) {
-					perror("mkstemp failed");
-					exit(1);
-				}
-
-				// Write the temporary input to the file
-				write(temp_fd, temp_input, strlen(temp_input));
-
-				// Close the temporary file
-				close(temp_fd);
-
-				// Set the temporary file as input for the command
-				redirect_input(temp_file);
-
-				// Remove the temporary file
-				unlink(temp_file);
-			}
-		}
-
-				else
+				else if (strcmp(token, "<<") == 0) // Handle "<<" input redirection
 				{
-					arguments[arg_count++] = token;
+					char* delimiter = strtok(NULL, " \t\n");
+					if (delimiter != NULL)
+					{
+						char* line = NULL;
+						char* temp_input = NULL;
+						size_t temp_input_len = 0;
+						ssize_t read_len;
+						while ((read_len = getline(&line, &temp_input_len, stdin)) != -1) // Read input from the user until the delimiter is found
+						{
+							if (strcmp(line, delimiter) == 0)
+							{
+								free(line);
+								break;
+							}
+							temp_input = ft_strjoin(temp_input, line);
+							free(line);
+						}
+						if (temp_input == NULL)
+						{
+							printf("Invalid input redirection\n");
+							exit(1);
+						}
+						// Create a temporary file
+						char temp_file[] = "/tmp/tempfileXXXXXX";
+						int temp_fd = mkstemp(temp_file);
+						if (temp_fd < 0)
+						{
+							perror("mkstemp failed");
+							exit(1);
+						}
+						write(temp_fd, temp_input, strlen(temp_input)); // Write the temporary input to the file
+						close(temp_fd); // Close the temporary file
+						redirect_input(temp_file); // Set the temporary file as input for the command
+						unlink(temp_file); // Remove the temporary file
+					}
 				}
+				else
+					arguments[arg_count++] = token;
 				token = strtok(NULL, " ");
 			}
-
 			arguments[arg_count] = NULL; // Set last argument to NULL for execve
-
-			// Get the executable path from the PATH environment variable
-			char* path = getenv("PATH");
+			char* path = getenv("PATH"); // Get the executable path from the PATH environment variable
 			char* path_copy = strdup(path);
 			char* path_token = strtok(path_copy, ":");
-
 			while (path_token != NULL)
 			{
 				char* executable_path = ft_strjoin(path_token, "/");
@@ -379,31 +342,21 @@ void execute_commands(char** commands, int num_commands)
 				free(executable_path);
 				path_token = strtok(NULL, ":");
 			}
-
 			printf("Command '%s' not found\n", arguments[0]);
 			exit(1);
 		}
-		else
+		else // Parent process
 		{
-			// Parent process
-
-			// Close the previous pipe's write end
 			if (i > 0)
-			{
-				close(in_fd);
-			}
-
-			// Close the current pipe's read end
-			if (i < num_commands - 1)
+				close(in_fd); // Close the previous pipe's write end
+			if (i < num_commands - 1) // Close the current pipe's read end
 			{
 				close(pipe_fd[1]);
 				in_fd = pipe_fd[0];
 			}
 		}
 	}
-
-	// Wait for all child processes to finish
-	while (num_commands > 0)
+	while (num_commands > 0) // Wait for all child processes to finish
 	{
 		wait(NULL);
 		num_commands--;
