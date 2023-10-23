@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/23 16:30:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:53:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,18 +146,6 @@ void					heredoc(char *limiter);
 
 // run_pipes.c
 //int						run(t_minishell *ms);
-
-//++++++++++++++++ new_exec/[.........] +++++++++++++++++++++++++++++++++++++++
-// processes.c
-//void					child(t_minishell *ms, t_cmdlist *cmd, int pos);
-//char					**get_directories(t_list **env);
-//char					*get_cmd_path(char **paths, char *cmd);
-//void					exec(t_minishell *ms, char **cmd_arr);
-
-// run.c
-//void					reset_fds(t_minishell *ms);
-//int						find_cmd_pos(char **main_arr, int pos);
-//void					run(t_minishell *ms);
 
 //another_run.c
 void	run(t_minishell *ms);
