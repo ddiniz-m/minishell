@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/23 17:29:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:22:26 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,6 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	free_ms(ms);
 }
 
-void	child(t_minishell *ms, t_cmdlist *cmd, int *pipe_fd, int pos)
-{
-	redirect(cmd->content, ms->main_arr, pos);
-	if (!cmd->content->output && !cmd->content->append)
-	{
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-	}
-	exec(ms, cmd->content->cmd_flags);
-}
-
 int	find_cmd_pos(char **main_arr, int pos)
 {
 	while (main_arr[pos] && main_arr[pos][0] && ft_strcmp(main_arr[pos], "|") !=\
@@ -123,44 +111,49 @@ void	run(t_minishell *ms)
 	int		cmds_run = 0;
 	int		pos = 0;
 	int		status;
-	int		fd_in;
+	int		fd_in = 0;
 	pid_t	pid;
 
 	tmp_cmd = ms->cmdlist;
 	counter = ms->cmd_count;
 	if (!tmp_cmd)
 		return ;
-	if (pipe(pipe_fd) < 0)
-	{} // pipe error
-	while (cmds_run < ms->cmd_count - 1)
+	while (cmds_run < ms->cmd_count)
 	{
+		if (pipe(pipe_fd) < 0)
+		{} // pipe error
 		pid = fork();
 		if (pid < 0)
 		{} // fork error
 		if (pid == 0)
-			child(ms, tmp_cmd, pipe_fd, pos);
+		{
+			if (cmds_run != 0) // Redirect input from the previous command or file
+			{
+				dup2(fd_in, STDIN_FILENO);
+				close(fd_in);
+			}
+			if (cmds_run < ms->cmd_count - 1) // Redirect output to the next command or file
+			{
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[0]);
+				close(pipe_fd[1]);
+			}
+			redirect(tmp_cmd->content, ms->main_arr, pos);
+			exec(ms, tmp_cmd->content->cmd_flags);
+		}
 		else
 		{
 			pos = find_cmd_pos(ms->main_arr, pos);
 			tmp_cmd = tmp_cmd->next;
-			cmds_run++;
-			if (cmds_run > 1)
+			if (cmds_run > 0)
 				close(fd_in);
 			if (cmds_run < ms->cmd_count - 1)
 			{
 				close(pipe_fd[1]);
 				fd_in = pipe_fd[0];
 			}
-			//dup2(pipe_fd[0], STDIN_FILENO);
 		}
-	}
-	pid = fork();
-	if (pid < 0)
-	{} // fork error
-	if (pid == 0)
-	{
-		redirect(tmp_cmd->content, ms->main_arr, pos);
-		exec(ms, tmp_cmd->content->cmd_flags);
+		cmds_run++;
 	}
 	while (counter > 0)
 	{
