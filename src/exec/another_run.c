@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/23 18:22:26 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:36:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	if (!cmd_path)
 	{
 		free(cmd_path);
-		free(ms);
+		free_ms(ms);
 	}
 	env = list_to_array(ms->env);
 	execve(cmd_path, cmd_arr, env);
