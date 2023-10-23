@@ -1,0 +1,22 @@
+Main Function:
+	Prompt the user to enter commands.
+	Read the input and tokenize it into separate commands, stored in an array.
+
+For Each Command:
+	If there's a pipe (|) character, set up a pipe for inter-process communication.
+	Fork a child process to execute the command.
+
+Child Process:
+	If it's not the first command, redirect input from the previous command or file.
+	If it's not the last command, redirect output to the next command or file.
+	Tokenize the command string to extract arguments.
+	If there are special operators like <, >, >>, or <<, handle input/output redirection accordingly.
+	If it's a regular command, attempt to find its executable path and execute it using execve.
+	If the command is not found, print an error message.
+
+Parent Process:
+	If it's not the first command, close the previous pipe's write end.
+	If it's not the last command, close the current pipe's read end.
+
+Wait for Child Processes:
+	Wait for all child processes to finish before continuing.
