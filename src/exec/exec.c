@@ -1,16 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_path.c                                         :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 17:16:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:27:47 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	exec(t_minishell *ms, char **cmd_arr)
+{
+	char	**paths;
+	char	*cmd_path;
+	char	**env;
+
+	if (is_built_in(cmd_arr[0]))
+	{
+		built_ins(ms, cmd_arr, 0);
+		free_ms(ms);
+	}
+	if (ft_strncmp(cmd_arr[0], "../", 3) == 0 || ft_strncmp(cmd_arr[0], "./", 2) == 0 \
+		|| cmd_arr[0][0] == '/')
+		paths = special_path(cmd_arr[0]);
+	else
+		paths = get_paths(ms->env);
+	if (is_exec(cmd_arr[0], paths) == 0)
+		free_ms(ms);
+	cmd_path = get_cmd_path(paths, cmd_arr[0]);
+	free_array(paths);
+	if (!cmd_path)
+		free_ms(ms);
+	env = list_to_array(ms->env);
+	execve(cmd_path, cmd_arr, env);
+	free(cmd_path);
+	g_exit = errno;
+	free_ms(ms);
+}
+
+int	is_exec(char *cmd, char **paths)
+{
+	int		i;
+	char	*buf;
+	char	*buf2;
+
+	i = 0;
+	while (paths[i])
+	{
+		buf = ft_strjoin(paths[i++], "/");
+		buf2 = ft_strjoin(buf, cmd);
+		free(buf);
+		if (access(buf2, F_OK) == 0)
+		{
+			if (access(buf2, X_OK) == 0)
+			{
+				free(buf2);
+				return (1);
+			}
+			perror("Minishell: error");
+			g_exit = 1;
+			free(buf2);
+			return (free_array(paths));
+		}
+		free(buf2);
+	}
+	return (1);
+}
 
 char	**special_path(const char *cmd)
 {
