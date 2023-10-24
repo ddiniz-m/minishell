@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 15:23:58 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:12:20 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,6 @@ int						dollar_error(char *str);
 // exec_built_ins.c
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
-
-// exec_utils.c
-//char					**path_init(t_minishell *ms);
-//char					*is_exec(char *str, char **paths);
-//void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 
 // redirections.c
 void					redirect_out(t_content *cmd, t_list *out, int append);
