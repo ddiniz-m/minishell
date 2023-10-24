@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/23 18:53:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:19:03 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void					env_override(char *str, t_list **env);
 
 // exit.c
 void					exit_status(char **args);
-void					ft_exit(t_minishell *ms, char **args, int exit);
+void					ft_exit(t_minishell *ms, char **args);
 
 // export.c
 t_list					**export_init(t_list **env);
