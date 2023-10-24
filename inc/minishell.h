@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 17:54:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:58:57 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct s_minishell
 	char			*str;
 	t_list			**env;
 	t_list			**exp;
-	int				running;
 	char			**paths;
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
+	int				cmd_in_fd;
 	int				cmd_count;
 	char			**main_arr;
 	t_cmdlist		*cmdlist;
