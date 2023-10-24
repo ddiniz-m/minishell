@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/23 12:52:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:51:43 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,4 @@ char	*add_quotes(char *str, char c)
 		buf[j++] = str[i++];
 	buf[j] = c;
 	return (buf);
-}
-
-// Trims str untils a $ is reached
-// Cases where there is stuff attached to var aaaaa$HOMEaaa
-char	*str_chr_trim(char *str)
-{
-	int		i;
-	int		size;
-	char	*buf1;
-
-	i = 0;
-	if (strlen_chr(str, '$') < strlen_chr(str, '\"'))
-		size = strlen_chr(str, '$');
-	else
-		size = strlen_chr(str, '\"');
-	buf1 = ft_calloc(sizeof(char), size + 1);
-	while (str[i] && str[i] != '$' && str[i] != '\"')
-	{
-		buf1[i] = str[i];
-		i++;
-	}
-	return (buf1);
 }

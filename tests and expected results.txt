@@ -66,9 +66,9 @@ echo $1HOME
 echo $_HOME
 echo '$'HOME
 echo "$"HOME
-*echo "$HOME'a"
-*echo $HOME"a"
+echo "$HOME'a"
+echo $HOME"a"
 echo "'$HOME'"
 echo $'HOME'
 echo $"HOME"
-
+echo $?
