@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:32:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:36:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int						meta_char(char c);
 void					parse_main(t_minishell *ms);
 
 //++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
-// cmd_path.c
+// exec.c
 void					exec(t_minishell *ms, char **cmd_arr);
 int						is_exec(char *cmd, char **paths);
 char					**special_path(const char *cmd);

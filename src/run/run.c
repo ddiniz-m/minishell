@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:25:23 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:35:09 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ int	find_cmd_pos(char **main_arr, int pos)
 	if (main_arr[pos] && main_arr[pos][0] && ft_strcmp(main_arr[pos], "|") == 0)
 		pos++;
 	return (pos);
-}
-
-void	reset_fds(t_minishell *ms)
-{
-	dup2(ms->fdout_buf, STDOUT_FILENO);
-	close(ms->fdout_buf);
-	dup2(ms->fdin_buf, STDIN_FILENO);
-	close(ms->fdin_buf);
 }
 
 void	run(t_minishell *ms)
@@ -62,7 +54,6 @@ void	run(t_minishell *ms)
 			g_exit = WEXITSTATUS(status);
 		cmds_run--;
 	}
-	reset_fds(ms);
 }
 
 void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
