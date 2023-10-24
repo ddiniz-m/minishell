@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:31:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:32:34 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,26 @@ int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
 
-//++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
+// parse_counter.c
+int						word_counter(char *str);
+
+// parse_split.c
+char					**split_main(t_minishell *ms, char *str);
+int						split_word(char *str);
+char					*split_temp(t_minishell *ms, char *str, int word_len);
+
+// parse_str.c
+int						str_plain(char *str, int i);
+int						str_quotes(char *str, char c, int i);
+int						str_envar(char *str, int i);
+int						str_others(char *str, int i);
+int						meta_char(char c);
+
+// parse.c
+void					parse_main(t_minishell *ms);
+
+//++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // cmd_path.c
 void					exec(t_minishell *ms, char **cmd_arr);
 int						is_exec(char *cmd, char **paths);
@@ -142,25 +161,6 @@ void					run(t_minishell *ms);
 void					child(t_minishell *ms, int *pipe_fd, int cmds_run, int \
 	pos);
 void					parent(t_minishell *ms, int *pipe_fd, int cmds_run);
-
-//++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
-// parse_counter.c
-int						word_counter(char *str);
-
-// parse_split.c
-char					**split_main(t_minishell *ms, char *str);
-int						split_word(char *str);
-char					*split_temp(t_minishell *ms, char *str, int word_len);
-
-// parse_str.c
-int						str_plain(char *str, int i);
-int						str_quotes(char *str, char c, int i);
-int						str_envar(char *str, int i);
-int						str_others(char *str, int i);
-int						meta_char(char c);
-
-// parse.c
-void					parse_main(t_minishell *ms);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
