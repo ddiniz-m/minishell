@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:27:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:49:53 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	exec(t_minishell *ms, char **cmd_arr)
 		built_ins(ms, cmd_arr, 0);
 		free_ms(ms);
 	}
-	if (ft_strncmp(cmd_arr[0], "../", 3) == 0 || ft_strncmp(cmd_arr[0], "./", 2) == 0 \
-		|| cmd_arr[0][0] == '/')
+	if (ft_strncmp(cmd_arr[0], "../", 3) == 0 || ft_strncmp(cmd_arr[0], "./", 2 \
+		) == 0 || cmd_arr[0][0] == '/')
 		paths = special_path(cmd_arr[0]);
 	else
 		paths = get_paths(ms->env);
@@ -86,7 +86,7 @@ char	**special_path(const char *cmd)
 			return (NULL);
 		}
 		paths[0] = ft_strjoin(buf, "/");
-		while(buf[i])
+		while (buf[i])
 			buf[i++] = 0;
 	}
 	if (cmd[0] == '/')

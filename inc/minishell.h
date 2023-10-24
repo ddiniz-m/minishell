@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:36:33 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:54:20 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,6 @@ int						str_envar(char *str, int i);
 int						str_others(char *str, int i);
 int						meta_char(char c);
 
-// parse.c
-void					parse_main(t_minishell *ms);
-
 //++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
 // exec.c
 void					exec(t_minishell *ms, char **cmd_arr);
@@ -158,8 +155,8 @@ void					heredoc(char *limiter);
 
 // run.c
 void					run(t_minishell *ms);
-void					child(t_minishell *ms, int *pipe_fd, int cmds_run, int \
-	pos);
+void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
+	int pos);
 void					parent(t_minishell *ms, int *pipe_fd, int cmds_run);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++

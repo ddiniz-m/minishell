@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 17:41:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:48:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	redirect_out(t_list *out, int append)
 
 void	redirect_in(t_list *in)
 {
-	int fd;
+	int	fd;
 
 	while (in)
 	{

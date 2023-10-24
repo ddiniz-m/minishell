@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:35:09 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:47:44 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,18 @@
 
 int	find_cmd_pos(char **main_arr, int pos)
 {
-	while (main_arr[pos] && main_arr[pos][0] && ft_strcmp(main_arr[pos], "|") !=\
-		0)
+	while (main_arr[pos] && main_arr[pos][0] && ft_strcmp(main_arr[pos], "|") \
+		!= 0)
 		pos++;
 	if (main_arr[pos] && main_arr[pos][0] && ft_strcmp(main_arr[pos], "|") == 0)
 		pos++;
 	return (pos);
 }
 
-void	run(t_minishell *ms)
+void	get_exit_status(pid_t pid, int cmds_run)
 {
-	int		pipe_fd[2];
-	int		cmds_run;
-	int		pos = 0;
-	int		status;
-	pid_t	pid;
+	int	status;
 
-	cmds_run = 0;
-	if (!ms->cmdlist)
-		return ;
-	while (cmds_run < ms->cmd_count)
-	{
-		if (pipe(pipe_fd) < 0)
-		{} // pipe error
-		pid = fork();
-		if (pid < 0)
-		{} // fork error
-		if (pid == 0)
-			child(ms, pipe_fd, cmds_run, pos);
-		else
-			parent(ms, pipe_fd, cmds_run);
-		pos = find_cmd_pos(ms->main_arr, pos);
-		cmds_run++;
-	}
 	while (cmds_run > 0)
 	{
 		wait(&status);
@@ -54,6 +33,34 @@ void	run(t_minishell *ms)
 			g_exit = WEXITSTATUS(status);
 		cmds_run--;
 	}
+}
+
+void	run(t_minishell *ms)
+{
+	int		pipe_fd[2];
+	int		cmds_run;
+	int		pos;
+	pid_t	pid;
+
+	cmds_run = 0;
+	pos = 0;
+	if (!ms->cmdlist)
+		return ;
+	while (cmds_run < ms->cmd_count)
+	{
+		if (pipe(pipe_fd) < 0)
+			;// pipe error
+		pid = fork();
+		if (pid < 0)
+			;// fork error
+		if (pid == 0)
+			child(ms, pipe_fd, cmds_run, pos);
+		else
+			parent(ms, pipe_fd, cmds_run);
+		pos = find_cmd_pos(ms->main_arr, pos);
+		cmds_run++;
+	}
+	get_exit_status(pid, cmds_run);
 }
 
 void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
@@ -68,12 +75,12 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		cmd = cmd->next;
 		i--;
 	}
-	if (cmds_run != 0) // Redirect input from the previous command or file
+	if (cmds_run != 0)
 	{
 		dup2(ms->cmd_in_fd, STDIN_FILENO);
 		close(ms->cmd_in_fd);
 	}
-	if (cmds_run < ms->cmd_count - 1) // Redirect output to the next command or file
+	if (cmds_run < ms->cmd_count - 1)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
