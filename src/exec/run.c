@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:14:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:23:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,14 @@ void	reset_fds(t_minishell *ms)
 
 void	run(t_minishell *ms)
 {
-	t_cmdlist	*cmd;
 	int		pipe_fd[2];
-	int		counter;
-	int		cmds_run = 0;
+	int		cmds_run;
 	int		pos = 0;
 	int		status;
 	pid_t	pid;
 
-	cmd = ms->cmdlist;
-	counter = ms->cmd_count;
-	if (!cmd)
+	cmds_run = 0;
+	if (!ms->cmdlist)
 		return ;
 	while (cmds_run < ms->cmd_count)
 	{
@@ -112,30 +109,16 @@ void	run(t_minishell *ms)
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else
-		{
-			if (ms->cmd_count == 1)
-			{
-				if (is_built_in(cmd->content->cmd_flags[0]))
-					built_ins(ms, cmd->content->cmd_flags, 0);
-			}
-			pos = find_cmd_pos(ms->main_arr, pos);
-			cmd = cmd->next;
-			if (cmds_run > 0)
-				close(ms->cmd_in_fd);
-			if (cmds_run < ms->cmd_count - 1)
-			{
-				close(pipe_fd[1]);
-				ms->cmd_in_fd = pipe_fd[0];
-			}
-		}
+			parent(ms, pipe_fd, cmds_run);
+		pos = find_cmd_pos(ms->main_arr, pos);
 		cmds_run++;
 	}
-	while (counter > 0)
+	while (cmds_run > 0)
 	{
 		wait(&status);
 		if (pid != -1 && WIFEXITED(status))
 			g_exit = WEXITSTATUS(status);
-		counter--;
+		cmds_run--;
 	}
 	reset_fds(ms);
 }
@@ -167,4 +150,30 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		exit(g_exit);
 	redirect(cmd->content, ms->main_arr, pos);
 	exec(ms, cmd->content->cmd_flags);
+}
+
+void	parent(t_minishell *ms, int *pipe_fd, int cmds_run)
+{
+	t_cmdlist	*cmd;
+	int			i;
+
+	cmd = ms->cmdlist;
+	i = cmds_run;
+	while (i > 0)
+	{
+		cmd = cmd->next;
+		i--;
+	}
+	if (ms->cmd_count == 1)
+	{
+		if (is_built_in(cmd->content->cmd_flags[0]))
+			built_ins(ms, cmd->content->cmd_flags, 0);
+	}
+	if (cmds_run > 0)
+		close(ms->cmd_in_fd);
+	if (cmds_run < ms->cmd_count - 1)
+	{
+		close(pipe_fd[1]);
+		ms->cmd_in_fd = pipe_fd[0];
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:11:19 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:22:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void					heredoc(char *limiter);
 void					run(t_minishell *ms);
 void					child(t_minishell *ms, int *pipe_fd, int cmds_run, int \
 	pos);
+void					parent(t_minishell *ms, int *pipe_fd, int cmds_run);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
