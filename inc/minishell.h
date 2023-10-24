@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 15:19:03 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:23:58 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,6 @@ void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 //char					*is_exec(char *str, char **paths);
 //void					last_cmd(t_minishell *ms, t_cmdlist *cmdlist, int i);
 
-// exec.c
-//void					exec(t_minishell *ms, t_cmdlist *cmdlist);
-//void					child_process(t_minishell *ms, t_cmdlist *cmdlist, \
-//	int *pipe_fd, int i);
-//void					parent_process(int *pipe_fd);
-
 // redirections.c
 void					redirect_out(t_content *cmd, t_list *out, int append);
 void					redirect_in(t_content *cmd, t_list *in);
@@ -144,10 +138,7 @@ void					redirect(t_content *cmd, char **main_arr, int pos);
 // heredoc.c
 void					heredoc(char *limiter);
 
-// run_pipes.c
-//int						run(t_minishell *ms);
-
-//another_run.c
+// run.c
 void	run(t_minishell *ms);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
