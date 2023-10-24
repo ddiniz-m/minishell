@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 17:12:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:17:32 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ int						pipe_error(char *str);
 int						dollar_error(char *str);
 
 //++++++++++++++++ exec/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+// cmd_path.c
+char					**special_path(const char *cmd);
+char					**get_paths(t_list **env);
+char					*get_cmd_path(char **paths, char *cmd);
+
 // exec_built_ins.c
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
