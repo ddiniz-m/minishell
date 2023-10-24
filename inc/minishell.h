@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 17:17:32 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:52:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ extern int	g_exit;
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_content
 {
-	int		fd_in;
-	int		fd_out;
 	t_list	*input;
 	t_list	*output;
 	t_list	*append;
@@ -58,7 +56,6 @@ typedef struct s_cmdlist
 typedef struct s_minishell
 {
 	char			*str;
-	int				words;
 	t_list			**env;
 	t_list			**exp;
 	int				running;
@@ -131,19 +128,19 @@ int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 
 // redirections.c
-void					redirect_out(t_content *cmd, t_list *out, int append);
-void					redirect_in(t_content *cmd, t_list *in);
+void					redirect_out(t_list *out, int append);
+void					redirect_in(t_list *in);
 void					redirect(t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
 void					heredoc(char *limiter);
 
 // run.c
-void	run(t_minishell *ms);
+void					run(t_minishell *ms);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
-void					str_counter(t_minishell *ms, char *str);
+int						word_counter(char *str);
 
 // parse_split.c
 char					**split_main(t_minishell *ms, char *str);
