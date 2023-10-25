@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/25 14:50:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:14:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	redirect_in(t_list *in)
 	}
 }
 
-void	redirect(t_content *cmd, char **main_arr, int pos)
+void	redirect(t_minishell *ms, t_content *cmd, char **main_arr, int pos)
 {
 	t_content	*tmp_cmd;
 	t_list		*here_buf;
@@ -71,6 +71,7 @@ void	redirect(t_content *cmd, char **main_arr, int pos)
 
 	tmp_cmd = cmd;
 	tmp_pos = pos;
+	here_buf = tmp_cmd->heredoc;
 	while (main_arr[tmp_pos] && main_arr[tmp_pos][0] && ft_strcmp(main_arr[\
 		tmp_pos], "|") != 0)
 	{
@@ -82,10 +83,8 @@ void	redirect(t_content *cmd, char **main_arr, int pos)
 			redirect_in(tmp_cmd->input);
 		if (ft_strcmp(main_arr[tmp_pos], "<<") == 0)
 		{
-			heredoc(tmp_cmd->heredoc->data);
-			here_buf = tmp_cmd->heredoc->next;
-			free(tmp_cmd->heredoc);
-			tmp_cmd->heredoc = here_buf;
+			heredoc(ms, here_buf->data);
+			here_buf = here_buf->next;
 		}
 		tmp_pos++;
 	}

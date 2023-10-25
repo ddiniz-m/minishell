@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/25 15:32:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:56:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int						meta_char(char c);
 void					exec(t_minishell *ms, char **cmd_arr);
 int						is_exec(char *cmd, char **paths);
 char					**special_path(const char *cmd);
-char					**get_paths(t_list **env);
+char					**get_paths(t_list **env, char *cmd);
 char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
@@ -156,10 +156,10 @@ void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 void					reset_fds(t_minishell *ms);
 void					redirect_out(t_list *out, int append);
 void					redirect_in(t_list *in);
-void					redirect(t_content *cmd, char **main_arr, int pos);
+void					redirect(t_minishell *ms, t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
-void					heredoc(char *limiter);
+void					heredoc(t_minishell *ms, char *limiter);
 
 // run.c
 void					run(t_minishell *ms);
