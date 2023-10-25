@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:47:44 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:49:44 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void	run(t_minishell *ms)
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else
-			parent(ms, pipe_fd, cmds_run);
+			parent(ms, pipe_fd, cmds_run, pos);
 		pos = find_cmd_pos(ms->main_arr, pos);
 		cmds_run++;
 	}
 	get_exit_status(pid, cmds_run);
+	reset_fds(ms);
 }
 
 void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
@@ -92,7 +93,7 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	exec(ms, cmd->content->cmd_flags);
 }
 
-void	parent(t_minishell *ms, int *pipe_fd, int cmds_run)
+void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 {
 	t_cmdlist	*cmd;
 	int			i;
@@ -107,7 +108,10 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run)
 	if (ms->cmd_count == 1)
 	{
 		if (is_built_in(cmd->content->cmd_flags[0]))
+		{
+			redirect(cmd->content, ms->main_arr, pos);
 			built_ins(ms, cmd->content->cmd_flags, 0);
+		}
 	}
 	if (cmds_run > 0)
 		close(ms->cmd_in_fd);

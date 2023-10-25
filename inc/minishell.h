@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 18:54:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:50:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 
 // redirections.c
+void					reset_fds(t_minishell *ms);
 void					redirect_out(t_list *out, int append);
 void					redirect_in(t_list *in);
 void					redirect(t_content *cmd, char **main_arr, int pos);
@@ -157,7 +158,8 @@ void					heredoc(char *limiter);
 void					run(t_minishell *ms);
 void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
-void					parent(t_minishell *ms, int *pipe_fd, int cmds_run);
+void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
+	int pos);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c

@@ -6,13 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 18:48:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:50:04 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	set_fd(t_minishell *ms)
+void	reset_fds(t_minishell *ms)
 {
 	dup2(ms->fdout_buf, STDOUT_FILENO);
 	close(ms->fdout_buf);
@@ -27,9 +27,9 @@ void	redirect_out(t_list *out, int append)
 	while (out)
 	{
 		if (append == 0)
-			fd = open(out->data, O_CREAT | O_RDWR | O_TRUNC, 0666);
+			fd = open(out->data, O_CREAT | O_RDWR | O_TRUNC, 0664);
 		else
-			fd = open(out->data, O_CREAT | O_RDWR | O_APPEND, 0666);
+			fd = open(out->data, O_CREAT | O_RDWR | O_APPEND, 0664);
 		if (fd < 0)
 		{
 			write(2, "Minishell: ", 11);
