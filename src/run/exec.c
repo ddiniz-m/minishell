@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/25 16:26:00 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:26:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	**env;
 
 	if (!cmd_arr || !cmd_arr[0])
-		exit (g_exit);
+		free_ms(ms);
 	if (is_built_in(cmd_arr[0]))
 	{
 		built_ins(ms, cmd_arr, 0);
