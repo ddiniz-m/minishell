@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/18 17:32:02 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:34:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int	main(int ac, char **av, char **envp)
 /*	To do:
 	- `export VAR` should create an environment variable VAR when there isn't
 		already one
-	- Return error message when command is invalid
 	- Figure out where/how we are gonna substitute ($VAR) by it's actual value
  */
