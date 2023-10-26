@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 16:36:28 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:51:36 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,6 @@ void	export(char **arr, t_list **export, t_list **env)
 		{
 			i++;
 			continue ;
-		}
-		if (ft_strchr(arr[i], '='))
-		{
-			buf = ft_strdup(arr[i]);
-			node = ft_lstnew(buf);
-			ft_lstadd_back(env, node);
 		}
 		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
