@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 15:46:04 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:41:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	export_override(char *str, t_list **export)
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (!ft_strchr(buf, '=') && ft_strcmp(tmp->data, buf) == 0)
+		if (!ft_strchr(buf, '=') && strcmp_nochr(buf, tmp->data, '=') == 0)
 			break ;
-		if (strcmp_chr((char *)tmp->data, buf, '=') == 0
-			|| ft_strcmp((char *)tmp->data, buf) == 0)
+		if (strcmp_chr(tmp->data, buf, '=') == 0 || (!ft_strchr(tmp->data, '=') \
+			&& strcmp_nochr(tmp->data, buf, '=') == 0))
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(buf);
@@ -141,12 +141,6 @@ void	export(char **arr, t_list **export, t_list **env)
 		{
 			i++;
 			continue ;
-		}
-		if (ft_strchr(arr[i], '='))
-		{
-			buf = ft_strdup(arr[i]);
-			node = ft_lstnew(buf);
-			ft_lstadd_back(env, node);
 		}
 		node = ft_lstnew(export_str(arr[i]));
 		ft_lstadd_back(export, node);
