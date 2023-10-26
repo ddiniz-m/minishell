@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 16:27:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:36:28 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	export_override(char *str, t_list **export)
 	buf = export_str(str);
 	while (tmp)
 	{
-		if (!ft_strchr(buf, '=') && ft_strcmp(tmp->data, buf) == 0)
+		if (!ft_strchr(buf, '=') && strcmp_nochr(buf, tmp->data, '=') == 0)
 			break ;
-		if (strcmp_chr((char *)tmp->data, buf, '=') == 0
-			|| ft_strcmp((char *)tmp->data, buf) == 0)
+		if (strcmp_chr(tmp->data, buf, '=') == 0 || (!ft_strchr(tmp->data, '=') \
+			&& strcmp_nochr(tmp->data, buf, '=') == 0))
 		{
 			free(tmp->data);
 			tmp->data = ft_strdup(buf);
