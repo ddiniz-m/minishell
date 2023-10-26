@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/25 17:10:29 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:28:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ void heredoc(t_minishell *ms, char *limiter)
 	fd = open(filename, O_RDONLY);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	unlink("/tmp/tempfilexxxxxxxxxxxxxxxxx");
+	unlink(filename);
 }
