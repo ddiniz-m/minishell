@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/20 17:47:05 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:45:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	exit_status(char **args)
 	so that I can add 1 to LLONG_MAX on line 91.33. (since exit_atoull() converts
 	n to an unsigned number).
 */
-void	ft_exit(t_minishell *ms, char **args, int exit)
+void	ft_exit(t_minishell *ms, char **args)
 {
 	int		neg;
 
@@ -111,6 +111,5 @@ void	ft_exit(t_minishell *ms, char **args, int exit)
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
 			g_exit = (int)exit_atoull(args[1]);
 	}
-	if (!exit)
-		free_ms(ms);
+	free_ms(ms);
 }

@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:28:49 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/22 16:49:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:46:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	str_quotes(char *str, char c, int i)
 		while (str[i] && str[i] != c)
 			i++;
 		if (!str[i])
-			return (i); // Should stop the process and syntax error
+			return (i);
 		i++;
 		if (str[i] && !meta_char(str[i]))
 			return (str_plain(str, i));

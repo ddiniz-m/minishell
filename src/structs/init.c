@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/19 10:51:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:46:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 	i = 0;
 	cmd_n = 0;
-	//printf("\nCMD_COUNT = %i\n", ms->cmd_count);
 	if (ms->cmd_count <= 0)
 		return (NULL);
 	cmdlist = NULL;
@@ -68,13 +67,11 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 
 void	var_init(t_minishell *ms)
 {
-	ms->words = 0;
+	ms->cmd_in_fd = 0;
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
-	str_counter(ms, ms->str);
 	ms->main_arr = split_main(ms, ms->str);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	//cmdlist_print(&ms->cmdlist);
 }
