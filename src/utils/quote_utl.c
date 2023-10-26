@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utl2.c                                         :+:      :+:    :+:   */
+/*   quote_utl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 14:51:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:03:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,25 @@ char	*add_quotes(char *str, char c)
 		buf[j++] = str[i++];
 	buf[j] = c;
 	return (buf);
+}
+
+// Returns 1 if there are open quotes
+// Returns 0 if there are closed quotes
+int	closed_quotes(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == c)
+	{
+		i++;
+		while (str[i] && str[i] != c)
+			i++;
+		i++;
+	}
+	if (i == (int)ft_strlen(str))
+		return (0);
+	return (1);
 }

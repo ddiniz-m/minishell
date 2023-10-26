@@ -6,53 +6,97 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 15:49:13 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:57:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 char	**var_split(char *str);
-char	*add_quotes(char *str, char c);
-char	*remove_quotes(char *str, char c);
 char	*var_iter(t_list **env, char *var);
-char	*double_single(char *str, t_list **env);
 
-//Takes str without quotes, removes anything else that needs removing and calls
-//	var_iter to compare str with env variables.
-char	*replace_str(char *str, t_list **env, int flag)
+char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 {
+	char	*res;
 	char	*buf1;
 	char	*buf2;
 
 	buf2 = NULL;
-	buf1 = ft_strdup(str);
-	if (!buf1)
-		return (buf1);
-	if (strchr_malloc(buf1, '$') && flag == 0)
-		buf2 = replacer(buf1, env, flag);
-	else if (flag == 1)
-		buf2 = double_single(buf1, env);
-	else
-		buf2 = var_iter(env, buf1);
+	if (ft_strcmp(str, "$") == 0 || (str[1] && !ft_isalnum(str[1])
+			&& str[1] != '_' && str[1] != '\\') || str[1] == '?')
+	{
+		res = ft_strjoin(buf, str);
+		return (res);
+	}
+	buf1 = ft_strtrim(str, "$");
+	buf2 = replace_str(buf1, env);
+	if (flag == 2)
+	{
+		free(buf1);
+		buf1 = ft_strdup(buf2);
+		free(buf2);
+		buf2 = add_quotes(buf1, '\'');
+	}
+	res = ft_strjoin(buf, buf2);
 	free(buf1);
-	if (!buf2)
-		return (NULL);
-	return (buf2);
+	free(buf2);
+	return (res);
 }
+
+char	*replace_quotes(char *str, char *buf, t_list **env, int flag)
+{
+	char	*res;
+	char	*buf1;
+
+	res = NULL;
+	buf1 = NULL;
+	if (str[0] == '\'')
+		res = replace_single(str, buf, env, flag);
+	else if (str[0] == '\"')
+	{
+		res = remove_quotes(str, '\"');
+		buf1 = replacer(res, env, 1);
+		free(res);
+		res = ft_strjoin(buf, buf1);
+	}
+	else
+		res = ft_strjoin(buf, str);
+	free(buf1);
+	return (res);
+}
+
 
 char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
 {
 	char	*res;
+	char	*buf2;
 	
 	res = NULL;
+	buf2 = NULL;
 	if (str[0] == '$')
-		res = replace_dollar(str, buf1, env);
-	else if (str[0] == '\"' || (str[0] == '\'' && flag == 0))
-		res = replace_quotes(str, buf1, env);
+		res = replace_dollar(str, buf1, env, flag);
+	else if (meta_char(str[0]) == 3)
+		res = replace_quotes(str, buf1, env, flag);
+	else if (flag == 2)
+	{
+		buf2 = add_quotes(str, '\'');
+		res = ft_strjoin(buf1, buf2);
+		free(buf2);
+	}
 	else
 		res = ft_strjoin(buf1, str);
 	return (res);
+}
+
+int special_cases(char **arr, int i)
+{
+	if (ft_strcmp(arr[i], "$") == 0 && arr[i + 1] && arr[i + 1][0] 
+		&& meta_char(arr[i + 1][0]) != 3)
+		return (1);
+	if (ft_strcmp(arr[i], "\'") == 0 && arr[i + 1] && arr[i + 1][0] 
+		&& arr[i + 1][0] == '$')
+		return (1);
+	return (0);
 }
 
 //Joins all substituted strings from the split str
@@ -68,12 +112,12 @@ char	*replacer(char *str, t_list **env, int flag)
 	arr = var_split(str);
 	if (!arr)
 		return (NULL);
+	arr_print(NULL, arr);
 	while (arr[i])
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (ft_strcmp(arr[i], "$") == 0 && arr[i + 1] 
-			&& meta_char(arr[i + 1][0]) != 3 && arr[i + 1][0] != '?')
+		if (special_cases(arr, i))
 			res = NULL;
 		else
 			res = replace_cond(arr[i], buf1, env, flag);
@@ -98,15 +142,12 @@ void	env_var(t_minishell *ms, t_list **env, char **arr)
 	i = 0;
 	while (i < arr_size(arr))
 	{
-		if (strchr_malloc(arr[i], '$'))
-		{
-			buf = ft_strdup(arr[i]);
-			free(arr[i]);
-			arr[i] = replacer(buf, env, 0);
-			if (!arr[i])
-				malloc_error(ms);
-			free(buf);
-		}
+		buf = ft_strdup(arr[i]);
+		free(arr[i]);
+		arr[i] = replacer(buf, env, 0);
+		if (!arr[i])
+			malloc_error(ms);
+		free(buf);
 		i++;
 	}
 }

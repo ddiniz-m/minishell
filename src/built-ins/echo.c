@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 16:01:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:45:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-//Returns 1 if there are quotes after str[i]
+/* //Returns 1 if there are quotes after str[i]
 //Returns 0 otherwise
 int	quote_ends(char *str, int i, char c)
 {
@@ -62,14 +62,11 @@ int	quote_print_char(char *str, char c, int i)
 	}
 	i++;
 	return (i);
-}
+} */
 
-int		echo_print_cond(char **cmd_flags, int pos, int i)
+int	echo_print_cond(char **cmd_flags, int pos, int i)
 {
-	if (cmd_flags[pos][i] == '$' && cmd_flags[pos][i + 1] 
-			&& meta_char(cmd_flags[pos][i + 1]) == 3)
-		i++;
-	else if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
+	if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
 		&& (cmd_flags[pos][i + 1]) == '?')
 	{
 		printf("%i", g_exit);
@@ -88,12 +85,7 @@ void	echo_print(char **cmd_flags, int pos)
 		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
 			i = echo_print_cond(cmd_flags, pos, i);
-			if (cmd_flags[pos][i] == '\'')
-				i = quote_print_char(cmd_flags[pos], '\'', i);
-			else if (cmd_flags[pos][i] == '\"')
-				i = quote_print_char(cmd_flags[pos], '\"', i);
-			else
-				printf("%c", cmd_flags[pos][i++]);
+			printf("%c", cmd_flags[pos][i++]);
 		}
 		pos++;
 		if (cmd_flags && pos != arr_size(cmd_flags))

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/24 15:46:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:14:16 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,15 +169,14 @@ int						meta_char(char c);
 void					parse_main(t_minishell *ms);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
-// replacer_chr.c
-char					*replace_quotes(char *str, char *buf, t_list **env);
-char					*replace_dollar(char *str, char *buf, t_list **env);
-
 // replacer_utl.c
+char					*replace_str(char *str, t_list **env);
+char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*var_iter(t_list **env, char *var);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
-char					*replace_str(char *str, t_list **env, int flag);
+char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
 char					*replacer(char *str, t_list **env, int flag);
 void					env_var(t_minishell *ms, t_list **env, char **arr);
 
@@ -219,6 +218,7 @@ int						strcmp_nochr(char *s1, char *s2, char c);
 // quote_utl.c
 char					*add_quotes(char *str, char c);
 char					*remove_quotes(char *str, char c);
+int						closed_quotes(char *str, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c

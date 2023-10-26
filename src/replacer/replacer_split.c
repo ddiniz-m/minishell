@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_split_utl.c                                    :+:      :+:    :+:   */
+/*   replacer_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/23 13:36:53 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:13:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 int	skip_quotes(char *str, int pos);
-int	skip_var(char *str, int pos);
+
+int	skip_var(char *str, int pos)
+{
+	if (str[pos] == '$')
+	{
+		pos++;
+		if (str[pos] && str[pos] >= 48 && str[pos] <= 57)
+			pos++;
+		else if (str[pos] && (ft_isalpha(str[pos]) || str[pos] == '_'))
+		{
+			pos++;
+			while (str[pos] && (ft_isalnum(str[pos]) || str[pos] == '_'))
+				pos++;
+		}
+	}
+	return (pos);
+}
 
 //Returns how many "words" it'll split str into
 int	var_split_size(char *str)
@@ -29,6 +45,8 @@ int	var_split_size(char *str)
 		if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
+		else if (str[i] == '\'' && closed_quotes(str, '\''))
+			i++;
 		else if (meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
 		else if (str[i] == '$')
@@ -47,6 +65,8 @@ int	var_split_word_size(char *str, int prev)
 	i = prev;
 	if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 		while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
+			i++;
+	else if (str[i] == '\'' && closed_quotes(str, '\''))
 			i++;
 	else if (meta_char(str[i]) == 3)
 		i = skip_quotes(str, i);
