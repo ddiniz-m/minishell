@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 17:08:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/17 16:57:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:48:44 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_list	**env_init(char **envp)
 void	env_override(char *str, t_list **env)
 {
 	t_list	*tmp;
+	t_list	*node;
 
 	tmp = *env;
 	while (tmp)
@@ -49,5 +50,10 @@ void	env_override(char *str, t_list **env)
 			break ;
 		}
 		tmp = tmp->next;
+	}
+	if (!tmp && ft_strchr(str, '='))
+	{
+		node = ft_lstnew(ft_strdup(str));
+		ft_lstadd_back(env, node);
 	}
 }
