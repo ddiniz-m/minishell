@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/25 16:56:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:08:20 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
 void					reset_fds(t_minishell *ms);
 void					redirect_out(t_list *out, int append);
 void					redirect_in(t_list *in);
-void					redirect(t_minishell *ms, t_content *cmd, char **main_arr, int pos);
+void					redirect(t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
-void					heredoc(t_minishell *ms, char *limiter);
+char					*heredoc(t_minishell *ms, char *limiter, int here_num);
 
 // run.c
 void					run(t_minishell *ms);
@@ -176,6 +176,7 @@ int						cmd_count(char **arr);
 
 // content.c
 t_list					*redir_lst(char **arr, int index, char *limiter);
+t_list					*hdoc_lst(t_minishell *ms, char **arr, int index);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c

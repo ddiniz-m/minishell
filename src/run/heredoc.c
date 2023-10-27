@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 15:28:08 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:16:03 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,36 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 	}
 	close(fd);
 	free(line);
+	exit (g_exit);
 	free_ms(ms);
 }
 
-void heredoc(t_minishell *ms, char *limiter)
+char	*create_file(int here_num)
+{
+	int		i;
+	char	*buf;
+	char	*filename;
+
+	i = 0;
+	buf = NULL;
+	filename = ft_strdup("/tmp/tmpxxx");
+	while (i < here_num)
+	{
+		buf = ft_strdup(filename);
+		free(filename);
+		filename = ft_strjoin(buf, "x");
+		free(buf);
+		i++;
+	}
+	return (filename);
+}
+
+char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 {
 	char	*filename;
 	pid_t	pid;
-	int		fd;
 
-	filename = "/tmp/tempfilexxxxxxxxxxxxxxxxx";
+	filename = create_file(here_num);
 	restore_stdin();
 	pid = fork();
 	if (pid < 0)
@@ -78,8 +98,5 @@ void heredoc(t_minishell *ms, char *limiter)
 		heredoc_child(ms, filename, limiter);
 	else
 		waitpid(pid, NULL, 0);
-	fd = open(filename, O_RDONLY);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	unlink(filename);
+	return (filename);
 }

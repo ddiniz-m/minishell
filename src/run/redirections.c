@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/25 17:14:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:08:11 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ void	redirect_in(t_list *in)
 	}
 }
 
-void	redirect(t_minishell *ms, t_content *cmd, char **main_arr, int pos)
+void	redirect(t_content *cmd, char **main_arr, int pos)
 {
+	int			i;
+	int			tmp_pos;
 	t_content	*tmp_cmd;
 	t_list		*here_buf;
-	int			tmp_pos;
 
+	i = 0;
 	tmp_cmd = cmd;
 	tmp_pos = pos;
 	here_buf = tmp_cmd->heredoc;
@@ -82,10 +84,7 @@ void	redirect(t_minishell *ms, t_content *cmd, char **main_arr, int pos)
 		if (ft_strcmp(main_arr[tmp_pos], "<") == 0)
 			redirect_in(tmp_cmd->input);
 		if (ft_strcmp(main_arr[tmp_pos], "<<") == 0)
-		{
-			heredoc(ms, here_buf->data);
-			here_buf = here_buf->next;
-		}
+			redirect_in(tmp_cmd->heredoc);
 		tmp_pos++;
 	}
 }
