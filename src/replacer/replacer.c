@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 11:48:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:54:18 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ char	*replace_quotes(char *str, char *buf, t_list **env, int flag)
 	return (res);
 }
 
-
 char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
 {
 	char	*res;
 	char	*buf2;
-	
+
 	res = NULL;
 	buf2 = NULL;
 	if (str[0] == '$')
