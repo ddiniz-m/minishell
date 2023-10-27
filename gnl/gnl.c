@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 16:48:39 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/10 12:02:41 by ddiniz-m         ###   ########.fr       */
-=======
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:48:39 by ddiniz-m          #+#    #+#             */
 /*   Updated: 2023/10/25 16:08:05 by mortins-         ###   ########.fr       */
->>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +32,3 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-<<<<<<< HEAD
-
-/* int	main(void)
-{
-	int fd;
-	char *line;
-
-	fd = open("gnl/test.txt", O_RDONLY);
-	printf("%d\n", fd);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		printf("%s", line);
-	}
-	close(fd);
-	return (0);
-} */
-=======
->>>>>>> main
