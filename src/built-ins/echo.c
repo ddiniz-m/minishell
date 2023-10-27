@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
 /*   Updated: 2023/10/26 12:45:18 by ddiniz-m         ###   ########.fr       */
@@ -28,41 +28,6 @@ int	echo_flag(char *str)
 		return (1);
 	return (0);
 }
-
-/* //Returns 1 if there are quotes after str[i]
-//Returns 0 otherwise
-int	quote_ends(char *str, int i, char c)
-{
-	i++;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	quote_print_char(char *str, char c, int i)
-{
-	if (quote_ends(str, i, c))
-	{
-		i++;
-		while (str[i] && str[i] != c)
-		{
-			if (c == '\"' && str[i] == '$' && (str[i + 1])
-				&& (str[i + 1]) == '?')
-			{
-				printf("%i", g_exit);
-				i += 2;
-			}
-			if (str[i])
-				printf("%c", str[i++]);
-		}
-	}
-	i++;
-	return (i);
-} */
 
 int	echo_print_cond(char **cmd_flags, int pos, int i)
 {
@@ -93,7 +58,7 @@ void	echo_print(char **cmd_flags, int pos)
 	}
 }
 
-int	echo(char **cmd_flags)
+int	ft_echo(char **cmd_flags)
 {
 	int		j;
 	int		cmds;

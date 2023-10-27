@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 12:01:20 by ddiniz-m          #+#    #+#             */
 /*   Updated: 2023/10/26 15:45:17 by mortins-         ###   ########.fr       */
+=======
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 12:01:20 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/10/10 12:03:20 by ddiniz-m         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +35,8 @@ char	*get_next_line(int fd);
 int		check_next_line(char *res);
 char	*get_lines(char *line, char res);
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> main

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:48:39 by ddiniz-m          #+#    #+#             */
 /*   Updated: 2023/10/10 12:02:41 by ddiniz-m         ###   ########.fr       */
+=======
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/15 16:48:39 by ddiniz-m          #+#    #+#             */
+/*   Updated: 2023/10/25 16:08:05 by mortins-         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +39,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
+<<<<<<< HEAD
 
 /* int	main(void)
 {
@@ -50,3 +58,5 @@ char	*get_next_line(int fd)
 	close(fd);
 	return (0);
 } */
+=======
+>>>>>>> main
