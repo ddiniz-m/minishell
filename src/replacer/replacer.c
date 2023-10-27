@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 14:57:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:48:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,6 @@ char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
 	return (res);
 }
 
-int special_cases(char **arr, int i)
-{
-	if (ft_strcmp(arr[i], "$") == 0 && arr[i + 1] && arr[i + 1][0] 
-		&& meta_char(arr[i + 1][0]) != 3)
-		return (1);
-	if (ft_strcmp(arr[i], "\'") == 0 && arr[i + 1] && arr[i + 1][0] 
-		&& arr[i + 1][0] == '$')
-		return (1);
-	return (0);
-}
-
 //Joins all substituted strings from the split str
 char	*replacer(char *str, t_list **env, int flag)
 {
@@ -112,12 +101,12 @@ char	*replacer(char *str, t_list **env, int flag)
 	arr = var_split(str);
 	if (!arr)
 		return (NULL);
-	arr_print(NULL, arr);
 	while (arr[i])
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (special_cases(arr, i))
+		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0
+			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
 			res = NULL;
 		else
 			res = replace_cond(arr[i], buf1, env, flag);

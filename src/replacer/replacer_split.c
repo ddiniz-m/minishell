@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:34:46 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/26 14:13:09 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:40:33 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	var_split_size(char *str)
 		if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
-		else if (str[i] == '\'' && closed_quotes(str, '\''))
-			i++;
+		/* else if (str[i] == '\'' && closed_quotes(str, '\''))
+			i++; */
 		else if (meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
 		else if (str[i] == '$')
@@ -66,8 +66,8 @@ int	var_split_word_size(char *str, int prev)
 	if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 		while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			i++;
-	else if (str[i] == '\'' && closed_quotes(str, '\''))
-			i++;
+	/* else if (str[i] == '\'' && closed_quotes(str, '\''))
+			i++; */
 	else if (meta_char(str[i]) == 3)
 		i = skip_quotes(str, i);
 	else if (str[i] == '$')
