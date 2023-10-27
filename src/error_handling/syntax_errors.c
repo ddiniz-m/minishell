@@ -40,9 +40,10 @@ int	end_of_string_error(char *str)
 				|| str[pos] == '|'))
 			return (write(2, \
 			"MiniShell: syntax error near unexpected token `newline'\n", 56));
-		if (meta_char(str[pos]) == 0 || meta_char(str[pos]) == 3)
+		else if (meta_char(str[pos]) == 1)
+			pos--;
+		else
 			break ;
-		pos--;
 	}
 	return (0);
 }
@@ -54,17 +55,18 @@ int	redir_error(char *str)
 	int	size;
 
 	i = 0;
-	size = ft_strlen(str);
-	while (i < size - 1)
+	size = ft_strlen(str) - 1;
+	while (i < size && str[i])
 	{
-		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '\''
-			&& str[i] != '\"')
+		while (str[i] && str[i] != '>' && str[i] != '<' \
+			&& meta_char(str[i]) != 3)
 			i++;
-		if (str[i])
-			i = skip_quotes(str, i) - 1;
-		if (str[i] && str[i] == '>')
-			if (str[++i] == '<')
-				return (token_message(str[i]));
+		if (str[i] && meta_char(str[i]) == 3)
+			i = skip_quotes(str, i);
+		if (str[i] && str[i + 1] && (str[i] == '>' && str[i + 1] == '<'))
+			return (token_message(str[i + 1]));
+		if (str[i] && str[i + 1] && (str[i] == '<' && str[i + 1] == '|'))
+			return (token_message(str[i + 1]));
 		i++;
 	}
 	return (0);
@@ -73,27 +75,24 @@ int	redir_error(char *str)
 //Checks for << | and for >> |
 int	double_redir_error(char *str)
 {
-	int	i;
-	int	size;
+	char	redir;
+	int		i;
+	int		size;
 
 	i = 0;
-	size = ft_strlen(str);
-	while (str[i] && i < size - 1)
+	size = ft_strlen(str) - 1;
+	while (i < size)
 	{
-		while (i < size - 1 && meta_char(str[i]) != 3 && str[i] != '>' \
+		while (i < size && meta_char(str[i]) != 3 && str[i] != '>' \
 			&& str[i] != '<')
 			i++;
-		if (str[i] && i < size)
-			i = skip_quotes(str, i) - 1;
-		i++;
-		if (str[i] && i < size && str[i] == '>')
+		if (str[i] && meta_char(str[i]) == 3)
+			i = skip_quotes(str, i);
+		if (str[i] && i < size && (str[i] == '>' || str[i] == '<'))
 		{
-			if (strcmp_chr(">>|", str + i, '|') || strcmp_chr(">> |", str + i, '|'))
-				return (token_message('|'));
-		}
-		if (str[i] && i < size && str[i] == '<')
-		{
-			if (strcmp_chr("<<|", str + i, '|') || strcmp_chr("<< |", str + i, '|'))
+			redir = str[i];
+			if (str[i + 1] == redir && (str[i + 2] == '|' || (str[i + 2] == ' ' \
+				&& str[i + 3] == '|')))
 				return (token_message('|'));
 		}
 		i++;
@@ -109,25 +108,25 @@ int	sucession_error(char *str)
 	int	size;
 
 	i = 0;
-	size = ft_strlen(str);
-	while (i < size - 1)
+	size = ft_strlen(str) - 1;
+	while (i < size)
 	{
-		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '\''
-			&& str[i] != '\"')
+		while (str[i] && str[i] != '<' && str[i] != '>' \
+			&& meta_char(str[i]) != 3)
 			i++;
-		if (i < size)
-			i = skip_quotes(str, i) - 1;
-		i++;
-		if (i < size && meta_char(str[i]) == 1)
-			while (str[i] && meta_char(str[i]) == 1)
-				i++;
-		else
+		if (str[i] && i < size && meta_char(str[i]) == 3)
+			i = skip_quotes(str, i);
+		if (str[i] && (str[i] == '<' || str[i] == '>'))
+		{
 			i++;
-		if (i < size)
-			i = skip_quotes(str, i) - 1;
-		if (i < size && meta_char(str[i]) == 2)
-			return (token_message(str[i]));
-		i++;
+			if (str[i] && i < size && meta_char(str[i]) == 1)
+			{
+				while (str[i] && i < size && meta_char(str[i]) == 1)
+					i++;
+				if (str[i] && meta_char(str[i]) == 2)
+					return (token_message(str[i]));
+			}
+		}
 	}
 	return (0);
 }
