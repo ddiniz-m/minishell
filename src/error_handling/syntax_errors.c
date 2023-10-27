@@ -37,8 +37,7 @@ int	end_of_string_error(char *str)
 	while (pos >= 0)
 	{
 		if (str[pos] && (str[pos] == '<' || str[pos] == '>'
-				|| str[pos] == '|') && str[pos] != '\"'
-			&& str[pos] != '\'')
+				|| str[pos] == '|'))
 			return (write(2, \
 			"MiniShell: syntax error near unexpected token `newline'\n", 56));
 		if (meta_char(str[pos]) == 0)
