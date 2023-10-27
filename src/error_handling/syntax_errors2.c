@@ -54,7 +54,6 @@ int	pipe_error(char *str)
 			i++;
 			while (str[i] && meta_char(str[i]) == 1)
 				i++;
-			i = skip_quotes(str, i);
 			if (str[i] && str[i] == '|')
 				return (token_message('|'));
 		}
