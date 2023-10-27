@@ -74,4 +74,7 @@ void	var_init(t_minishell *ms)
 	ms->cmd_count = cmd_count(ms->main_arr);
 	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
+	//arr_print("MAIN ARRAY:", ms->main_arr);
+	//cmdlist_print(&ms->cmdlist);
+
 }

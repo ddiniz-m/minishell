@@ -116,7 +116,7 @@ void					malloc_error(t_minishell *ms);
 int						begin_error(char *str);
 int						end_of_string_error(char *str);
 int						redir_error(char *str);
-int						double_redir_error(char *str, char c);
+int						double_redir_error(char *str);
 int						sucession_error(char *str);
 
 // syntax_errors2.c
