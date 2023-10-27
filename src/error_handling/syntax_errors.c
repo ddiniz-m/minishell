@@ -23,7 +23,6 @@ int	begin_error(char *str)
 	i = 0;
 	while (str[i] && meta_char(str[i]) == 1)
 		i++;
-	i = skip_quotes(str, i);
 	if (str[i] && str[i] == '|')
 		return (token_message(str[i]));
 	return (0);
@@ -37,7 +36,6 @@ int	end_of_string_error(char *str)
 	pos = ft_strlen(str) - 1;
 	while (pos >= 0)
 	{
-		pos = skip_rquotes(str, pos);
 		if (str[pos] && (str[pos] == '<' || str[pos] == '>'
 				|| str[pos] == '|') && str[pos] != '\"'
 			&& str[pos] != '\'')
