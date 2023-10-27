@@ -53,6 +53,8 @@ int	exit_format_error(char *arg)
 		else if (arg[i] && !n && (arg[i] == '-' || arg[i] == '+'))
 			n = 1;
 		else if (arg[i] && arg[i] != quotes && !ft_isdigit(arg[i]))
+			return (1);
+		else if (quotes && arg[i] && arg[i] == quotes)
 			quotes = 0;
 		i++;
 	}
