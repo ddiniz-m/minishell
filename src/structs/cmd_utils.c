@@ -49,9 +49,9 @@ int	cmd_args(char **arr, int pos)
 
 	i = pos;
 	counter = 0;
-	while (i < arr_size(arr))
+	while (arr[i] && i < arr_size(arr))
 	{
-		if (arr[i] && (arr[i][0] == '<' || arr[i][0] == '>'))
+		if (arr[i][0] == '<' || arr[i][0] == '>')
 			i += 2;
 		else if (ft_strcmp(arr[i], "|") == 0)
 			break ;
