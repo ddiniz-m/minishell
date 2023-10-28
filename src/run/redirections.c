@@ -31,14 +31,12 @@ void	redirect_out(t_list *out, int append)
 		else
 			fd = open(out->data, O_CREAT | O_RDWR | O_APPEND, 0664);
 		if (fd < 0)
+			open_error(out->data);
+		else
 		{
-			write(2, "Minishell: ", 11);
-			perror(out->data);
-			g_exit = errno;
-			//open error;
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
 		out = out->next;
 	}
 }
@@ -51,14 +49,12 @@ void	redirect_in(t_list *in)
 	{
 		fd = open(in->data, O_RDONLY);
 		if (fd < 0)
+			open_error(in->data);
+		else
 		{
-			write(2, "Minishell: ", 11);
-			perror(in->data);
-			g_exit = errno;
-			//open error;
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
 		in = in->next;
 	}
 }

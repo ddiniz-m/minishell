@@ -27,9 +27,7 @@ static void	restore_stdin(void)
 
 	terminal_fd = open("/dev/tty", O_RDWR);
 	if (terminal_fd < 0)
-	{
-		perror("open failed");
-	}
+		open_error(NULL);
 	dup2(terminal_fd, STDIN_FILENO);
 	close(terminal_fd);
 }
@@ -45,12 +43,11 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 	signal(SIGQUIT, SIG_IGN);
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
-		printf("open error\n"); //make actual error function
+		open_error(file);
 	write(STDOUT_FILENO, "> ", 2);
 	line = get_next_line(STDIN_FILENO);
 	while (line)
 	{
-		//printf("LINE: %s", line);
 		if (strcmp_nochr(limiter, line, '\n') == 0)
 			break ;
 		ft_putstr_fd(line, fd);

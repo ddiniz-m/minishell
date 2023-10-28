@@ -45,3 +45,11 @@ void	malloc_error(t_minishell *ms)
 	g_exit = 12;
 	free_ms(ms);
 }
+
+void	open_error(char	*filename)
+{
+	write(STDERR_FILENO, "Minishell: ", 11);
+	g_exit = errno;
+	perror(filename);
+	//does perror exit the shell lmao?
+}

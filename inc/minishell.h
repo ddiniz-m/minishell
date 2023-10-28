@@ -111,6 +111,7 @@ void					unset(t_list **env, t_list **exp, char **arr);
 int						syntax_error(t_minishell *ms);
 int						token_message(char token);
 void					malloc_error(t_minishell *ms);
+void					open_error(char	*filename);
 
 // syntax_errors.c
 int						begin_error(char *str);
