@@ -36,7 +36,6 @@ t_list	*hdoc_lst(t_minishell *ms, char **arr, int index)
 		else
 			index++;
 	}
-	list_print(&hdoc);
 	return (hdoc);
 }
 

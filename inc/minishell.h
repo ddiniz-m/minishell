@@ -223,6 +223,9 @@ int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
 
+// frees2.c
+void					free_list_and_data(t_list **list);
+
 // prompt.c
 char					*set_prompt(t_minishell *ms);
 
