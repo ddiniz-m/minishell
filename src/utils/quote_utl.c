@@ -26,19 +26,6 @@ int	skip_quotes(char *str, int pos)
 	return (pos);
 }
 
-int	skip_rquotes(char *str, int pos)
-{
-	char	quote;
-
-	if (meta_char(str[pos]) == 3)
-	{
-		quote = str[pos--];
-		while (str[pos] && str[pos] != quote)
-			pos--;
-	}
-	return (pos);
-}
-
 //Removes quotes from str. Used for case echo "'$HOME'"
 char	*remove_quotes(char *str, char c)
 {

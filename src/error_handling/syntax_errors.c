@@ -13,7 +13,6 @@
 #include "../../inc/minishell.h"
 
 int	skip_quotes(char *str, int i);
-int	skip_rquotes(char *str, int pos);
 
 //Checks for metachar at the start of str
 int	begin_error(char *str)
