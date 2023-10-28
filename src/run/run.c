@@ -49,10 +49,10 @@ void	run(t_minishell *ms)
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
-			;// pipe error
+			{}// pipe error
 		pid = fork();
 		if (pid < 0)
-			;// fork error
+			{}// fork error
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else

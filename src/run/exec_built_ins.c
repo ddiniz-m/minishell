@@ -14,6 +14,8 @@
 
 int	is_built_in(char *str)
 {
+	if (!str)
+		return (0);
 	if (ft_strcmp(str, "echo") == 0 || ft_strcmp(str, "cd") == 0
 		|| ft_strcmp(str, "pwd") == 0 || ft_strcmp(str, "export") == 0
 		|| ft_strcmp(str, "unset") == 0 || ft_strcmp(str, "env") == 0

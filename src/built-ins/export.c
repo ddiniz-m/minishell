@@ -129,11 +129,9 @@ int	export_override(char *str, t_list **export)
 void	export(char **arr, t_list **export, t_list **env)
 {
 	int		i;
-	char	*buf;
 	t_list	*node;
 
 	i = 1;
-	buf = NULL;
 	while (i < arr_size(arr))
 	{
 		env_override(arr[i], env);

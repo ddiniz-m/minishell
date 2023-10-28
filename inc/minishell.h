@@ -114,16 +114,16 @@ void					open_error(char	*filename);
 
 // syntax_errors.c
 int						token_message(char token);
-int						begin_error(char *str);
-int						end_of_string_error(char *str);
-int						redir_error(char *str);
-int						double_redir_error(char *str, char c);
+int						start_syntax(char *str);
+int						end_syntax(char *str);
+int						redir_syntax(char *str);
+int						double_redir_syntax(char *str);
 
 // syntax_errors2.c
-int						sucession_error(char *str);
-int						quote_error(char *str);
-int						pipe_error(char *str);
-int						dollar_error(char *str);
+int						sucession_syntax(char *str);
+int						quote_syntax(char *str);
+int						pipe_syntax(char *str);
+int						dollar_syntax(char *str);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
@@ -206,8 +206,15 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+int						strchr_malloc(char *s, char c);
 char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
+
+// quote_utl.c
+int						skip_quotes(char *str, int pos);
+char					*remove_quotes(char *str, char c);
+char					*add_quotes(char *str, char c);
+int						closed_quotes(char *str, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c

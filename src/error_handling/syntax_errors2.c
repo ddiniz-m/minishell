@@ -3,43 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/12 17:15:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:51:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+int	skip_quotes(char *str, int i);
+
 //Checks if there are any >, < or | in sucession (divided by whitespace)
 //Example: hello > > world; hello > | world: hello > < world
-int	sucession_error(char *str)
+int	sucession_syntax(char *str)
 {
 	int	i;
 	int	size;
 
 	i = 0;
-	size = ft_strlen(str);
-	while (i < size - 1)
+	size = ft_strlen(str) - 1;
+	while (i < size)
 	{
-		while (i < size && str[i] != '<' && str[i] != '>')
+		while (str[i] && str[i] != '<' && str[i] != '>' \
+			&& meta_char(str[i]) != 3)
 			i++;
-		i++;
-		if (i < size && meta_char(str[i]) == 1)
-			while (str[i] && meta_char(str[i]) == 1)
-				i++;
-		else
+		if (str[i] && i < size && meta_char(str[i]) == 3)
+			i = skip_quotes(str, i);
+		if (str[i] && (str[i] == '<' || str[i] == '>'))
+		{
 			i++;
-		if (i < size && meta_char(str[i]) == 2)
-			return (token_message(str[i]));
-		i++;
+			if (str[i] && i < size && meta_char(str[i]) == 1)
+			{
+				while (str[i] && i < size && meta_char(str[i]) == 1)
+					i++;
+				if (str[i] && meta_char(str[i]) == 2)
+					return (token_message(str[i]));
+			}
+		}
 	}
 	return (0);
 }
 
 // Checks for unclosed quote marks
-int	quote_error(char *str)
+int	quote_syntax(char *str)
 {
 	int		i;
 	char	c;
@@ -58,12 +65,13 @@ int	quote_error(char *str)
 				return (1);
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }
 
-int	pipe_error(char *str)
+int	pipe_syntax(char *str)
 {
 	int		i;
 
@@ -86,7 +94,7 @@ int	pipe_error(char *str)
 	return (0);
 }
 
-int	dollar_error(char *str)
+int	dollar_syntax(char *str)
 {
 	int		i;
 
