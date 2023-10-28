@@ -109,18 +109,18 @@ void					unset(t_list **env, t_list **exp, char **arr);
 //++++++++++++++++ error_handling/[.....] +++++++++++++++++++++++++++++++++++++
 // errors.c
 int						syntax_error(t_minishell *ms);
-int						token_message(char token);
 void					malloc_error(t_minishell *ms);
 void					open_error(char	*filename);
 
 // syntax_errors.c
+int						token_message(char token);
 int						begin_error(char *str);
 int						end_of_string_error(char *str);
 int						redir_error(char *str);
 int						double_redir_error(char *str, char c);
-int						sucession_error(char *str);
 
 // syntax_errors2.c
+int						sucession_error(char *str);
 int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);

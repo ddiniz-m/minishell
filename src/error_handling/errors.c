@@ -27,18 +27,6 @@ int	syntax_error(t_minishell *ms)
 	return (0);
 }
 
-int	token_message(char token)
-{
-	int	fd;
-
-	fd = dup(STDOUT_FILENO);
-	dup2(STDERR_FILENO, STDOUT_FILENO);
-	printf("MiniShell: syntax error near unexpected token '%c'\n", token);
-	dup2(fd, STDOUT_FILENO);
-	close(fd);
-	return (1);
-}
-
 void	malloc_error(t_minishell *ms)
 {
 	write(2, "Error: Malloc failed\n", 22);

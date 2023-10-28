@@ -12,6 +12,18 @@
 
 #include "../../inc/minishell.h"
 
+int	token_message(char token)
+{
+	int	fd;
+
+	fd = dup(STDOUT_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("MiniShell: syntax error near unexpected token '%c'\n", token);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	return (1);
+}
+
 //Checks for metachar at the start of str
 int	begin_error(char *str)
 {
@@ -82,32 +94,6 @@ int	double_redir_error(char *str, char c)
 			i++;
 		if (i < size && ((str[i] == '|' && str[i - 1] == '<') || \
 			(meta_char(str[i]) == 2 && meta_char(str[i - 1]) == 1)))
-			return (token_message(str[i]));
-		i++;
-	}
-	return (0);
-}
-
-//Checks if there are any >, < or | in sucession (divided by whitespace)
-//Example: hello > > world; hello > | world: hello > < world
-int	sucession_error(char *str)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	size = ft_strlen(str);
-	while (i < size - 1)
-	{
-		while (i < size && str[i] != '<' && str[i] != '>')
-			i++;
-		i++;
-		if (i < size && meta_char(str[i]) == 1)
-			while (str[i] && meta_char(str[i]) == 1)
-				i++;
-		else
-			i++;
-		if (i < size && meta_char(str[i]) == 2)
 			return (token_message(str[i]));
 		i++;
 	}

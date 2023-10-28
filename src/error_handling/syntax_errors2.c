@@ -12,6 +12,32 @@
 
 #include "../../inc/minishell.h"
 
+//Checks if there are any >, < or | in sucession (divided by whitespace)
+//Example: hello > > world; hello > | world: hello > < world
+int	sucession_error(char *str)
+{
+	int	i;
+	int	size;
+
+	i = 0;
+	size = ft_strlen(str);
+	while (i < size - 1)
+	{
+		while (i < size && str[i] != '<' && str[i] != '>')
+			i++;
+		i++;
+		if (i < size && meta_char(str[i]) == 1)
+			while (str[i] && meta_char(str[i]) == 1)
+				i++;
+		else
+			i++;
+		if (i < size && meta_char(str[i]) == 2)
+			return (token_message(str[i]));
+		i++;
+	}
+	return (0);
+}
+
 // Checks for unclosed quote marks
 int	quote_error(char *str)
 {
