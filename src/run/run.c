@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/27 16:09:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:09:18 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	run(t_minishell *ms)
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
-			;// pipe error
+			return ; // pipe error
 		pid = fork();
 		if (pid < 0)
-			;// fork error
+			return ; // fork error
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else
