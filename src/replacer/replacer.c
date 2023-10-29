@@ -15,6 +15,18 @@
 char	**var_split(char *str);
 char	*var_iter(t_list **env, char *var);
 
+char	*dollar_cond(char *buf)
+{
+	char	*buf1;
+	char	*res;
+
+	res = NULL;
+	buf1 = ft_itoa(g_exit);
+	res = ft_strjoin(buf, buf1);
+	free(buf1);
+	return (res);
+}
+
 char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 {
 	char	*res;
@@ -22,23 +34,22 @@ char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 	char	*buf2;
 
 	buf2 = NULL;
+	if (str[0] && str[1] && str[0] == '$' && str[1] == '?')
+		return (dollar_cond(buf));
 	if (ft_strcmp(str, "$") == 0 || (str[1] && !ft_isalnum(str[1])
 			&& str[1] != '_' && str[1] != '\\') || str[1] == '?')
-	{
-		res = ft_strjoin(buf, str);
-		return (res);
-	}
+		return (ft_strjoin(buf, str));
 	buf1 = ft_strtrim(str, "$");
 	buf2 = replace_str(buf1, env);
+	free(buf1);
 	if (flag == 2)
 	{
-		free(buf1);
 		buf1 = ft_strdup(buf2);
 		free(buf2);
 		buf2 = add_quotes(buf1, '\'');
+		free(buf1);
 	}
 	res = ft_strjoin(buf, buf2);
-	free(buf1);
 	free(buf2);
 	return (res);
 }
@@ -104,7 +115,7 @@ char	*replacer(char *str, t_list **env, int flag)
 	{
 		buf1 = ft_strdup(res);
 		free(res);
-		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0
+		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
 			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
 			res = NULL;
 		else

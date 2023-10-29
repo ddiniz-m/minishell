@@ -19,7 +19,7 @@ int	skip_var(char *str, int pos)
 	if (str[pos] == '$')
 	{
 		pos++;
-		if (str[pos] && str[pos] >= 48 && str[pos] <= 57)
+		if ((str[pos] && str[pos] >= 48 && str[pos] <= 57) || str[pos] == '?')
 			pos++;
 		else if (str[pos] && (ft_isalpha(str[pos]) || str[pos] == '_'))
 		{
@@ -45,8 +45,6 @@ int	var_split_size(char *str)
 		if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 				i++;
-		/* else if (str[i] == '\'' && closed_quotes(str, '\''))
-			i++; */
 		else if (meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
 		else if (str[i] == '$')
@@ -66,8 +64,6 @@ int	var_split_word_size(char *str, int prev)
 	if (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 		while (str[i] && str[i] != '$' && meta_char(str[i]) != 3)
 			i++;
-	/* else if (str[i] == '\'' && closed_quotes(str, '\''))
-			i++; */
 	else if (meta_char(str[i]) == 3)
 		i = skip_quotes(str, i);
 	else if (str[i] == '$')

@@ -49,7 +49,7 @@ void	echo_print(char **cmd_flags, int pos)
 		i = 0;
 		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
-			i = echo_print_cond(cmd_flags, pos, i);
+			//i = echo_print_cond(cmd_flags, pos, i);
 			if (cmd_flags[pos][i])
 				printf("%c", cmd_flags[pos][i++]);
 		}
