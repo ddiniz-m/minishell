@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 19:29:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/29 23:11:42 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,11 @@ void					free_list_malloc(t_list **exp);
 char					*set_prompt(t_minishell *ms);
 
 // signals.c
+//void					signal_init(void);
+void					signal_init(struct sigaction *new, __sighandler_t __handler);
+struct sigaction		signal_change(struct sigaction *old);
 void					signal_interrupt(int signum);
+void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 19:29:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/29 23:07:05 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
 int	g_exit = 0;
-struct sigaction	signal_change(struct sigaction *old);
-void				signal_init(struct sigaction *new, struct sigaction *old);
 
 int	main(int ac, char **av, char **envp)
 {
 	t_minishell			*ms;
-	struct sigaction	new;
 
 	ms = malloc(sizeof(t_minishell));
 	ms->env = env_init(envp);
 	ms->exp = export_init(ms->env);
-	signal_init(NULL, &ms->og_sigint);
 	while (1)
 	{
 		ms->prompt = set_prompt(ms);
@@ -35,9 +31,7 @@ int	main(int ac, char **av, char **envp)
 		if (ms->str && syntax_error(ms))
 			continue ;
 		var_init(ms);
-		new = signal_change(&ms->og_sigint);
 		run(ms);
-		signal_init(&ms->og_sigint, &new);
 		signal_exit(ms);
 		free(ms->str);
 		free(ms->prompt);

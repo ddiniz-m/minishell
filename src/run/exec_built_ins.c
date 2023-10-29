@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_ins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/27 12:00:30 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:27:59 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 		list_print(ms->env);
 	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
 		unset(ms->env, ms->exp, cmd_flags);
-	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0)
+	else if (ft_strcmp(cmd_flags[0], "export") == 0)
 		exp_built_in(ms, cmd_flags);
 }

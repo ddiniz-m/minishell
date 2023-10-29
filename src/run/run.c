@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/29 18:09:18 by mira             ###   ########.fr       */
+/*   Updated: 2023/10/29 23:16:00 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	get_exit_status(pid_t pid, int cmds_run)
 
 void	run(t_minishell *ms)
 {
+	//struct sigaction sig_p;
+	struct sigaction sig_ch;
 	int		pipe_fd[2];
 	int		cmds_run;
 	int		pos;
@@ -46,6 +48,7 @@ void	run(t_minishell *ms)
 	pos = 0;
 	if (!ms->cmdlist)
 		return ;
+	//signal_init(&sig_p, signal_interrupt);
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
@@ -54,9 +57,16 @@ void	run(t_minishell *ms)
 		if (pid < 0)
 			return ; // fork error
 		if (pid == 0)
+		{
+			/* sigemptyset(&sig_p.sa_mask); */
+			signal_init(&sig_ch, signal_process_interrupt);
 			child(ms, pipe_fd, cmds_run, pos);
+		}
 		else
+		{
 			parent(ms, pipe_fd, cmds_run, pos);
+			
+		}
 		pos = find_cmd_pos(ms->main_arr, pos);
 		cmds_run++;
 	}
@@ -110,7 +120,7 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		if (is_built_in(cmd->content->cmd_flags[0]))
 		{
 			redirect(cmd->content, ms->main_arr, pos);
-			built_ins(ms, cmd->content->cmd_flags, 1);
+			built_ins(ms, cmd->content->cmd_flags, 0);
 		}
 	}
 	if (cmds_run > 0)
