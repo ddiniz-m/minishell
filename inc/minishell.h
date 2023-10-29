@@ -117,7 +117,7 @@ void					malloc_error(t_minishell *ms);
 int						begin_error(char *str);
 int						end_of_string_error(char *str);
 int						redir_error(char *str);
-int						double_redir_error(char *str, char c);
+int						double_redir_error(char *str);
 int						sucession_error(char *str);
 
 // syntax_errors2.c
@@ -169,6 +169,19 @@ void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
 void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 
+//++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
+// replacer_utl.c
+char					*replace_str(char *str, t_list **env);
+char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*var_iter(t_list **env, char *var);
+char					*var_str(t_list *env, char *var);
+
+// replacer.c
+char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
+char					*replacer(char *str, t_list **env, int flag);
+void					env_var(t_minishell *ms, t_list **env, char **arr);
+
+
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
 void					cmdlist_print(t_cmdlist **cmdlist);
@@ -191,11 +204,6 @@ char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
 void					arr_print(char *str, char **arr);
 char					**list_to_array(t_list **list);
 
-// env_utl.c
-char					*env_var_str(char *str, t_list **env);
-void					env_var(t_list **env, char **arr);
-char					*var_str(t_list *env, char *var);
-
 // list_utl.c
 void					list_print(t_list **list);
 void					list_sort(t_list **list);
@@ -206,8 +214,14 @@ void					list_swap(t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
+int						strchr_malloc(char *s, char c);
 char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
+
+// quote_utl.c
+char					*add_quotes(char *str, char c);
+char					*remove_quotes(char *str, char c);
+int						closed_quotes(char *str, char c);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c

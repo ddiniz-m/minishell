@@ -6,7 +6,7 @@
 /*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/29 18:05:10 by mira             ###   ########.fr       */
+/*   Updated: 2023/10/29 18:15:46 by mira             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	export_error(char **arr)
 			g_exit = 1;
 			write(STDERR_FILENO, "Minishell: export: '", 21);
 			ft_putstr_fd(arr[j], STDERR_FILENO);
-			write(STDERR_FILENO, "'not a valid identifier\n", 24);
+			write(STDERR_FILENO, "': not a valid identifier\n", 26);
 			return (1);
 		}
 		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
@@ -63,7 +63,7 @@ int	export_error(char **arr)
 				g_exit = 1;
 				write(STDERR_FILENO, "Minishell: export: '", 21);
 				ft_putstr_fd(arr[j], STDERR_FILENO);
-				write(STDERR_FILENO, "'not a valid identifier\n", 24);
+				write(STDERR_FILENO, "': not a valid identifier\n", 26);
 				return (1);
 			}
 			i++;

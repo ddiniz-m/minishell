@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/24 15:18:47 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:45:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	exit_format_error(char *arg)
 		else if (arg[i] && !n && (arg[i] == '-' || arg[i] == '+'))
 			n = 1;
 		else if (arg[i] && arg[i] != quotes && !ft_isdigit(arg[i]))
-		{
-			quotes = 0;
 			return (1);
-		}
 		else if (quotes && arg[i] && arg[i] == quotes)
 			quotes = 0;
 		i++;
