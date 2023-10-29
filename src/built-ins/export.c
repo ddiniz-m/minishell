@@ -51,7 +51,7 @@ int	export_error(char **arr)
 		if (ft_isdigit(arr[j][0]))
 		{
 			g_exit = 1;
-			write(STDERR_FILENO, "Minishell: export: '", 21);
+			write(STDERR_FILENO, "Minishell: export: '", 20);
 			ft_putstr_fd(arr[j], STDERR_FILENO);
 			write(STDERR_FILENO, "': not a valid identifier\n", 26);
 			return (1);
@@ -61,7 +61,7 @@ int	export_error(char **arr)
 			if (!ft_isalnum(arr[j][i]) && arr[j][i] != '_')
 			{
 				g_exit = 1;
-				write(STDERR_FILENO, "Minishell: export: '", 21);
+				write(STDERR_FILENO, "Minishell: export: '", 20);
 				ft_putstr_fd(arr[j], STDERR_FILENO);
 				write(STDERR_FILENO, "': not a valid identifier\n", 26);
 				return (1);
