@@ -28,10 +28,7 @@ void	exp_built_in(t_minishell *ms, char **cmd_flags)
 	{
 		list_sort(ms->exp);
 		if (export_error(cmd_flags))
-		{
-			g_exit = 1;
-			return ;
-		}
+			exit (1);
 		if (arr_size(cmd_flags) > 1)
 			export(cmd_flags, ms->exp, ms->env);
 		else
@@ -53,7 +50,6 @@ void	built_ins(t_minishell *ms, char **cmd_flags)
 		list_print(ms->env);
 	else if (ft_strcmp(cmd_flags[0], "unset") == 0)
 		unset(ms->env, ms->exp, cmd_flags);
-	else if (ft_strcmp(cmd_flags[0], "export") == 0 || ft_strcmp(cmd_flags[0], \
-		"unset") == 0)
+	else if (ft_strcmp(cmd_flags[0], "export") == 0)
 		exp_built_in(ms, cmd_flags);
 }

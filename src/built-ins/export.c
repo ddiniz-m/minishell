@@ -48,7 +48,7 @@ int	export_error(char **arr)
 	while (j < size)
 	{
 		i = 0;
-		if (ft_isdigit(arr[j][0]))
+		if (ft_isdigit(arr[j][0]) || arr[j][0] == '=')
 		{
 			g_exit = 1;
 			write(STDERR_FILENO, "Minishell: export: '", 20);
