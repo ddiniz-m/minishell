@@ -150,7 +150,7 @@ char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
+void					built_ins(t_minishell *ms, char **cmd_flags);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);

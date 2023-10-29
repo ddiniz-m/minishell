@@ -39,7 +39,7 @@ void	exp_built_in(t_minishell *ms, char **cmd_flags)
 	}
 }
 
-void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
+void	built_ins(t_minishell *ms, char **cmd_flags)
 {
 	if (ft_strcmp(cmd_flags[0], "echo") == 0)
 		ft_echo(cmd_flags);
@@ -48,11 +48,7 @@ void	built_ins(t_minishell *ms, char **cmd_flags, int exit)
 	else if (ft_strcmp(cmd_flags[0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(cmd_flags[0], "exit") == 0)
-	{
-		if (exit)
-			write(STDERR_FILENO, "exit\n", 5);
 		ft_exit(ms, cmd_flags);
-	}
 	else if (ft_strcmp(cmd_flags[0], "env") == 0)
 		list_print(ms->env);
 	else if (ft_strcmp(cmd_flags[0], "unset") == 0)

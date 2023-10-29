@@ -22,7 +22,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 		free_ms(ms);
 	if (is_built_in(cmd_arr[0]))
 	{
-		built_ins(ms, cmd_arr, 0);
+		built_ins(ms, cmd_arr);
 		free_ms(ms);
 	}
 	paths = get_paths(ms->env, cmd_arr[0]);
@@ -58,7 +58,7 @@ int	is_exec(char *cmd, char **paths)
 				free(buf2);
 				return (1);
 			}
-			perror("Minishell: error");
+			perror("Minishell: error: ");
 			g_exit = 1;
 			free(buf2);
 			return (free_array(paths));
