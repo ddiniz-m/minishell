@@ -53,7 +53,7 @@ int	export_error(char **arr)
 			g_exit = 1;
 			write(STDERR_FILENO, "Minishell: export: '", 21);
 			ft_putstr_fd(arr[j], STDERR_FILENO);
-			write(STDERR_FILENO, "'not a valid identifier\n", 24);
+			write(STDERR_FILENO, "': not a valid identifier\n", 26);
 			return (1);
 		}
 		while (i < (int)ft_strlen(arr[j]) && arr[j][i] != '=')
@@ -63,7 +63,7 @@ int	export_error(char **arr)
 				g_exit = 1;
 				write(STDERR_FILENO, "Minishell: export: '", 21);
 				ft_putstr_fd(arr[j], STDERR_FILENO);
-				write(STDERR_FILENO, "'not a valid identifier\n", 24);
+				write(STDERR_FILENO, "': not a valid identifier\n", 26);
 				return (1);
 			}
 			i++;

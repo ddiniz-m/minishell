@@ -75,6 +75,7 @@ void	cd(t_minishell *ms, char **path)
 	{
 		perror("Minishell: cd");
 		g_exit = 1;
+		return ;
 	}
 	else
 		g_exit = 0;
