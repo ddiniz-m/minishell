@@ -91,7 +91,6 @@ t_list					**env_init(char **envp);
 void					env_override(char *str, t_list **env);
 
 // exit.c
-void					exit_status(char **args);
 void					ft_exit(t_minishell *ms, char **args);
 
 // export.c
