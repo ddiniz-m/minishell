@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 14:04:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:42:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	is_exec(char *cmd, char **paths)
 		}
 		free(buf2);
 	}
-	return (1);
+	return (0);
 }
 
 char	**special_path(const char *cmd)
@@ -128,7 +128,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 	int		i;
 
 	i = 0;
-	while (paths[i])
+	while (paths[i] && ft_strcmp(cmd, ".") != 0 && ft_strcmp(cmd, "..") != 0)
 	{
 		buf1 = ft_strjoin(paths[i], "/");
 		buf2 = ft_strjoin(buf1, cmd);
@@ -141,7 +141,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 	g_exit = 1;
 	if (strchr(cmd, '/'))
 		perror(cmd);
-	else
+	else ()
 	{
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);

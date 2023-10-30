@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/19 11:51:29 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:38:19 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,32 @@ int	dollar_error(char *str)
 		else
 			i++;
 	}
+	return (0);
+}
+
+int	token_error(char *str)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = 0;
+	while (i < (int)ft_strlen(str))
+	{
+		if (meta_char(str[i]) == 3)
+			i += skip_quotes(str, i);
+		if (i < (int)ft_strlen(str) && (str[i] == '&' || str[i] == '('
+			|| str[i] == ')' || str[i] == ';'))
+			c = str[i];
+		i++;
+	}
+	if (c != 0)
+		return (token_message(c));
+	return (0);
+}
+
+int	dir_error(char *str)
+{
+	(void)str;
 	return (0);
 }

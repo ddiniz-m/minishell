@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 14:49:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:40:10 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include <sys/ioctl.h>
 
 //libft
 # include "../libft/src/libft.h"
 
 //gnl
-#include "../gnl/gnl.h"
+# include "../gnl/gnl.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
@@ -70,7 +69,6 @@ typedef struct s_minishell
 	char			*prompt;
 	int				fdin_buf;
 	int				fdout_buf;
-	struct sigaction	og_sigint;
 	int				cmd_in_fd;
 	int				cmd_count;
 	char			**main_arr;
@@ -124,6 +122,7 @@ int						sucession_error(char *str);
 int						quote_error(char *str);
 int						pipe_error(char *str);
 int						dollar_error(char *str);
+int						token_error(char *str);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
@@ -172,15 +171,16 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
 // replacer_utl.c
 char					*replace_str(char *str, t_list **env);
-char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*replace_single(char *str, char *buf, t_list **env, \
+	int flag);
 char					*var_iter(t_list **env, char *var);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
-char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
+char					*replace_cond(char *str, char *buf1, t_list **env, \
+	int flag);
 char					*replacer(char *str, t_list **env, int flag);
 void					env_var(t_minishell *ms, t_list **env, char **arr);
-
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
