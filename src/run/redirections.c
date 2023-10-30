@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mira <mira@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:36:41 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/29 18:08:34 by mira             ###   ########.fr       */
+/*   Updated: 2023/10/30 16:17:02 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	redirect_out(t_list *out, int append)
 		{
 			write(2, "Minishell: ", 11);
 			perror(out->data);
-			g_exit = errno;
+			g_exit = 1;
 			exit (g_exit); ///aasas
 		}
 		dup2(fd, STDOUT_FILENO);
@@ -54,7 +54,7 @@ void	redirect_in(t_list *in)
 		{
 			write(2, "Minishell: ", 11);
 			perror(in->data);
-			g_exit = errno;
+			g_exit = 1;
 			exit (g_exit); //open error;
 		}
 		dup2(fd, STDIN_FILENO);

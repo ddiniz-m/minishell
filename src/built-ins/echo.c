@@ -29,17 +29,6 @@ int	echo_flag(char *str)
 	return (0);
 }
 
-int	echo_print_cond(char **cmd_flags, int pos, int i)
-{
-	if ((cmd_flags[pos][i]) == '$' && (cmd_flags[pos][i + 1])
-		&& (cmd_flags[pos][i + 1]) == '?')
-	{
-		printf("%i", g_exit);
-		i += 2;
-	}
-	return (i);
-}
-
 void	echo_print(char **cmd_flags, int pos)
 {
 	int	i;
@@ -49,7 +38,6 @@ void	echo_print(char **cmd_flags, int pos)
 		i = 0;
 		while (i < (int)ft_strlen(cmd_flags[pos]) && cmd_flags[pos][i])
 		{
-			//i = echo_print_cond(cmd_flags, pos, i);
 			if (cmd_flags[pos][i])
 				printf("%c", cmd_flags[pos][i++]);
 		}

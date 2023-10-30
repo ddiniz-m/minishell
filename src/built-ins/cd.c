@@ -64,16 +64,17 @@ void	cd(t_minishell *ms, char **path)
 	if (path && arr_size(path) > 2)
 	{
 		write(2, "Minishell: cd: too many arguments\n", 34);
-		while (old_pwd[i])
-			old_pwd[i++] = 0;
-		exit (1);
+		ft_bzero(old_pwd, ft_strlen(old_pwd));
+		g_exit = 1;
+		return ;
 	}
 	else if (!path || !path[1] || !path[1][0])
 		cd_home(ms);
 	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
-		exit (1);
+		g_exit = 1;
+		return ;
 	}
 	else
 		g_exit = 0;
