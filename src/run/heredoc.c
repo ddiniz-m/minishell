@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 16:16:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:05:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 	int		fd;
 
 	line = NULL;
-	change_terminal();
 	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
+	change_terminal();
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_error(file);
@@ -94,6 +93,9 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	if (pid == 0)
 		heredoc_child(ms, filename, limiter);
 	else
+	{
+		signal(SIGINT, signal_process_interrupt);
 		waitpid(pid, NULL, 0);
+	}
 	return (filename);
 }

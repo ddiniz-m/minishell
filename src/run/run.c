@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/27 16:09:46 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:24:12 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,16 @@ int	find_cmd_pos(char **main_arr, int pos)
 	return (pos);
 }
 
-void	get_exit_status(pid_t pid, int cmds_run)
+void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 {
 	int	status;
 
+	if (ms->cmd_count == 1 && is_built_in(ms->cmdlist->content->cmd_flags[0]) \
+		== 1)
+	{
+		wait(&status);
+		return ;
+	}
 	while (cmds_run > 0)
 	{
 		wait(&status);
@@ -49,10 +55,10 @@ void	run(t_minishell *ms)
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
-			{}// pipe error
+			return ; // pipe error
 		pid = fork();
 		if (pid < 0)
-			{}// fork error
+			return ; // fork error
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else
@@ -60,7 +66,7 @@ void	run(t_minishell *ms)
 		pos = find_cmd_pos(ms->main_arr, pos);
 		cmds_run++;
 	}
-	get_exit_status(pid, cmds_run);
+	get_exit_status(ms, pid, cmds_run);
 	reset_fds(ms);
 }
 
@@ -110,7 +116,7 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		if (is_built_in(cmd->content->cmd_flags[0]))
 		{
 			redirect(cmd->content, ms->main_arr, pos);
-			built_ins(ms, cmd->content->cmd_flags, 0);
+			built_ins(ms, cmd->content->cmd_flags);
 		}
 	}
 	if (cmds_run > 0)
@@ -120,4 +126,5 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		close(pipe_fd[1]);
 		ms->cmd_in_fd = pipe_fd[0];
 	}
+	signal(SIGINT, signal_process_interrupt);
 }

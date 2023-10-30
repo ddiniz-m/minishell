@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/27 16:08:20 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:28:38 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ t_list					**env_init(char **envp);
 void					env_override(char *str, t_list **env);
 
 // exit.c
-void					exit_status(char **args);
 void					ft_exit(t_minishell *ms, char **args);
 
 // export.c
@@ -151,7 +150,7 @@ char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
+void					built_ins(t_minishell *ms, char **cmd_flags);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);
@@ -168,6 +167,19 @@ void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
+
+//++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
+// replacer_utl.c
+char					*replace_str(char *str, t_list **env);
+char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*var_iter(t_list **env, char *var);
+char					*var_str(t_list *env, char *var);
+
+// replacer.c
+char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
+char					*replacer(char *str, t_list **env, int flag);
+void					env_var(t_minishell *ms, t_list **env, char **arr);
+
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
@@ -190,11 +202,6 @@ char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
 	int size);
 void					arr_print(char *str, char **arr);
 char					**list_to_array(t_list **list);
-
-// env_utl.c
-char					*env_var_str(char *str, t_list **env);
-void					env_var(t_list **env, char **arr);
-char					*var_str(t_list *env, char *var);
 
 // list_utl.c
 void					list_print(t_list **list);
@@ -231,7 +238,7 @@ char					*set_prompt(t_minishell *ms);
 
 // signals.c
 void					signal_init(void);
-void					signal_interrupt(int signum);
+void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 
 #endif
