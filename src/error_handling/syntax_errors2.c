@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:30:14 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:02:13 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,26 @@ int	dollar_syntax(char *str)
 		else
 			i++;
 	}
+	return (0);
+}
+
+int	token_syntax(char *str)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = 0;
+	while (i < (int)ft_strlen(str))
+	{
+		if (meta_char(str[i]) == 3)
+			i += skip_quotes(str, i);
+		if (i < (int)ft_strlen(str) && (str[i] == '&' || str[i] == '(' \
+			|| str[i] == ')' || str[i] == ';'))
+			c = str[i];
+		i++;
+	}
+	if (c != 0)
+		return (token_message(c));
 	return (0);
 }

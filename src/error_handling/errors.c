@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 18:32:24 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:01:12 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	syntax_error(t_minishell *ms)
 	if (quote_syntax(ms->str) || pipe_syntax(ms->str) || start_syntax(ms->str) \
 		|| end_syntax(ms->str) || redir_syntax(ms->str) \
 		|| double_redir_syntax(ms->str) || dollar_syntax(ms->str) \
-		|| sucession_syntax(ms->str))
+		|| sucession_syntax(ms->str) || token_syntax(ms->str))
 	{
 		free(ms->prompt);
 		free(ms->str);

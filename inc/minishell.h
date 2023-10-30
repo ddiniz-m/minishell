@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 19:19:27 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:00:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int						sucession_syntax(char *str);
 int						quote_syntax(char *str);
 int						pipe_syntax(char *str);
 int						dollar_syntax(char *str);
+int						token_syntax(char *str);
 
 //++++++++++++++++ parser/[.........] +++++++++++++++++++++++++++++++++++++++++
 // parse_counter.c
