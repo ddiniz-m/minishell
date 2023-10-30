@@ -22,10 +22,16 @@ int	find_cmd_pos(char **main_arr, int pos)
 	return (pos);
 }
 
-void	get_exit_status(pid_t pid, int cmds_run)
+void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 {
 	int	status;
 
+	if (ms->cmd_count == 1 && is_built_in(ms->cmdlist->content->cmd_flags[0]) \
+		== 1)
+	{
+		wait(&status);
+		return ;
+	}
 	while (cmds_run > 0)
 	{
 		wait(&status);
@@ -60,7 +66,7 @@ void	run(t_minishell *ms)
 		pos = find_cmd_pos(ms->main_arr, pos);
 		cmds_run++;
 	}
-	get_exit_status(pid, cmds_run);
+	get_exit_status(ms, pid, cmds_run);
 	reset_fds(ms);
 }
 

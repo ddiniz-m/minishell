@@ -138,7 +138,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 		free(buf2);
 		i++;
 	}
-	g_exit = 1;
+	g_exit = 127;
 	if (strchr(cmd, '/'))
 		perror(cmd);
 	else
