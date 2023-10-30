@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 18:32:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:45:31 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	change_terminal(void)
 
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_cc[VQUIT] = _POSIX_VDISABLE;
-	tcsetattr(STDIN_FILENO, TCSANOW ,&term);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 static void	restore_stdin(void)

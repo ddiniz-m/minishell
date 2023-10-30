@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 18:34:30 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:19:27 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "../libft/src/libft.h"
 
 //gnl
-#include "../gnl/gnl.h"
+# include "../gnl/gnl.h"
 
 //readline, rl_on_new_line, rl_replace_line, rl_redisplay
 # include <readline/readline.h>
@@ -113,6 +113,9 @@ void					open_error(char	*filename);
 void					pipe_error(t_minishell *ms);
 void					fork_error(t_minishell *ms);
 
+//errors2.c
+int						export_error_msg(char *error);
+
 // syntax_errors.c
 int						token_message(char token);
 int						start_syntax(char *str);
@@ -143,9 +146,13 @@ int						str_others(char *str, int i);
 int						meta_char(char c);
 
 //++++++++++++++++ run/[.....] +++++++++++++++++++++++++++++++++++++++++++++++
+// cmd_validator.c
+int						is_exec(char *cmd, char **paths);
+int						is_usable(char	*cmd, char *cmd_path, \
+	char **paths_array);
+
 // exec.c
 void					exec(t_minishell *ms, char **cmd_arr);
-int						is_exec(char *cmd, char **paths);
 char					**special_path(const char *cmd);
 char					**get_paths(t_list **env, char *cmd);
 char					*get_cmd_path(char **paths, char *cmd);
@@ -171,17 +178,21 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
-// replacer_utl.c
+// replacer_split2.c
 char					*replace_str(char *str, t_list **env);
-char					*replace_single(char *str, char *buf, t_list **env, int flag);
+char					*replace_single(char *str, char *buf, t_list **env, \
+	int flag);
+
+// replacer_utl.c
+char					*dollar_cond(char *buf);
 char					*var_iter(t_list **env, char *var);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
-char					*replace_cond(char *str, char *buf1, t_list **env, int flag);
+char					*replace_cond(char *str, char *buf1, t_list **env, \
+	int flag);
 char					*replacer(char *str, t_list **env, int flag);
 void					env_var(t_minishell *ms, t_list **env, char **arr);
-
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
