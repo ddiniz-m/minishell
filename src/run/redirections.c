@@ -35,7 +35,7 @@ void	redirect_out(t_list *out, int append)
 			write(2, "Minishell: ", 11);
 			perror(out->data);
 			g_exit = errno;
-			//open error;
+			exit (g_exit); ///aasas
 		}
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
@@ -55,7 +55,7 @@ void	redirect_in(t_list *in)
 			write(2, "Minishell: ", 11);
 			perror(in->data);
 			g_exit = errno;
-			//open error;
+			exit (g_exit); //open error;
 		}
 		dup2(fd, STDIN_FILENO);
 		close(fd);

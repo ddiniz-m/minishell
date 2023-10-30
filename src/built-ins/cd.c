@@ -20,12 +20,12 @@ void	cd_home(t_minishell *ms)
 	if (!home)
 	{
 		write(2, "Minishell: cd: HOME is undefined\n", 29);
-		g_exit = 1;
+		exit (1);
 	}
 	else if (chdir(home) != 0)
 	{
 		perror("Minishell: cd: HOME");
-		g_exit = 1;
+		exit (1);
 	}
 	else
 		g_exit = 0;
@@ -64,18 +64,16 @@ void	cd(t_minishell *ms, char **path)
 	if (path && arr_size(path) > 2)
 	{
 		write(2, "Minishell: cd: too many arguments\n", 34);
-		g_exit = 1;
 		while (old_pwd[i])
 			old_pwd[i++] = 0;
-		return ;
+		exit (1);
 	}
 	else if (!path || !path[1] || !path[1][0])
 		cd_home(ms);
 	else if (chdir(path[1]) != 0)
 	{
 		perror("Minishell: cd");
-		g_exit = 1;
-		return ;
+		exit (1);
 	}
 	else
 		g_exit = 0;

@@ -61,22 +61,22 @@ int	exit_format_error(char *arg)
 	return (0);
 }
 
-void	exit_status(char **args)
+int	other_exit_status(char *arg)
 {
-	int	neg;
+	int	num;
 
-	neg = 0;
-	if (arr_size(args) > 2)
-		g_exit = 1;
-	else if (arr_size(args) == 2 && args[1] && args[1][0])
+	num = ft_atoi(arg);
+	if (num > 0)
 	{
-		if (ft_strchr(args[1], '-'))
-			neg = 1;
-		if (exit_format_error(args[1]) || exit_atoull(args[1]) > \
-			(unsigned long long)(LLONG_MAX + neg))
-			g_exit = 2;
-		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
-			g_exit = (int)exit_atoull(args[1]);
+		while (num > 256)
+			num -= 256;
+		return (num);
+	}
+	else
+	{
+		while (num < 0)
+			num += 256;
+		return (num);
 	}
 }
 
@@ -112,6 +112,8 @@ void	ft_exit(t_minishell *ms, char **args)
 		}
 		else if (0 <= ft_atoi(args[1]) && exit_atoull(args[1]) <= 255)
 			g_exit = (int)exit_atoull(args[1]);
+		else
+			g_exit = other_exit_status(args[1]);
 	}
 	free_ms(ms);
 }

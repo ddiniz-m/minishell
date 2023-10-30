@@ -92,7 +92,6 @@ t_list					**env_init(char **envp);
 void					env_override(char *str, t_list **env);
 
 // exit.c
-void					exit_status(char **args);
 void					ft_exit(t_minishell *ms, char **args);
 
 // export.c
@@ -151,7 +150,7 @@ char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_arr, int exit);
+void					built_ins(t_minishell *ms, char **cmd_flags);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);
