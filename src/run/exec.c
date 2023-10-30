@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 15:42:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:07:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 	g_exit = 1;
 	if (strchr(cmd, '/'))
 		perror(cmd);
-	else ()
+	else
 	{
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
