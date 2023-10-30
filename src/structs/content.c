@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/30 17:16:17 by ddiniz-m         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/30 18:47:42 by mortins-         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +82,7 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 	i = 0;
 	args = cmd_args(arr, pos);
 	buf = malloc(sizeof(char *) * (args + 1));
-	if (!buf)	
+	if (!buf)
 		malloc_error(ms);
 	while (i < args)
 	{
