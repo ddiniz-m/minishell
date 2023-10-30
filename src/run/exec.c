@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:16:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:25:39 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ int	is_usable(char	*cmd, char *cmd_path, char **paths_array)
 		free(cmd_path);
 		return (1);
 	}
-	else
+	else  if (access(cmd_path, X_OK) != 0)
 	{
 		perror("Minishell: error: ");
-		g_exit = 1;
+		g_exit = 126;
 	}
+	else
+		g_exit = 1;
 	free(cmd_path);
 	free_array(paths_array);
 	return (0);

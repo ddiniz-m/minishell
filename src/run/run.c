@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:24:12 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:33:00 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	run(t_minishell *ms)
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
-			return ; // pipe error
+			pipe_error(ms);
 		pid = fork();
 		if (pid < 0)
-			return ; // fork error
+			fork_error(ms);
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else

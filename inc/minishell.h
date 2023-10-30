@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 16:28:38 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:34:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void					unset(t_list **env, t_list **exp, char **arr);
 int						syntax_error(t_minishell *ms);
 void					malloc_error(t_minishell *ms);
 void					open_error(char	*filename);
+void					pipe_error(t_minishell *ms);
+void					fork_error(t_minishell *ms);
 
 // syntax_errors.c
 int						token_message(char token);

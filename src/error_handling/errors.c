@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:30:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:32:24 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,28 @@ int	syntax_error(t_minishell *ms)
 
 void	malloc_error(t_minishell *ms)
 {
-	write(2, "Error: Malloc failed\n", 22);
+	ft_putstr_fd("Minishell: error: malloc failed\n", STDERR_FILENO);
 	g_exit = 12;
 	free_ms(ms);
 }
 
 void	open_error(char	*filename)
 {
-	write(STDERR_FILENO, "Minishell: ", 11);
-	g_exit = errno;
+	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	perror(filename);
-	//does perror exit the shell lmao?
+	exit (1);
+}
+
+void	pipe_error(t_minishell *ms)
+{
+	ft_putstr_fd("Minishell: error: pipe failed\n", STDERR_FILENO);
+	g_exit = 1;
+	free_ms(ms);
+}
+
+void	fork_error(t_minishell *ms)
+{
+	ft_putstr_fd("Minishell: error: fork failed\n", STDERR_FILENO);
+	g_exit = 1;
+	free_ms(ms);
 }

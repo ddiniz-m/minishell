@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 15:05:08 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:32:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	restore_stdin();
 	pid = fork();
 	if (pid < 0)
-		printf("fork error\n"); //fork error
+		fork_error(ms);
 	if (pid == 0)
 		heredoc_child(ms, filename, limiter);
 	else
