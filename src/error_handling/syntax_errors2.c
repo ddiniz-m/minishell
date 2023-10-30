@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:05:56 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 15:38:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:20:02 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,5 @@ int	token_error(char *str)
 	}
 	if (c != 0)
 		return (token_message(c));
-	return (0);
-}
-
-int	dir_error(char *str)
-{
-	(void)str;
 	return (0);
 }
