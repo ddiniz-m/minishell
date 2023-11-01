@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 18:31:35 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:15:14 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void					unset(t_list **env, t_list **exp, char **arr);
 // errors.c
 int						syntax_error(t_minishell *ms);
 void					malloc_error(t_minishell *ms);
-void					open_error(char	*filename);
+int						open_error(t_minishell *ms, char *filename, int child);
 void					pipe_error(t_minishell *ms);
 void					fork_error(t_minishell *ms);
 
@@ -155,9 +155,12 @@ void					built_ins(t_minishell *ms, char **cmd_args);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);
-void					redirect_in(char *file, int heredoc);
-void					redirect_out(char *file, int append);
-void					redirect(char **main_arr, int pos);
+int						redirect_in(t_minishell *ms, char *file, int heredoc, \
+	int child);
+int						redirect_out(t_minishell *ms, char *file, int append, \
+	int child);
+int						redirect(t_minishell *ms, char **main_arr, int pos, \
+	int child);
 
 // heredoc.c
 char					*heredoc(t_minishell *ms, char *limiter, int here_num);

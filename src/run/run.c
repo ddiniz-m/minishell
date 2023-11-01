@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 17:42:42 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:17:30 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	}
 	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
 		exit(g_exit);
-	redirect(ms->main_arr, pos);
+	redirect(ms, ms->main_arr, pos, 1);
 	exec(ms, cmd->cmd_args);
 }
 
@@ -112,8 +112,8 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	{
 		if (is_built_in(cmd->cmd_args[0]))
 		{
-			redirect(ms->main_arr, pos);
-			built_ins(ms, cmd->cmd_args);
+			if (redirect(ms, ms->main_arr, pos, 0) == 0)
+				built_ins(ms, cmd->cmd_args);
 		}
 	}
 	if (cmds_run > 0)
