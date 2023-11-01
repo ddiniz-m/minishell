@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/31 14:27:56 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:39:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	var_init(t_minishell *ms)
 	ms->fdout_buf = dup(STDOUT_FILENO);
 	ms->main_arr = split_main(ms, ms->str);
 	ms->cmd_count = cmd_count(ms->main_arr);
+	init_heredoc(ms, ms->main_arr);
 	env_var(ms, ms->env, ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 }

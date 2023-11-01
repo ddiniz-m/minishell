@@ -13,3 +13,7 @@ Ideas, ordered by most to least likely to work:
 
 - Keep the lists:
 	* Try to figure out a way to ghet everything to work without leaks or weird behaviors
+
+
+Notes:
+	-Initialize heredoc before the replacer

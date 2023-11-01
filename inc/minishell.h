@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 20:54:49 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:48:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,16 @@ char					*get_cmd_path(char **paths, char *cmd);
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_flags);
 
-// redirections.c
+// new_redirections.c
 void					reset_fds(t_minishell *ms);
-void					redirect_out(t_list *out, int append);
-void					redirect_in(t_list *in);
-void					redirect(t_content *cmd, char **main_arr, int pos);
+void					redirect_in(char *file, int heredoc);
+void					redirect_out(char *file, int append);
+void					redirect(char **main_arr, int pos);
+// redirections.c
+// void					reset_fds(t_minishell *ms);
+// void					redirect_out(t_list *out, int append);
+// void					redirect_in(t_list *in);
+// void					redirect(t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
 char					*heredoc(t_minishell *ms, char *limiter, int here_num);
@@ -176,8 +181,7 @@ char					*heredoc(t_minishell *ms, char *limiter, int here_num);
 void					run(t_minishell *ms);
 void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
-void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
-	int pos);
+void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
 // replacer_split2.c
@@ -203,6 +207,7 @@ int						cmd_args(char **arr, int pos);
 int						cmd_count(char **arr);
 
 // content.c
+void					init_heredoc(t_minishell *ms, char **main_arr);
 t_list					*redir_lst(char **arr, int index, char *limiter);
 t_list					*hdoc_lst(t_minishell *ms, char **arr, int index);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);

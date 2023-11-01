@@ -6,11 +6,31 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/31 13:58:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:39:08 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	init_heredoc(t_minishell *ms, char **main_arr)
+{
+	int	index;
+
+	index = 0;
+	if (!main_arr || !main_arr[0] || !main_arr[0][0])
+		return ;
+	while (main_arr[index])
+	{
+		if (ft_strcmp(main_arr[index], "<<") == 0)
+		{
+			free(main_arr[index + 1]);
+			main_arr[index + 1] = heredoc(ms, main_arr[index + 1], index);
+			index += 2;
+		}
+		else
+			index++;
+	}
+}
 
 t_list	*hdoc_lst(t_minishell *ms, char **arr, int index)
 {
