@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 17:12:20 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:31:16 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,6 @@ void	init_heredoc(t_minishell *ms, char **main_arr)
 		else
 			index++;
 	}
-}
-
-t_list	*redir_lst(char **arr, int index, char *limiter)
-{
-	t_list	*node;
-	t_list	*redir;
-
-	redir = NULL;
-	while (arr[index] && ft_strcmp(arr[index], "|") != 0)
-	{
-		if (ft_strcmp(arr[index], ">|") == 0 || ft_strcmp(arr[index], "<>") \
-			== 0)
-			arr[index][1] = 0;
-		if (ft_strcmp(arr[index], limiter) == 0)
-		{
-			node = ft_lstnew(arr[index + 1]);
-			if (!node)
-			{
-				ft_lstclear(&redir, free);
-				return (NULL);
-			}
-			ft_lstadd_back(&redir, node);
-			index += 2;
-		}
-		else
-			index++;
-	}
-	return (redir);
 }
 
 //Takes main array and position of a command, and returns an array with the

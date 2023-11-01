@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 17:50:54 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:31:35 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,6 @@ int						cmd_count(char **arr);
 
 // content.c
 void					init_heredoc(t_minishell *ms, char **main_arr);
-t_list					*redir_lst(char **arr, int index, char *limiter);
-t_list					*hdoc_lst(t_minishell *ms, char **arr, int index);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
