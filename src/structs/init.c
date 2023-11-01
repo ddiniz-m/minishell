@@ -6,27 +6,13 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 17:12:41 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:43:54 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// Might have to change how we handle content->heredoc, depending on our
-// solution for heredoc
-t_content	*content_init(t_minishell *ms, int cmd_index)
-{
-	t_content	*content;
-
-	content = malloc(sizeof(t_content));
-	content->input = redir_lst(ms->main_arr, cmd_index, "<");
-	content->output = redir_lst(ms->main_arr, cmd_index, ">");
-	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
-	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
-	return (content);
-}
-
-//Creates cmdlist. Initializes content by calling content_init.
+//Creates cmdlist. Initializes cmd_arr
 //Similar to ft_lstnew.
 t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 {
@@ -35,7 +21,7 @@ t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
 	cmdlist = malloc(sizeof(t_cmdlist));
 	if (!cmdlist)
 		malloc_error(ms);
-	cmdlist->content = content_init(ms, cmd_index);
+	cmdlist->cmd_args = cmd_with_flags(ms, ms->main_arr, cmd_index);;
 	cmdlist->next = NULL;
 	return (cmdlist);
 }

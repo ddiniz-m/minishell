@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 17:14:33 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:45:23 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,9 @@
 extern int	g_exit;
 
 //-----------------------------------STRUCT-------------------------------------
-typedef struct s_content
-{
-	t_list	*input;
-	t_list	*output;
-	t_list	*append;
-	t_list	*heredoc;
-	char	**cmd_flags;
-}	t_content;
-
 typedef struct s_cmdlist
 {
-	t_content			*content;
+	char				**cmd_args;
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
@@ -81,7 +72,7 @@ typedef struct s_minishell
 void					cd(t_minishell *ms, char **path);
 
 // echo.c
-int						ft_echo(char **cmd_flags);
+int						ft_echo(char **cmd_args);
 
 // pwd.c
 void					pwd(void);
@@ -161,7 +152,7 @@ char					*get_cmd_path(char **paths, char *cmd);
 
 // exec_built_ins.c
 int						is_built_in(char *str);
-void					built_ins(t_minishell *ms, char **cmd_flags);
+void					built_ins(t_minishell *ms, char **cmd_args);
 
 // redirections.c
 void					reset_fds(t_minishell *ms);

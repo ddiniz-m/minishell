@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:48:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:42:42 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 {
 	int	status;
 
-	if (ms->cmd_count == 1 && is_built_in(ms->cmdlist->content->cmd_flags[0]) \
+	if (ms->cmd_count == 1 && is_built_in(ms->cmdlist->cmd_args[0]) \
 		== 1)
 	{
 		wait(&status);
@@ -93,10 +93,10 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	if (ms->cmd_count == 1 && is_built_in(cmd->content->cmd_flags[0]))
+	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
 		exit(g_exit);
 	redirect(ms->main_arr, pos);
-	exec(ms, cmd->content->cmd_flags);
+	exec(ms, cmd->cmd_args);
 }
 
 void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
@@ -110,10 +110,10 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		cmd = cmd->next;
 	if (ms->cmd_count == 1)
 	{
-		if (is_built_in(cmd->content->cmd_flags[0]))
+		if (is_built_in(cmd->cmd_args[0]))
 		{
 			redirect(ms->main_arr, pos);
-			built_ins(ms, cmd->content->cmd_flags);
+			built_ins(ms, cmd->cmd_args);
 		}
 	}
 	if (cmds_run > 0)
