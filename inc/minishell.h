@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 16:48:16 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:14:33 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,16 +163,11 @@ char					*get_cmd_path(char **paths, char *cmd);
 int						is_built_in(char *str);
 void					built_ins(t_minishell *ms, char **cmd_flags);
 
-// new_redirections.c
+// redirections.c
 void					reset_fds(t_minishell *ms);
 void					redirect_in(char *file, int heredoc);
 void					redirect_out(char *file, int append);
 void					redirect(char **main_arr, int pos);
-// redirections.c
-// void					reset_fds(t_minishell *ms);
-// void					redirect_out(t_list *out, int append);
-// void					redirect_in(t_list *in);
-// void					redirect(t_content *cmd, char **main_arr, int pos);
 
 // heredoc.c
 char					*heredoc(t_minishell *ms, char *limiter, int here_num);
@@ -249,9 +244,6 @@ void					free_ms(t_minishell *ms);
 int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
-
-// frees2.c
-void					free_list_and_data(t_list **list);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

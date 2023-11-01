@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 16:39:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:12:41 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_content	*content_init(t_minishell *ms, int cmd_index)
 	content->input = redir_lst(ms->main_arr, cmd_index, "<");
 	content->output = redir_lst(ms->main_arr, cmd_index, ">");
 	content->append = redir_lst(ms->main_arr, cmd_index, ">>");
-	content->heredoc = hdoc_lst(ms, ms->main_arr, cmd_index);
 	content->cmd_flags = cmd_with_flags(ms, ms->main_arr, cmd_index);
 	return (content);
 }
@@ -56,9 +55,10 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 	while (cmd_n < ms->cmd_count)
 	{
 		node = cmdlist_lstnew(ms, i);
-		i += arr_size(node->content->cmd_flags) + ((ft_lstsize(node->content->\
-			output) + ft_lstsize(node->content->input) + ft_lstsize(node->\
-			content->append) + ft_lstsize(node->content->heredoc)) * 2) + 1;
+		while (ms->main_arr[i] && ft_strcmp(ms->main_arr[i], "|") != 0)
+			i++;
+		if (ms->main_arr[i] && ft_strcmp(ms->main_arr[i], "|") == 0)
+			i++;
 		ft_lstadd_back((t_list **)&cmdlist, (t_list *)node);
 		cmd_n++;
 	}

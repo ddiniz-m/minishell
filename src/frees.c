@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:53:12 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/30 17:15:13 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:12:11 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 			free_list(&tmp->content->output);
 		if (tmp->content->append)
 			free_list(&tmp->content->append);
-		if (tmp->content->heredoc)
-			free_list_and_data(&tmp->content->heredoc);
 		free(tmp->content);
 		free(tmp);
 	}
