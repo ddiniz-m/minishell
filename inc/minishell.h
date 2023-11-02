@@ -169,7 +169,8 @@ char					*heredoc(t_minishell *ms, char *limiter, int here_num);
 void					run(t_minishell *ms);
 void					child(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
-void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos);
+void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
+	int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
 // replacer_split2.c

@@ -26,7 +26,7 @@ int	redirect_in(t_minishell *ms, char *file, int heredoc, int child)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return(open_error(ms, file, child));
+		return (open_error(ms, file, child));
 	else
 	{
 		dup2(fd, STDIN_FILENO);
@@ -46,7 +46,7 @@ int	redirect_out(t_minishell *ms, char *file, int append, int child)
 	else
 		fd = open(file, O_CREAT | O_RDWR | O_APPEND, 0664);
 	if (fd < 0)
-		return(open_error(ms, file, child));
+		return (open_error(ms, file, child));
 	else
 	{
 		dup2(fd, STDOUT_FILENO);
