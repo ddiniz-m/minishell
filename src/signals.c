@@ -29,6 +29,11 @@ void	signal_interrupt(int signum)
 
 void	signal_process_interrupt(int signum)
 {
+	if (signum == SIGQUIT)
+	{
+		ft_putstr_fd("Quit\n", STDERR_FILENO);
+		g_exit = 900;
+	}
 	if (signum == SIGINT)
 	{
 		printf("\n");
