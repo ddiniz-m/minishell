@@ -19,7 +19,7 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	**env;
 
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0])
-		ft_putstr_fd("Minishell: '': command not found\n", STDERR_FILENO);
+		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
 	if (is_built_in(cmd_arr[0]))
 		built_ins(ms, cmd_arr);
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0] || is_built_in(cmd_arr[0]))
@@ -113,8 +113,9 @@ char	*get_cmd_path(char **paths, char *cmd)
 		perror(cmd);
 	else
 	{
+		write(STDERR_FILENO, "Minishell: ", 11);
 		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		write(STDERR_FILENO, ": command not found\n", 20);
 	}
 	return (NULL);
 }

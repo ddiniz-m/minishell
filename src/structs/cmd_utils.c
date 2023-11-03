@@ -40,11 +40,9 @@ int	cmd_args(char **arr, int pos)
 
 	i = pos;
 	counter = 0;
-	while (i < arr_size(arr))
+	while (arr[i])
 	{
-		if (arr[i] == NULL)
-			i++;
-		else if (ft_strcmp(arr[i], ">") == 0 || ft_strcmp(arr[i], ">>") == 0 \
+		if (ft_strcmp(arr[i], ">") == 0 || ft_strcmp(arr[i], ">>") == 0 \
 			|| ft_strcmp(arr[i], "<") == 0 || ft_strcmp(arr[i], "<<") == 0)
 			i += 2;
 		else if (ft_strcmp(arr[i], "|") == 0)
