@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replacer_utl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:25:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 19:19:37 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:58:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,27 @@ char	*var_iter(t_list **env, char *var)
 		free(buf);
 	}
 	return (NULL);
+}
+
+int	empty_var(char **arr, t_list **env)
+{
+	char	*buf1;
+	char	*buf2;
+
+	if (arr_size(arr) == 1 && strchr_malloc(arr[0], '$') 
+		&& ft_strcmp(arr[0], "$") != 0 && ft_strcmp(arr[0], "$?") != 0)
+	{
+		buf1 = str_front_trim(arr[0], "$");
+		buf2 = var_iter(env, buf1);
+		free(buf1);
+		if (!buf2)
+		{
+			free(buf2);
+			return (1);
+		}
+		free(buf2);
+	}
+	return (0);
 }
 
 // equivalent to `env | grep var`

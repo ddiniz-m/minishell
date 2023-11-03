@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/02 16:43:07 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:58:31 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,14 @@ char					*replace_single(char *str, char *buf, t_list **env, \
 // replacer_utl.c
 char					*dollar_cond(char *buf);
 char					*var_iter(t_list **env, char *var);
+int						empty_var(char **arr, t_list **env);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
 char					*replace_cond(char *str, char *buf1, t_list **env, \
 	int flag);
 char					*replacer(char *str, t_list **env, int flag);
-void					env_var(t_minishell *ms, t_list **env, char **arr);
+int						env_var(t_minishell *ms, t_list **env, char **arr);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
@@ -200,7 +201,7 @@ void					init_heredoc(t_minishell *ms, char **main_arr);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
-void					var_init(t_minishell *ms);
+int						var_init(t_minishell *ms);
 
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
 // array_utl.c

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/02 16:40:39 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:58:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
 int	g_exit = 0;
+
+void	main_free(t_minishell *ms, int ac, char **av)
+{
+	signal_exit(ms);
+	free(ms->str);
+	free(ms->prompt);
+	free_array(ms->main_arr);
+	(void)ac;
+	(void)av;
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -32,16 +42,13 @@ int	main(int ac, char **av, char **envp)
 			add_history(ms->str);
 		if (ms->str && syntax_error(ms))
 			continue ;
-		var_init(ms);
-		run(ms);
-		signal_exit(ms);
-		free(ms->str);
-		free(ms->prompt);
-		free_array(ms->main_arr);
-		free_cmd_list(ms->cmdlist);
+		if (!var_init(ms))
+		{
+			run(ms);
+			free_cmd_list(ms->cmdlist);
+		}
+		main_free(ms, ac, av);
 	}
-	(void)av;
-	(void)ac;
 	exit (g_exit);
 }
 

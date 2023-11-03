@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/02 16:42:47 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:54:26 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,14 @@ array         new_array
 echo   ---->  echo
 $HOME  ---->  /ddiniz/home
 $VAR   ---->  value */
-void	env_var(t_minishell *ms, t_list **env, char **arr)
+int	env_var(t_minishell *ms, t_list **env, char **arr)
 {
 	int		i;
 	char	*buf;
 
 	i = 0;
+	if (empty_var(arr, env))
+		return (1);
 	while (i < arr_size(arr))
 	{
 		buf = ft_strdup(arr[i]);
@@ -137,4 +139,5 @@ void	env_var(t_minishell *ms, t_list **env, char **arr)
 		free(buf);
 		i++;
 	}
+	return (0);
 }
