@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/03 10:54:26 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:09:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*replace_quotes(char *str, char *buf, t_list **env, int flag)
 
 	res = NULL;
 	buf1 = NULL;
-	if (str[0] == '\'')
+	if (str[0] == '\'' && ft_strcmp(str, "\'\'") != 0)
 		res = replace_single(str, buf, env, flag);
-	else if (str[0] == '\"')
+	else if (str[0] == '\"' && ft_strcmp(str, "\"\"") != 0)
 	{
 		res = remove_quotes(str, '\"');
 		buf1 = replacer(res, env, 1);
@@ -106,6 +106,9 @@ char	*replacer(char *str, t_list **env, int flag)
 		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
 			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
 			res = NULL;
+		else if (arr_size(arr) != 1 && 
+			(ft_strcmp(arr[i], "\"\"") == 0 || ft_strcmp(arr[i], "\'\'") == 0))
+			res = ft_strdup(buf1);
 		else
 			res = replace_cond(arr[i], buf1, env, flag);
 		free(buf1);
@@ -124,12 +127,14 @@ $VAR   ---->  value */
 int	env_var(t_minishell *ms, t_list **env, char **arr)
 {
 	int		i;
+	int		size;
 	char	*buf;
 
 	i = 0;
+	size = arr_size(arr);
 	if (empty_var(arr, env))
 		return (1);
-	while (i < arr_size(arr))
+	while (i < size)
 	{
 		buf = ft_strdup(arr[i]);
 		free(arr[i]);

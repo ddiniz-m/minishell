@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/10/31 14:29:53 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:17:53 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	*cmd_path;
 	char	**env;
 
-	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0])
+	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0 
+		|| ft_strcmp(cmd_arr[0], "\"\"") == 0)
 		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
 	if (is_built_in(cmd_arr[0]))
 		built_ins(ms, cmd_arr);
@@ -111,7 +112,7 @@ char	*get_cmd_path(char **paths, char *cmd)
 	g_exit = 127;
 	if (strchr(cmd, '/'))
 		perror(cmd);
-	else
+	else if (ft_strcmp(cmd, "\'\'") != 0 && ft_strcmp(cmd, "\"\"") != 0)
 	{
 		write(STDERR_FILENO, "Minishell: ", 11);
 		ft_putstr_fd(cmd, STDERR_FILENO);

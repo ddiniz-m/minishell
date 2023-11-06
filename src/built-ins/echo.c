@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/01 17:44:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:28:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,22 @@ void	echo_print(char **cmd_args, int pos)
 	while (cmd_args && pos < arr_size(cmd_args))
 	{
 		i = 0;
+		if (ft_strcmp("\'\'", cmd_args[pos]) == 0 
+			|| ft_strcmp("\"\"", cmd_args[pos]) == 0)
+			pos++;
 		while (i < (int)ft_strlen(cmd_args[pos]) && cmd_args[pos][i])
 		{
 			if (cmd_args[pos][i])
 				printf("%c", cmd_args[pos][i++]);
 		}
 		pos++;
-		if (cmd_args && pos != arr_size(cmd_args))
+		if (cmd_args && cmd_args[0]
+			&& pos < arr_size(cmd_args) 
+			&& ft_strcmp("\'\'", cmd_args[pos]) != 0 
+			&& ft_strcmp("\"\"", cmd_args[pos]) != 0)
+		{
 			printf(" ");
+		}
 	}
 }
 
