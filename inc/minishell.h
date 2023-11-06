@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/03 17:18:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:22:11 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,12 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
+//replacer_chr.c
+char					*replace_quotes(char *str, char *buf, t_list **env, \
+	int flag);
+char					*replace_dollar(char *str, char *buf, t_list **env, \
+	int flag);
+
 // replacer_split2.c
 char					*replace_str(char *str, t_list **env);
 char					*replace_single(char *str, char *buf, t_list **env, \
