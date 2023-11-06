@@ -18,7 +18,9 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	*cmd_path;
 	char	**env;
 
-	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0 
+	if (!cmd_arr[0])
+		exit(g_exit);
+	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0
 		|| ft_strcmp(cmd_arr[0], "\"\"") == 0)
 		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
 	if (is_built_in(cmd_arr[0]))
