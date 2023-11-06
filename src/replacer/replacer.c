@@ -52,7 +52,7 @@ char	*replace_loop(char **arr, t_list **env, int flag)
 		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
 			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
 			res = NULL;
-		else if (arr_size(arr) != 1 && 
+		else if (arr_size(arr) != 1 &&
 			(ft_strcmp(arr[i], "\"\"") == 0 || ft_strcmp(arr[i], "\'\'") == 0))
 			res = ft_strdup(buf1);
 		else
@@ -66,11 +66,9 @@ char	*replace_loop(char **arr, t_list **env, int flag)
 //Joins all substituted strings from the split str
 char	*replacer(char *str, t_list **env, int flag)
 {
-	int		i;
 	char	*res;
 	char	**arr;
 
-	i = 0;
 	arr = var_split(str);
 	if (!arr)
 		return (NULL);
