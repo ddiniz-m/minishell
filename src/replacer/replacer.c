@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/06 14:21:11 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/21 12:34:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ char	*replace_loop(char **arr, t_list **env, int flag)
 		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
 			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
 			res = NULL;
-		else if (arr_size(arr) != 1 &&
-			(ft_strcmp(arr[i], "\"\"") == 0 || ft_strcmp(arr[i], "\'\'") == 0))
+		else if (arr_size(arr) != 1 && (ft_strcmp(arr[i], "\"\"") == 0
+				|| ft_strcmp(arr[i], "\'\'") == 0))
 			res = ft_strdup(buf1);
 		else
 			res = replace_cond(arr[i], buf1, env, flag);
