@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:55:30 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:57:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:25:19 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exp_built_in(t_minishell *ms, char **cmd_args)
 {
 	if (ft_strcmp(cmd_args[0], "export") == 0)
 	{
-		list_sort(ms);
+		list_sort(ms, ms->exp);
 		if (arr_size(cmd_args) > 1)
 			export(ms, cmd_args);
 		else

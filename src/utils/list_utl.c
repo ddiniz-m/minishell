@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:39:09 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:17:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	list_print(t_list **list)
 	}
 }
 
-void	list_sort(t_minishell *ms)
+void	list_sort(t_minishell *ms, t_list **exp)
 {
 	t_list	*head;
 	t_list	*tmp;
 
-	head = (*ms->exp);
+	head = *exp;
 	tmp = head;
 	while (tmp)
 	{
@@ -40,7 +40,7 @@ void	list_sort(t_minishell *ms)
 			head = head->next;
 		}
 		tmp = tmp->next;
-		head = (*ms->exp);
+		head = *exp;
 	}
 }
 

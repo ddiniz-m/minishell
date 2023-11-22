@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:37:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:31:33 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int g_sig = 0;
 //	allocated char *buffer
 void	main_free(t_minishell *ms, int ac, char **av)
 {
+	//post_process_signal(ms);
 	signal_exit(ms);
 	free(ms->str);
 	free(ms->prompt);

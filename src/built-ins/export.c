@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:31:09 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:43:24 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:14:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_list	**export_init(t_minishell *ms)
 	i = 0;
 	exp = (t_list **)malloc(sizeof(exp));
 	*exp = NULL;
-	env_buf = (*ms->env);
-	while (i < ft_lstsize((*ms->env)))
+	env_buf = *ms->env;
+	while (i < ft_lstsize(*ms->env))
 	{
 		tmp = export_str(env_buf->data);
 		node = ft_lstnew(tmp);
@@ -32,9 +32,10 @@ t_list	**export_init(t_minishell *ms)
 		env_buf = env_buf->next;
 		i++;
 	}
-	list_sort(ms);
+	list_sort(ms, exp);
 	return (exp);
 }
+
 
 //Checks if export arguments are valid
 int	export_error(t_minishell *ms, char *str)

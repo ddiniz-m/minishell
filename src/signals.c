@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:08:59 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:57:42 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:24:59 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ void	signal_init(void)
 {
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	post_process_signal(t_minishell *ms)
+{
+	if (g_sig == SIGQUIT)
+		ft_putstr_fd("Quit\n", STDERR_FILENO);
+	if (g_sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+	if (g_sig)
+	{
+		ms->exit = 128 + g_sig;
+		g_sig = 0;
+	}
 }

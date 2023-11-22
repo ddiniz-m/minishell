@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 15:01:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:25:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ char					**list_to_array(t_list **list);
 
 // list_utl.c
 void					list_print(t_list **list);
-void					list_sort(t_minishell *ms);
+void					list_sort(t_minishell *ms, t_list **exp);
 void					list_remove(t_list **list, int pos);
 int						list_check_dup(t_list **list, char *str);
 void					list_swap(t_minishell *ms, t_list *list);
@@ -246,5 +246,6 @@ char					*set_prompt(t_minishell *ms);
 void					signal_init(void);
 void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
+void					post_process_signal(t_minishell *ms);
 
 #endif
