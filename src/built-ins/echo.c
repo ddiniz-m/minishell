@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:39:54 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:19:12 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	echo_print(char **cmd_args, int pos)
 {
 	int	i;
 
+	arr_print("ECHO", cmd_args);
 	while (cmd_args && pos < arr_size(cmd_args))
 	{
 		i = 0;

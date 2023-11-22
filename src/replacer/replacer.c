@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:51:38 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:22:14 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ char	*replace_loop(t_minishell *ms, char **arr, int flag)
 		buf1 = ft_strdup(res);
 		free(res);
 		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
-			&& arr[i + 1] && arr[i + 1][0] && arr[i + 1][0] == '\'')
+			&& arr[i + 1] && arr[i + 1][0] && (arr[i + 1][0] == '\'' 
+			|| arr[i + 1][0] == '\"'))
 			res = NULL;
 		else if (arr_size(arr) != 1 && (ft_strcmp(arr[i], "\"\"") == 0
 				|| ft_strcmp(arr[i], "\'\'") == 0))
@@ -70,6 +71,7 @@ char	*replacer(t_minishell *ms, char *str, int flag)
 	char	**arr;
 
 	arr = var_split(str);
+	arr_print(NULL, arr);
 	if (!arr)
 		return (NULL);
 	res = replace_loop(ms, arr, flag);
