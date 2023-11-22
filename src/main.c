@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
@@ -33,6 +33,7 @@ int	main(int ac, char **av, char **envp)
 	ms = malloc(sizeof(t_minishell));
 	ms->env = env_init(envp);
 	ms->exp = export_init(ms);
+	ms->exit = 0;
 	while (1)
 	{
 		signal_init();
@@ -51,5 +52,3 @@ int	main(int ac, char **av, char **envp)
 	}
 	exit (ms->exit);
 }
-
-// `>output>>append echo 1 2 3 <input<<heredoc | <in<<here ls -l >out>>app`

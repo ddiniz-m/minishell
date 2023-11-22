@@ -28,7 +28,7 @@ void	exp_built_in(t_minishell *ms, char **cmd_args)
 {
 	if (ft_strcmp(cmd_args[0], "export") == 0)
 	{
-		list_sort(ms);
+		list_sort(ms, ms->exp);
 		if (arr_size(cmd_args) > 1)
 			export(ms, cmd_args);
 		else

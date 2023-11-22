@@ -32,7 +32,7 @@ t_list	**export_init(t_minishell *ms)
 		env_buf = env_buf->next;
 		i++;
 	}
-	list_sort(ms);
+	list_sort(ms, exp);
 	return (exp);
 }
 

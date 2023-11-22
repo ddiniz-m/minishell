@@ -14,6 +14,8 @@
 
 void	free_ms(t_minishell *ms)
 {
+	int	exit_status;
+
 	if (!ms)
 		exit(ms->exit);
 	if (ms->str)
@@ -26,8 +28,9 @@ void	free_ms(t_minishell *ms)
 		free_cmd_list(ms->cmdlist);
 	free_list_malloc(ms->env);
 	free_list_malloc(ms->exp);
+	exit_status = ms->exit;
 	free(ms);
-	exit (ms->exit);
+	exit (exit_status);
 }
 
 int	free_array(char **arr)

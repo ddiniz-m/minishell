@@ -24,12 +24,12 @@ void	list_print(t_list **list)
 	}
 }
 
-void	list_sort(t_minishell *ms)
+void	list_sort(t_minishell *ms, t_list **exp)
 {
 	t_list	*head;
 	t_list	*tmp;
 
-	head = (*ms->exp);
+	head = (*exp);
 	tmp = head;
 	while (tmp)
 	{
@@ -40,7 +40,7 @@ void	list_sort(t_minishell *ms)
 			head = head->next;
 		}
 		tmp = tmp->next;
-		head = (*ms->exp);
+		head = (*exp);
 	}
 }
 

@@ -42,7 +42,7 @@
 # include <term.h>
 # include <curses.h>
 
-extern int g_sig;
+extern int	g_sig;
 
 //-----------------------------------STRUCT-------------------------------------
 typedef struct s_cmdlist
@@ -175,12 +175,15 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
 //replacer_chr.c
-char					*replace_quotes(t_minishell *ms, char *str, char *buf, int flag);
-char					*replace_dollar(t_minishell *ms, char *str, char *buf, int flag);
+char					*replace_quotes(t_minishell *ms, char *str, char *buf, \
+	int flag);
+char					*replace_dollar(t_minishell *ms, char *str, char *buf, \
+	int flag);
 
 // replacer_split2.c
 char					*replace_str(t_minishell *ms, char *str);
-char					*replace_single(t_minishell *ms, char *str, char *buf, int flag);
+char					*replace_single(t_minishell *ms, char *str, char *buf, \
+	int flag);
 
 // replacer_utl.c
 char					*dollar_cond(t_minishell *ms, char *buf);
@@ -189,7 +192,8 @@ int						empty_var(char **arr, t_list **env);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
-char					*replace_cond(t_minishell *ms, char *str, char *buf1, int flag);
+char					*replace_cond(t_minishell *ms, char *str, char *buf1, \
+	int flag);
 char					*replacer(t_minishell *ms, char *str, int flag);
 int						env_var(t_minishell *ms);
 
@@ -216,7 +220,7 @@ char					**list_to_array(t_list **list);
 
 // list_utl.c
 void					list_print(t_list **list);
-void					list_sort(t_minishell *ms);
+void					list_sort(t_minishell *ms, t_list **exp);
 void					list_remove(t_list **list, int pos);
 int						list_check_dup(t_list **list, char *str);
 void					list_swap(t_minishell *ms, t_list *list);
