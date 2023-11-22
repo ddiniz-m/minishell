@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:52:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:00:47 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	var_init(t_minishell *ms)
 	if (env_var(ms))
 		return (1);
 	ms->cmd_count = cmd_count(ms->main_arr);
+	init_heredoc(ms, ms->main_arr);
+	env_var(ms);
 	ms->cmdlist = cmd_list_init(ms);
 	return (0);
 }

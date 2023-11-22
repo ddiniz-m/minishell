@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:51:18 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:01:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int						export_override(char *str, t_list **export);
 void					export(t_minishell *ms, char **arr);
 
 // unset.c
-void					unset_env(t_list **env, char *str);
-void					unset_exp(t_list **exp, char *str);
 void					unset(t_minishell *ms, char **arr);
 
 //++++++++++++++++ error_handling/[.....] +++++++++++++++++++++++++++++++++++++
