@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 19:22:14 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:24:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	*replacer(t_minishell *ms, char *str, int flag)
 	char	**arr;
 
 	arr = var_split(str);
-	arr_print(NULL, arr);
 	if (!arr)
 		return (NULL);
 	res = replace_loop(ms, arr, flag);
