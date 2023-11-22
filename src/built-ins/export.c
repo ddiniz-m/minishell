@@ -36,7 +36,6 @@ t_list	**export_init(t_minishell *ms)
 	return (exp);
 }
 
-
 //Checks if export arguments are valid
 int	export_error(t_minishell *ms, char *str)
 {

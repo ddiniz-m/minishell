@@ -12,13 +12,13 @@
 
 #include "../inc/minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 //	'readline' records whatever is inputed in terminal, and returns a memory
 //	allocated char *buffer
 void	main_free(t_minishell *ms, int ac, char **av)
 {
-	//post_process_signal(ms);
+	post_process_signal(ms);
 	signal_exit(ms);
 	free(ms->str);
 	free(ms->prompt);
@@ -36,6 +36,7 @@ int	main(int ac, char **av, char **envp)
 	ms->exp = export_init(ms);
 	while (1)
 	{
+		g_sig = 0;
 		signal_init();
 		ms->prompt = set_prompt(ms);
 		ms->str = readline(ms->prompt);
@@ -52,5 +53,3 @@ int	main(int ac, char **av, char **envp)
 	}
 	exit (ms->exit);
 }
-
-// `>output>>append echo 1 2 3 <input<<heredoc | <in<<here ls -l >out>>app`

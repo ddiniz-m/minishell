@@ -23,24 +23,15 @@ void	signal_interrupt(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_sig = SIGINT;
 	}
 }
 
 void	signal_process_interrupt(int signum)
 {
 	if (signum == SIGQUIT)
-	{
-		ft_putstr_fd("Quit\n", STDERR_FILENO);
 		g_sig = SIGQUIT;
-	}
 	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
 		g_sig = SIGINT;
-	}
 }
 
 //	CTRL-D represents "No input".
@@ -50,6 +41,7 @@ void	signal_exit(t_minishell *ms)
 	if (!(ms->str))
 	{
 		write(STDOUT_FILENO, "\n", 1);
+		g_sig = 0;
 		free_ms(ms);
 	}
 }
@@ -65,17 +57,13 @@ void	signal_init(void)
 
 void	post_process_signal(t_minishell *ms)
 {
+	if (!g_sig)
+		return ;
 	if (g_sig == SIGQUIT)
 		ft_putstr_fd("Quit\n", STDERR_FILENO);
 	if (g_sig == SIGINT)
-	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
 	if (g_sig)
-	{
 		ms->exit = 128 + g_sig;
-		g_sig = 0;
-	}
+	g_sig = 0;
 }
