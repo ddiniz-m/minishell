@@ -36,7 +36,7 @@ void	echo_print(char **cmd_args, int pos)
 	while (cmd_args && pos < arr_size(cmd_args))
 	{
 		i = 0;
-		if (ft_strcmp("\'\'", cmd_args[pos]) == 0 
+		if (ft_strcmp("\'\'", cmd_args[pos]) == 0
 			|| ft_strcmp("\"\"", cmd_args[pos]) == 0)
 			pos++;
 		while (i < (int)ft_strlen(cmd_args[pos]) && cmd_args[pos][i])
@@ -46,8 +46,8 @@ void	echo_print(char **cmd_args, int pos)
 		}
 		pos++;
 		if (cmd_args && cmd_args[0]
-			&& pos < arr_size(cmd_args) 
-			&& ft_strcmp("\'\'", cmd_args[pos]) != 0 
+			&& pos < arr_size(cmd_args)
+			&& ft_strcmp("\'\'", cmd_args[pos]) != 0
 			&& ft_strcmp("\"\"", cmd_args[pos]) != 0)
 		{
 			printf(" ");
