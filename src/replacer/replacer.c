@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/21 12:34:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:51:38 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**var_split(char *str);
 char	*var_iter(t_list **env, char *var);
 
-char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
+char	*replace_cond(t_minishell *ms, char *str, char *buf1, int flag)
 {
 	char	*res;
 	char	*buf2;
@@ -23,9 +23,9 @@ char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
 	res = NULL;
 	buf2 = NULL;
 	if (str[0] == '$')
-		res = replace_dollar(str, buf1, env, flag);
+		res = replace_dollar(ms, str, buf1, flag);
 	else if (meta_char(str[0]) == 3)
-		res = replace_quotes(str, buf1, env, flag);
+		res = replace_quotes(ms, str, buf1, flag);
 	else if (flag == 2)
 	{
 		buf2 = add_quotes(str, '\'');
@@ -37,7 +37,7 @@ char	*replace_cond(char *str, char *buf1, t_list **env, int flag)
 	return (res);
 }
 
-char	*replace_loop(char **arr, t_list **env, int flag)
+char	*replace_loop(t_minishell *ms, char **arr, int flag)
 {
 	int		i;
 	char	*res;
@@ -56,7 +56,7 @@ char	*replace_loop(char **arr, t_list **env, int flag)
 				|| ft_strcmp(arr[i], "\'\'") == 0))
 			res = ft_strdup(buf1);
 		else
-			res = replace_cond(arr[i], buf1, env, flag);
+			res = replace_cond(ms, arr[i], buf1, flag);
 		free(buf1);
 		i++;
 	}
@@ -64,7 +64,7 @@ char	*replace_loop(char **arr, t_list **env, int flag)
 }
 
 //Joins all substituted strings from the split str
-char	*replacer(char *str, t_list **env, int flag)
+char	*replacer(t_minishell *ms, char *str, int flag)
 {
 	char	*res;
 	char	**arr;
@@ -72,7 +72,7 @@ char	*replacer(char *str, t_list **env, int flag)
 	arr = var_split(str);
 	if (!arr)
 		return (NULL);
-	res = replace_loop(arr, env, flag);
+	res = replace_loop(ms, arr, flag);
 	free_array(arr);
 	return (res);
 }
@@ -83,22 +83,22 @@ array         new_array
 echo   ---->  echo
 $HOME  ---->  /ddiniz/home
 $VAR   ---->  value */
-int	env_var(t_minishell *ms, t_list **env, char **arr)
+int	env_var(t_minishell *ms)
 {
 	int		i;
 	int		size;
 	char	*buf;
 
 	i = 0;
-	size = arr_size(arr);
-	if (empty_var(arr, env))
+	size = arr_size(ms->main_arr);
+	if (empty_var(ms->main_arr, ms->env))
 		return (1);
 	while (i < size)
 	{
-		buf = ft_strdup(arr[i]);
-		free(arr[i]);
-		arr[i] = replacer(buf, env, 0);
-		if (!arr[i])
+		buf = ft_strdup(ms->main_arr[i]);
+		free(ms->main_arr[i]);
+		ms->main_arr[i] = replacer(ms, buf, 0);
+		if (!ms->main_arr[i])
 			malloc_error(ms);
 		free(buf);
 		i++;

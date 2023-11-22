@@ -6,19 +6,19 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:25:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/06 12:07:13 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:25:24 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*dollar_cond(char *buf)
+char	*dollar_cond(t_minishell *ms, char *buf)
 {
 	char	*buf1;
 	char	*res;
 
 	res = NULL;
-	buf1 = ft_itoa(g_exit);
+	buf1 = ft_itoa(ms->exit);
 	res = ft_strjoin(buf, buf1);
 	free(buf1);
 	return (res);

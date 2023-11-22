@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:21:07 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/06 13:28:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:39:54 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	echo_print(char **cmd_args, int pos)
 	}
 }
 
-int	ft_echo(char **cmd_args)
+int	ft_echo(t_minishell *ms, char **cmd_args)
 {
 	int		j;
 	int		cmds;
@@ -63,7 +63,7 @@ int	ft_echo(char **cmd_args)
 
 	j = 1;
 	n_flag = 0;
-	g_exit = 0;
+	ms->exit = 0;
 	cmds = arr_size(cmd_args);
 	if (cmd_args[1] && echo_flag(cmd_args[1]) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/21 12:36:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 	{
 		wait(&status);
 		if (pid != -1 && WIFEXITED(status))
-			g_exit = WEXITSTATUS(status);
+			ms->exit = WEXITSTATUS(status);
 		cmds_run--;
 	}
 	reset_fds(ms);
@@ -96,7 +96,7 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		close(pipe_fd[1]);
 	}
 	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
-		exit(g_exit);
+		exit(ms->exit);
 	redirect(ms, ms->main_arr, pos, 1);
 	exec(ms, cmd->cmd_args);
 }

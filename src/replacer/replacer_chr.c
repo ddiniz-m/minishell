@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:20:36 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/06 14:23:51 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:51:42 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**var_split(char *str);
 char	*var_iter(t_list **env, char *var);
 
-char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
+char	*replace_dollar(t_minishell *ms, char *str, char *buf, int flag)
 {
 	char	*res;
 	char	*buf1;
@@ -23,12 +23,12 @@ char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 
 	buf2 = NULL;
 	if (str[0] && str[1] && str[0] == '$' && str[1] == '?')
-		return (dollar_cond(buf));
+		return (dollar_cond(ms, buf));
 	if (ft_strcmp(str, "$") == 0 || (str[1] && !ft_isalnum(str[1])
 			&& str[1] != '_' && str[1] != '\\') || str[1] == '?')
 		return (ft_strjoin(buf, str));
 	buf1 = ft_strtrim(str, "$");
-	buf2 = replace_str(buf1, env);
+	buf2 = replace_str(ms, buf1);
 	free(buf1);
 	if (flag == 2)
 	{
@@ -42,7 +42,7 @@ char	*replace_dollar(char *str, char *buf, t_list **env, int flag)
 	return (res);
 }
 
-char	*replace_quotes(char *str, char *buf, t_list **env, int flag)
+char	*replace_quotes(t_minishell *ms, char *str, char *buf, int flag)
 {
 	char	*res;
 	char	*buf1;
@@ -50,11 +50,11 @@ char	*replace_quotes(char *str, char *buf, t_list **env, int flag)
 	res = NULL;
 	buf1 = NULL;
 	if (str[0] == '\'' && ft_strcmp(str, "\'\'") != 0)
-		res = replace_single(str, buf, env, flag);
+		res = replace_single(ms, str, buf, flag);
 	else if (str[0] == '\"' && ft_strcmp(str, "\"\"") != 0)
 	{
 		res = remove_quotes(str, '\"');
-		buf1 = replacer(res, env, 1);
+		buf1 = replacer(ms, res, 1);
 		free(res);
 		res = ft_strjoin(buf, buf1);
 	}
