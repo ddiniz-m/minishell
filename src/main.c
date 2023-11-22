@@ -18,6 +18,7 @@ int	g_sig = 0;
 //	allocated char *buffer
 void	main_free(t_minishell *ms, int ac, char **av)
 {
+	post_process_signal();
 	signal_exit(ms);
 	free(ms->str);
 	free(ms->prompt);

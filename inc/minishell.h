@@ -252,5 +252,6 @@ char					*set_prompt(t_minishell *ms);
 void					signal_init(void);
 void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
+void					post_process_signal(void);
 
 #endif

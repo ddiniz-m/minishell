@@ -23,24 +23,15 @@ void	signal_interrupt(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_sig = SIGINT;
 	}
 }
 
 void	signal_process_interrupt(int signum)
 {
 	if (signum == SIGQUIT)
-	{
-		ft_putstr_fd("Quit\n", STDERR_FILENO);
 		g_sig = SIGQUIT;
-	}
 	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
 		g_sig = SIGINT;
-	}
 }
 
 //	CTRL-D represents "No input".
@@ -61,4 +52,15 @@ void	signal_init(void)
 {
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	post_process_signal(void)
+{
+	if (!g_sig)
+		return ;
+	if (g_sig == SIGQUIT)
+		ft_putstr_fd("Quit\n", STDERR_FILENO);
+	if (g_sig == SIGINT)
+		printf("\n");
+	g_sig = 0;
 }

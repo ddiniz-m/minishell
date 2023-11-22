@@ -38,6 +38,10 @@ void	get_exit_status(t_minishell *ms, pid_t pid, int cmds_run)
 		wait(&status);
 		if (pid != -1 && WIFEXITED(status))
 			ms->exit = WEXITSTATUS(status);
+		if (pid != -1 && WIFSIGNALED(status))
+			g_sig = WTERMSIG(status);
+		else
+			g_sig = 0;
 		cmds_run--;
 	}
 	reset_fds(ms);
