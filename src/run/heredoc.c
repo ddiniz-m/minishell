@@ -6,7 +6,7 @@
 /*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 17:39:52 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:27:17 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,14 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	int		status;
 	int		fd;
 
+	signal(SIGINT, SIG_IGN);
 	filename = create_file(here_num);
 	pid = fork();
+	if (pid < 0)
+		fork_error(ms, NULL);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		open_error(ms, filename, 1);
-	if (pid < 0)
-		fork_error(ms, NULL);
 	if (pid == 0)
 		heredoc_child(ms, fd, limiter);
 	else
