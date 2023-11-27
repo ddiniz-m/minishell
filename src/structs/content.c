@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/06 13:29:50 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:53:49 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	init_heredoc(t_minishell *ms, char **main_arr)
+int	init_heredoc(t_minishell *ms, char **main_arr)
 {
 	int		index;
 	char	*buf;
 
 	index = 0;
 	if (!main_arr || !main_arr[0] || !main_arr[0][0])
-		return ;
+		return (0);
 	while (main_arr[index])
 	{
 		if (ft_strcmp(main_arr[index], "<<") == 0)
@@ -28,11 +28,17 @@ void	init_heredoc(t_minishell *ms, char **main_arr)
 			free(main_arr[index + 1]);
 			main_arr[index + 1] = heredoc(ms, buf, index);
 			free(buf);
+			if (g_sig == SIGINT)
+			{
+				g_sig = 0;
+				return (1);
+			}
 			index += 2;
 		}
 		else
 			index++;
 	}
+	return (0);
 }
 
 //Takes main array and position of a command, and returns an array with the

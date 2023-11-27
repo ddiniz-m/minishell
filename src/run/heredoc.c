@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 13:53:36 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:39:52 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,13 @@ void	change_terminal(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-static void	restore_stdin(void)
-{
-	int	terminal_fd;
-
-	terminal_fd = open("/dev/tty", O_RDWR);
-	if (terminal_fd < 0)
-		open_error(NULL, NULL, 1);
-	dup2(terminal_fd, STDIN_FILENO);
-	close(terminal_fd);
-}
-
-void	heredoc_child(t_minishell *ms, char *file, char *limiter)
+void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 {
 	char	*line;
-	int		fd;
 
 	line = NULL;
 	signal(SIGINT, SIG_DFL);
 	change_terminal();
-	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (fd < 0)
-		open_error(ms, file, 1);
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);
@@ -51,10 +36,8 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 			heredoc_eof(limiter);
 		if (line == NULL || !line[0] || strcmp_nochr(limiter, line, '\n') == 0)
 		{
-			close(fd);
 			free(line);
-			free_ms(ms);
-			return ;
+			break ;
 		}
 		ft_putstr_fd(line, fd);
 		free(line);
@@ -87,18 +70,24 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 {
 	char	*filename;
 	pid_t	pid;
+	int		status;
+	int		fd;
 
 	filename = create_file(here_num);
-	restore_stdin();
 	pid = fork();
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (fd < 0)
+		open_error(ms, filename, 1);
 	if (pid < 0)
 		fork_error(ms, NULL);
 	if (pid == 0)
-		heredoc_child(ms, filename, limiter);
+		heredoc_child(ms, fd, limiter);
 	else
 	{
-		signal(SIGINT, signal_process_interrupt);
-		waitpid(pid, NULL, 0);
+		wait(&status);
+		if (pid != -1 && WIFSIGNALED(status))
+			g_sig = WTERMSIG(status);
 	}
+	close(fd);
 	return (filename);
 }
