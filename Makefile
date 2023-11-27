@@ -51,7 +51,7 @@ $(OBJ_DIR)/%.o: $(SRCS)
 		@$(CC) $(CFLAGS) -o $@ -c $<
 
 val: $(NAME)
-	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
+	@valgrind --track-fds=yes --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
 clean:
 		@$(RM) $(OBJS) $(OBJ_DIR)

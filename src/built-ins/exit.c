@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 15:29:16 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:22:43 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:32:03 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ void	ft_exit(t_minishell *ms, char **args)
 		else
 			ms->exit = other_exit_status(args[1]);
 	}
+	printf("2\n");
 	free_ms(ms);
 }

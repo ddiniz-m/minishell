@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:34:05 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	run(t_minishell *ms)
 	while (cmds_run < ms->cmd_count)
 	{
 		if (pipe(pipe_fd) < 0)
-			pipe_error(ms);
+			pipe_error(ms, pipe_fd);
 		pid = fork();
 		if (pid < 0)
-			fork_error(ms);
+			fork_error(ms, pipe_fd);
 		if (pid == 0)
 			child(ms, pipe_fd, cmds_run, pos);
 		else
@@ -96,12 +96,25 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	if (cmds_run < ms->cmd_count - 1)
 	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
+	if (ms->cmd_count == 1 && ft_strcmp(cmd->cmd_args[0], "exit") == 0)
+	{
+		printf("6\n");
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		free_ms(ms);
+	}
 	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		printf("6\n");
 		exit(ms->exit);
+	}
 	redirect(ms, ms->main_arr, pos, 1);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 	exec(ms, cmd->cmd_args);
 }
 
@@ -119,7 +132,11 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		if (is_built_in(cmd->cmd_args[0]))
 		{
 			if (redirect(ms, ms->main_arr, pos, 0) == 0)
+			{	
+				close(pipe_fd[0]);
+				close(pipe_fd[1]);
 				built_ins(ms, cmd->cmd_args);
+			}
 		}
 	}
 	if (cmds_run > 0)
@@ -127,7 +144,16 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	if (cmds_run < ms->cmd_count - 1)
 	{
 		close(pipe_fd[1]);
-		ms->cmd_in_fd = pipe_fd[0];
+		/* ms->cmd_in_fd = pipe_fd[0]; */
+		dup2(ms->cmd_in_fd, pipe_fd[0]);
+		close(pipe_fd[0]);
 	}
+	else
+	{
+		close(pipe_fd[1]);
+		close(pipe_fd[0]);
+	}
+	close(ms->fdin_buf);
+	close(ms->fdout_buf);
 	signal(SIGINT, signal_process_interrupt);
 }

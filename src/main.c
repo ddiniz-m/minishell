@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:37:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:31:00 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int	main(int ac, char **av, char **envp)
 		}
 		main_free(ms, ac, av);
 	}
-	exit (ms->exit);
+	exit(ms->exit);
 }

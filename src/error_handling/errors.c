@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/22 14:22:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:34:45 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	open_error(t_minishell *ms, char *filename, int child)
 	if (child)
 	{
 		ms->exit = 1;
+		printf("7\n");
 		free_ms(ms);
 	}
 	else
@@ -48,16 +49,22 @@ int	open_error(t_minishell *ms, char *filename, int child)
 	return (0);
 }
 
-void	pipe_error(t_minishell *ms)
+void	pipe_error(t_minishell *ms, int *pipe_fd)
 {
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 	ft_putstr_fd("Minishell: error: pipe failed\n", STDERR_FILENO);
 	ms->exit = 1;
+	printf("8\n");
 	free_ms(ms);
 }
 
-void	fork_error(t_minishell *ms)
+void	fork_error(t_minishell *ms, int *pipe_fd)
 {
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 	ft_putstr_fd("Minishell: error: fork failed\n", STDERR_FILENO);
 	ms->exit = 1;
+	printf("9\n");
 	free_ms(ms);
 }

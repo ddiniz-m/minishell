@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:24:58 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:53:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,18 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 		if (line == NULL || !line[0])
 			heredoc_eof(limiter);
 		if (line == NULL || !line[0] || strcmp_nochr(limiter, line, '\n') == 0)
-			break ;
+		{
+			close(fd);
+			free(line);
+			free_ms(ms);
+			return ;
+		}
 		ft_putstr_fd(line, fd);
 		free(line);
 	}
 	close(fd);
-	free(line);
-	exit (ms->exit);
-	free_ms(ms);
+	exit (ms->exit); 
+	
 }
 
 char	*create_file(int here_num)
@@ -89,7 +93,7 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	restore_stdin();
 	pid = fork();
 	if (pid < 0)
-		fork_error(ms);
+		fork_error(ms, NULL);
 	if (pid == 0)
 		heredoc_child(ms, filename, limiter);
 	else

@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/22 14:51:18 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:24:32 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void					unset(t_minishell *ms, char **arr);
 int						syntax_error(t_minishell *ms);
 void					malloc_error(t_minishell *ms);
 int						open_error(t_minishell *ms, char *filename, int child);
-void					pipe_error(t_minishell *ms);
-void					fork_error(t_minishell *ms);
+void					pipe_error(t_minishell *ms, int *pipe_fd);
+void					fork_error(t_minishell *ms, int *pipe_fd);
 
 //errors2.c
 int						export_error_msg(t_minishell *ms, char *error);
