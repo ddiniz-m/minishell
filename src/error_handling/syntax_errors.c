@@ -71,10 +71,10 @@ int	redir_syntax(char *str)
 			i++;
 		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (i < size && str[i] && str[i + 1] && (str[i] == '>' 
+		if (i < size && str[i] && str[i + 1] && (str[i] == '>' \
 				&& str[i + 1] == '<'))
 			return (token_message(str[i + 1]));
-		if (i < size && str[i] && str[i + 1] && (str[i] == '<'
+		if (i < size && str[i] && str[i + 1] && (str[i] == '<' \
 				&& str[i + 1] == '|'))
 			return (token_message(str[i + 1]));
 		i++;
@@ -98,11 +98,11 @@ int	double_redir_syntax(char *str)
 			i++;
 		if (i < size && str[i] && meta_char(str[i]) == 3)
 			i = skip_quotes(str, i);
-		if (i < size && str[i] && i < size && (str[i] == '>' 
+		if (i < size && str[i] && i < size && (str[i] == '>'
 				|| str[i] == '<'))
 		{
 			redir = str[i];
-			if (i < size && str[i + 1] == redir && (str[i + 2] == '|' 
+			if (i < size && str[i + 1] == redir && (str[i + 2] == '|'
 					|| (str[i + 2] == ' ' \
 					&& str[i + 3] == '|')))
 				return (token_message('|'));

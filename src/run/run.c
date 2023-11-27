@@ -132,7 +132,7 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		if (is_built_in(cmd->cmd_args[0]))
 		{
 			if (redirect(ms, ms->main_arr, pos, 0) == 0)
-			{	
+			{
 				close(pipe_fd[0]);
 				close(pipe_fd[1]);
 				built_ins(ms, cmd->cmd_args);

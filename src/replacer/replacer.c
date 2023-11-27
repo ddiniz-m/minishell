@@ -50,7 +50,7 @@ char	*replace_loop(t_minishell *ms, char **arr, int flag)
 		buf1 = ft_strdup(res);
 		free(res);
 		if (flag == 0 && arr_size(arr) >= 2 && ft_strcmp(arr[i], "$") == 0 \
-			&& arr[i + 1] && arr[i + 1][0] && (arr[i + 1][0] == '\'' 
+			&& arr[i + 1] && arr[i + 1][0] && (arr[i + 1][0] == '\'' \
 			|| arr[i + 1][0] == '\"'))
 			res = NULL;
 		else if (arr_size(arr) != 1 && (ft_strcmp(arr[i], "\"\"") == 0

@@ -60,8 +60,7 @@ void	heredoc_child(t_minishell *ms, char *file, char *limiter)
 		free(line);
 	}
 	close(fd);
-	exit (ms->exit); 
-	
+	exit (ms->exit);
 }
 
 char	*create_file(int here_num)

@@ -66,7 +66,7 @@ int	empty_var(char **arr, t_list **env)
 	char	*buf1;
 	char	*buf2;
 
-	if (arr_size(arr) == 1 && arr[0][0] && arr[0][0] == '$' 
+	if (arr_size(arr) == 1 && arr[0][0] && arr[0][0] == '$' \
 		&& ft_strcmp(arr[0], "$") != 0 && ft_strcmp(arr[0], "$?") != 0)
 	{
 		buf1 = str_front_trim(arr[0], "$");
