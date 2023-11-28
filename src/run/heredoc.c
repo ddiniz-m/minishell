@@ -50,7 +50,18 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 	exit(0);
 }
 
-char	*create_file(int here_num)
+int	create_file(t_minishell *ms, char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (fd < 0)
+		open_error(ms, filename, 1);
+	free(filename);
+	return (fd);
+}
+
+char	*create_filename(int here_num)
 {
 	int		i;
 	char	*buf;
@@ -78,24 +89,23 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	int		fd;
 
 	signal(SIGINT, SIG_IGN);
-	filename = create_file(here_num);
+	filename = create_filename(here_num);
 	pid = fork();
 	if (pid < 0)
 		fork_error(ms, NULL);
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (fd < 0)
-		open_error(ms, filename, 1);
 	if (pid == 0)
 	{
-		free(filename);
+		fd = create_file(ms, filename);
 		heredoc_child(ms, fd, limiter);
 	}
 	else
 	{
 		wait(&status);
 		if (pid != -1 && WIFSIGNALED(status))
+		{
 			g_sig = WTERMSIG(status);
+			unlink(filename);
+		}
 	}
-	close(fd);
 	return (filename);
 }
