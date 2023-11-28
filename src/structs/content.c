@@ -24,10 +24,6 @@ int	init_heredoc(t_minishell *ms, char **main_arr)
 	{
 		if (ft_strcmp(main_arr[index], "<<") == 0)
 		{
-			// buf = ft_strdup(main_arr[index + 1]);
-			// free(main_arr[index + 1]);
-			// main_arr[index + 1] = heredoc(ms, buf, index);
-			// free(buf);
 			buf = heredoc(ms, main_arr[index + 1], index);
 			if (g_sig == SIGINT)
 			{

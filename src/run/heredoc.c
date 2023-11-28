@@ -34,13 +34,12 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 	printf("DELIMITER: %s\n", limit);
 	while (1)
 	{
-		write(STDOUT_FILENO, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
-		if (!line || !line[0])
+		line = readline("> ");
+		if (!line)
 			heredoc_eof(limit);
-		if (!line || !line[0] || strcmp_nochr(limit, line, '\n') == 0)
+		if (!line || strcmp_nochr(limit, line, '\n') == 0)
 			break ;
-		ft_putstr_fd(line, fd);
+		ft_putendl_fd(line, fd);
 		free(line);
 	}
 	free(limit);
