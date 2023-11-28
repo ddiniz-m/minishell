@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:01:57 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/27 13:34:05 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:10:08 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,15 @@ void	child(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	if (ms->cmd_count == 1 && ft_strcmp(cmd->cmd_args[0], "exit") == 0)
-	{
-		printf("6\n");
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		free_ms(ms);
-	}
 	if (ms->cmd_count == 1 && is_built_in(cmd->cmd_args[0]))
 	{
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
-		printf("6\n");
-		exit(ms->exit);
+		free_ms(ms);
 	}
-	redirect(ms, ms->main_arr, pos, 1);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
+	redirect(ms, ms->main_arr, pos, 1);
 	exec(ms, cmd->cmd_args);
 }
 
@@ -153,7 +145,5 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
 	}
-	close(ms->fdin_buf);
-	close(ms->fdout_buf);
 	signal(SIGINT, signal_process_interrupt);
 }

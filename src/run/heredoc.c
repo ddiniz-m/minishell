@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 18:27:17 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:39:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 		if (line == NULL || !line[0] || strcmp_nochr(limiter, line, '\n') == 0)
 		{
 			free(line);
-			break ;
+			close(fd);
+			return ;
 		}
 		ft_putstr_fd(line, fd);
 		free(line);

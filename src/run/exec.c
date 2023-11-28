@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:13:44 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/27 13:35:19 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:32:15 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,25 @@ void	exec(t_minishell *ms, char **cmd_arr)
 	char	**env;
 
 	if (!cmd_arr[0])
-	{
-		printf("3\n");
 		exit(ms->exit);
-	}
 	if (!cmd_arr || ft_strcmp(cmd_arr[0], "\'\'") == 0
 		|| ft_strcmp(cmd_arr[0], "\"\"") == 0)
 		write(STDERR_FILENO, "Minishell: '': command not found\n", 33);
 	if (is_built_in(cmd_arr[0]))
 		built_ins(ms, cmd_arr);
 	if (!cmd_arr || !cmd_arr[0] || !cmd_arr[0][0] || is_built_in(cmd_arr[0]))
-	{
-		printf("9\n");
 		free_ms(ms);
-	}
 	paths = get_paths(ms->env, cmd_arr[0]);
 	if (is_exec(ms, cmd_arr[0], paths) == 0)
-	{
-		printf("10\n");
 		free_ms(ms);
-	}
 	cmd_path = get_cmd_path(ms, paths, cmd_arr[0]);
 	free_array(paths);
 	if (!cmd_path)
-	{
-		printf("11\n");
 		free_ms(ms);
-	}
 	env = list_to_array(ms->env);
 	execve(cmd_path, cmd_arr, env);
 	free(cmd_path);
 	ms->exit = errno;
-	printf("4\n");
 	free_ms(ms);
 }
 
