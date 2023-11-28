@@ -14,11 +14,6 @@
 
 void	free_hdoc(t_minishell *ms)
 {
-	if (!ms)
-		exit(ms->exit);
-	close(0);
-	close(1);
-	close(2);
 	if (ms->fdin_buf != -1)
 		close(ms->fdin_buf);
 	if (ms->fdout_buf != -1)
@@ -32,5 +27,11 @@ void	free_hdoc(t_minishell *ms)
 	free_list_malloc(ms->env);
 	free_list_malloc(ms->exp);
 	free(ms);
-	exit (0);
+}
+
+void	close_fds(void)
+{
+	close(0);
+	close(1);
+	close(2);
 }

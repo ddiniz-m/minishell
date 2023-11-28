@@ -24,25 +24,31 @@ void	change_terminal(void)
 void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 {
 	char	*line;
+	char	*limit;
 
+	limit = ft_strdup(limiter);
+	free_hdoc(ms);
 	line = NULL;
 	signal(SIGINT, SIG_DFL);
 	change_terminal();
+	printf("DELIMITER: %s\n", limit);
 	while (1)
 	{
-		line = readline("> ");
-		if (!line)
-			heredoc_eof(limiter);
-		if (!line || strcmp_nochr(limiter, line, '\n') == 0)
-		{
-			free(line);
-			close(fd);
-			free_hdoc(ms);
-		}
+		write(STDOUT_FILENO, "> ", 2);
+		line = get_next_line(STDIN_FILENO);
+		if (!line || !line[0])
+			heredoc_eof(limit);
+		if (!line || !line[0] || strcmp_nochr(limit, line, '\n') == 0)
+			break ;
 		ft_putstr_fd(line, fd);
-		ft_putchar_fd('\n', fd);
 		free(line);
 	}
+	free(limit);
+	if (line)
+		free(line);
+	close (fd);
+	close_fds();
+	exit(0);
 }
 
 char	*create_file(int here_num)
