@@ -57,14 +57,12 @@ int	var_init(t_minishell *ms)
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
 	ms->main_arr = split_main(ms, ms->str);
-	arr_print(NULL, ms->main_arr);
 	if (init_heredoc(ms, ms->main_arr))
 		return (1);
 	if (env_var(ms))
 		return (1);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
-	cmdlist_print(&ms->cmdlist);
 	signal_init();
 	return (0);
 }

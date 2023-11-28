@@ -23,6 +23,10 @@ void	main_free(t_minishell *ms, int ac, char **av)
 	free(ms->str);
 	free(ms->prompt);
 	free_array(ms->main_arr);
+	if (ms->fdin_buf != -1)
+		close(ms->fdin_buf);
+	if (ms->fdout_buf != -1)
+		close(ms->fdout_buf);
 	(void)ac;
 	(void)av;
 }
