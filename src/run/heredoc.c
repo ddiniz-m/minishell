@@ -31,7 +31,6 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 	line = NULL;
 	signal(SIGINT, SIG_DFL);
 	change_terminal();
-	printf("DELIMITER: %s\n", limit);
 	while (1)
 	{
 		line = readline("> ");

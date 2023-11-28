@@ -25,15 +25,14 @@ int	init_heredoc(t_minishell *ms, char **main_arr)
 		if (ft_strcmp(main_arr[index], "<<") == 0)
 		{
 			buf = heredoc(ms, main_arr[index + 1], index);
-			if (g_sig == SIGINT)
-			{
-				free(buf);
-				g_sig = 0;
-				return (printf("\n"));
-			}
 			free(main_arr[index + 1]);
 			main_arr[index + 1] = ft_strdup(buf);
 			free(buf);
+			if (g_sig == SIGINT)
+			{
+				g_sig = 0;
+				return (printf("\n"));
+			}
 			index += 2;
 		}
 		else
