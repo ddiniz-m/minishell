@@ -247,7 +247,7 @@ void					free_list_malloc(t_list **exp);
 
 // frees2.c
 void					free_hdoc(t_minishell *ms);
-void					close_fds(void);
+void					close_std_fds(void);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

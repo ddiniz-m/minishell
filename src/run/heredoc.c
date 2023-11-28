@@ -45,7 +45,7 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 	if (line)
 		free(line);
 	close (fd);
-	close_fds();
+	close_std_fds();
 	exit(0);
 }
 

@@ -29,7 +29,7 @@ void	free_hdoc(t_minishell *ms)
 	free(ms);
 }
 
-void	close_fds(void)
+void	close_std_fds(void)
 {
 	close(0);
 	close(1);
