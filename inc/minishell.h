@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 17:25:18 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:42:40 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,9 @@ void					free_ms(t_minishell *ms);
 int						free_array(char **arr);
 void					free_cmd_list(t_cmdlist *cmdlist);
 void					free_list_malloc(t_list **exp);
+
+// frees2.c
+void					free_hdoc(t_minishell *ms);
 
 // prompt.c
 char					*set_prompt(t_minishell *ms);

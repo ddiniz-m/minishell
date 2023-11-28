@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:59:22 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/27 15:58:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:57:27 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	main_free(t_minishell *ms, int ac, char **av)
 	free(ms->str);
 	free(ms->prompt);
 	free_array(ms->main_arr);
+	/* if (ms->fdin_buf != -1)
+		close(ms->fdin_buf);
+	if (ms->fdout_buf != -1)
+		close(ms->fdout_buf); */
 	(void)ac;
 	(void)av;
 }

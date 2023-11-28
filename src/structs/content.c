@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   content.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/11/27 18:28:34 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:36:03 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,20 @@ int	init_heredoc(t_minishell *ms, char **main_arr)
 	{
 		if (ft_strcmp(main_arr[index], "<<") == 0)
 		{
-			buf = ft_strdup(main_arr[index + 1]);
-			free(main_arr[index + 1]);
-			main_arr[index + 1] = heredoc(ms, buf, index);
-			free(buf);
+			// buf = ft_strdup(main_arr[index + 1]);
+			// free(main_arr[index + 1]);
+			// main_arr[index + 1] = heredoc(ms, buf, index);
+			// free(buf);
+			buf = heredoc(ms, main_arr[index + 1], index);
 			if (g_sig == SIGINT)
 			{
+				free(buf);
 				g_sig = 0;
 				return (printf("\n"));
 			}
+			free(main_arr[index + 1]);
+			main_arr[index + 1] = ft_strdup(buf);
+			free(buf);
 			index += 2;
 		}
 		else

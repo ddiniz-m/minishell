@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/28 11:39:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:57:09 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 		{
 			free(line);
 			close(fd);
-			return ;
+			free_hdoc(ms);
 		}
 		ft_putstr_fd(line, fd);
 		free(line);
 	}
-	close(fd);
-	exit (ms->exit);
 }
 
 char	*create_file(int here_num)
@@ -83,7 +81,10 @@ char	*heredoc(t_minishell *ms, char *limiter, int here_num)
 	if (fd < 0)
 		open_error(ms, filename, 1);
 	if (pid == 0)
+	{
+		free(filename);
 		heredoc_child(ms, fd, limiter);
+	}
 	else
 	{
 		wait(&status);
