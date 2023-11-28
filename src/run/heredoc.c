@@ -30,17 +30,17 @@ void	heredoc_child(t_minishell *ms, int fd, char *limiter)
 	change_terminal();
 	while (1)
 	{
-		write(STDOUT_FILENO, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
-		if (line == NULL || !line[0])
+		line = readline("> ");
+		if (!line)
 			heredoc_eof(limiter);
-		if (line == NULL || !line[0] || strcmp_nochr(limiter, line, '\n') == 0)
+		if (!line || strcmp_nochr(limiter, line, '\n') == 0)
 		{
 			free(line);
 			close(fd);
 			free_hdoc(ms);
 		}
 		ft_putstr_fd(line, fd);
+		ft_putchar_fd('\n', fd);
 		free(line);
 	}
 }

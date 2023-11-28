@@ -136,9 +136,7 @@ void	parent(t_minishell *ms, int *pipe_fd, int cmds_run, int pos)
 	if (cmds_run < ms->cmd_count - 1)
 	{
 		close(pipe_fd[1]);
-		/* ms->cmd_in_fd = pipe_fd[0]; */
-		dup2(ms->cmd_in_fd, pipe_fd[0]);
-		close(pipe_fd[0]);
+		ms->cmd_in_fd = pipe_fd[0];
 	}
 	else
 	{
