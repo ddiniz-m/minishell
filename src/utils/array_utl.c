@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:01:18 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/10/30 17:14:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:20:19 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**arr_dup(t_minishell *ms, char **arr)
 	int		i;
 	char	**buf;
 
+	i = 0;
 	buf = malloc(sizeof(char *) * (arr_size(arr) + 1));
 	if (!buf)
 		malloc_error(ms);
