@@ -63,3 +63,19 @@ char	*replace_quotes(t_minishell *ms, char *str, char *buf, int flag)
 	free(buf1);
 	return (res);
 }
+
+int	empty_check(t_minishell *ms, char **arr)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (j < arr_size(arr))
+	{
+		if (empty_var(arr[i], ms->env))
+			j++;
+		i++;
+	}
+	return (j);
+}

@@ -30,22 +30,20 @@ int	arr_size(char **arr)
 	return (count);
 }
 
-char	**arr_cpy(t_minishell *ms, char **arr, int pos, int size)
+char	**arr_dup(t_minishell *ms, char **arr)
 {
 	int		i;
 	char	**buf;
 
-	i = 0;
-	buf = ft_calloc((size + 1), sizeof(char *));
+	buf = malloc(sizeof(char *) * (arr_size(arr) + 1));
 	if (!buf)
 		malloc_error(ms);
-	while (i < size)
+	while (arr[i])
 	{
-		buf[i] = ft_calloc((ft_strlen(arr[pos]) + 1), sizeof(char));
-		ft_strlcpy(buf[i], arr[pos], ft_strlen(arr[pos]) + 1);
+		buf[i] = ft_strdup(arr[i]);
 		i++;
-		pos++;
 	}
+	buf[i] = NULL;
 	return (buf);
 }
 

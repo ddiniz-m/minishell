@@ -61,15 +61,15 @@ char	*var_iter(t_list **env, char *var)
 	return (NULL);
 }
 
-int	empty_var(char **arr, t_list **env)
+int	empty_var(char *str, t_list **env)
 {
 	char	*buf1;
 	char	*buf2;
 
-	if (arr_size(arr) == 1 && arr[0][0] && arr[0][0] == '$' \
-		&& ft_strcmp(arr[0], "$") != 0 && ft_strcmp(arr[0], "$?") != 0)
+	if (str[0] && str[0] == '$' \
+		&& ft_strcmp(str, "$") != 0 && ft_strcmp(str, "$?") != 0)
 	{
-		buf1 = str_front_trim(arr[0], "$");
+		buf1 = str_front_trim(str, "$");
 		buf2 = var_iter(env, buf1);
 		free(buf1);
 		if (!buf2)

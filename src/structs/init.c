@@ -59,10 +59,11 @@ int	var_init(t_minishell *ms)
 	ms->main_arr = split_main(ms, ms->str);
 	if (init_heredoc(ms, ms->main_arr))
 		return (1);
-	if (env_var(ms))
-		return (1);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
+	if (env_var(ms))
+		return (1);
+	cmdlist_print(&ms->cmdlist);
 	signal_init();
 	return (0);
 }

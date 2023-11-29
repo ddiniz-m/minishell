@@ -65,7 +65,7 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;
 		else
-			buf[i++] = arr[pos++];
+			buf[i++] = ft_strdup(arr[pos++]);
 	}
 	buf[i] = NULL;
 	return (buf);

@@ -179,6 +179,7 @@ char					*replace_quotes(t_minishell *ms, char *str, char *buf, \
 	int flag);
 char					*replace_dollar(t_minishell *ms, char *str, char *buf, \
 	int flag);
+int						empty_check(t_minishell *ms, char **arr);
 
 // replacer_split2.c
 char					*replace_str(t_minishell *ms, char *str);
@@ -188,7 +189,7 @@ char					*replace_single(t_minishell *ms, char *str, char *buf, \
 // replacer_utl.c
 char					*dollar_cond(t_minishell *ms, char *buf);
 char					*var_iter(t_list **env, char *var);
-int						empty_var(char **arr, t_list **env);
+int						empty_var(char *str, t_list **env);
 char					*var_str(t_list *env, char *var);
 
 // replacer.c
@@ -213,8 +214,7 @@ int						var_init(t_minishell *ms);
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
 // array_utl.c
 int						arr_size(char **arr);
-char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
-	int size);
+char					**arr_dup(t_minishell *ms, char **arr);
 void					arr_print(char *str, char **arr);
 char					**list_to_array(t_list **list);
 

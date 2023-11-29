@@ -76,7 +76,7 @@ void	free_cmd_list(t_cmdlist *cmdlist)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->cmd_args);
+		free_array(tmp->cmd_args);
 		free(tmp);
 	}
 }

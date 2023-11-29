@@ -78,6 +78,33 @@ char	*replacer(t_minishell *ms, char *str, int flag)
 	return (res);
 }
 
+char	**env_var_iter(t_minishell *ms, char **arr)
+{
+	int		i;
+	int		j;
+	int		size;
+	char	**buf_arr;
+
+	i = 0;
+	j = empty_check(ms, arr);
+	size = arr_size(arr);
+	buf_arr = malloc(sizeof(char *) * (size - j + 1));
+	while (j < size)
+	{
+		if (empty_var(arr[j], ms->env))
+		{
+			j++;
+			continue ;
+		}
+		buf_arr[i] = replacer(ms, arr[j], 0);
+		if (!buf_arr[i++])
+			malloc_error(ms);
+		j++;
+	}
+	buf_arr[i] = NULL;
+	return (buf_arr);
+}
+
 /* If $ is encountered in the array, it replaces the variable with its value
 E.g.:
 array         new_array
@@ -86,22 +113,24 @@ $HOME  ---->  /ddiniz/home
 $VAR   ---->  value */
 int	env_var(t_minishell *ms)
 {
-	int		i;
-	int		size;
-	char	*buf;
+	t_cmdlist	*cmd_buf;
+	char		**buf_arr;
+	int			i;
+	int			j;
 
 	i = 0;
-	size = arr_size(ms->main_arr);
-	if (empty_var(ms->main_arr, ms->env))
-		return (1);
-	while (i < size)
+	cmd_buf = ms->cmdlist;
+	while (i < ms->cmd_count)
 	{
-		buf = ft_strdup(ms->main_arr[i]);
-		free(ms->main_arr[i]);
-		ms->main_arr[i] = replacer(ms, buf, 0);
-		if (!ms->main_arr[i])
-			malloc_error(ms);
-		free(buf);
+		j = 0;
+		if (arr_size(ms->main_arr) == 1 && empty_var(cmd_buf->cmd_args[0], \
+			ms->env))
+			return (1);
+		buf_arr = arr_dup(ms, cmd_buf->cmd_args);
+		free_array(cmd_buf->cmd_args);
+		cmd_buf->cmd_args = env_var_iter(ms, buf_arr);
+		free_array(buf_arr);
+		cmd_buf = cmd_buf->next;
 		i++;
 	}
 	return (0);
