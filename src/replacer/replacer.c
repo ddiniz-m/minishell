@@ -136,3 +136,24 @@ int	env_var(t_minishell *ms)
 	}
 	return (0);
 }
+
+int	clean_main_arr(t_minishell *ms)
+{
+	int		i;
+	int		size;
+	char	*buf;
+
+	i = 0;
+	size = arr_size(ms->main_arr);
+	while (i < size)
+	{
+		buf = ft_strdup(ms->main_arr[i]);
+		free(ms->main_arr[i]);
+		ms->main_arr[i] = replacer(ms, buf, 0);
+		if (!ms->main_arr[i])
+			malloc_error(ms);
+		free(buf);
+		i++;
+	}
+	return (0);
+}

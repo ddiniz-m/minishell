@@ -63,6 +63,7 @@ int	var_init(t_minishell *ms)
 	ms->cmdlist = cmd_list_init(ms);
 	if (env_var(ms))
 		return (1);
+	clean_main_arr(ms);
 	signal_init();
 	return (0);
 }

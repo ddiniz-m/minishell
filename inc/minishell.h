@@ -258,4 +258,8 @@ void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 void					post_process_signal(void);
 
+
+int	clean_main_arr(t_minishell *ms);
+
+
 #endif
