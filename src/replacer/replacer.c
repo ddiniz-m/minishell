@@ -89,6 +89,7 @@ char	**env_var_iter(t_minishell *ms, char **arr)
 	j = empty_check(ms, arr);
 	size = arr_size(arr);
 	buf_arr = malloc(sizeof(char *) * (size - j + 1));
+	j = 0;
 	while (j < size)
 	{
 		if (empty_var(arr[j], ms->env))

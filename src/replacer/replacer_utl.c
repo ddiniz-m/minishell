@@ -66,6 +66,8 @@ int	empty_var(char *str, t_list **env)
 	char	*buf1;
 	char	*buf2;
 
+	if (!str)
+		return (0);
 	if (str[0] && str[0] == '$' \
 		&& ft_strcmp(str, "$") != 0 && ft_strcmp(str, "$?") != 0)
 	{

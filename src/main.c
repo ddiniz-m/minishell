@@ -23,6 +23,7 @@ void	main_free(t_minishell *ms, int ac, char **av)
 	free(ms->str);
 	free(ms->prompt);
 	free_array(ms->main_arr);
+	free_cmd_list(ms->cmdlist);
 	if (ms->fdin_buf != -1)
 		close(ms->fdin_buf);
 	if (ms->fdout_buf != -1)
@@ -49,10 +50,7 @@ int	main(int ac, char **av, char **envp)
 		if (ms->str && syntax_error(ms))
 			continue ;
 		if (!var_init(ms))
-		{
 			run(ms);
-			free_cmd_list(ms->cmdlist);
-		}
 		main_free(ms, ac, av);
 	}
 	exit(ms->exit);

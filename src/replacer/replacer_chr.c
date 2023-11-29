@@ -71,7 +71,7 @@ int	empty_check(t_minishell *ms, char **arr)
 
 	i = 0;
 	j = 0;
-	while (j < arr_size(arr))
+	while (i < arr_size(arr))
 	{
 		if (empty_var(arr[i], ms->env))
 			j++;
