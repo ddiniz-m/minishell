@@ -209,6 +209,7 @@ int						init_heredoc(t_minishell *ms, char **main_arr);
 char					**cmd_with_flags(t_minishell *ms, char **arr, int pos);
 
 // init.c
+int						clean_main_arr(t_minishell *ms);
 int						var_init(t_minishell *ms);
 
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
@@ -257,9 +258,5 @@ void					signal_init(void);
 void					signal_process_interrupt(int signum);
 void					signal_exit(t_minishell *ms);
 void					post_process_signal(void);
-
-
-int	clean_main_arr(t_minishell *ms);
-
 
 #endif

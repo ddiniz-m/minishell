@@ -18,9 +18,9 @@ void	free_ms(t_minishell *ms)
 
 	if (!ms)
 		exit(ms->exit);
-	// close(0);
-	// close(1);
-	// close(2);
+	close(0);
+	close(1);
+	close(2);
 	if (ms->fdin_buf != -1)
 		close(ms->fdin_buf);
 	if (ms->fdout_buf != -1)

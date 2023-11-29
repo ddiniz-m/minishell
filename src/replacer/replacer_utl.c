@@ -12,6 +12,8 @@
 
 #include "../../inc/minishell.h"
 
+char	**var_split(char *str);
+
 char	*dollar_cond(t_minishell *ms, char *buf)
 {
 	char	*buf1;
@@ -65,8 +67,10 @@ int	empty_var(char *str, t_list **env)
 {
 	char	*buf1;
 	char	*buf2;
+	char	**arr;
 
-	if (!str)
+	arr = var_split(str);
+	if (!str || arr_size(arr) > 1)
 		return (0);
 	if (str[0] && str[0] == '$' \
 		&& ft_strcmp(str, "$") != 0 && ft_strcmp(str, "$?") != 0)

@@ -12,6 +12,27 @@
 
 #include "../../inc/minishell.h"
 
+int	clean_main_arr(t_minishell *ms)
+{
+	int		i;
+	int		size;
+	char	*buf;
+
+	i = 0;
+	size = arr_size(ms->main_arr);
+	while (i < size)
+	{
+		buf = ft_strdup(ms->main_arr[i]);
+		free(ms->main_arr[i]);
+		ms->main_arr[i] = replacer(ms, buf, 0);
+		if (!ms->main_arr[i])
+			malloc_error(ms);
+		free(buf);
+		i++;
+	}
+	return (0);
+}
+
 //Creates cmdlist. Initializes cmd_arr
 //Similar to ft_lstnew.
 t_cmdlist	*cmdlist_lstnew(t_minishell *ms, int cmd_index)
