@@ -81,10 +81,12 @@ int	empty_var(char *str, t_list **env)
 		if (!buf2)
 		{
 			free(buf2);
+			free_array(arr);
 			return (1);
 		}
 		free(buf2);
 	}
+	free_array(arr);
 	return (0);
 }
 
