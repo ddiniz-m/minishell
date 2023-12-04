@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replacer_utl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:25:15 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 12:30:13 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:48:29 by mortins-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*var_cmp(char *env, char *var)
 	char	*buf1;
 	char	*buf2;
 
+	if (!var)
+		return (NULL);
 	if (strcmp_nochr(var, env, '=') == 0)
 	{
 		buf1 = str_front_trim(env, var);
