@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/28 12:42:40 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:51:12 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int						export_override(char *str, t_list **export);
 void					export(t_minishell *ms, char **arr);
 
 // unset.c
-void					unset_env(t_list **env, char *str);
-void					unset_exp(t_list **exp, char *str);
 void					unset(t_minishell *ms, char **arr);
 
 //++++++++++++++++ error_handling/[.....] +++++++++++++++++++++++++++++++++++++
@@ -228,7 +226,6 @@ void					list_swap(t_minishell *ms, t_list *list);
 // str_utl.c
 int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
-int						strchr_malloc(char *s, char c);
 char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
 

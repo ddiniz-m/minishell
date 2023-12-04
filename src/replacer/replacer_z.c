@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:55:44 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 11:27:00 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:16:34 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int	env_var(t_minishell *ms)
 
 	i = 0;
 	size = arr_size(ms->main_arr);
-	/* if (empty_var(ms->main_arr, ms->env))
-		return (1); */
+	if (empty_var(ms->main_arr, ms->env))
+		return (1);
 	while (i < size)
 	{
 		buf = ft_strdup(ms->main_arr[i]);
