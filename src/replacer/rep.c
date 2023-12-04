@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 10:37:02 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 13:59:02 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:02:28 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,53 @@ void	rep(t_minishell *ms)
 {
 	int		i;
 	int		size;
-	int		pre_size;
+	int		str_size;
+	int		j;
 	int		var_size;
 	int		buf_size;
 	
 	char	*pre;
 	char	*var;
-	char	*replaced_var;
 	char	*buf;
+	char	*buf1;
+	char	*replaced_var;
 	
 	i = 0;
 	buf = NULL;
-	pre_size = 0;
+	buf1 = NULL;
+	j = 0;
 	buf_size = 0;
 	var_size = 0;
-	size = ft_strlen(ms->str);
-	buf = ft_strdup(ms->str);
-/* 	while (i < size)
-	{ */
-		pre_size = strlen_chr(ms->str, '$');
-		pre = malloc(sizeof(char) * (pre_size + 1));
-		ft_strlcpy(pre, ms->str, pre_size + 1);
+	size = arr_size(ms->main_arr);
+	while (i < size)
+	{
+		j = 0;
+		str_size = ft_strlen(ms->main_arr[i] + 1);
+		if (ft_strchr(ms->main_arr[i], '$') == 0)
+		{
+			i++;
+			continue;
+		}
+		while (j < str_size)
+		{
+			j = strlen_chr(ms->main_arr[i], '$');
+			pre = ft_strndup(ms->main_arr[i], j);
+			printf("pre: %s\n", pre);
 
-		var_size = 0;
-		var_size = var_len(ms->str + pre_size + 1) + 1;
-		var = malloc(sizeof(char) * (var_size + 1));
-		ft_strlcpy(var, ms->str + pre_size, var_size + 1);
+			var_size = var_len(ms->main_arr[i] + j + 1) + 1;
+			var = ft_strndup(ms->main_arr[i] + j, var_size);
+			printf("var: %s\n", var);
 
-		replaced_var = var_iter(ms->env, var + 1);
-		free(var);
+			replaced_var = var_iter(ms->env, var + 1);
+			free(var);
+			buf = ft_strjoin(pre, replaced_var);
+			free(pre);
+			free(replaced_var);
 
-		buf = ft_strjoin(pre, replaced_var);
-		buf_size = ft_strlen(buf) + 1;
-		free(replaced_var);
-		
-		printf("JOIN: %s\n\n", buf);
-		free(buf);
-		/* i += buf_size; */
+			buf1 = ft_strjoin(buf1, buf);
+			free(buf);
+			j += var_size;
+		}
+		i++;
+	}
 }

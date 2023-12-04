@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 10:51:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:22:44 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,9 @@ int						strlen_chr(char *str, char c);
 int						strcmp_chr(char *s1, char *s2, char c);
 char					*str_front_trim(char *str, char *trim);
 int						strcmp_nochr(char *s1, char *s2, char c);
+
+// str_utl2.c
+char					*ft_strndup(char *str, int len);
 
 // quote_utl.c
 int						skip_quotes(char *str, int pos);

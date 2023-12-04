@@ -12,7 +12,7 @@ SRC_RUN =	exec_built_ins.c exec.c redirections.c heredoc.c run.c cmd_validator.c
 SRC_PRS	=	parse_counter.c parse_split.c parse_str.c
 SRC_RPL =	replacer_chr.c replacer_split.c replacer_split2.c replacer_utl.c replacer.c rep.c
 SRC_STC	=	cmd_utils.c content.c init.c
-SRC_UTL	=	array_utl.c list_utl.c quote_utl.c str_utl.c
+SRC_UTL	=	array_utl.c list_utl.c quote_utl.c str_utl.c str_utl2.c
 SRC_GNL =	gnl.c gnl_utils.c
 
 SRCS	=	$(addprefix src/, $(SRC_MSH)) $(addprefix src/built-ins/, $(SRC_BLT)) \
