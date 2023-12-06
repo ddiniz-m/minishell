@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 16:59:56 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:03:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,6 @@ char					*ft_strndup(char *str, int len);
 int						quote_num(char *str);
 int						skip_quotes(char *str, int pos);
 char					*remove_quotes(char *str);
-int						closed_quotes(char *str);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c
