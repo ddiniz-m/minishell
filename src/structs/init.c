@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/05 15:58:41 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:18:29 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	var_init(t_minishell *ms)
 	free_array(ms->main_arr);
 	ms->main_arr = ft_arrdup(new_arr);
 	free_array(new_arr);
-	arr_print("MAIN", ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	signal_init();

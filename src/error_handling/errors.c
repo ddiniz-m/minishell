@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:57:08 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/06 12:36:03 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:21:36 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ void	malloc_error(t_minishell *ms)
 {
 	ft_putstr_fd("Minishell: error: malloc failed\n", STDERR_FILENO);
 	ms->exit = 12;
+	free_ms(ms);
 }
 
 int	open_error(t_minishell *ms, char *filename, int child)
 {
 	ft_putstr_fd("Minishell: ", STDERR_FILENO);
 	perror(filename);
+	if (filename)
+		free(filename);
 	if (child)
 	{
 		ms->exit = 1;

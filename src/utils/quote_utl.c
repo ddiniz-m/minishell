@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:36:00 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 13:37:23 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:17:23 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,20 @@ char	*remove_quotes(char *str)
 	int		i;
 	int		j;
 	char	*buf;
+	char	quote;
 
 	i = 0;
 	j = 0;
-	buf = calloc(sizeof(char), ft_strlen(str) - quote_num(str) + 1);
+	buf = calloc(sizeof(char), (ft_strlen(str) - quote_num(str) + 1));
 	while (str[i])
 	{
-		if (str[i] == '\'')
+		if (meta_char(str[i]) == 3)
 		{
-			i++;
-			while (str[i] && str[i] != '\'')
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
 				buf[j++] = str[i++];
-		}
-		else if (str[i] == '\"')
-		{
-			i++;
-			while (str[i] && str[i] != '\"')
-				buf[j++] = str[i++];
+			if (str[i])
+				i++;
 		}
 		else
 			buf[j++] = str[i++];
