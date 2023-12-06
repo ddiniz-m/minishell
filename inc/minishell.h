@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/06 13:38:06 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:59:56 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char					**replaced_arr(t_minishell *ms);
 char					*replace_str(t_minishell *ms, char *str);
 
 // replacer_utl.c
-char					*var_iter(t_list **env, char *var);
+char					*var_iter(t_minishell *ms, char *var);
 char					*var_str(t_list *env, char *var);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
