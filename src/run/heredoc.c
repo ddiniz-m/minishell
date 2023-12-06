@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:46:04 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/11/30 17:26:46 by mortins-         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:36:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	create_file(t_minishell *ms, char *filename)
 
 void	heredoc_child(t_minishell *ms, char *filename, char *limiter)
 {
+	char	*buf;
 	char	*line;
 	int		fd;
 
@@ -50,8 +51,10 @@ void	heredoc_child(t_minishell *ms, char *filename, char *limiter)
 			heredoc_eof(limiter);
 		if (g_sig == SIGINT || !line || strcmp_nochr(limiter, line, '\n') == 0)
 			break ;
-		ft_putendl_fd(line, fd);
+		buf = replace_str(ms, line); //check for limiter
 		free(line);
+		ft_putendl_fd(buf, fd);
+		free(buf);
 	}
 	if (line)
 		free(line);

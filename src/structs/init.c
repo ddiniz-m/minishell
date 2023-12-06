@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 12:11:28 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:58:41 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,36 @@ t_cmdlist	*cmd_list_init(t_minishell *ms)
 	}
 	return (cmdlist);
 }
-void	rep(t_minishell *ms);
 
 int	var_init(t_minishell *ms)
 {
+	char	**new_arr;
+
 	ms->cmd_in_fd = 0;
 	ms->fdin_buf = dup(STDIN_FILENO);
 	ms->fdout_buf = dup(STDOUT_FILENO);
 	ms->main_arr = split_main(ms, ms->str);
 	if (init_heredoc(ms, ms->main_arr))
 		return (1);
-	/* if (env_var(ms))
-		return (1); */
-	rep(ms);
+	new_arr = replaced_arr(ms);
+	free_array(ms->main_arr);
+	ms->main_arr = ft_arrdup(new_arr);
+	free_array(new_arr);
+	arr_print("MAIN", ms->main_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
 	signal_init();
 	return (0);
 }
+
+/* echo $ABC"a" b
+
+$ABC="a | cat Makefile"
+echo
+a | cat Makefilea
+b
+
+echo
+
+b
+ */

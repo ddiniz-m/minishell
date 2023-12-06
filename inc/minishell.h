@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mortins- <mortins-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/04 14:22:44 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:38:57 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,28 +169,13 @@ void					parent(t_minishell *ms, int *pipe_fd, int cmds_run, \
 	int pos);
 
 //++++++++++++++++ replacer/[.........] +++++++++++++++++++++++++++++++++++++++
-//replacer_chr.c
-char					*replace_quotes(t_minishell *ms, char *str, char *buf, \
-	int flag);
-char					*replace_dollar(t_minishell *ms, char *str, char *buf, \
-	int flag);
-
-// replacer_split2.c
+//rep.c
+char					**replaced_arr(t_minishell *ms);
 char					*replace_str(t_minishell *ms, char *str);
-char					*replace_single(t_minishell *ms, char *str, char *buf, \
-	int flag);
 
 // replacer_utl.c
-char					*dollar_cond(t_minishell *ms, char *buf);
 char					*var_iter(t_list **env, char *var);
-int						empty_var(char **arr, t_list **env);
 char					*var_str(t_list *env, char *var);
-
-// replacer.c
-char					*replace_cond(t_minishell *ms, char *str, char *buf1, \
-	int flag);
-char					*replacer(t_minishell *ms, char *str, int flag);
-int						env_var(t_minishell *ms);
 
 //++++++++++++++++ structs/[.....] ++++++++++++++++++++++++++++++++++++++++++++
 // cmd_utils.c
@@ -212,6 +197,7 @@ char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
 	int size);
 void					arr_print(char *str, char **arr);
 char					**list_to_array(t_list **list);
+char					**ft_arrdup(char **old);
 
 // list_utl.c
 void					list_print(t_list **list);

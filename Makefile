@@ -2,7 +2,7 @@
 
 NAME = minishell
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #c-fsanitize=address
 RM = rm -rf
 
 SRC_MSH	=	frees.c frees2.c main.c prompt.c signals.c signals2.c
@@ -10,7 +10,7 @@ SRC_BLT	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRC_ERR =	errors.c errors2.c syntax_errors.c syntax_errors2.c
 SRC_RUN =	exec_built_ins.c exec.c redirections.c heredoc.c run.c cmd_validator.c
 SRC_PRS	=	parse_counter.c parse_split.c parse_str.c
-SRC_RPL =	replacer_chr.c replacer_split.c replacer_split2.c replacer_utl.c replacer.c rep.c
+SRC_RPL =	replacer_utl.c rep.c
 SRC_STC	=	cmd_utils.c content.c init.c
 SRC_UTL	=	array_utl.c list_utl.c quote_utl.c str_utl.c str_utl2.c
 
