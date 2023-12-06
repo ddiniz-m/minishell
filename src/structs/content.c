@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:59:23 by mortins-          #+#    #+#             */
-/*   Updated: 2023/12/05 15:42:16 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:38:22 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**cmd_with_flags(t_minishell *ms, char **arr, int pos)
 		else if (ft_strcmp(arr[pos], "|") == 0)
 			break ;
 		else
-			buf[i++] = arr[pos++];
+			buf[i++] = remove_quotes(arr[pos++]);
 	}
 	buf[i] = NULL;
 	return (buf);

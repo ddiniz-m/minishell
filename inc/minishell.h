@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:01:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/05 15:38:57 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:38:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,11 @@ int						redirect_out(t_minishell *ms, char *file, int append, \
 int						redirect(t_minishell *ms, char **main_arr, int pos, \
 	int child);
 
+// heredoc_utils.c
+void					change_terminal(void);
+char					*create_filename(int here_num);
+int						create_file(t_minishell *ms, char *filename);
+
 // heredoc.c
 char					*heredoc(t_minishell *ms, char *limiter, int here_num);
 
@@ -193,8 +198,6 @@ int						var_init(t_minishell *ms);
 // +++++++++++++++ utils/[.....] ++++++++++++++++++++++++++++++++++++++++++++++
 // array_utl.c
 int						arr_size(char **arr);
-char					**arr_cpy(t_minishell *ms, char **arr, int pos, \
-	int size);
 void					arr_print(char *str, char **arr);
 char					**list_to_array(t_list **list);
 char					**ft_arrdup(char **old);
@@ -216,10 +219,10 @@ int						strcmp_nochr(char *s1, char *s2, char c);
 char					*ft_strndup(char *str, int len);
 
 // quote_utl.c
+int						quote_num(char *str);
 int						skip_quotes(char *str, int pos);
-char					*remove_quotes(char *str, char c);
-char					*add_quotes(char *str, char c);
-int						closed_quotes(char *str, char c);
+char					*remove_quotes(char *str);
+int						closed_quotes(char *str);
 
 // +++++++++++++++ ./[.....] ++++++++++++++++++++++++++++++++++++++++++++++++++
 // frees.c
