@@ -6,7 +6,7 @@
 /*   By: ddiniz-m <ddiniz-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 18:12:34 by ddiniz-m          #+#    #+#             */
-/*   Updated: 2023/12/07 12:46:12 by ddiniz-m         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:50:06 by ddiniz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,3 @@ int	var_init(t_minishell *ms)
 	signal_init();
 	return (0);
 }
-
-/* echo $ABC"a" b
-
-$ABC="a | cat Makefile"
-echo
-a | cat Makefilea
-b
-
-echo
-
-b
- */

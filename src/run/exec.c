@@ -47,7 +47,7 @@ char	**special_path(const char *cmd)
 	char	buf[PATH_MAX + 1];
 
 	paths = malloc(sizeof(char *) * 2);
-	ft_bzero(buf, ft_strlen(buf));
+	ft_bzero(buf, PATH_MAX + 1);
 	if (ft_strncmp(cmd, "../", 3) == 0 || ft_strncmp(cmd, "./", 2) == 0)
 	{
 		if (getcwd(buf, sizeof(buf)) == NULL)
