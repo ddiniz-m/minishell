@@ -38,7 +38,7 @@ void	arr_print(char *str, char **arr)
 		printf("			%s\n", arr[i++]);
 }
 
-char	**list_to_array(t_list **list)
+char	**list_to_array(t_minishell *ms, t_list **list)
 {
 	int		i;
 	int		size;
@@ -49,6 +49,8 @@ char	**list_to_array(t_list **list)
 	tmp = *list;
 	size = ft_lstsize(tmp);
 	buf = malloc(sizeof(char *) * (size + 1));
+	if (!buf)
+		malloc_error(ms);
 	while (tmp && i < size)
 	{
 		buf[i] = ft_strdup((char *)tmp->data);
@@ -59,13 +61,15 @@ char	**list_to_array(t_list **list)
 	return (buf);
 }
 
-char	**ft_arrdup(char **old)
+char	**ft_arrdup(t_minishell *ms, char **old)
 {
 	char	**new;
 	int		index;
 
 	index = 0;
 	new = malloc(sizeof(char *) * (arr_size(old) + 1));
+	if (!new)
+		malloc_error(ms);
 	while (old && old[index])
 	{
 		new[index] = ft_strdup(old[index]);

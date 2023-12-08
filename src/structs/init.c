@@ -63,7 +63,7 @@ int	var_init(t_minishell *ms)
 		return (1);
 	new_arr = replaced_arr(ms);
 	free_array(ms->main_arr);
-	ms->main_arr = ft_arrdup(new_arr);
+	ms->main_arr = ft_arrdup(ms, new_arr);
 	free_array(new_arr);
 	ms->cmd_count = cmd_count(ms->main_arr);
 	ms->cmdlist = cmd_list_init(ms);
